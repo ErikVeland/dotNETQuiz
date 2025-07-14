@@ -68,3 +68,4 @@
 /Users/veland/dotNetQuiz/dot-net-quiz/backend/obj/Debug/net9.0/backend.pdb
 /Users/veland/dotNetQuiz/dot-net-quiz/backend/obj/Debug/net9.0/backend.genruntimeconfig.cache
 /Users/veland/dotNetQuiz/dot-net-quiz/backend/obj/Debug/net9.0/ref/backend.dll
+/Users/veland/dotNetQuiz/dot-net-quiz/backend/obj/Debug/net9.0/backend.sourcelink.json
