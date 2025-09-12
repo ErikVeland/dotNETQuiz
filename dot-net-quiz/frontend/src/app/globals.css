@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f3f4f6; /* Tailwind gray-100 */
+  --foreground: #111827; /* Tailwind gray-900 */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom styles for wider layout */
+.container {
+  max-width: 100%;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
+/* Ensure dark mode classes work properly */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+/* Fix for code elements in dark mode */
+.dark code {
+  background-color: #374151; /* gray-700 */
+  color: #f3f4f6; /* gray-100 */
+}
+
+/* Ensure proper footer positioning */
+#__next {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
