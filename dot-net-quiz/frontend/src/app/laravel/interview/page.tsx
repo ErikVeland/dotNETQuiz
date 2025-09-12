@@ -215,8 +215,8 @@ export default function LaravelInterviewPage() {
   };
 
   if (gqlLoading || loading) return (
-    <div className="bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+    <div className="py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
         <div className="animate-pulse flex flex-col items-center justify-center space-y-4">
           <div className="h-12 w-2/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
           <div className="h-64 w-full bg-gray-200 dark:bg-gray-700 rounded"></div>
@@ -227,14 +227,14 @@ export default function LaravelInterviewPage() {
   );
   
   if (gqlError) return (
-    <div className="bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+    <div className="py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
           <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
           <button
             onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded hover:bg-red-700 dark:hover:bg-red-600"
+            className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
           >
             Try Again
           </button>
@@ -244,12 +244,12 @@ export default function LaravelInterviewPage() {
   );
   
   if (!shuffledQuestions.length) return (
-    <div className="bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+    <div className="py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">No Questions Available</h2>
           <p className="mb-4 text-gray-600 dark:text-gray-300">There are no Laravel interview questions available at this time.</p>
-          <Link href="/" className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded hover:bg-red-700 dark:hover:bg-red-600">
+          <Link href="/" className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200">
             Return Home
           </Link>
         </div>
@@ -259,8 +259,8 @@ export default function LaravelInterviewPage() {
   
   if (current >= shuffledQuestions.length)
     return (
-      <div className="bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-red-600 dark:text-red-400 mb-4">
               Quiz Completed
@@ -279,24 +279,24 @@ export default function LaravelInterviewPage() {
             </div>
 
             <div className="flex flex-wrap justify-center gap-4 mt-8">
-              <Link href="/" className="px-4 py-2 bg-gray-600 dark:bg-gray-700 text-white rounded hover:bg-gray-700 dark:hover:bg-gray-600">
+              <Link href="/" className="px-4 py-2 bg-gray-600 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
                 Return Home
               </Link>
               {score < Math.ceil(shuffledQuestions.length * 0.7) && (
-                <Link href="/laravel/lessons" className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded hover:bg-red-700 dark:hover:bg-red-600">
+                <Link href="/laravel/lessons" className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200">
                   Review Lessons
                 </Link>
               )}
               <button
                 onClick={restartQuiz}
-                className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded hover:bg-red-700 dark:hover:bg-red-600"
+                className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
               >
                 Try Again
               </button>
             </div>
 
             {score >= Math.ceil(shuffledQuestions.length * 0.7) && (
-              <div className="mt-8 p-6 border-2 border-red-200 dark:border-red-700 rounded-lg bg-red-50 dark:bg-red-900/20">
+              <div className="mt-8 p-6 border-2 border-red-200 dark:border-red-700 rounded-xl bg-red-50 dark:bg-red-900/20">
                 <h3 className="text-xl font-bold text-red-800 dark:text-red-200 mb-2">Certificate of Completion</h3>
                 <p className="text-red-700 dark:text-red-300">This certifies that you have successfully completed the Laravel interview preparation quiz.</p>
               </div>
@@ -328,8 +328,8 @@ export default function LaravelInterviewPage() {
   };
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+    <div className="py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
         {/* Progress bar */}
         <div className="bg-gray-100 dark:bg-gray-700 h-2">
           <div 
@@ -364,27 +364,29 @@ export default function LaravelInterviewPage() {
                   <div 
                     key={displayIndex}
                     onClick={() => !feedback && setSelected(displayIndex)}
-                    className={`p-4 border rounded-lg cursor-pointer transition-colors ${feedback 
-                      ? displayIndex === getDisplayCorrectAnswerIndex() 
-                        ? "bg-green-50 dark:bg-green-900/30 border-green-300 dark:border-green-600" 
+                    className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 ${
+                      feedback 
+                        ? displayIndex === getDisplayCorrectAnswerIndex() 
+                          ? "bg-green-50 dark:bg-green-900/30 border-green-300 dark:border-green-600" 
+                          : displayIndex === selected 
+                            ? "bg-red-50 dark:bg-red-900/30 border-red-300 dark:border-red-600" 
+                            : "border-gray-200 dark:border-gray-600" 
                         : displayIndex === selected 
-                          ? "bg-red-50 dark:bg-red-900/30 border-red-300 dark:border-red-600" 
-                          : "border-gray-200 dark:border-gray-600" 
-                      : displayIndex === selected 
-                        ? "bg-red-50 dark:bg-red-900/30 border-red-300 dark:border-red-600" 
-                        : "border-gray-200 dark:border-gray-600 hover:border-red-200 dark:hover:border-red-500 hover:bg-red-50 dark:hover:bg-red-900/20"
+                          ? "bg-red-50 dark:bg-red-900/30 border-red-300 dark:border-red-600 shadow-sm" 
+                          : "border-gray-200 dark:border-gray-600 hover:border-red-200 dark:hover:border-red-500 hover:bg-red-50 dark:hover:bg-red-900/20"
                     }`}
                   >
                     <div className="flex items-start">
-                      <div className={`flex-shrink-0 h-5 w-5 border rounded-full mt-0.5 mr-3 ${feedback 
-                        ? displayIndex === getDisplayCorrectAnswerIndex() 
-                          ? "bg-green-500 border-green-500" 
+                      <div className={`flex-shrink-0 h-5 w-5 border rounded-full mt-0.5 mr-3 flex items-center justify-center transition-colors duration-200 ${
+                        feedback 
+                          ? displayIndex === getDisplayCorrectAnswerIndex() 
+                            ? "bg-green-500 border-green-500" 
+                            : displayIndex === selected 
+                              ? "bg-red-500 border-red-500" 
+                              : "border-gray-300 dark:border-gray-500" 
                           : displayIndex === selected 
                             ? "bg-red-500 border-red-500" 
-                            : "border-gray-300 dark:border-gray-500" 
-                        : displayIndex === selected 
-                          ? "bg-red-500 border-red-500" 
-                          : "border-gray-300 dark:border-gray-500"
+                            : "border-gray-300 dark:border-gray-500"
                       }`}>
                         {(feedback && displayIndex === getDisplayCorrectAnswerIndex()) && (
                           <svg className="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -418,7 +420,7 @@ export default function LaravelInterviewPage() {
                     onClick={async () => {
                       setFeedback({ isCorrect: true, explanation: q.explanation });
                     }}
-                    className="mt-2 px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded hover:bg-red-700 dark:hover:bg-red-600"
+                    className="mt-2 px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
                   >
                     Show Answer
                   </button>
@@ -429,14 +431,26 @@ export default function LaravelInterviewPage() {
           
           {/* Feedback */}
           {feedback && q.type === 'multiple-choice' && (
-            <div className={`mb-6 p-4 border rounded-lg ${feedback.isCorrect ? 'bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-700' : 'bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-700'}`}>
-              <p className={`font-medium ${feedback.isCorrect ? 'text-green-800 dark:text-green-200' : 'text-red-800 dark:text-red-200'}`}>
+            <div className={`mb-6 p-4 rounded-lg border ${
+              feedback.isCorrect 
+                ? 'bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-700' 
+                : 'bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-700'
+            }`}>
+              <p className={`font-medium ${
+                feedback.isCorrect 
+                  ? 'text-green-800 dark:text-green-200' 
+                  : 'text-red-800 dark:text-red-200'
+              }`}>
                 {feedback.isCorrect ? 'Correct!' : 'Incorrect'}
               </p>
               {feedback.explanation && (
                 <div className="mt-2">
                   <p className="font-medium text-gray-800 dark:text-gray-200">Explanation:</p>
-                  <p className={feedback.isCorrect ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'}>{feedback.explanation}</p>
+                  <p className={
+                    feedback.isCorrect 
+                      ? 'text-green-700 dark:text-green-300' 
+                      : 'text-red-700 dark:text-red-300'
+                  }>{feedback.explanation}</p>
                 </div>
               )}
             </div>
@@ -446,7 +460,7 @@ export default function LaravelInterviewPage() {
           <div className="flex justify-between">
             <button
               onClick={() => { clearQuizState(); router.push('/'); }}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
             >
               Exit Quiz
             </button>
@@ -456,7 +470,11 @@ export default function LaravelInterviewPage() {
                 <button
                   onClick={handleSubmit}
                   disabled={selected === null}
-                  className={`px-4 py-2 rounded ${selected === null ? 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed' : 'bg-red-600 dark:bg-red-700 text-white hover:bg-red-700 dark:hover:bg-red-600'}`}
+                  className={`px-4 py-2 rounded-lg transition-colors duration-200 ${
+                    selected === null 
+                      ? 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed' 
+                      : 'bg-red-600 dark:bg-red-700 text-white hover:bg-red-700 dark:hover:bg-red-600'
+                  }`}
                 >
                   Submit
                 </button>
@@ -465,7 +483,7 @@ export default function LaravelInterviewPage() {
               {feedback && (
                 <button
                   onClick={nextQuestion}
-                  className={`px-4 py-2 rounded text-white ${
+                  className={`px-4 py-2 rounded-lg text-white transition-colors duration-200 ${
                     current === shuffledQuestions.length - 1 
                       ? 'bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600' 
                       : 'bg-red-600 dark:bg-red-700 hover:bg-red-700 dark:hover:bg-red-600'

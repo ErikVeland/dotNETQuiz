@@ -37,17 +37,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 relative`}
       >
         <DarkModeProvider>
           <div className="flex flex-col min-h-screen">
             <Header />
-            <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 relative z-10">
               <ApolloWrapper>
                 {children}
               </ApolloWrapper>
             </main>
-            <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 w-full max-w-7xl mx-auto mt-auto">
+            <footer className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-t border-gray-200 dark:border-gray-700 w-full max-w-7xl mx-auto mt-auto relative z-10">
               <div className="py-6 px-4 sm:px-6 lg:px-8">
                 <p className="text-center text-sm text-gray-500 dark:text-gray-400">
                   {new Date().getFullYear()} <a href="https://veland.au">Erik Veland</a>. No rights reserved. Go ahead, fork and learn!
