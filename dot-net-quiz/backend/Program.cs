@@ -389,6 +389,157 @@ public class Query {
                 Choices = new string[] { "@section", "@yield", "@include", "@extends" },
                 CorrectAnswer = 0,
                 Explanation = "The @section directive is used to define a section of content, while @yield is used to display that content in the layout."
+            },
+            // Adding 15 more Laravel interview questions to match other modules
+            new LaravelInterviewQuestion
+            {
+                Id = 21,
+                Topic = "Validation",
+                Type = "multiple-choice",
+                Question = "Which method is used to validate request data in Laravel controllers?",
+                Choices = new string[] { "$request->validate()", "$this->validate()", "Validator::make()", "All of the above" },
+                CorrectAnswer = 3,
+                Explanation = "In Laravel, you can validate request data using $request->validate(), $this->validate(), or Validator::make(). All three methods are valid approaches."
+            },
+            new LaravelInterviewQuestion
+            {
+                Id = 22,
+                Topic = "Events",
+                Type = "multiple-choice",
+                Question = "Which artisan command generates a new event and listener?",
+                Choices = new string[] { "php artisan make:event", "php artisan make:listener", "Both A and B", "php artisan make:event-listener" },
+                CorrectAnswer = 2,
+                Explanation = "You need to use both php artisan make:event and php artisan make:listener to create an event and its corresponding listener."
+            },
+            new LaravelInterviewQuestion
+            {
+                Id = 23,
+                Topic = "Queues",
+                Type = "multiple-choice",
+                Question = "Which method is used to dispatch a job to the queue?",
+                Choices = new string[] { "dispatch()", "queue()", "send()", "process()" },
+                CorrectAnswer = 0,
+                Explanation = "The dispatch() method is used to dispatch a job to the queue in Laravel. You can call it on the job instance or use the dispatch() helper function."
+            },
+            new LaravelInterviewQuestion
+            {
+                Id = 24,
+                Topic = "Caching",
+                Type = "multiple-choice",
+                Question = "Which facade is used to interact with the cache in Laravel?",
+                Choices = new string[] { "Cache", "Storage", "Session", "Config" },
+                CorrectAnswer = 0,
+                Explanation = "The Cache facade is used to interact with the cache in Laravel. It provides methods like Cache::get(), Cache::put(), Cache::remember(), etc."
+            },
+            new LaravelInterviewQuestion
+            {
+                Id = 25,
+                Topic = "Testing",
+                Type = "multiple-choice",
+                Question = "Which base class should feature tests extend in Laravel?",
+                Choices = new string[] { "Tests\\TestCase", "PHPUnit\\Framework\\TestCase", "Tests\\Feature\\TestCase", "Tests\\Unit\\TestCase" },
+                CorrectAnswer = 0,
+                Explanation = "Feature tests in Laravel should extend the Tests\\TestCase base class, which provides additional testing helpers specific to Laravel applications."
+            },
+            new LaravelInterviewQuestion
+            {
+                Id = 26,
+                Topic = "Collections",
+                Type = "multiple-choice",
+                Question = "Which method is used to transform each item in a collection?",
+                Choices = new string[] { "map()", "filter()", "reduce()", "each()" },
+                CorrectAnswer = 0,
+                Explanation = "The map() method is used to transform each item in a collection by applying a callback function to each item and returning a new collection with the transformed items."
+            },
+            new LaravelInterviewQuestion
+            {
+                Id = 27,
+                Topic = "Artisan",
+                Type = "multiple-choice",
+                Question = "How do you list all available Artisan commands?",
+                Choices = new string[] { "php artisan list", "php artisan help", "php artisan commands", "php artisan show" },
+                CorrectAnswer = 0,
+                Explanation = "The php artisan list command displays all available Artisan commands along with their descriptions and usage information."
+            },
+            new LaravelInterviewQuestion
+            {
+                Id = 28,
+                Topic = "Database",
+                Type = "multiple-choice",
+                Question = "Which method is used to define a foreign key constraint in Laravel migrations?",
+                Choices = new string[] { "foreign()", "references()", "on()", "All of the above" },
+                CorrectAnswer = 3,
+                Explanation = "To define a foreign key constraint, you use a combination of foreign(), references(), and on() methods: $table->foreign('user_id')->references('id')->on('users');"
+            },
+            new LaravelInterviewQuestion
+            {
+                Id = 29,
+                Topic = "Eloquent ORM",
+                Type = "multiple-choice",
+                Question = "How do you eager load relationships to avoid the N+1 query problem?",
+                Choices = new string[] { "with()", "load()", "join()", "attach()" },
+                CorrectAnswer = 0,
+                Explanation = "The with() method is used to eager load relationships when querying models to avoid the N+1 query problem. Example: User::with('posts')->get();"
+            },
+            new LaravelInterviewQuestion
+            {
+                Id = 30,
+                Topic = "Security",
+                Type = "multiple-choice",
+                Question = "Which middleware is used to prevent CSRF attacks in Laravel?",
+                Choices = new string[] { "VerifyCsrfToken", "EncryptCookies", "RedirectIfAuthenticated", "TrimStrings" },
+                CorrectAnswer = 0,
+                Explanation = "The VerifyCsrfToken middleware is used to prevent CSRF (Cross-Site Request Forgery) attacks by validating CSRF tokens on incoming requests."
+            },
+            new LaravelInterviewQuestion
+            {
+                Id = 31,
+                Topic = "File Storage",
+                Type = "multiple-choice",
+                Question = "Which method is used to store uploaded files in Laravel?",
+                Choices = new string[] { "$request->file('photo')->store()", "$request->store('photo')", "Storage::save()", "File::upload()" },
+                CorrectAnswer = 0,
+                Explanation = "The store() method is used to store uploaded files. You can call it on the uploaded file instance: $request->file('photo')->store('images');"
+            },
+            new LaravelInterviewQuestion
+            {
+                Id = 32,
+                Topic = "Notifications",
+                Type = "multiple-choice",
+                Question = "Which method is used to send a notification immediately?",
+                Choices = new string[] { "notify()", "send()", "queue()", "dispatch()" },
+                CorrectAnswer = 0,
+                Explanation = "The notify() method is used to send a notification immediately to a notifiable entity (like a user): $user->notify(new InvoicePaid($invoice));"
+            },
+            new LaravelInterviewQuestion
+            {
+                Id = 33,
+                Topic = "API Resources",
+                Type = "multiple-choice",
+                Question = "Which artisan command generates a new API resource class?",
+                Choices = new string[] { "php artisan make:resource", "php artisan make:api-resource", "php artisan make:json", "php artisan make:transformer" },
+                CorrectAnswer = 0,
+                Explanation = "The php artisan make:resource command generates a new API resource class that can be used to transform models into JSON responses."
+            },
+            new LaravelInterviewQuestion
+            {
+                Id = 34,
+                Topic = "Service Container",
+                Type = "multiple-choice",
+                Question = "Which method is used to bind a class to the service container?",
+                Choices = new string[] { "bind()", "register()", "resolve()", "make()" },
+                CorrectAnswer = 0,
+                Explanation = "The bind() method is used to bind a class or interface to the service container: $this->app->bind('HelpSpot\\Api\\Contracts\\Repository', 'HelpSpot\\Api\\Repositories\\RedisRepository');"
+            },
+            new LaravelInterviewQuestion
+            {
+                Id = 35,
+                Topic = "Task Scheduling",
+                Type = "multiple-choice",
+                Question = "Where are scheduled tasks defined in Laravel?",
+                Choices = new string[] { "app/Console/Kernel.php", "routes/console.php", "config/app.php", "app/Providers/AppServiceProvider.php" },
+                CorrectAnswer = 0,
+                Explanation = "Scheduled tasks are defined in the schedule() method of the app/Console/Kernel.php file using the scheduler instance."
             }
         };
 
