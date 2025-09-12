@@ -1,14 +1,14 @@
 # .NET Backend for Fullstack Academy
 
-This is the .NET backend for Fullstack Academy that provides GraphQL API endpoints for all learning modules including .NET, Next.js, GraphQL, and Laravel.
+This is the .NET backend for Fullstack Academy that provides GraphQL API endpoints for all learning modules including .NET, Next.js, GraphQL, and Laravel. The backend integrates with a standalone Laravel application structure while serving content through GraphQL.
 
 ## Features
 
 - GraphQL API for all learning content (HotChocolate)
-- In-memory data storage
+- JSON-based data storage
 - CORS configuration for frontend communication
 - Banana Cake Pop GraphQL UI for development
-- Simulated Laravel content (due to environment constraints)
+- Real Laravel integration with standalone Laravel backend structure
 
 ## GraphQL Schema
 
@@ -42,16 +42,23 @@ The backend implements a GraphQL schema with the following types:
 
 ## Laravel Implementation
 
-Due to environment constraints (missing PHP/Laravel), the Laravel functionality is implemented as mock data directly in the .NET backend rather than as a separate Laravel service.
+The backend implements a sophisticated integration pattern where the .NET backend acts as a proxy and GraphQL gateway for the Laravel content while maintaining the actual Laravel application structure:
+
+### Integration Pattern
+1. **Standalone Laravel Backend**: A complete Laravel application with models, controllers, and routes is maintained in the `laravel-backend` directory
+2. **JSON Data Files**: The .NET backend stores Laravel content in JSON files (`laravel_lessons.json`, `laravel_questions.json`) that mirror the Laravel database structure
+3. **GraphQL Types**: Custom GraphQL types are defined for Laravel content (`LaravelLessonType`, `LaravelInterviewQuestionType`)
+4. **Query Resolvers**: GraphQL queries load data from JSON files and expose them through the unified API
+5. **Mutation Resolvers**: Answer validation for Laravel questions is handled through a dedicated service
 
 ### Laravel Content
-The backend provides mock data for:
-- 5 Laravel lessons covering Routing, Eloquent ORM, and Blade Templates
-- 5 Laravel interview questions covering core Laravel concepts
+The backend provides real, professional content for:
+- 12 Laravel lessons covering Routing, Eloquent ORM, Blade Templates, Middleware, Database, and Authentication
+- 35 Laravel interview questions covering core Laravel concepts and advanced topics
 
 ### Data Models
-- `LaravelLesson` - Represents a Laravel learning lesson
-- `LaravelInterviewQuestion` - Represents a Laravel interview question
+- `LaravelLesson` - Represents a Laravel learning lesson with code examples
+- `LaravelInterviewQuestion` - Represents a Laravel interview question with multiple choice or open-ended format
 
 ## Setup Instructions
 

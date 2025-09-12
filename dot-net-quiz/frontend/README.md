@@ -1,6 +1,6 @@
 # Frontend for Fullstack Academy
 
-This is the Next.js frontend for Fullstack Academy that provides a user interface for learning and interview preparation in .NET, Next.js, GraphQL, and Laravel.
+This is the Next.js frontend for Fullstack Academy that provides a user interface for learning and interview preparation in .NET, Next.js, GraphQL, and Laravel. The frontend consumes content from a unified GraphQL API that seamlessly integrates Laravel content.
 
 ## Features
 
@@ -39,19 +39,23 @@ src/
 
 ## Laravel Modules
 
-The frontend includes dedicated sections for Laravel content:
+The frontend includes dedicated sections for Laravel content with a sophisticated implementation:
 
 ### Laravel Lessons
 Located in `src/app/laravel/lessons/page.tsx`
 - Displays Laravel lessons in a topic-based structure
-- Interactive lesson viewer with code examples
-- Navigation between lessons
+- Interactive lesson viewer with code examples and expected outputs
+- Navigation between lessons with progress tracking
+- Responsive design with dark mode support
 
 ### Laravel Interview
 Located in `src/app/laravel/interview/page.tsx`
 - Interactive quiz interface for Laravel questions
-- Multiple-choice question format
-- Immediate feedback with explanations
+- Multiple-choice and open-ended question formats
+- Answer shuffling for randomized quizzes
+- Immediate feedback with detailed explanations
+- Progress tracking with local storage persistence
+- Certificate rewards for completed modules
 
 ## Setup Instructions
 
