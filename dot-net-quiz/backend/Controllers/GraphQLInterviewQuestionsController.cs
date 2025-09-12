@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using backend.Models;
 
 namespace backend.Controllers;
 
@@ -6,7 +7,7 @@ namespace backend.Controllers;
 [Route("api/graphql/interviewquestions")]
 public class GraphQLInterviewQuestionsController : ControllerBase
 {
-    private static readonly List<InterviewQuestion> Questions = new()
+    public static readonly List<InterviewQuestion> Questions = new()
     {
         new InterviewQuestion { Id = 1, Topic = "Basics", Type = "multiple-choice", Question = "What is GraphQL?", Choices = new[]{"A query language for APIs","A database","A frontend framework","A NoSQL database"}, CorrectAnswer = 0, Explanation = "GraphQL is a query language for APIs and a runtime for executing those queries." },
         new InterviewQuestion { Id = 2, Topic = "Schemas", Type = "multiple-choice", Question = "What does a GraphQL schema define?", Choices = new[]{"Types, queries, mutations","Database tables","Frontend components","REST endpoints"}, CorrectAnswer = 0, Explanation = "A schema defines types, queries, and mutations." },
@@ -71,5 +72,4 @@ public class GraphQLInterviewQuestionsController : ControllerBase
             Explanation = question.Explanation
         });
     }
-}
-// Reuse InterviewQuestion, AnswerSubmission, and AnswerResult models from InterviewQuestionsController if possible. 
+} 

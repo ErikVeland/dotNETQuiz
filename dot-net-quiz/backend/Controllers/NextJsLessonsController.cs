@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using backend.Models;
 
 namespace backend.Controllers;
 
@@ -6,7 +7,7 @@ namespace backend.Controllers;
 [Route("api/nextjs/lessons")]
 public class NextJsLessonsController : ControllerBase
 {
-    private static readonly List<Lesson> Lessons = new()
+    public static readonly List<Lesson> Lessons = new()
     {
         // Project Structure & Setup
         new Lesson { Id = 1, Topic = "Project Structure", Title = "Next.js Project Structure", Description = "Understand the default folders and files in a Next.js project.", CodeExample = "/pages, /public, /styles, next.config.js", Output = "Organized project layout." },
@@ -57,5 +58,4 @@ public class NextJsLessonsController : ControllerBase
         var lesson = Lessons.FirstOrDefault(l => l.Id == id);
         return lesson == null ? NotFound() : Ok(lesson);
     }
-}
-// Reuse Lesson model from LessonsController if possible. 
+} 

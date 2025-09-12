@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using backend.Models;
 
 namespace backend.Controllers;
 
@@ -6,7 +7,7 @@ namespace backend.Controllers;
 [Route("api/[controller]")]
 public class InterviewQuestionsController : ControllerBase
 {
-    private static readonly List<InterviewQuestion> Questions = new()
+    public static readonly List<InterviewQuestion> Questions = new()
     {
         new InterviewQuestion
         {
@@ -212,27 +213,4 @@ public class InterviewQuestionsController : ControllerBase
             Explanation = question.Explanation
         });
     }
-}
-
-public class InterviewQuestion
-{
-    public int Id { get; set; }
-    public string? Topic { get; set; }
-    public string? Type { get; set; } // e.g., multiple-choice, open-ended
-    public string? Question { get; set; }
-    public string[]? Choices { get; set; } // null for open-ended
-    public int? CorrectAnswer { get; set; } // index in Choices, null for open-ended
-    public string? Explanation { get; set; }
-}
-
-public class AnswerSubmission
-{
-    public int QuestionId { get; set; }
-    public int AnswerIndex { get; set; }
-}
-
-public class AnswerResult
-{
-    public bool IsCorrect { get; set; }
-    public string? Explanation { get; set; }
 } 

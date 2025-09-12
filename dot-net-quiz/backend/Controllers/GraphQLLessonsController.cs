@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using backend.Models;
 
 namespace backend.Controllers;
 
@@ -6,7 +7,7 @@ namespace backend.Controllers;
 [Route("api/graphql/lessons")]
 public class GraphQLLessonsController : ControllerBase
 {
-    private static readonly List<Lesson> Lessons = new()
+    public static readonly List<Lesson> Lessons = new()
     {
         new Lesson { Id = 1, Topic = "Basics", Title = "What is GraphQL?", Description = "GraphQL is a query language for APIs and a runtime for executing those queries.", CodeExample = "# Example query\n{\n  user(id: \"1\") {\n    name\n    email\n  }\n}", Output = "Returns the user's name and email." },
         new Lesson { Id = 2, Topic = "Schemas", Title = "Defining a Schema", Description = "A schema defines types, queries, and mutations in GraphQL.", CodeExample = "type User {\n  id: ID!\n  name: String!\n}\ntype Query {\n  user(id: ID!): User\n}", Output = "Defines a User type and a query to fetch a user by ID." },
@@ -47,5 +48,4 @@ public class GraphQLLessonsController : ControllerBase
         var lesson = Lessons.FirstOrDefault(l => l.Id == id);
         return lesson == null ? NotFound() : Ok(lesson);
     }
-}
-// Reuse Lesson model from LessonsController if possible. 
+} 

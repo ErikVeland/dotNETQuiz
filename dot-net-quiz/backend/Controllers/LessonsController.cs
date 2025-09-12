@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using backend.Models;
 
 namespace backend.Controllers;
 
@@ -6,7 +7,7 @@ namespace backend.Controllers;
 [Route("api/[controller]")]
 public class LessonsController : ControllerBase
 {
-    private static readonly List<Lesson> Lessons = new()
+    public static readonly List<Lesson> Lessons = new()
     {
         // OOP
         new Lesson { Id = 1, Topic = "OOP", Title = "Classes and Objects", Description = "A class is a blueprint for objects. An object is an instance of a class.", CodeExample = "class Car { public string Model; }\nvar myCar = new Car { Model = \"Tesla\" };\nConsole.WriteLine(myCar.Model);", Output = "Tesla" },
@@ -63,14 +64,4 @@ public class LessonsController : ControllerBase
         var lesson = Lessons.FirstOrDefault(l => l.Id == id);
         return lesson == null ? NotFound() : Ok(lesson);
     }
-}
-
-public class Lesson
-{
-    public int Id { get; set; }
-    public string? Topic { get; set; }
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public string CodeExample { get; set; }
-    public string Output { get; set; }
 }

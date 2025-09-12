@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using backend.Models;
 
 namespace backend.Controllers;
 
@@ -6,7 +7,7 @@ namespace backend.Controllers;
 [Route("api/nextjs/interviewquestions")]
 public class NextJsInterviewQuestionsController : ControllerBase
 {
-    private static readonly List<InterviewQuestion> Questions = new()
+    public static readonly List<InterviewQuestion> Questions = new()
     {
         new InterviewQuestion { Id = 1, Topic = "Project Structure", Type = "multiple-choice", Question = "Which folder contains static assets in a Next.js project?", Choices = new[]{"/public","/static","/assets","/pages"}, CorrectAnswer = 0, Explanation = "/public is used for static assets." },
         new InterviewQuestion { Id = 2, Topic = "Pages Router", Type = "multiple-choice", Question = "What is the default file for the home page in the Pages Router?", Choices = new[]{"index.js","home.js","main.js","app.js"}, CorrectAnswer = 0, Explanation = "index.js in /pages is the default home page." },
@@ -71,6 +72,4 @@ public class NextJsInterviewQuestionsController : ControllerBase
             Explanation = question.Explanation
         });
     }
-}
-
-// Reuse InterviewQuestion, AnswerSubmission, and AnswerResult models from InterviewQuestionsController if possible. 
+} 
