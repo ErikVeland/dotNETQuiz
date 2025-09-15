@@ -97,3 +97,14 @@
 /Users/veland/dotNetQuiz/dot-net-quiz/backend/bin/Debug/net9.0/HotChocolate.Data.dll
 /Users/veland/dotNetQuiz/dot-net-quiz/backend/bin/Debug/net9.0/Data/laravel_lessons.json
 /Users/veland/dotNetQuiz/dot-net-quiz/backend/bin/Debug/net9.0/Data/laravel_questions.json
+/Users/veland/dotNetQuiz/dot-net-quiz/backend/bin/Debug/net9.0/publish/web.config
+/Users/veland/dotNetQuiz/dot-net-quiz/backend/bin/Debug/net9.0/publish/appsettings.Development.json
+/Users/veland/dotNetQuiz/dot-net-quiz/backend/bin/Debug/net9.0/publish/appsettings.json
+/Users/veland/dotNetQuiz/dot-net-quiz/backend/bin/Debug/net9.0/publish/backend.staticwebassets.endpoints.json
+/Users/veland/dotNetQuiz/dot-net-quiz/backend/bin/Debug/net9.0/publish/Data/laravel_lessons.json
+/Users/veland/dotNetQuiz/dot-net-quiz/backend/bin/Debug/net9.0/publish/Data/laravel_questions.json
+/Users/veland/dotNetQuiz/dot-net-quiz/backend/bin/Debug/net9.0/publish/publish/appsettings.Development.json
+/Users/veland/dotNetQuiz/dot-net-quiz/backend/bin/Debug/net9.0/publish/publish/appsettings.json
+/Users/veland/dotNetQuiz/dot-net-quiz/backend/bin/Debug/net9.0/publish/publish/backend.staticwebassets.endpoints.json
+/Users/veland/dotNetQuiz/dot-net-quiz/backend/bin/Debug/net9.0/publish/publish/Data/laravel_lessons.json
+/Users/veland/dotNetQuiz/dot-net-quiz/backend/bin/Debug/net9.0/publish/publish/Data/laravel_questions.json

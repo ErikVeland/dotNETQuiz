@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fullstack Academy - Learn .NET, Next.js, GraphQL, and Laravel</title>
+    <meta name="description" content="Master .NET, Next.js, GraphQL, and Laravel with step-by-step lessons and interview preparation">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'gradient-start': '#4f46e5',
+                        'gradient-end': '#7c3aed',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --background: #f3f4f6;
+            --foreground: #111827;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: #0a0a0a;
+                --foreground: #ededed;
+            }
+        }
+
+        body {
+            background: var(--background);
+            color: var(--foreground);
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                rgba(99, 102, 241, 0.12),
+                rgba(168, 85, 247, 0.12),
+                rgba(236, 72, 153, 0.12),
+                rgba(16, 185, 129, 0.12),
+                rgba(245, 158, 11, 0.12),
+                rgba(239, 68, 68, 0.12)
+            );
+            background-size: 600% 600%;
+            animation: gradientFlow 25s ease infinite;
+            opacity: 0.77;
+            z-index: -1;
+            filter: blur(55px);
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .dark {
+            --background: #0a0a0a;
+            --foreground: #ededed;
+        }
+
+        .dark code {
+            background-color: #374151;
+            color: #f3f4f6;
+        }
+
+        .transition-transform {
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .rotate-180 {
+            transform: rotate(180deg);
+        }
+
+        .code-inline {
+            background-color: #f3f4f6;
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.125rem;
+            font-family: monospace;
+            font-size: 0.875rem;
+        }
+
+        .dark .code-inline {
+            background-color: #374151;
+            color: #f3f4f6;
+        }
+
+        .certificate {
+            border: 2px solid #fecaca;
+            border-radius: 0.75rem;
+            background-color: #fef2f2;
+        }
+
+        .dark .certificate {
+            border-color: #7f1d1d;
+            background-color: #7f1d1d20;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 relative">
+    <div class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="bg-white dark:bg-gray-800 shadow dark:shadow-gray-700 w-full">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16 items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="#" class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent" onclick="showHomePage(); return false;">
+                            Fullstack Academy
+                        </a>
+                    </div>
+                    
+                    <!-- Desktop menu - right aligned -->
+                    <div class="hidden md:flex md:items-center md:space-x-6">
+                        <!-- .NET Dropdown -->
+                        <div class="relative" id="dotNetDropdown">
+                            <button onclick="toggleDropdown('dotNet')" class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
+                                .NET
+                                <svg class="ml-1 h-4 w-4 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            
+                            <div id="dotNetMenu" class="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 overflow-hidden z-50 hidden">
+                                <div class="py-1" role="menu">
+                                    <a href="#" class="text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/50 block px-4 py-3 text-sm font-medium transition-colors duration-150" role="menuitem" onclick="showLessons('.NET'); return false;">
+                                        Lessons
+                                    </a>
+                                    <a href="#" class="text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/50 block px-4 py-3 text-sm font-medium transition-colors duration-150" role="menuitem" onclick="startQuiz('.NET'); return false;">
+                                        Interview Quiz
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Next.js Dropdown -->
+                        <div class="relative" id="nextJSDropdown">
+                            <button onclick="toggleDropdown('nextJS')" class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
+                                Next.js
+                                <svg class="ml-1 h-4 w-4 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            
+                            <div id="nextJSMenu" class="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 overflow-hidden z-50 hidden">
+                                <div class="py-1" role="menu">
+                                    <a href="#" class="text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/50 block px-4 py-3 text-sm font-medium transition-colors duration-150" role="menuitem" onclick="showLessons('Next.js'); return false;">
+                                        Lessons
+                                    </a>
+                                    <a href="#" class="text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/50 block px-4 py-3 text-sm font-medium transition-colors duration-150" role="menuitem" onclick="startQuiz('Next.js'); return false;">
+                                        Interview Quiz
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- GraphQL Dropdown -->
+                        <div class="relative" id="graphQLDropdown">
+                            <button onclick="toggleDropdown('graphQL')" class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
+                                GraphQL
+                                <svg class="ml-1 h-4 w-4 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            
+                            <div id="graphQLMenu" class="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 overflow-hidden z-50 hidden">
+                                <div class="py-1" role="menu">
+                                    <a href="#" class="text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/50 block px-4 py-3 text-sm font-medium transition-colors duration-150" role="menuitem" onclick="showLessons('GraphQL'); return false;">
+                                        Lessons
+                                    </a>
+                                    <a href="#" class="text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/50 block px-4 py-3 text-sm font-medium transition-colors duration-150" role="menuitem" onclick="startQuiz('GraphQL'); return false;">
+                                        Interview Quiz
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Laravel Dropdown -->
+                        <div class="relative" id="laravelDropdown">
+                            <button onclick="toggleDropdown('laravel')" class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
+                                Laravel
+                                <svg class="ml-1 h-4 w-4 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            
+                            <div id="laravelMenu" class="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 overflow-hidden z-50 hidden">
+                                <div class="py-1" role="menu">
+                                    <a href="#" class="text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/50 block px-4 py-3 text-sm font-medium transition-colors duration-150" role="menuitem" onclick="showLessons('Laravel'); return false;">
+                                        Lessons
+                                    </a>
+                                    <a href="#" class="text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/50 block px-4 py-3 text-sm font-medium transition-colors duration-150" role="menuitem" onclick="startQuiz('Laravel'); return false;">
+                                        Interview Quiz
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200" aria-label="Switch to dark mode" onclick="toggleDarkMode()">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                            </svg>
+                        </button>
+                        <!-- Mobile menu button -->
+                        <div class="md:hidden ml-2">
+                            <div class="md:hidden">
+                                <button id="mobileMenuButton" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" onclick="toggleMobileMenu()">
+                                    <span class="sr-only">Open main menu</span>
+                                    <!-- Hamburger icon -->
+                                    <svg id="hamburgerIcon" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                                    </svg>
+                                    <!-- Close icon -->
+                                    <svg id="closeIcon" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+
+                                <!-- Mobile menu panel -->
+                                <div id="mobileMenu" class="hidden absolute top-16 left-0 right-0 z-10 bg-white dark:bg-gray-800 shadow-lg dark:shadow-gray-700">
+                                    <div class="pt-2 pb-3 space-y-1">
+                                        <div class="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">.NET</div>
+                                        <a href="#" class="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white block pl-6 pr-4 py-2 border-l-4 text-base font-medium" onclick="showLessons('.NET'); toggleMobileMenu(); return false;">
+                                            Lessons
+                                        </a>
+                                        <a href="#" class="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white block pl-6 pr-4 py-2 border-l-4 text-base font-medium" onclick="startQuiz('.NET'); toggleMobileMenu(); return false;">
+                                            Interview Quiz
+                                        </a>
+                                        
+                                        <div class="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-4">Next.js</div>
+                                        <a href="#" class="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white block pl-6 pr-4 py-2 border-l-4 text-base font-medium" onclick="showLessons('Next.js'); toggleMobileMenu(); return false;">
+                                            Lessons
+                                        </a>
+                                        <a href="#" class="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white block pl-6 pr-4 py-2 border-l-4 text-base font-medium" onclick="startQuiz('Next.js'); toggleMobileMenu(); return false;">
+                                            Interview Quiz
+                                        </a>
+                                        
+                                        <div class="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-4">GraphQL</div>
+                                        <a href="#" class="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white block pl-6 pr-4 py-2 border-l-4 text-base font-medium" onclick="showLessons('GraphQL'); toggleMobileMenu(); return false;">
+                                            Lessons
+                                        </a>
+                                        <a href="#" class="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white block pl-6 pr-4 py-2 border-l-4 text-base font-medium" onclick="startQuiz('GraphQL'); toggleMobileMenu(); return false;">
+                                            Interview Quiz
+                                        </a>
+                                        
+                                        <div class="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-4">Laravel</div>
+                                        <a href="#" class="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white block pl-6 pr-4 py-2 border-l-4 text-base font-medium" onclick="showLessons('Laravel'); toggleMobileMenu(); return false;">
+                                            Lessons
+                                        </a>
+                                        <a href="#" class="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white block pl-6 pr-4 py-2 border-l-4 text-base font-medium" onclick="startQuiz('Laravel'); toggleMobileMenu(); return false;">
+                                            Interview Quiz
+                                        </a>
+                                        
+                                        <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+                                        
+                                        <a href="#" class="bg-indigo-50 dark:bg-indigo-900 border-indigo-500 text-indigo-700 dark:text-white block pl-3 pr-4 py-2 border-l-4 text-base font-medium" onclick="showHomePage(); toggleMobileMenu(); return false;">
+                                            Home
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main id="mainContent" class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 relative z-10">
+            <!-- Home Page Content -->
+            <div id="homePage" class="w-full flex flex-col items-center justify-center py-8">
+                <div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 md:p-8 w-full max-w-6xl flex flex-col items-center border border-gray-200 dark:border-gray-700">
+                    <h1 class="text-3xl md:text-4xl font-bold mb-4 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        Welcome to Fullstack Academy
+                    </h1>
+                    <p class="mb-6 md:mb-8 text-center text-base md:text-lg text-gray-700 dark:text-gray-300">
+                        Master .NET, Next.js, GraphQL, and Laravel with step-by-step lessons and prepare for interviews with realistic quizzes.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4 mb-6 md:mb-8">
+                        <a href="#" class="bg-gray-800 dark:bg-gray-700 text-white px-4 py-2 md:px-6 md:py-2 rounded-full shadow hover:bg-gray-700 dark:hover:bg-gray-600 text-center font-semibold flex items-center transition-all duration-200 hover:scale-105" onclick="showGraphQLPlayground(); return false;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                            Try GraphQL Playground
+                        </a>
+                        <a href="#" class="bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-4 py-2 md:px-6 md:py-2 rounded-full shadow hover:from-purple-600 hover:to-indigo-700 text-center font-semibold flex items-center transition-all duration-200 hover:scale-105" onclick="showAnimatedDemo(); return false;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd" />
+                            </svg>
+                            Animated Background Demo
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full">
+                        <!-- .NET Section -->
+                        <div class="flex flex-col items-center bg-blue-50/80 dark:bg-blue-900/20 rounded-xl p-4 md:p-6 shadow-sm border border-blue-100 dark:border-blue-900/50 transition-all duration-300 hover:shadow-md">
+                            <h2 class="text-lg md:text-xl font-bold mb-2 text-blue-700 dark:text-blue-300">.NET</h2>
+                            <p class="mb-4 text-center text-xs md:text-sm text-blue-900 dark:text-blue-200">
+                                Master C#, ASP.NET Core, Entity Framework, and more.
+                            </p>
+                            <a href="#" class="bg-blue-500 dark:bg-blue-600 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg shadow hover:bg-blue-600 dark:hover:bg-blue-700 text-center font-semibold w-full mb-2 text-sm transition-colors duration-200" onclick="showLessons('.NET'); return false;">
+                                Step by Step Lessons
+                            </a>
+                            <a href="#" class="bg-green-600 dark:bg-green-700 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg shadow hover:bg-green-700 dark:hover:bg-green-800 text-center font-semibold w-full text-sm transition-colors duration-200" onclick="startQuiz('.NET'); return false;">
+                                .NET Interview Quiz
+                            </a>
+                        </div>
+                        <!-- Next.js Section -->
+                        <div class="flex flex-col items-center bg-purple-50/80 dark:bg-purple-900/20 rounded-xl p-4 md:p-6 shadow-sm border border-purple-100 dark:border-purple-900/50 transition-all duration-300 hover:shadow-md">
+                            <h2 class="text-lg md:text-xl font-bold mb-2 text-purple-700 dark:text-purple-300">Next.js</h2>
+                            <p class="mb-4 text-center text-xs md:text-sm text-purple-900 dark:text-purple-200">
+                                Learn modern React, routing, SSR, API routes, and more.
+                            </p>
+                            <a href="#" class="bg-purple-500 dark:bg-purple-600 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg shadow hover:bg-purple-600 dark:hover:bg-purple-700 text-center font-semibold w-full mb-2 text-sm transition-colors duration-200" onclick="showLessons('Next.js'); return false;">
+                                Step by Step Lessons
+                            </a>
+                            <a href="#" class="bg-indigo-600 dark:bg-indigo-700 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg shadow hover:bg-indigo-700 dark:hover:bg-indigo-800 text-center font-semibold w-full text-sm transition-colors duration-200" onclick="startQuiz('Next.js'); return false;">
+                                Next.js Interview Quiz
+                            </a>
+                        </div>
+                        <!-- GraphQL Section -->
+                        <div class="flex flex-col items-center bg-pink-50/80 dark:bg-pink-900/20 rounded-xl p-4 md:p-6 shadow-sm border border-pink-100 dark:border-pink-900/50 transition-all duration-300 hover:shadow-md">
+                            <h2 class="text-lg md:text-xl font-bold mb-2 text-pink-700 dark:text-pink-300">GraphQL</h2>
+                            <p class="mb-4 text-center text-xs md:text-sm text-pink-900 dark:text-pink-200">
+                                Understand queries, mutations, schemas, resolvers, and more.
+                            </p>
+                            <a href="#" class="bg-pink-500 dark:bg-pink-600 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg shadow hover:bg-pink-600 dark:hover:bg-pink-700 text-center font-semibold w-full mb-2 text-sm transition-colors duration-200" onclick="showLessons('GraphQL'); return false;">
+                                Step by Step Lessons
+                            </a>
+                            <a href="#" class="bg-red-600 dark:bg-red-700 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg shadow hover:bg-red-700 dark:hover:bg-red-800 text-center font-semibold w-full text-sm transition-colors duration-200" onclick="startQuiz('GraphQL'); return false;">
+                                GraphQL Interview Quiz
+                            </a>
+                        </div>
+                        <!-- Laravel Section -->
+                        <div class="flex flex-col items-center bg-red-50/80 dark:bg-red-900/20 rounded-xl p-4 md:p-6 shadow-sm border border-red-100 dark:border-red-900/50 transition-all duration-300 hover:shadow-md">
+                            <h2 class="text-lg md:text-xl font-bold mb-2 text-red-700 dark:text-red-300">Laravel</h2>
+                            <p class="mb-4 text-center text-xs md:text-sm text-red-900 dark:text-red-200">
+                                Master PHP, Eloquent ORM, Blade templates, and more.
+                            </p>
+                            <a href="#" class="bg-red-500 dark:bg-red-600 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg shadow hover:bg-red-600 dark:hover:bg-red-700 text-center font-semibold w-full mb-2 text-sm transition-colors duration-200" onclick="showLessons('Laravel'); return false;">
+                                Step by Step Lessons
+                            </a>
+                            <a href="#" class="bg-red-700 dark:bg-red-800 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg shadow hover:bg-red-800 dark:hover:bg-red-900 text-center font-semibold w-full text-sm transition-colors duration-200" onclick="startQuiz('Laravel'); return false;">
+                                Laravel Interview Quiz
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lessons Page Content -->
+            <div id="lessonsPage" class="hidden w-full flex flex-col items-center justify-center py-8">
+                <div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 md:p-8 w-full max-w-4xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center justify-between mb-6">
+                        <h1 id="lessonsTitle" class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white"></h1>
+                        <button onclick="showHomePage()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="lessonsContent" class="prose dark:prose-invert max-w-none">
+                        <p class="text-gray-700 dark:text-gray-300">Comprehensive step-by-step lessons for <span id="lessonsTechName"></span> coming soon!</p>
+                        <p class="text-gray-700 dark:text-gray-300">In the meantime, you can test your knowledge with our <span id="lessonsTechName2"></span> Interview Quiz.</p>
+                        <div class="mt-6">
+                            <button onclick="startQuizFromLessons()" class="bg-red-600 dark:bg-red-700 text-white px-4 py-2 rounded-lg shadow hover:bg-red-700 dark:hover:bg-red-800 transition-colors duration-200">
+                                Start <span id="lessonsTechName3"></span> Interview Quiz
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Page Content -->
+            <div id="quizPage" class="hidden py-12 px-4 sm:px-6 lg:px-8">
+                <div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+                    <!-- Progress bar -->
+                    <div class="bg-gray-100 dark:bg-gray-700 h-2">
+                        <div id="progressBar" class="bg-red-600 dark:bg-red-500 h-2 transition-all duration-300 ease-out" style="width: 0%"></div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <!-- Header -->
+                        <div class="flex justify-between items-center mb-6">
+                            <div>
+                                <span id="questionCounter" class="text-sm font-medium text-gray-500 dark:text-gray-400">Question 1 of 10</span>
+                                <h3 id="questionTopic" class="text-lg font-medium text-red-600 dark:text-red-400">Topic</h3>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Score</span>
+                                <p id="scoreDisplay" class="text-lg font-bold text-gray-800 dark:text-gray-200">0/0</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Question -->
+                        <div class="mb-8">
+                            <h2 id="questionText" class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+                                Question text here
+                            </h2>
+                            
+                            <!-- Multiple choice -->
+                            <div id="multipleChoiceContainer" class="space-y-3 hidden">
+                                <!-- Choices will be populated by JavaScript -->
+                            </div>
+                            
+                            <!-- Open-ended -->
+                            <div id="openEndedContainer" class="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700 hidden">
+                                <p class="text-gray-600 dark:text-gray-300 italic mb-2">This is an open-ended question. Think about your answer, then click "Show Answer" to see the explanation.</p>
+                                <div id="openEndedExplanation" class="bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 rounded p-3 hidden">
+                                    <p class="font-medium text-green-800 dark:text-green-200">Explanation:</p>
+                                    <p id="openEndedExplanationText" class="text-green-700 dark:text-green-300"></p>
+                                </div>
+                                <button id="showAnswerButton" class="mt-2 px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200">
+                                    Show Answer
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Feedback -->
+                        <div id="feedbackContainer" class="mb-6 p-4 rounded-lg border hidden">
+                            <p id="feedbackText" class="font-medium"></p>
+                            <div id="feedbackExplanation" class="mt-2 hidden">
+                                <p class="font-medium text-gray-800 dark:text-gray-200">Explanation:</p>
+                                <p id="feedbackExplanationText" class="text-green-700 dark:text-green-300"></p>
+                            </div>
+                        </div>
+                        
+                        <!-- Actions -->
+                        <div class="flex justify-between">
+                            <button id="exitQuizButton" class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+                                Exit Quiz
+                            </button>
+                            
+                            <div>
+                                <button id="submitButton" class="px-4 py-2 rounded-lg transition-colors duration-200 bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed hidden">
+                                    Submit
+                                </button>
+                                
+                                <button id="nextButton" class="px-4 py-2 rounded-lg text-white transition-colors duration-200 bg-red-600 dark:bg-red-700 hover:bg-red-700 dark:hover:bg-red-600 hidden">
+                                    Next Question
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Completed Page -->
+            <div id="quizCompletedPage" class="hidden py-12 px-4 sm:px-6 lg:px-8">
+                <div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold text-red-600 dark:text-red-400 mb-4">
+                            Quiz Completed
+                        </h2>
+                        
+                        <div class="mb-6">
+                            <div id="circularProgress" class="mx-auto w-16 h-16"></div>
+                            <p id="finalScore" class="mt-2 text-xl font-semibold text-gray-800 dark:text-gray-200">
+                                Score: 0/0 (0%)
+                            </p>
+                            <p id="completionMessage" class="mt-1 text-gray-600 dark:text-gray-300">
+                                You need to score at least 70% to pass. Keep learning and try again!
+                            </p>
+                        </div>
+
+                        <div class="flex flex-wrap justify-center gap-4 mt-8">
+                            <button onclick="showHomePage()" class="px-4 py-2 bg-gray-600 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
+                                Return Home
+                            </button>
+                            <button id="reviewLessonsButton" class="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200">
+                                Review Lessons
+                            </button>
+                            <button id="tryAgainButton" class="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200">
+                                Try Again
+                            </button>
+                        </div>
+
+                        <div id="certificateContainer" class="mt-8 p-6 certificate hidden">
+                            <h3 class="text-xl font-bold text-red-800 dark:text-red-200 mb-2">Certificate of Completion</h3>
+                            <p id="certificateText" class="text-red-700 dark:text-red-300">This certifies that you have successfully completed the <span id="certificateTech"></span> interview preparation quiz.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GraphQL Playground Page -->
+            <div id="graphqlPlaygroundPage" class="hidden w-full flex flex-col items-center justify-center py-8">
+                <div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 md:p-8 w-full max-w-4xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center justify-between mb-6">
+                        <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">GraphQL Playground</h1>
+                        <button onclick="showHomePage()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="prose dark:prose-invert max-w-none">
+                        <p class="text-gray-700 dark:text-gray-300">Interactive GraphQL playground coming soon!</p>
+                        <p class="text-gray-700 dark:text-gray-300">This will allow you to experiment with GraphQL queries and mutations in a sandbox environment.</p>
+                        <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
+                            <h3 class="font-bold text-blue-800 dark:text-blue-200">Example Query:</h3>
+                            <pre class="bg-gray-800 text-gray-100 p-4 rounded mt-2 overflow-x-auto">
+<span class="text-purple-400">query</span> {
+  <span class="text-green-400">dotNetInterviewQuestions</span> {
+    <span class="text-yellow-300">id</span>
+    <span class="text-yellow-300">topic</span>
+    <span class="text-yellow-300">question</span>
+    <span class="text-yellow-300">choices</span>
+  }
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Animated Demo Page -->
+            <div id="animatedDemoPage" class="hidden w-full flex flex-col items-center justify-center py-8">
+                <div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 md:p-8 w-full max-w-4xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center justify-between mb-6">
+                        <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Animated Background Demo</h1>
+                        <button onclick="showHomePage()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="prose dark:prose-invert max-w-none">
+                        <p class="text-gray-700 dark:text-gray-300">This page demonstrates the animated gradient background that's used throughout the Fullstack Academy application.</p>
+                        <p class="text-gray-700 dark:text-gray-300">The background features a smooth, flowing gradient animation with multiple color points that creates a dynamic and engaging visual experience.</p>
+                        <div class="mt-6 p-4 bg-purple-50 dark:bg-purple-900/30 rounded-lg">
+                            <h3 class="font-bold text-purple-800 dark:text-purple-200">Animation Details:</h3>
+                            <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700 dark:text-gray-300">
+                                <li>6-color gradient with carefully selected hues</li>
+                                <li>600% background size for smooth transitions</li>
+                                <li>25-second infinite animation loop</li>
+                                <li>55px blur effect for a soft, dreamy appearance</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-t border-gray-200 dark:border-gray-700 w-full max-w-7xl mx-auto mt-auto relative z-10">
+            <div class="py-6 px-4 sm:px-6 lg:px-8">
+                <p class="text-center text-sm text-gray-500 dark:text-gray-400">
+                    2025 <a href="https://veland.au" class="text-blue-600 dark:text-blue-400 hover:underline">Erik Veland</a>. No rights reserved. Go ahead, fork and learn!
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Quiz data
+        const quizData = {
+            '.NET': [
+                {
+                    id: 1,
+                    topic: "C# Fundamentals",
+                    type: "multiple-choice",
+                    question: "What is the correct way to declare a nullable integer variable in C#?",
+                    choices: ["int? myVar;", "int myVar?;", "nullable<int> myVar;", "int(null) myVar;"],
+                    correctAnswer: 0,
+                    explanation: "In C#, you declare a nullable integer by adding a question mark (?) after the type: int? myVar;"
+                },
+                {
+                    id: 2,
+                    topic: "ASP.NET Core",
+                    type: "multiple-choice",
+                    question: "Which middleware is used to serve static files in ASP.NET Core?",
+                    choices: ["UseStaticFiles()", "UseDefaultFiles()", "UseFileServer()", "All of the above"],
+                    correctAnswer: 3,
+                    explanation: "All of these middleware components can be used to serve static files, with UseStaticFiles() being the most common."
+                },
+                {
+                    id: 3,
+                    topic: "Entity Framework",
+                    type: "open-ended",
+                    question: "What is the difference between Include() and ThenInclude() in Entity Framework?",
+                    choices: null,
+                    correctAnswer: null,
+                    explanation: "Include() is used to load related data in the first level of navigation properties. ThenInclude() is used to load related data in subsequent levels of navigation properties when chaining includes together."
+                },
+                {
+                    id: 4,
+                    topic: "C# Advanced",
+                    type: "multiple-choice",
+                    question: "What is the purpose of the 'async' keyword in C#?",
+                    choices: ["To make a method run faster", "To enable asynchronous programming", "To make a method run in a separate thread", "To mark a method as deprecated"],
+                    correctAnswer: 1,
+                    explanation: "The 'async' keyword enables asynchronous programming in C#, allowing methods to run without blocking the calling thread."
+                },
+                {
+                    id: 5,
+                    topic: "ASP.NET Core",
+                    type: "multiple-choice",
+                    question: "Which attribute is used to specify that a controller or action requires authorization?",
+                    choices: ["[Authorize]", "[RequireAuth]", "[AuthenticationRequired]", "[Secure]"],
+                    correctAnswer: 0,
+                    explanation: "The [Authorize] attribute is used in ASP.NET Core to specify that a controller or action requires authorization."
+                }
+            ],
+            'Next.js': [
+                {
+                    id: 1,
+                    topic: "Routing",
+                    type: "multiple-choice",
+                    question: "In Next.js 13+, how do you define a dynamic route?",
+                    choices: ["[id].js", "{id}.js", "<id>.js", "(id).js"],
+                    correctAnswer: 0,
+                    explanation: "In Next.js 13+, dynamic routes are defined using square brackets: [id].js"
+                },
+                {
+                    id: 2,
+                    topic: "Server Components",
+                    type: "multiple-choice",
+                    question: "What is the default behavior of components in the app directory in Next.js 13+?",
+                    choices: ["Client Components", "Server Components", "Hybrid Components", "Static Components"],
+                    correctAnswer: 1,
+                    explanation: "By default, all components in the app directory are Server Components unless explicitly marked with 'use client' directive."
+                },
+                {
+                    id: 3,
+                    topic: "Data Fetching",
+                    type: "open-ended",
+                    question: "What are the different methods for data fetching in Next.js and when should each be used?",
+                    choices: null,
+                    correctAnswer: null,
+                    explanation: "Next.js provides several data fetching methods: fetch() for automatic request memoization, getServerSideProps for server-side rendering, getStaticProps for static generation, and getStaticPaths for dynamic routes with static generation. Use fetch() in Server Components, getServerSideProps when you need to fetch data at request time, getStaticProps for data that doesn't change often, and getStaticPaths for dynamic routes with pre-rendering."
+                },
+                {
+                    id: 4,
+                    topic: "Styling",
+                    type: "multiple-choice",
+                    question: "Which of the following is NOT a built-in styling solution in Next.js?",
+                    choices: ["CSS Modules", "Styled JSX", "Tailwind CSS", "All of the above are built-in"],
+                    correctAnswer: 3,
+                    explanation: "All of the above are supported styling solutions in Next.js, though Tailwind CSS requires additional setup."
+                },
+                {
+                    id: 5,
+                    topic: "Performance",
+                    type: "multiple-choice",
+                    question: "What is the purpose of the 'next/image' component?",
+                    choices: ["To display animated images", "To optimize image loading and rendering", "To create image galleries", "To add image editing capabilities"],
+                    correctAnswer: 1,
+                    explanation: "The 'next/image' component is used to optimize image loading and rendering, providing automatic image optimization, lazy loading, and responsive images."
+                }
+            ],
+            'GraphQL': [
+                {
+                    id: 1,
+                    topic: "Schema",
+                    type: "multiple-choice",
+                    question: "Which of the following is used to define a required field in GraphQL schema?",
+                    choices: ["field: String", "field: String!", "field: String?", "field!: String"],
+                    correctAnswer: 1,
+                    explanation: "In GraphQL schema definition, the exclamation mark (!) is used to indicate a non-nullable (required) field: field: String!"
+                },
+                {
+                    id: 2,
+                    topic: "Queries",
+                    type: "multiple-choice",
+                    question: "What is the difference between a Query and a Mutation in GraphQL?",
+                    choices: ["Queries are for reading data, Mutations are for modifying data", "Queries are faster than Mutations", "Queries are client-side, Mutations are server-side", "There is no difference"],
+                    correctAnswer: 0,
+                    explanation: "In GraphQL, Queries are used for fetching (reading) data, while Mutations are used for creating, updating, or deleting data."
+                },
+                {
+                    id: 3,
+                    topic: "Resolvers",
+                    type: "open-ended",
+                    question: "What is the purpose of resolvers in GraphQL?",
+                    choices: null,
+                    correctAnswer: null,
+                    explanation: "Resolvers are functions that define how to fetch the data for each field in a GraphQL schema. They contain the actual implementation logic for retrieving data from databases, APIs, or other sources. Each field in the schema has a corresponding resolver function."
+                },
+                {
+                    id: 4,
+                    topic: "Subscriptions",
+                    type: "multiple-choice",
+                    question: "What is the primary use case for GraphQL Subscriptions?",
+                    choices: ["Fetching initial data", "Real-time data updates", "Batch processing", "Caching"],
+                    correctAnswer: 1,
+                    explanation: "GraphQL Subscriptions are used for real-time data updates, allowing clients to receive data as it changes on the server, typically using WebSockets."
+                },
+                {
+                    id: 5,
+                    topic: "Directives",
+                    type: "multiple-choice",
+                    question: "Which built-in directive can be used to conditionally include a field in a GraphQL query?",
+                    choices: ["@include", "@skip", "Both @include and @skip", "Neither"],
+                    correctAnswer: 2,
+                    explanation: "Both @include and @skip are built-in GraphQL directives. @include includes a field when the condition is true, while @skip skips a field when the condition is true."
+                }
+            ],
+            'Laravel': [
+                {
+                    id: 1,
+                    topic: "Routing",
+                    type: "multiple-choice",
+                    question: "Which method is used to define a GET route in Laravel?",
+                    choices: ["Route::get()", "Route::post()", "Route::put()", "Route::delete()"],
+                    correctAnswer: 0,
+                    explanation: "In Laravel, Route::get() is used to define a GET route. This is the most common HTTP method for retrieving data."
+                },
+                {
+                    id: 2,
+                    topic: "Eloquent ORM",
+                    type: "multiple-choice",
+                    question: "Which method is used to retrieve all records from a model?",
+                    choices: ["Model::all()", "Model::get()", "Model::find()", "Model::first()"],
+                    correctAnswer: 0,
+                    explanation: "The all() method retrieves all records from the model's associated database table."
+                },
+                {
+                    id: 3,
+                    topic: "Blade Templates",
+                    type: "open-ended",
+                    question: "What is Eloquent ORM in Laravel?",
+                    choices: null,
+                    correctAnswer: null,
+                    explanation: "Eloquent ORM is Laravel's implementation of the Active Record pattern. It provides a beautiful, simple ActiveRecord implementation for working with your database. Each database table has a corresponding 'Model' which is used to interact with that table."
+                },
+                {
+                    id: 4,
+                    topic: "Middleware",
+                    type: "multiple-choice",
+                    question: "Which middleware is used to authenticate users in Laravel?",
+                    choices: ["auth", "guest", "verified", "throttle"],
+                    correctAnswer: 0,
+                    explanation: "The auth middleware is used to ensure that only authenticated users can access certain routes."
+                },
+                {
+                    id: 5,
+                    topic: "Database",
+                    type: "multiple-choice",
+                    question: "Which method is used to run database migrations?",
+                    choices: ["php artisan migrate", "php artisan run:migrations", "php artisan db:migrate", "php artisan execute:migrations"],
+                    correctAnswer: 0,
+                    explanation: "The php artisan migrate command is used to run all outstanding migrations."
+                }
+            ]
+        };
+
+        // State management
+        let currentQuiz = null;
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let selectedAnswer = null;
+        let score = 0;
+        let feedback = null;
+        let openQuestions = [];
+
+        // DOM Elements
+        const elements = {
+            homePage: document.getElementById('homePage'),
+            lessonsPage: document.getElementById('lessonsPage'),
+            quizPage: document.getElementById('quizPage'),
+            quizCompletedPage: document.getElementById('quizCompletedPage'),
+            graphqlPlaygroundPage: document.getElementById('graphqlPlaygroundPage'),
+            animatedDemoPage: document.getElementById('animatedDemoPage'),
+            mainContent: document.getElementById('mainContent'),
+            // Dropdowns
+            dotNetMenu: document.getElementById('dotNetMenu'),
+            nextJSMenu: document.getElementById('nextJSMenu'),
+            graphQLMenu: document.getElementById('graphQLMenu'),
+            laravelMenu: document.getElementById('laravelMenu'),
+            // Quiz elements
+            questionCounter: document.getElementById('questionCounter'),
+            questionTopic: document.getElementById('questionTopic'),
+            questionText: document.getElementById('questionText'),
+            multipleChoiceContainer: document.getElementById('multipleChoiceContainer'),
+            openEndedContainer: document.getElementById('openEndedContainer'),
+            openEndedExplanation: document.getElementById('openEndedExplanation'),
+            openEndedExplanationText: document.getElementById('openEndedExplanationText'),
+            showAnswerButton: document.getElementById('showAnswerButton'),
+            feedbackContainer: document.getElementById('feedbackContainer'),
+            feedbackText: document.getElementById('feedbackText'),
+            feedbackExplanation: document.getElementById('feedbackExplanation'),
+            feedbackExplanationText: document.getElementById('feedbackExplanationText'),
+            progressBar: document.getElementById('progressBar'),
+            scoreDisplay: document.getElementById('scoreDisplay'),
+            submitButton: document.getElementById('submitButton'),
+            nextButton: document.getElementById('nextButton'),
+            exitQuizButton: document.getElementById('exitQuizButton'),
+            // Quiz completed elements
+            finalScore: document.getElementById('finalScore'),
+            completionMessage: document.getElementById('completionMessage'),
+            circularProgress: document.getElementById('circularProgress'),
+            certificateContainer: document.getElementById('certificateContainer'),
+            certificateTech: document.getElementById('certificateTech'),
+            certificateText: document.getElementById('certificateText'),
+            reviewLessonsButton: document.getElementById('reviewLessonsButton'),
+            tryAgainButton: document.getElementById('tryAgainButton')
+        };
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check for saved dark mode preference
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark');
+                updateDarkModeIcon();
+            }
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('#dotNetDropdown')) {
+                    elements.dotNetMenu.classList.add('hidden');
+                }
+                if (!event.target.closest('#nextJSDropdown')) {
+                    elements.nextJSMenu.classList.add('hidden');
+                }
+                if (!event.target.closest('#graphQLDropdown')) {
+                    elements.graphQLMenu.classList.add('hidden');
+                }
+                if (!event.target.closest('#laravelDropdown')) {
+                    elements.laravelMenu.classList.add('hidden');
+                }
+            });
+            
+            // Set up event listeners for quiz buttons
+            elements.exitQuizButton.addEventListener('click', function() {
+                if (confirm('Are you sure you want to exit the quiz? Your progress will be lost.')) {
+                    showHomePage();
+                }
+            });
+            
+            elements.showAnswerButton.addEventListener('click', function() {
+                showOpenEndedAnswer();
+            });
+            
+            elements.tryAgainButton.addEventListener('click', function() {
+                restartQuiz();
+            });
+            
+            elements.reviewLessonsButton.addEventListener('click', function() {
+                showLessons(currentQuiz);
+            });
+        });
+
+        // Navigation functions
+        function showHomePage() {
+            hideAllPages();
+            elements.homePage.classList.remove('hidden');
+            closeAllDropdowns();
+        }
+
+        function showLessons(technology) {
+            hideAllPages();
+            document.getElementById('lessonsPage').classList.remove('hidden');
+            document.getElementById('lessonsTitle').textContent = technology + ' Lessons';
+            document.getElementById('lessonsTechName').textContent = technology;
+            document.getElementById('lessonsTechName2').textContent = technology;
+            document.getElementById('lessonsTechName3').textContent = technology;
+            closeAllDropdowns();
+        }
+
+        function showLessonsFromQuiz() {
+            showLessons(currentQuiz);
+        }
+
+        function startQuiz(technology) {
+            currentQuiz = technology;
+            initializeQuiz();
+            hideAllPages();
+            elements.quizPage.classList.remove('hidden');
+            renderQuestion();
+            closeAllDropdowns();
+        }
+
+        function startQuizFromLessons() {
+            startQuiz(currentQuiz);
+        }
+
+        function showGraphQLPlayground() {
+            hideAllPages();
+            elements.graphqlPlaygroundPage.classList.remove('hidden');
+        }
+
+        function showAnimatedDemo() {
+            hideAllPages();
+            elements.animatedDemoPage.classList.remove('hidden');
+        }
+
+        function hideAllPages() {
+            elements.homePage.classList.add('hidden');
+            elements.lessonsPage.classList.add('hidden');
+            elements.quizPage.classList.add('hidden');
+            elements.quizCompletedPage.classList.add('hidden');
+            elements.graphqlPlaygroundPage.classList.add('hidden');
+            elements.animatedDemoPage.classList.add('hidden');
+        }
+
+        // Dropdown functions
+        function toggleDropdown(tech) {
+            closeAllDropdownsExcept(tech);
+            
+            switch(tech) {
+                case 'dotNet':
+                    elements.dotNetMenu.classList.toggle('hidden');
+                    break;
+                case 'nextJS':
+                    elements.nextJSMenu.classList.toggle('hidden');
+                    break;
+                case 'graphQL':
+                    elements.graphQLMenu.classList.toggle('hidden');
+                    break;
+                case 'laravel':
+                    elements.laravelMenu.classList.toggle('hidden');
+                    break;
+            }
+        }
+
+        function closeAllDropdowns() {
+            elements.dotNetMenu.classList.add('hidden');
+            elements.nextJSMenu.classList.add('hidden');
+            elements.graphQLMenu.classList.add('hidden');
+            elements.laravelMenu.classList.add('hidden');
+        }
+
+        function closeAllDropdownsExcept(tech) {
+            if (tech !== 'dotNet') elements.dotNetMenu.classList.add('hidden');
+            if (tech !== 'nextJS') elements.nextJSMenu.classList.add('hidden');
+            if (tech !== 'graphQL') elements.graphQLMenu.classList.add('hidden');
+            if (tech !== 'laravel') elements.laravelMenu.classList.add('hidden');
+        }
+
+        // Mobile menu functions
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburgerIcon = document.getElementById('hamburgerIcon');
+            const closeIcon = document.getElementById('closeIcon');
+            
+            mobileMenu.classList.toggle('hidden');
+            hamburgerIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        }
+
+        // Dark mode functions
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+            
+            // Save preference to localStorage
+            if (document.body.classList.contains('dark')) {
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+            }
+            
+            updateDarkModeIcon();
+        }
+
+        function updateDarkModeIcon() {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const isDarkMode = document.body.classList.contains('dark');
+            
+            // Update icon based on mode
+            darkModeToggle.innerHTML = isDarkMode ? 
+                '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" /></svg>' :
+                '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>';
+        }
+
+        // Quiz functions
+        function initializeQuiz() {
+            // Get questions for the selected technology
+            currentQuestions = [...quizData[currentQuiz]];
+            
+            // Shuffle questions
+            shuffleArray(currentQuestions);
+            
+            // Shuffle choices for each question
+            currentQuestions.forEach(question => {
+                if (question.choices && question.choices.length > 0) {
+                    question.originalChoices = [...question.choices];
+                    question.choiceOrder = shuffleChoices(question.choices);
+                }
+            });
+            
+            // Reset state
+            currentQuestionIndex = 0;
+            selectedAnswer = null;
+            score = 0;
+            feedback = null;
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function shuffleChoices(choices) {
+            const indices = choices.map((_, index) => index);
+            shuffleArray(indices);
+            return indices;
+        }
+
+        function renderQuestion() {
+            if (currentQuestionIndex >= currentQuestions.length) {
+                showQuizCompleted();
+                return;
+            }
+            
+            const question = currentQuestions[currentQuestionIndex];
+            
+            // Update UI
+            elements.questionCounter.textContent = `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`;
+            elements.questionTopic.textContent = question.topic;
+            elements.questionText.innerHTML = formatQuestionText(question.question);
+            elements.scoreDisplay.textContent = `${score}/${currentQuestionIndex}`;
+            
+            // Update progress bar
+            const progress = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
+            elements.progressBar.style.width = `${progress}%`;
+            
+            // Reset feedback
+            elements.feedbackContainer.classList.add('hidden');
+            selectedAnswer = null;
+            
+            // Show appropriate question type container
+            if (question.type === 'multiple-choice') {
+                elements.multipleChoiceContainer.classList.remove('hidden');
+                elements.openEndedContainer.classList.add('hidden');
+                renderMultipleChoice(question);
+            } else {
+                elements.multipleChoiceContainer.classList.add('hidden');
+                elements.openEndedContainer.classList.remove('hidden');
+                elements.openEndedExplanation.classList.add('hidden');
+            }
+            
+            // Update button visibility
+            elements.submitButton.classList.add('hidden');
+            elements.nextButton.classList.add('hidden');
+        }
+
+        function formatQuestionText(text) {
+            // Replace technical terms with styled code elements
+            return text.replace(/\b(Route|Model|Controller|View|Middleware|Migration|Eloquent|Blade|Facade|Service|Repository|Factory|Seeder|Artisan|Composer|Config|Env|Request|Response|Session|Cache|Queue|Event|Listener|Notification|Mail|Storage|File|DB|Schema|Collection|Carbon|Auth|Gate|Policy|Validation|Form|HTML|URL|Redirect|Cookie|Encryption|Hash|Password|Str|Arr|Log|Mail|Notification|Queue|Redis|Session|Storage|URL|Validator|View|App|Artisan|Auth|Blade|Broadcast|Bus|Cache|Config|Console|Container|Cookie|Database|DB|Encryption|Event|Exception|File|Foundation|Hash|Http|Log|Mail|Notification|Pagination|Pipeline|Queue|Redis|Routing|Session|Support|Translation|Validation|View|C#|ASP\.NET|Entity Framework|\.NET|Next\.js|GraphQL|Laravel)\b/g, 
+                '<code class="code-inline">$1</code>');
+        }
+
+        function renderMultipleChoice(question) {
+            elements.multipleChoiceContainer.innerHTML = '';
+            
+            // Get choices in the correct display order
+            const displayChoices = question.choiceOrder ? 
+                question.choiceOrder.map(index => question.choices[index]) : 
+                question.choices;
+            
+            displayChoices.forEach((choice, index) => {
+                const choiceElement = document.createElement('div');
+                choiceElement.className = 'p-4 border rounded-lg cursor-pointer transition-all duration-200 border-gray-200 dark:border-gray-600 hover:border-red-200 dark:hover:border-red-500 hover:bg-red-50 dark:hover:bg-red-900/20';
+                choiceElement.innerHTML = `
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 h-5 w-5 border rounded-full mt-0.5 mr-3 flex items-center justify-center border-gray-300 dark:border-gray-500"></div>
+                        <span class="text-gray-800 dark:text-gray-200">${formatQuestionText(choice)}</span>
+                    </div>
+                `;
+                
+                choiceElement.addEventListener('click', () => selectAnswer(index, choiceElement));
+                elements.multipleChoiceContainer.appendChild(choiceElement);
+            });
+        }
+
+        function selectAnswer(index, element) {
+            // Only allow selection if no feedback yet
+            if (feedback) return;
+            
+            // Clear previous selection
+            document.querySelectorAll('#multipleChoiceContainer > div').forEach(el => {
+                el.className = 'p-4 border rounded-lg cursor-pointer transition-all duration-200 border-gray-200 dark:border-gray-600 hover:border-red-200 dark:hover:border-red-500 hover:bg-red-50 dark:hover:bg-red-900/20';
+                const circle = el.querySelector('div:first-child > div');
+                circle.className = 'flex-shrink-0 h-5 w-5 border rounded-full mt-0.5 mr-3 flex items-center justify-center border-gray-300 dark:border-gray-500';
+            });
+            
+            // Update selected element
+            element.className = 'p-4 border rounded-lg cursor-pointer transition-all duration-200 bg-red-50 dark:bg-red-900/30 border-red-300 dark:border-red-600 shadow-sm';
+            const circle = element.querySelector('div:first-child > div');
+            circle.className = 'flex-shrink-0 h-5 w-5 border rounded-full mt-0.5 mr-3 flex items-center justify-center bg-red-500 border-red-500';
+            circle.innerHTML = '<div class="h-2 w-2 rounded-full bg-white"></div>';
+            
+            selectedAnswer = index;
+            elements.submitButton.classList.remove('hidden');
+        }
+
+        function submitAnswer() {
+            if (selectedAnswer === null) return;
+            
+            const question = currentQuestions[currentQuestionIndex];
+            
+            // Map the selected display index back to the original index
+            let originalSelectedIndex = selectedAnswer;
+            if (question.choiceOrder) {
+                originalSelectedIndex = question.choiceOrder[selectedAnswer];
+            }
+            
+            // Check if answer is correct
+            const isCorrect = originalSelectedIndex === question.correctAnswer;
+            
+            // Update score
+            if (isCorrect) {
+                score++;
+            }
+            
+            // Set feedback
+            feedback = {
+                isCorrect: isCorrect,
+                explanation: question.explanation
+            };
+            
+            // Show feedback
+            showFeedback();
+        }
+
+        function showFeedback() {
+            const question = currentQuestions[currentQuestionIndex];
+            
+            elements.feedbackContainer.classList.remove('hidden');
+            elements.feedbackContainer.className = `mb-6 p-4 rounded-lg border ${feedback.isCorrect ? 'bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-700' : 'bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-700'}`;
+            elements.feedbackText.className = `font-medium ${feedback.isCorrect ? 'text-green-800 dark:text-green-200' : 'text-red-800 dark:text-red-200'}`;
+            elements.feedbackText.textContent = feedback.isCorrect ? 'Correct!' : 'Incorrect';
+            
+            if (feedback.explanation) {
+                elements.feedbackExplanation.classList.remove('hidden');
+                elements.feedbackExplanationText.textContent = feedback.explanation;
+                elements.feedbackExplanationText.className = feedback.isCorrect ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300';
+            } else {
+                elements.feedbackExplanation.classList.add('hidden');
+            }
+            
+            // Update choice styling to show correct/incorrect answers
+            if (question.type === 'multiple-choice') {
+                const choiceElements = document.querySelectorAll('#multipleChoiceContainer > div');
+                const displayChoices = question.choiceOrder ? 
+                    question.choiceOrder.map(index => question.choices[index]) : 
+                    question.choices;
+                
+                // Get the correct answer index in display order
+                let displayCorrectIndex = question.correctAnswer;
+                if (question.choiceOrder) {
+                    displayCorrectIndex = question.choiceOrder.indexOf(question.correctAnswer);
+                }
+                
+                choiceElements.forEach((el, index) => {
+                    const circle = el.querySelector('div:first-child > div');
+                    
+                    if (index === displayCorrectIndex) {
+                        // Correct answer
+                        el.className = 'p-4 border rounded-lg cursor-pointer transition-all duration-200 bg-green-50 dark:bg-green-900/30 border-green-300 dark:border-green-600';
+                        circle.className = 'flex-shrink-0 h-5 w-5 border rounded-full mt-0.5 mr-3 flex items-center justify-center bg-green-500 border-green-500';
+                        circle.innerHTML = '<svg class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>';
+                    } else if (index === selectedAnswer && index !== displayCorrectIndex) {
+                        // Incorrectly selected answer
+                        el.className = 'p-4 border rounded-lg cursor-pointer transition-all duration-200 bg-red-50 dark:bg-red-900/30 border-red-300 dark:border-red-600';
+                        circle.className = 'flex-shrink-0 h-5 w-5 border rounded-full mt-0.5 mr-3 flex items-center justify-center bg-red-500 border-red-500';
+                        circle.innerHTML = '<svg class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>';
+                    }
+                });
+            }
+            
+            // Show next button
+            elements.submitButton.classList.add('hidden');
+            elements.nextButton.classList.remove('hidden');
+            elements.nextButton.textContent = currentQuestionIndex === currentQuestions.length - 1 ? 'Finish Quiz 🎉' : 'Next Question';
+            elements.nextButton.className = `px-4 py-2 rounded-lg text-white transition-colors duration-200 ${currentQuestionIndex === currentQuestions.length - 1 ? 'bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600' : 'bg-red-600 dark:bg-red-700 hover:bg-red-700 dark:hover:bg-red-600'}`;
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            selectedAnswer = null;
+            feedback = null;
+            renderQuestion();
+        }
+
+        function showOpenEndedAnswer() {
+            const question = currentQuestions[currentQuestionIndex];
+            elements.openEndedExplanation.classList.remove('hidden');
+            elements.openEndedExplanationText.textContent = question.explanation;
+            elements.showAnswerButton.classList.add('hidden');
+            elements.nextButton.classList.remove('hidden');
+            elements.nextButton.textContent = currentQuestionIndex === currentQuestions.length - 1 ? 'Finish Quiz 🎉' : 'Next Question';
+        }
+
+        function showQuizCompleted() {
+            hideAllPages();
+            elements.quizCompletedPage.classList.remove('hidden');
+            
+            // Calculate score percentage
+            const percentage = Math.round((score / currentQuestions.length) * 100);
+            
+            // Update UI
+            elements.finalScore.textContent = `Score: ${score}/${currentQuestions.length} (${percentage}%)`;
+            elements.completionMessage.textContent = percentage >= 70 ? 
+                'Great job! You have successfully passed the ' + currentQuiz + ' interview quiz.' : 
+                'You need to score at least 70% to pass. Keep learning and try again!';
+            
+            // Create circular progress
+            createCircularProgress(percentage);
+            
+            // Show certificate if passed
+            if (percentage >= 70) {
+                elements.certificateContainer.classList.remove('hidden');
+                elements.certificateTech.textContent = currentQuiz;
+            } else {
+                elements.certificateContainer.classList.add('hidden');
+                elements.reviewLessonsButton.classList.remove('hidden');
+            }
+        }
+
+        function createCircularProgress(percent) {
+            const radius = 32;
+            const stroke = 6;
+            const normalizedRadius = radius - stroke / 2;
+            const circumference = normalizedRadius * 2 * Math.PI;
+            const strokeDashoffset = circumference - (percent / 100) * circumference;
+            
+            elements.circularProgress.innerHTML = `
+                <svg height="${radius * 2}" width="${radius * 2}" class="block mx-auto">
+                    <circle
+                        stroke="#e5e7eb"
+                        fill="transparent"
+                        stroke-width="${stroke}"
+                        r="${normalizedRadius}"
+                        cx="${radius}"
+                        cy="${radius}"
+                    />
+                    <circle
+                        stroke="#ef4444"
+                        fill="transparent"
+                        stroke-width="${stroke}"
+                        stroke-linecap="round"
+                        stroke-dasharray="${circumference} ${circumference}"
+                        style="stroke-dashoffset: ${strokeDashoffset}; transition: stroke-dashoffset 0.5s"
+                        r="${normalizedRadius}"
+                        cx="${radius}"
+                        cy="${radius}"
+                    />
+                    <text
+                        x="50%"
+                        y="50%"
+                        text-anchor="middle"
+                        dy="0.3em"
+                        font-size="1.1em"
+                        fill="#ef4444"
+                        font-weight="bold"
+                    >
+                        ${Math.round(percent)}%
+                    </text>
+                </svg>
+            `;
+        }
+
+        function restartQuiz() {
+            initializeQuiz();
+            hideAllPages();
+            elements.quizPage.classList.remove('hidden');
+            renderQuestion();
+        }
+
+        // Event listeners for quiz buttons
+        document.getElementById('submitButton').addEventListener('click', submitAnswer);
+        document.getElementById('nextButton').addEventListener('click', nextQuestion);
+    </script>
+</body>
+</html>
