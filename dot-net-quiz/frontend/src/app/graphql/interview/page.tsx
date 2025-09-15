@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -48,7 +48,7 @@ const SUBMIT_ANSWER_MUTATION = gql`
 `;
 
 function formatQuestionText(text: string) {
-  return text.replace(/\b(GraphQL|query|mutation|schema|resolver|type|field|directive|fragment|operation|API|runtime|parent|args|context|String|Int|Boolean|ID|input|enum|scalar|@include|@skip|fetch|request|response|server|client|execute|return|if|else|for|while|true|false|null)\b/g, '<code class="bg-gray-100 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">$1<\/code>');
+  return text.replace(/\b(GraphQL|query|mutation|schema|resolver|type|field|directive|fragment|operation|API|runtime|parent|args|context|String|Int|Boolean|ID|input|enum|scalar|@include|@skip|fetch|request|response|server|client|execute|return|if|else|for|while|true|false|null)\b/g, '<code class="bg-gray-100 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">$1</code>');
 }
 
 function shuffle<T>(array: T[]): T[] {
@@ -135,6 +135,23 @@ export default function InterviewQuiz() {
 
   const [submitAnswer] = useMutation(SUBMIT_ANSWER_MUTATION);
 
+  // Calculate success rate and passed status
+  const successRate = questionsFromGQL.length > 0 ? Math.round((score / questionsFromGQL.length) * 100) : 0;
+  const passed = successRate >= 70;
+
+  const clearQuizState = () => {
+    localStorage.removeItem(QUIZ_STORAGE_KEY);
+  };
+
+  const restartQuiz = () => {
+    clearQuizState();
+    setCurrent(0);
+    setSelected(null);
+    setFeedback(null);
+    setScore(0);
+    setShuffled(false);
+  };
+
   useEffect(() => {
     if (!questionsFromGQL.length) return;
     
@@ -174,6 +191,8 @@ export default function InterviewQuiz() {
     if (selected === null) return;
     setFeedback(null);
     
+    const q = questions[current];
+    
     // Map the selected display index back to the original index
     let originalSelectedIndex = selected;
     if (q.choiceOrder && q.correctAnswer !== undefined) {
@@ -200,10 +219,6 @@ export default function InterviewQuiz() {
     setSelected(null);
     setFeedback(null);
     setCurrent((c) => c + 1);
-  };
-
-  const clearQuizState = () => {
-    localStorage.removeItem(QUIZ_STORAGE_KEY);
   };
 
   if (gqlLoading || loading) return <main className="p-6">Loading questions...</main>;
@@ -268,7 +283,7 @@ export default function InterviewQuiz() {
     if (!q.choiceOrder) return q.choices;
     
     // Return choices in the shuffled order
-    return q.choiceOrder.map(index => q.choices[index]);
+    return q.choiceOrder.map(index => q.choices![index]);
   };
   
   // Get the correct answer index in the display order

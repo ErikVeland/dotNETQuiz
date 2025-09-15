@@ -79,6 +79,58 @@ export default function Home() {
               Laravel Interview Quiz
             </Link>
           </div>
+          {/* React Section */}
+          <div className="flex flex-col items-center bg-blue-100/80 dark:bg-blue-900/30 rounded-xl p-4 md:p-6 shadow-sm border border-blue-200 dark:border-blue-800/50 transition-all duration-300 hover:shadow-md">
+            <h2 className="text-lg md:text-xl font-bold mb-2 text-blue-800 dark:text-blue-200">React</h2>
+            <p className="mb-4 text-center text-xs md:text-sm text-blue-900 dark:text-blue-100">
+              Master components, hooks, state management, and more.
+            </p>
+            <Link href="/react/lessons" className="bg-blue-600 dark:bg-blue-700 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg shadow hover:bg-blue-700 dark:hover:bg-blue-800 text-center font-semibold w-full mb-2 text-sm transition-colors duration-200">
+              Step by Step Lessons
+            </Link>
+            <Link href="/react/interview" className="bg-blue-800 dark:bg-blue-900 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg shadow hover:bg-blue-900 dark:hover:bg-blue-950 text-center font-semibold w-full text-sm transition-colors duration-200">
+              React Interview Quiz
+            </Link>
+          </div>
+          {/* Tailwind CSS Section */}
+          <div className="flex flex-col items-center bg-teal-100/80 dark:bg-teal-900/30 rounded-xl p-4 md:p-6 shadow-sm border border-teal-200 dark:border-teal-800/50 transition-all duration-300 hover:shadow-md">
+            <h2 className="text-lg md:text-xl font-bold mb-2 text-teal-800 dark:text-teal-200">Tailwind CSS</h2>
+            <p className="mb-4 text-center text-xs md:text-sm text-teal-900 dark:text-teal-100">
+              Utility-first CSS framework for rapid UI development.
+            </p>
+            <Link href="/tailwind/lessons" className="bg-teal-600 dark:bg-teal-700 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg shadow hover:bg-teal-700 dark:hover:bg-teal-800 text-center font-semibold w-full mb-2 text-sm transition-colors duration-200">
+              Step by Step Lessons
+            </Link>
+            <Link href="/tailwind/interview" className="bg-teal-800 dark:bg-teal-900 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg shadow hover:bg-teal-900 dark:hover:bg-teal-950 text-center font-semibold w-full text-sm transition-colors duration-200">
+              Tailwind Interview Quiz
+            </Link>
+          </div>
+          {/* Node.js Section */}
+          <div className="flex flex-col items-center bg-green-100/80 dark:bg-green-900/30 rounded-xl p-4 md:p-6 shadow-sm border border-green-200 dark:border-green-800/50 transition-all duration-300 hover:shadow-md">
+            <h2 className="text-lg md:text-xl font-bold mb-2 text-green-800 dark:text-green-200">Node.js</h2>
+            <p className="mb-4 text-center text-xs md:text-sm text-green-900 dark:text-green-100">
+              Master server-side JavaScript, Express.js, and APIs.
+            </p>
+            <Link href="/node/lessons" className="bg-green-600 dark:bg-green-700 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg shadow hover:bg-green-700 dark:hover:bg-green-800 text-center font-semibold w-full mb-2 text-sm transition-colors duration-200">
+              Step by Step Lessons
+            </Link>
+            <Link href="/node/interview" className="bg-green-800 dark:bg-green-900 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg shadow hover:bg-green-900 dark:hover:bg-green-950 text-center font-semibold w-full text-sm transition-colors duration-200">
+              Node.js Interview Quiz
+            </Link>
+          </div>
+          {/* SASS Section */}
+          <div className="flex flex-col items-center bg-pink-100/80 dark:bg-pink-900/30 rounded-xl p-4 md:p-6 shadow-sm border border-pink-200 dark:border-pink-800/50 transition-all duration-300 hover:shadow-md">
+            <h2 className="text-lg md:text-xl font-bold mb-2 text-pink-800 dark:text-pink-200">SASS</h2>
+            <p className="mb-4 text-center text-xs md:text-sm text-pink-900 dark:text-pink-100">
+              CSS preprocessor with variables, nesting, and mixins.
+            </p>
+            <Link href="/sass/lessons" className="bg-pink-600 dark:bg-pink-700 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg shadow hover:bg-pink-700 dark:hover:bg-pink-800 text-center font-semibold w-full mb-2 text-sm transition-colors duration-200">
+              Step by Step Lessons
+            </Link>
+            <Link href="/sass/interview" className="bg-pink-800 dark:bg-pink-900 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg shadow hover:bg-pink-900 dark:hover:bg-pink-950 text-center font-semibold w-full text-sm transition-colors duration-200">
+              SASS Interview Quiz
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -1,8 +1,12 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 export const createApolloClient = () => {
+  // Use the base URL from environment or fallback to localhost:5022
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5022';
+  const graphqlUrl = `${baseUrl}/graphql`;
+  
   return new ApolloClient({
-    uri: process.env.NEXT_PUBLIC_API_GRAPHQL || 'http://localhost:5022/graphql',
+    uri: graphqlUrl,
     cache: new InMemoryCache(),
   });
 };

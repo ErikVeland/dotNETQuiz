@@ -2,11 +2,11 @@
 
 ## Project Overview
 
-Fullstack Academy is a full-stack educational platform designed to help developers learn and prepare for interviews in .NET, Next.js, GraphQL, and Laravel. The application provides structured learning resources and realistic interview practice with instant feedback.
+Fullstack Academy is a full-stack educational platform designed to help developers learn and prepare for interviews in modern web technologies. The application provides structured learning resources and realistic interview practice with instant feedback.
 
 ## Features
 
-- **Learning Tracks**: Comprehensive lessons for .NET, Next.js, GraphQL, and Laravel
+- **Learning Tracks**: Comprehensive lessons for .NET, Next.js, GraphQL, Laravel, React, Tailwind CSS, Node.js, and SASS
 - **Step-by-Step Lessons**: Code examples with expected outputs
 - **Interview Quizzes**: Multiple-choice and open-ended questions
 - **Progress Tracking**: Local storage-based progress tracking
@@ -32,21 +32,51 @@ Fullstack Academy is a full-stack educational platform designed to help develope
 
 The application follows a full-stack architecture with a Next.js frontend and ASP.NET Core Web API backend, communicating via a GraphQL API.
 
-```
-┌─────────────────┐    GraphQL API    ┌────────────────────┐
-│   Next.js       │ ◄───────────────► │  ASP.NET Core      │
-│   Frontend      │                   │  Web API (.NET)    │
-│                 │                   │                    │
-│ ┌─────────────┐ │                   │ ┌────────────────┐ │
-│ │   React     │ │                   │ │ GraphQL        │ │
-│ │ Components  │ │                   │ │ (HotChocolate) │ │
-│ └─────────────┘ │                   │ └────────────────┘ │
-│                 │                   │                    │
-│ ┌─────────────┐ │                   │ ┌────────────────┐ │
-│ │ Apollo      │ │                   │ │ Data Models    │ │
-│ │ Client      │ │                   │ │ & Services     │ │
-│ └─────────────┘ │                   │ └────────────────┘ │
-└─────────────────┘                   └────────────────────┘
+```mermaid
+graph TB
+    subgraph "Frontend Layer"
+        A[Next.js 15] --> B[React 19]
+        B --> C[Tailwind CSS]
+        C --> D[TypeScript]
+        A --> E[Apollo Client]
+        E --> F[GraphQL API]
+    end
+    
+    subgraph "API Layer"
+        F[GraphQL API] --> G[Hot Chocolate Server]
+        G --> H[GraphQL Schema]
+    end
+    
+    subgraph "Backend Layer"
+        H[GraphQL Schema] --> I[ASP.NET Core 9]
+        I --> J[.NET Controllers]
+        I --> K[Laravel Integration]
+        I --> L[Data Services]
+        L --> M[In-Memory Data]
+    end
+    
+    subgraph "Data Layer"
+        M[In-Memory Data] --> N[Lesson Data]
+        M --> O[Question Data]
+        M --> P[User Progress Data]
+    end
+    
+    subgraph "Development Tools"
+        Q[Visual Studio Code]
+        R[Visual Studio 2022]
+        S[Git]
+    end
+    
+    subgraph "Deployment"
+        T[Vercel - Frontend]
+        U[Azure - Backend]
+    end
+    
+    A --> T
+    I --> U
+    Q --> A
+    R --> I
+    S --> Q & R
 ```
 
 ## Directory Structure
@@ -56,7 +86,7 @@ dotNetQuiz/
 ├── dot-net-quiz/
 │   ├── backend/
 │   │   ├── Controllers/
-│   │   ├── Data/ (JSON files with Laravel content)
+│   │   ├── Data/ (JSON files with content for all technologies)
 │   │   ├── GraphQL/
 │   │   ├── Models/
 │   │   ├── Services/
@@ -69,6 +99,10 @@ dotNetQuiz/
 │       │   │   ├── lessons/
 │       │   │   ├── nextjs/
 │       │   │   ├── laravel/
+│       │   │   ├── react/
+│       │   │   ├── tailwind/
+│       │   │   ├── node/
+│       │   │   ├── sass/
 │       │   │   └── page.tsx
 │       │   ├── components/
 │       │   └── apolloClient.ts
@@ -77,17 +111,19 @@ dotNetQuiz/
 └── README.md
 ```
 
-## Laravel Modules Implementation
+## Technology Modules Implementation
 
-The application features a real, structured Laravel integration with:
+### Backend Technologies
 
+#### .NET, Next.js, and GraphQL Modules
+- Core modules with structured lessons and interview questions
+
+#### Laravel Modules
 1. **Standalone Laravel Backend**: A complete Laravel application structure with models, controllers, and routes
 2. **GraphQL Integration**: Laravel content is seamlessly integrated into the .NET GraphQL API
 3. **Data Synchronization**: Laravel content is stored as JSON files in the .NET backend but maintains the Laravel data structure
 
-### Laravel Content Structure
-
-#### Laravel Lessons
+##### Laravel Content Structure
 - Routing fundamentals (Basic Routing, Route Parameters)
 - Eloquent ORM basics (Introduction to Eloquent, Querying Models)
 - Blade templating (Blade Basics, Blade Control Structures)
@@ -95,9 +131,26 @@ The application features a real, structured Laravel integration with:
 - Database (Migrations, Seeding Data)
 - Authentication (Laravel Breeze, API Authentication)
 
-#### Laravel Interview Questions
+##### Laravel Interview Questions
 - 35 professional multiple-choice and open-ended questions covering core Laravel concepts
-- Topics include Routing, Eloquent ORM, Blade Templates, Database, Authentication, Middleware, Queues, Caching, Testing, and more
+
+### Frontend Technologies
+
+#### React Modules
+1. **Component-Based Learning**: Lessons on React components, hooks, and state management
+2. **Interactive Quizzes**: Interview questions covering React fundamentals and advanced concepts
+3. **Technology-Specific Styling**: Blue-themed interface for React content
+
+#### Tailwind CSS Modules
+Utility-first CSS framework for rapid UI development
+
+#### Node.js Modules
+1. **Server-Side JavaScript**: Lessons on Node.js fundamentals and Express.js
+2. **Interactive Quizzes**: Interview questions covering Node.js concepts
+3. **Technology-Specific Styling**: Green-themed interface for Node.js content
+
+#### SASS Modules
+CSS preprocessor with variables, nesting, and mixins
 
 ## API Endpoints
 
@@ -105,11 +158,17 @@ All data is accessed through GraphQL queries and mutations:
 
 ### Queries
 - `dotNetLessons`, `nextJsLessons`, `graphQLLessons`, `laravelLessons`
+- `reactLessons`, `tailwindLessons`, `nodeLessons`, `sassLessons`
 - `dotNetInterviewQuestions`, `nextJsInterviewQuestions`, `graphQLInterviewQuestions`, `laravelInterviewQuestions`
+- `reactInterviewQuestions`, `tailwindInterviewQuestions`, `nodeInterviewQuestions`, `sassInterviewQuestions`
 
 ### Mutations
 - `submitAnswer` (for all modules)
 - `submitLaravelAnswer` (Laravel-specific)
+- `submitReactAnswer` (React-specific)
+- `submitTailwindAnswer` (Tailwind-specific)
+- `submitNodeAnswer` (Node.js-specific)
+- `submitSassAnswer` (SASS-specific)
 - `trackProgress`
 
 ## Setup Instructions
@@ -183,12 +242,22 @@ Test Laravel lessons query:
 curl -X POST -H "Content-Type: application/json" -d '{"query":"{ laravelLessons { id title topic } }"}' http://localhost:5022/graphql
 ```
 
-Test Laravel interview questions query:
+Test React lessons query:
 ```bash
-curl -X POST -H "Content-Type: application/json" -d '{"query":"{ laravelInterviewQuestions { id question topic } }"}' http://localhost:5022/graphql
+curl -X POST -H "Content-Type: application/json" -d '{"query":"{ reactLessons { id title topic } }"}' http://localhost:5022/graphql
 ```
 
-Test Laravel answer submission:
+Test Tailwind lessons query:
 ```bash
-curl -X POST -H "Content-Type: application/json" -d '{"query":"mutation { submitLaravelAnswer(questionId: 1, answerIndex: 0) { isCorrect explanation } }"}' http://localhost:5022/graphql
+curl -X POST -H "Content-Type: application/json" -d '{"query":"{ tailwindLessons { id title topic } }"}' http://localhost:5022/graphql
+```
+
+Test Node.js lessons query:
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"query":"{ nodeLessons { id title topic } }"}' http://localhost:5022/graphql
+```
+
+Test SASS lessons query:
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"query":"{ sassLessons { id title topic } }"}' http://localhost:5022/graphql
 ```

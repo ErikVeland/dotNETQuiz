@@ -30,6 +30,18 @@ builder.Services.AddGraphQLServer()
     .AddType<backend.GraphQL.ProgressResultType>()
     .AddType<backend.GraphQL.LaravelLessonType>()
     .AddType<backend.GraphQL.LaravelInterviewQuestionType>()
+    // React GraphQL types
+    .AddType<backend.GraphQL.ReactLessonType>()
+    .AddType<backend.GraphQL.ReactInterviewQuestionType>()
+    // Tailwind GraphQL types
+    .AddType<backend.GraphQL.TailwindLessonType>()
+    .AddType<backend.GraphQL.TailwindInterviewQuestionType>()
+    // Node.js GraphQL types
+    .AddType<backend.GraphQL.NodeLessonType>()
+    .AddType<backend.GraphQL.NodeInterviewQuestionType>()
+    // SASS GraphQL types
+    .AddType<backend.GraphQL.SassLessonType>()
+    .AddType<backend.GraphQL.SassInterviewQuestionType>()
     .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true);
 
 var app = builder.Build();
@@ -110,6 +122,138 @@ public class Query {
         
         return backend.Services.DataService.ApplyQuery(questions ?? new List<LaravelInterviewQuestion>(), topic, sortBy, sortOrder, limit, offset);
     }
+    
+    // React content queries
+    public IEnumerable<ReactLesson> ReactLessons(string? topic = null, string? sortBy = null, string? sortOrder = null, int? limit = null, int? offset = null)
+    {
+        // Load React lessons from JSON file
+        var jsonPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "react_lessons.json");
+        if (!File.Exists(jsonPath))
+        {
+            // Return empty collection if file not found
+            return new List<ReactLesson>();
+        }
+
+        var jsonContent = File.ReadAllText(jsonPath);
+        var lessons = System.Text.Json.JsonSerializer.Deserialize<List<ReactLesson>>(jsonContent, JsonSerializerOptionsConfig.Options);
+        
+        return backend.Services.DataService.ApplyQuery(lessons ?? new List<ReactLesson>(), topic, sortBy, sortOrder, limit, offset);
+    }
+    
+    public IEnumerable<ReactInterviewQuestion> ReactInterviewQuestions(string? topic = null, string? sortBy = null, string? sortOrder = null, int? limit = null, int? offset = null)
+    {
+        // Load React interview questions from JSON file
+        var jsonPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "react_questions.json");
+        if (!File.Exists(jsonPath))
+        {
+            // Return empty collection if file not found
+            return new List<ReactInterviewQuestion>();
+        }
+
+        var jsonContent = File.ReadAllText(jsonPath);
+        var questions = System.Text.Json.JsonSerializer.Deserialize<List<ReactInterviewQuestion>>(jsonContent, JsonSerializerOptionsConfig.Options);
+        
+        return backend.Services.DataService.ApplyQuery(questions ?? new List<ReactInterviewQuestion>(), topic, sortBy, sortOrder, limit, offset);
+    }
+    
+    // Tailwind content queries
+    public IEnumerable<TailwindLesson> TailwindLessons(string? topic = null, string? sortBy = null, string? sortOrder = null, int? limit = null, int? offset = null)
+    {
+        // Load Tailwind lessons from JSON file
+        var jsonPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "tailwind_lessons.json");
+        if (!File.Exists(jsonPath))
+        {
+            // Return empty collection if file not found
+            return new List<TailwindLesson>();
+        }
+
+        var jsonContent = File.ReadAllText(jsonPath);
+        var lessons = System.Text.Json.JsonSerializer.Deserialize<List<TailwindLesson>>(jsonContent, JsonSerializerOptionsConfig.Options);
+        
+        return backend.Services.DataService.ApplyQuery(lessons ?? new List<TailwindLesson>(), topic, sortBy, sortOrder, limit, offset);
+    }
+    
+    public IEnumerable<TailwindInterviewQuestion> TailwindInterviewQuestions(string? topic = null, string? sortBy = null, string? sortOrder = null, int? limit = null, int? offset = null)
+    {
+        // Load Tailwind interview questions from JSON file
+        var jsonPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "tailwind_questions.json");
+        if (!File.Exists(jsonPath))
+        {
+            // Return empty collection if file not found
+            return new List<TailwindInterviewQuestion>();
+        }
+
+        var jsonContent = File.ReadAllText(jsonPath);
+        var questions = System.Text.Json.JsonSerializer.Deserialize<List<TailwindInterviewQuestion>>(jsonContent, JsonSerializerOptionsConfig.Options);
+        
+        return backend.Services.DataService.ApplyQuery(questions ?? new List<TailwindInterviewQuestion>(), topic, sortBy, sortOrder, limit, offset);
+    }
+    
+    // Node.js content queries
+    public IEnumerable<NodeLesson> NodeLessons(string? topic = null, string? sortBy = null, string? sortOrder = null, int? limit = null, int? offset = null)
+    {
+        // Load Node lessons from JSON file
+        var jsonPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "node_lessons.json");
+        if (!File.Exists(jsonPath))
+        {
+            // Return empty collection if file not found
+            return new List<NodeLesson>();
+        }
+
+        var jsonContent = File.ReadAllText(jsonPath);
+        var lessons = System.Text.Json.JsonSerializer.Deserialize<List<NodeLesson>>(jsonContent, JsonSerializerOptionsConfig.Options);
+        
+        return backend.Services.DataService.ApplyQuery(lessons ?? new List<NodeLesson>(), topic, sortBy, sortOrder, limit, offset);
+    }
+    
+    public IEnumerable<NodeInterviewQuestion> NodeInterviewQuestions(string? topic = null, string? sortBy = null, string? sortOrder = null, int? limit = null, int? offset = null)
+    {
+        // Load Node interview questions from JSON file
+        var jsonPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "node_questions.json");
+        if (!File.Exists(jsonPath))
+        {
+            // Return empty collection if file not found
+            return new List<NodeInterviewQuestion>();
+        }
+
+        var jsonContent = File.ReadAllText(jsonPath);
+        var questions = System.Text.Json.JsonSerializer.Deserialize<List<NodeInterviewQuestion>>(jsonContent, JsonSerializerOptionsConfig.Options);
+        
+        return backend.Services.DataService.ApplyQuery(questions ?? new List<NodeInterviewQuestion>(), topic, sortBy, sortOrder, limit, offset);
+    }
+    
+    // SASS content queries
+    public IEnumerable<SassLesson> SassLessons(string? topic = null, string? sortBy = null, string? sortOrder = null, int? limit = null, int? offset = null)
+    {
+        // Load SASS lessons from JSON file
+        var jsonPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "sass_lessons.json");
+        if (!File.Exists(jsonPath))
+        {
+            // Return empty collection if file not found
+            return new List<SassLesson>();
+        }
+
+        var jsonContent = File.ReadAllText(jsonPath);
+        var lessons = System.Text.Json.JsonSerializer.Deserialize<List<SassLesson>>(jsonContent, JsonSerializerOptionsConfig.Options);
+        
+        return backend.Services.DataService.ApplyQuery(lessons ?? new List<SassLesson>(), topic, sortBy, sortOrder, limit, offset);
+    }
+    
+    public IEnumerable<SassInterviewQuestion> SassInterviewQuestions(string? topic = null, string? sortBy = null, string? sortOrder = null, int? limit = null, int? offset = null)
+    {
+        // Load SASS interview questions from JSON file
+        var jsonPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "sass_questions.json");
+        if (!File.Exists(jsonPath))
+        {
+            // Return empty collection if file not found
+            return new List<SassInterviewQuestion>();
+        }
+
+        var jsonContent = File.ReadAllText(jsonPath);
+        var questions = System.Text.Json.JsonSerializer.Deserialize<List<SassInterviewQuestion>>(jsonContent, JsonSerializerOptionsConfig.Options);
+        
+        return backend.Services.DataService.ApplyQuery(questions ?? new List<SassInterviewQuestion>(), topic, sortBy, sortOrder, limit, offset);
+    }
 }
 
 public class Mutation {
@@ -129,5 +273,29 @@ public class Mutation {
     public AnswerResult SubmitLaravelAnswer(int questionId, int answerIndex)
     {
         return _dataService.ValidateLaravelAnswer(questionId, answerIndex);
+    }
+    
+    // React answer submission
+    public AnswerResult SubmitReactAnswer(int questionId, int answerIndex)
+    {
+        return _dataService.ValidateReactAnswer(questionId, answerIndex);
+    }
+    
+    // Tailwind answer submission
+    public AnswerResult SubmitTailwindAnswer(int questionId, int answerIndex)
+    {
+        return _dataService.ValidateTailwindAnswer(questionId, answerIndex);
+    }
+    
+    // Node.js answer submission
+    public AnswerResult SubmitNodeAnswer(int questionId, int answerIndex)
+    {
+        return _dataService.ValidateNodeAnswer(questionId, answerIndex);
+    }
+    
+    // SASS answer submission
+    public AnswerResult SubmitSassAnswer(int questionId, int answerIndex)
+    {
+        return _dataService.ValidateSassAnswer(questionId, answerIndex);
     }
 }

@@ -12,12 +12,16 @@ interface AnimatedBackgroundProps {
 
 const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
   colors = [
-    'rgba(99, 102, 241, 0.12)',
-    'rgba(168, 85, 247, 0.12)',
-    'rgba(236, 72, 153, 0.12)',
-    'rgba(16, 185, 129, 0.12)',
-    'rgba(245, 158, 11, 0.12)',
-    'rgba(239, 68, 68, 0.12)'
+    'rgba(99, 102, 241, 0.12)',   // indigo (blue)
+    'rgba(168, 85, 247, 0.12)',   // purple
+    'rgba(236, 72, 153, 0.12)',   // pink
+    'rgba(16, 185, 129, 0.12)',   // green
+    'rgba(245, 158, 11, 0.12)',   // yellow
+    'rgba(239, 68, 68, 0.12)',    // red
+    'rgba(59, 130, 246, 0.12)',   // blue
+    'rgba(139, 92, 246, 0.12)',   // violet
+    'rgba(251, 146, 60, 0.12)',   // orange
+    'rgba(14, 165, 233, 0.12)'    // sky blue
   ],
   speed = 25,
   blur = 55,
