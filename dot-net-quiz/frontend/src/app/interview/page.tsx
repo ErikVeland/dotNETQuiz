@@ -237,8 +237,10 @@ export default function InterviewQuiz() {
   // Shuffle questions and their choices once when loaded
   useEffect(() => {
     if (questions.length > 0 && !shuffled) {
+      // Select 20 random questions from the pool
+      const selectedQuestions = shuffle(questions).slice(0, 20);
       // Shuffle both questions and create choice order mapping
-      const shuffledQuestions = shuffle(questions).map(q => shuffleQuestionChoices(q));
+      const shuffledQuestions = selectedQuestions.map(q => shuffleQuestionChoices(q));
       setQuestions(shuffledQuestions);
       setShuffled(true);
     }

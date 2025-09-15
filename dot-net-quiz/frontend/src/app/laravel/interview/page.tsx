@@ -153,8 +153,10 @@ export default function LaravelInterviewPage() {
 
   useEffect(() => {
     if (gqlQuestions.length > 0 && !shuffled) {
+      // Select 20 random questions from the pool
+      const selectedQuestions = shuffle(gqlQuestions).slice(0, 20);
       // Shuffle both questions and choices within each question
-      const shuffledQs = shuffle(gqlQuestions).map(q => shuffleQuestionChoices(q));
+      const shuffledQs = selectedQuestions.map(q => shuffleQuestionChoices(q));
       setShuffledQuestions(shuffledQs);
       setShuffled(true);
     }

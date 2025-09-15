@@ -19,7 +19,7 @@ export default function TestDarkMode() {
             Current Theme Status
           </h2>
           <p className="text-gray-600 dark:text-gray-300">
-            Dark mode is currently: <span className="font-medium">{darkMode ? 'ON' : 'OFF' </span>
+            Dark mode is currently: <span className="font-medium">{darkMode ? 'ON' : 'OFF'}</span>
           </p>
           <button
             onClick={toggleDarkMode}

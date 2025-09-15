@@ -1,22 +1,8 @@
 @import "tailwindcss";
 
-:root {
-  --background: #f3f4f6; /* Tailwind gray-100 */
-  --foreground: #111827; /* Tailwind gray-900 */
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+@theme {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 /* Classy multi-point gradient animation */
@@ -33,9 +19,8 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100;
+  font-family: var(--font-sans);
   margin: 0;
   padding: 0;
   position: relative;
@@ -77,16 +62,11 @@ body {
   }
 }
 
-/* Ensure dark mode classes work properly */
-.dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-}
+
 
 /* Fix for code elements in dark mode */
-.dark code {
-  background-color: #374151; /* gray-700 */
-  color: #f3f4f6; /* gray-100 */
+code {
+  @apply bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100;
 }
 
 /* Ensure proper footer positioning */
