@@ -1,3 +1,122 @@
+# SASS Module
+
+This is the SASS learning module, built with pure HTML and SASS stylesheets.
+
+## Features
+
+- Responsive design using SASS stylesheets
+- Interactive lessons with code examples
+- Quiz system with multiple-choice questions
+- Implementation of the Fullstack Academy Design System
+- Mobile-friendly interface
+- Modular SASS architecture with partials
+
+## Pages
+
+1. **Home Page** (`index.html`) - Overview of the module
+2. **Lessons Page** (`lessons.html`) - List of all lessons
+3. **Lesson Detail Page** (`lesson-detail.html`) - Detailed lesson content
+4. **Quiz Page** (`quiz.html`) - Interactive quiz
+
+## Design System Implementation
+
+This module implements the Fullstack Academy Design System with:
+- Consistent color palette (violet as primary color for SASS)
+- Responsive grid layout
+- Accessible components
+- Mobile-first approach
+- Modular SASS architecture
+
+## SASS Architecture
+
+The module uses a modular SASS architecture with the following structure:
+
+```
+scss/
+├── style.scss              # Main stylesheet that imports all partials
+├── _variables.scss         # Global variables and color palette
+├── _mixins.scss            # Reusable mixins
+├── _base.scss              # Base styles and typography
+├── _components.scss        # Component styles (buttons, cards, etc.)
+├── _layout.scss            # Layout styles (header, footer, etc.)
+└── _utilities.scss         # Utility classes
+```
+
+## Setup
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Compile SASS to CSS:
+   ```bash
+   npm run build
+   ```
+
+3. Watch for changes and automatically compile:
+   ```bash
+   npm run watch
+   ```
+
+Simply open `index.html` in a web browser to view the module.
+
+For development, you can use any local server:
+```bash
+# Using Python
+python -m http.server 8000
+
+# Using Node.js (if you have http-server installed)
+npx http-server
+
+# Using PHP
+php -S localhost:8000
+```
+
+## Data Structure
+
+The module uses static HTML with mock data. In a real implementation, it would connect to a backend API.
+
+### Lessons
+```json
+{
+  "id": 1,
+  "topic": "Basics",
+  "title": "Variables and Nesting",
+  "description": "Learn how to use variables and nesting in SASS.",
+  "content": "Detailed explanation...",
+  "codeExample": "$font-stack: Helvetica, sans-serif;\n$primary-color: #333;\n\nbody {\n  font: 100% $font-stack;\n  color: $primary-color;\n}",
+  "difficulty": "Beginner"
+}
+```
+
+### Questions
+```json
+{
+  "id": 1,
+  "topic": "Basics",
+  "type": "multiple-choice",
+  "question": "What symbol is used to declare a variable in SASS?",
+  "choices": ["#", "$", "@", "&"],
+  "correctAnswer": 1,
+  "explanation": "Explanation of the correct answer"
+}
+```
+
+## Customization
+
+The module uses a modular SASS architecture that makes it easy to customize:
+
+1. Modify variables in `_variables.scss` to change colors, spacing, etc.
+2. Add new components in `_components.scss`
+3. Create new mixins in `_mixins.scss` for reusable functionality
+4. Add utility classes in `_utilities.scss`
+
+To compile your changes:
+```bash
+npm run build
+```
+
 # SASS Module Implementation
 
 This directory contains a collection of HTML/CSS examples that teach SASS concepts using SASS itself.

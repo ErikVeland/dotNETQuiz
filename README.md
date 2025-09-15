@@ -4,6 +4,8 @@
 
 Fullstack Academy is a full-stack educational platform designed to help developers learn and prepare for interviews in modern web technologies. The application provides structured learning resources and realistic interview practice with instant feedback.
 
+> **Note**: This is purely a learning and coding challenge! No real application would (or should) be architected this way. In the real world, you wouldn't run 5+ separate technology stacks just to teach about them. But for the sake of learning and demonstrating proficiency in each technology, we've gone a bit overboard with the architecture. Think of it as an educational extreme sport!
+
 ## Features
 
 - **Learning Tracks**: Comprehensive lessons for .NET, Next.js, GraphQL, Laravel, React, Tailwind CSS, Node.js, and SASS
@@ -31,6 +33,8 @@ Fullstack Academy is a full-stack educational platform designed to help develope
 ## System Architecture
 
 The application follows a full-stack architecture with a Next.js frontend and ASP.NET Core Web API backend, communicating via a GraphQL API.
+
+> **Architectural Note**: We've also implemented a completely separate module-based architecture where each technology is implemented using its own stack. This is purely for educational purposes - a real application would use a more sensible unified approach!
 
 ```mermaid
 graph TB

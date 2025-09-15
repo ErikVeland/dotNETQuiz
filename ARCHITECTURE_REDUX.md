@@ -1,5 +1,7 @@
 # Fullstack Academy - Technology-Specific Module Architecture
 
+> **Important Note**: This architecture is purely for educational purposes and coding challenge requirements. In the real world, running 5+ separate technology stacks just to teach about them would be considered architectural overkill. Think of this as an extreme learning exercise rather than a practical production approach!
+
 This document outlines a revised architecture where each module uses the technology stack it teaches.
 
 ## Proposed Architecture
@@ -71,10 +73,10 @@ dotNetQuiz/
 
 ## Challenges
 
-1. **Increased Complexity**: Managing multiple separate applications
-2. **Deployment**: More complex deployment process
+1. **Increased Complexity**: Managing multiple separate applications (definitely overkill for a real project!)
+2. **Deployment**: More complex deployment process (would make ops engineers cry in production!)
 3. **Consistency**: Ensuring consistent UI/UX across different technology stacks
-4. **Maintenance**: More codebases to maintain and update
+4. **Maintenance**: More codebases to maintain and update (a maintenance nightmare in practice!)
 
 ## Migration Strategy
 
