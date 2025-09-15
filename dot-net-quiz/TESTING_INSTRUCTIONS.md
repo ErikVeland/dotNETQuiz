@@ -75,7 +75,9 @@ The frontend should start on http://localhost:3001 (or another available port)
 3. Click on different topics to expand/collapse them
 4. Click on individual lessons to view details
 5. Use the navigation buttons to move between lessons
-6. Verify that the "Next Category" button works correctly
+6. Navigate to the end of the last category
+7. Verify that "Exit Lessons" and "Start Laravel Quiz" buttons are displayed
+8. Test both buttons to ensure they navigate to the correct pages
 
 #### Test 2: Laravel Interview Quiz Functionality
 1. Navigate to http://localhost:3001/laravel/interview

@@ -52,6 +52,7 @@ export default function NextJsLessonsPage() {
     let currentLesson: Lesson | null = null;
     let currentTopicLessons: Lesson[] = [];
     let currentLessonIndex: number | null = null;
+    let isLastCategory = false;
     let nextCategoryTopic: string | null = null;
     if (selectedTopic !== null && selectedIndex !== null) {
         currentTopicLessons = topicGroups.find(tg => tg.topic === selectedTopic)?.lessons ?? [];
@@ -59,6 +60,7 @@ export default function NextJsLessonsPage() {
         currentLessonIndex = selectedIndex;
         // Find the next topic (cycle to first if at end)
         const currentTopicIdx = topicGroups.findIndex(tg => tg.topic === selectedTopic);
+        isLastCategory = currentTopicIdx === topicGroups.length - 1;
         nextCategoryTopic = topicGroups[(currentTopicIdx + 1) % topicGroups.length]?.topic ?? null;
     }
 
@@ -185,15 +187,34 @@ export default function NextJsLessonsPage() {
                             )}
                         </div>
                         {currentLessonIndex === currentTopicLessons.length - 1 && topicGroups.length > 1 && (
-                            <button
-                                className="w-full mt-8 bg-blue-600 dark:bg-blue-700 text-white px-4 py-2 rounded shadow hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-150 font-semibold"
-                                onClick={() => {
-                                    setSelectedTopic(nextCategoryTopic);
-                                    setSelectedIndex(0);
-                                }}
-                            >
-                                Next Category: {nextCategoryTopic} →
-                            </button>
+                            <>
+                                {isLastCategory ? (
+                                    <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                                        <Link 
+                                            href="/" 
+                                            className="flex-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-4 py-2 rounded shadow hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-150 font-semibold text-center"
+                                        >
+                                            Exit Lessons
+                                        </Link>
+                                        <Link 
+                                            href="/nextjs/interview" 
+                                            className="flex-1 bg-gradient-to-r from-purple-500 via-violet-500 to-fuchsia-500 text-white px-4 py-2 rounded shadow hover:from-purple-600 hover:via-violet-600 hover:to-fuchsia-600 transition-all duration-150 font-semibold text-center"
+                                        >
+                                            Start Next.js Quiz
+                                        </Link>
+                                    </div>
+                                ) : (
+                                    <button
+                                        className="w-full mt-8 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-4 py-2 rounded shadow hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-150 font-semibold"
+                                        onClick={() => {
+                                            setSelectedTopic(nextCategoryTopic);
+                                            setSelectedIndex(0);
+                                        }}
+                                    >
+                                        Next Category: {nextCategoryTopic} →
+                                    </button>
+                                )}
+                            </>
                         )}
                     </div>
                 )}

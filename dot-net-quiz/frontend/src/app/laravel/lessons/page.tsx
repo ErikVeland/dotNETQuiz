@@ -52,6 +52,7 @@ export default function LaravelLessonsPage() {
     let currentLesson: LaravelLesson | null = null;
     let currentTopicLessons: LaravelLesson[] = [];
     let currentLessonIndex: number | null = null;
+    let isLastCategory = false;
     let nextCategoryTopic: string | null = null;
     if (selectedTopic !== null && selectedIndex !== null) {
         currentTopicLessons = topicGroups.find(tg => tg.topic === selectedTopic)?.lessons ?? [];
@@ -59,6 +60,7 @@ export default function LaravelLessonsPage() {
         currentLessonIndex = selectedIndex;
         // Find the next topic (cycle to first if at end)
         const currentTopicIdx = topicGroups.findIndex(tg => tg.topic === selectedTopic);
+        isLastCategory = currentTopicIdx === topicGroups.length - 1;
         nextCategoryTopic = topicGroups[(currentTopicIdx + 1) % topicGroups.length]?.topic ?? null;
     }
 
@@ -174,15 +176,34 @@ export default function LaravelLessonsPage() {
                             )}
                         </div>
                         {currentLessonIndex === currentTopicLessons.length - 1 && topicGroups.length > 1 && (
-                            <button
-                                className="w-full mt-8 bg-blue-600 dark:bg-blue-700 text-white px-4 py-2 rounded shadow hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-150 font-semibold"
-                                onClick={() => {
-                                    setSelectedTopic(nextCategoryTopic);
-                                    setSelectedIndex(0);
-                                }}
-                            >
-                                Next Category: {nextCategoryTopic} →
-                            </button>
+                            <>
+                                {isLastCategory ? (
+                                    <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                                        <Link 
+                                            href="/" 
+                                            className="flex-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-4 py-2 rounded shadow hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-150 font-semibold text-center"
+                                        >
+                                            Exit Lessons
+                                        </Link>
+                                        <Link 
+                                            href="/laravel/interview" 
+                                            className="flex-1 bg-gradient-to-r from-red-500 via-orange-500 to-amber-500 text-white px-4 py-2 rounded shadow hover:from-red-600 hover:via-orange-600 hover:to-amber-600 transition-all duration-150 font-semibold text-center"
+                                        >
+                                            Start Laravel Quiz
+                                        </Link>
+                                    </div>
+                                ) : (
+                                    <button
+                                        className="w-full mt-8 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-4 py-2 rounded shadow hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-150 font-semibold"
+                                        onClick={() => {
+                                            setSelectedTopic(nextCategoryTopic);
+                                            setSelectedIndex(0);
+                                        }}
+                                    >
+                                        Next Category: {nextCategoryTopic} →
+                                    </button>
+                                )}
+                            </>
                         )}
                     </div>
                 )}

@@ -328,7 +328,7 @@ export default function InterviewQuiz() {
                 Return Home
               </Link>
               {!passed && (
-                <Link href="/lessons" className="px-4 py-2 bg-blue-600 dark:bg-blue-700 text-white rounded hover:bg-blue-700 dark:hover:bg-blue-600">
+                <Link href="/lessons" className="px-4 py-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-150 font-semibold">
                   Review Lessons
                 </Link>
               )}

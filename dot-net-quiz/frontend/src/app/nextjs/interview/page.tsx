@@ -211,91 +211,47 @@ export default function InterviewQuiz() {
     return <main className="p-6">No questions available.</main>;
   if (current >= shuffledQuestions.length)
     return (
-      // Updated container with glass morphism effect
-      <main className="min-h-screen p-6 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm text-gray-800 dark:text-gray-100 flex flex-col items-center justify-center">
-        {score >= 8 ? (
-          // Updated container with glass morphism effect
-          <div className="w-full max-w-2xl bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg border-8 border-purple-200 dark:border-purple-900 p-8 relative overflow-hidden border border-gray-200 dark:border-gray-700">
-            <div className="absolute top-0 left-0 w-16 h-16 border-l-4 border-t-4 border-purple-400 dark:border-purple-600 rounded-tl-lg"></div>
-            <div className="absolute top-0 right-0 w-16 h-16 border-r-4 border-t-4 border-purple-400 dark:border-purple-600 rounded-tr-lg"></div>
-            <div className="absolute bottom-0 left-0 w-16 h-16 border-l-4 border-b-4 border-purple-400 dark:border-purple-600 rounded-bl-lg"></div>
-            <div className="absolute bottom-0 right-0 w-16 h-16 border-r-4 border-b-4 border-purple-400 dark:border-purple-600 rounded-br-lg"></div>
-            <div className="text-center relative z-10">
-              <div className="text-6xl mb-4">🎉</div>
-              <h1 className="text-4xl font-bold mb-2 text-purple-800 dark:text-purple-300">Certificate of Completion</h1>
-              <div className="text-xl text-purple-600 dark:text-purple-400 mb-6">Next.js Interview Quiz</div>
-              <div className="bg-gradient-to-r from-green-100/80 dark:from-green-900/40 to-purple-100/80 dark:to-purple-900/40 rounded-lg p-6 mb-6 border border-green-200 dark:border-green-800 backdrop-blur-sm">
-                <div className="text-3xl font-bold text-green-700 dark:text-green-300 mb-2">PASSED!</div>
-                <div className="text-lg text-gray-700 dark:text-gray-300">Congratulations on completing the quiz successfully</div>
-              </div>
-              <div className="grid grid-cols-2 gap-6 mb-8">
-                <div className="bg-purple-50/80 dark:bg-purple-900/40 rounded-lg p-4 border border-purple-200 dark:border-purple-800 backdrop-blur-sm">
-                  <div className="text-2xl font-bold text-purple-700 dark:text-purple-300">{score}</div>
-                  <div className="text-sm text-purple-600 dark:text-purple-400">Correct Answers</div>
-                </div>
-                <div className="bg-purple-50/80 dark:bg-purple-900/40 rounded-lg p-4 border border-purple-200 dark:border-purple-800 backdrop-blur-sm">
-                  <div className="text-2xl font-bold text-purple-700 dark:text-purple-300">{Math.round((score / shuffledQuestions.length) * 100)}%</div>
-                  <div className="text-sm text-purple-600 dark:text-purple-400">Success Rate</div>
-                </div>
-              </div>
-              <div className="text-sm text-gray-500 dark:text-gray-400 mb-6">
-                This certificate acknowledges your understanding of key Next.js concepts and readiness for technical interviews.
-              </div>
-              <Link 
-                href="/" 
-                className="inline-block bg-purple-600 dark:bg-purple-700 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-purple-700 dark:hover:bg-purple-600 transition-colors duration-150 font-semibold"
-                onClick={clearQuizState}
-              >
-                Return to Home
-              </Link>
-            </div>
-          </div>
-        ) : (
-          // Updated container with glass morphism effect
-          <div className="w-full max-w-xl bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-8 text-center border border-gray-200 dark:border-gray-700">
-            <div className="text-5xl mb-4">📚</div>
-            <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-200">Quiz Complete</h1>
-            <div className="bg-orange-50/80 dark:bg-orange-900/40 rounded-lg p-6 mb-6 border border-orange-200 dark:border-orange-800 backdrop-blur-sm">
-              <div className="text-2xl font-bold text-orange-700 dark:text-orange-300 mb-2">Keep Learning!</div>
-              <div className="text-gray-700 dark:text-gray-300">You're on the right track, just need a bit more practice</div>
-            </div>
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <div className="bg-gray-50/80 dark:bg-gray-700/80 rounded-lg p-4 border border-gray-200 dark:border-gray-600 backdrop-blur-sm">
-                <div className="text-xl font-bold text-gray-700 dark:text-gray-200">{score}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Correct</div>
-              </div>
-              <div className="bg-gray-50/80 dark:bg-gray-700/80 rounded-lg p-4 border border-gray-200 dark:border-gray-600 backdrop-blur-sm">
-                <div className="text-xl font-bold text-gray-700 dark:text-gray-200">{shuffledQuestions.length - score}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">To Review</div>
-              </div>
-            </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 mb-6">
-              Score: {score} out of {shuffledQuestions.length} ({Math.round((score / shuffledQuestions.length) * 100)}%)
-            </div>
-            <div className="space-y-3">
-              <Link 
-                href="/nextjs/lessons" 
-                className="block w-full bg-purple-600 dark:bg-purple-700 text-white px-6 py-3 rounded-lg shadow hover:bg-purple-700 dark:hover:bg-purple-600 transition-colors duration-150 font-semibold"
-              >
-                Review Lessons
-              </Link>
-              <Link 
-                href="/" 
-                className="block w-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-6 py-3 rounded-lg shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-150 font-semibold"
-                onClick={clearQuizState}
-              >
-                Return to Home
-              </Link>
-              <button
-                className="block w-full bg-orange-500 dark:bg-orange-600 text-white px-6 py-3 rounded-lg shadow hover:bg-orange-600 dark:hover:bg-orange-700 transition-colors duration-150 font-semibold"
-                onClick={() => { clearQuizState(); window.location.reload(); }}
-              >
-                Try Again
-              </button>
-            </div>
+      <div className="text-center">
+        <h2 className={`text-3xl font-bold ${passed ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'} mb-4`}>
+          {passed ? 'Congratulations! 🎉' : 'Quiz Completed'}
+        </h2>
+        
+        <div className="mb-6">
+          <CircularProgress percent={successRate} />
+          <p className="mt-2 text-xl font-semibold text-gray-800 dark:text-gray-200">
+            Score: {score}/{shuffledQuestions.length} ({successRate}%)
+          </p>
+          <p className="mt-1 text-gray-600 dark:text-gray-300">
+            {passed 
+              ? 'Great job! You have successfully passed the interview quiz.' 
+              : 'You need to score at least 70% to pass. Keep learning and try again!'}
+          </p>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-4 mt-8">
+          <Link href="/" className="px-4 py-2 bg-gray-600 dark:bg-gray-700 text-white rounded hover:bg-gray-700 dark:hover:bg-gray-600">
+            Return Home
+          </Link>
+          {!passed && (
+            <Link href="/nextjs/lessons" className="px-4 py-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-150 font-semibold">
+              Review Lessons
+            </Link>
+          )}
+          <button
+            onClick={restartQuiz}
+            className="px-4 py-2 bg-purple-600 dark:bg-purple-700 text-white rounded hover:bg-purple-700 dark:hover:bg-purple-600"
+          >
+            Try Again
+          </button>
+        </div>
+
+        {passed && (
+          <div className="mt-8 p-6 border-2 border-purple-200 dark:border-purple-700 rounded-lg bg-purple-50/80 dark:bg-purple-900/30 backdrop-blur-sm">
+            <h3 className="text-xl font-bold text-purple-800 dark:text-purple-200 mb-2">Certificate of Completion</h3>
+            <p className="text-purple-700 dark:text-purple-300">This certifies that you have successfully completed the Next.js interview preparation quiz.</p>
           </div>
         )}
-      </main>
+      </div>
     );
 
   const q = shuffledQuestions[current];
@@ -320,9 +276,7 @@ export default function InterviewQuiz() {
   };
 
   return (
-    // Updated container with glass morphism effect
     <main className="min-h-screen p-6 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm text-gray-800 dark:text-gray-100 flex flex-col items-center">
-      {/* Updated container with glass morphism effect */}
       <div className="w-full max-w-xl bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
         <Link href="/" className="inline-block mb-4 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 font-semibold py-1 px-2 rounded shadow hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors duration-150 flex items-center gap-1 text-xs">
           <span className="text-base">←</span> Back to Home

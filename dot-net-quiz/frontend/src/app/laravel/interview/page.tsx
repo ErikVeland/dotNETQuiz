@@ -287,7 +287,7 @@ export default function LaravelInterviewPage() {
                 Return Home
               </Link>
               {score < Math.ceil(shuffledQuestions.length * 0.7) && (
-                <Link href="/laravel/lessons" className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200">
+                <Link href="/laravel/lessons" className="px-4 py-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-lg hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-150 font-semibold">
                   Review Lessons
                 </Link>
               )}
