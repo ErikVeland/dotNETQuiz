@@ -4,6 +4,7 @@ import "./globals.css";
 import ApolloWrapper from '../components/ApolloWrapper';
 import Header from '../components/Header';
 import { DarkModeProvider } from '../components/DarkModeContext';
+import AnimatedBackground from '../components/AnimatedBackground';
 
 // Apollo error/dev messages for development
 if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'production') {
@@ -41,6 +42,8 @@ export default function RootLayout({
       >
         <DarkModeProvider>
           <div className="flex flex-col min-h-screen">
+            {/* Animated Background Component */}
+            <AnimatedBackground />
             <Header />
             <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 relative z-10">
               <ApolloWrapper>

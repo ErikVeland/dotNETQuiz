@@ -42,29 +42,6 @@ body {
   min-height: 100vh;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    45deg,
-    rgba(99, 102, 241, 0.12),
-    rgba(168, 85, 247, 0.12),
-    rgba(236, 72, 153, 0.12),
-    rgba(16, 185, 129, 0.12),
-    rgba(245, 158, 11, 0.12),
-    rgba(239, 68, 68, 0.12)
-  );
-  background-size: 600% 600%;
-  animation: gradientFlow 25s ease infinite;
-  opacity: 0.77;
-  z-index: -1;
-  filter: blur(55px);
-}
-
 /* Custom styles for wider layout */
 .container {
   max-width: 100%;

@@ -66,8 +66,10 @@ export default function GraphQLLessonsPage() {
     if (error) return <main className="p-6 text-red-600 dark:text-red-400">Error loading lessons.</main>;
 
     return (
-        <main className="min-h-screen p-6 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
-            <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded shadow p-6">
+        // Updated container with glass morphism effect
+        <main className="min-h-screen p-6 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm text-gray-800 dark:text-gray-100">
+            {/* Updated container with glass morphism effect */}
+            <div className="max-w-2xl mx-auto bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
                 <Link href="/" className="inline-block mb-4 bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200 font-semibold py-1 px-2 rounded shadow hover:bg-pink-200 dark:hover:bg-pink-800 transition-colors duration-150 flex items-center gap-1 text-xs">
                     <span className="text-base">←</span> Back to Home
                 </Link>
@@ -86,7 +88,7 @@ export default function GraphQLLessonsPage() {
                                     {group.lessons.map((lesson, idx) => (
                                         <li
                                             key={lesson.id}
-                                            className="bg-gray-100 dark:bg-gray-700 p-4 rounded shadow hover:bg-pink-50 dark:hover:bg-pink-900 cursor-pointer"
+                                            className="bg-gray-100/80 dark:bg-gray-700/80 backdrop-blur-sm p-4 rounded shadow hover:bg-pink-50 dark:hover:bg-pink-900 cursor-pointer border border-gray-200 dark:border-gray-600"
                                             onClick={() => {
                                                 setSelectedTopic(group.topic);
                                                 setSelectedIndex(idx);
@@ -103,7 +105,8 @@ export default function GraphQLLessonsPage() {
 
                 {/* Lesson Detail View */}
                 {selectedTopic !== null && currentLesson && (
-                    <div className="bg-gray-100 dark:bg-gray-700 p-6 rounded shadow space-y-4 mt-4">
+                    // Updated container with glass morphism effect
+                    <div className="bg-gray-100/80 dark:bg-gray-700/80 backdrop-blur-sm p-6 rounded-xl shadow-lg space-y-4 mt-4 border border-gray-200 dark:border-gray-600">
                         <button
                             className="w-full mb-4 bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200 font-semibold py-1 rounded shadow hover:bg-pink-200 dark:hover:bg-pink-800 transition-colors duration-150 flex items-center justify-center gap-1 text-xs"
                             onClick={() => {
@@ -123,14 +126,14 @@ export default function GraphQLLessonsPage() {
 
                         <div>
                             <h3 className="font-semibold mt-4">GraphQL Example:</h3>
-                            <pre className="bg-white dark:bg-gray-800 p-4 rounded text-sm whitespace-pre-wrap border border-gray-200 dark:border-gray-600">
+                            <pre className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded text-sm whitespace-pre-wrap border border-gray-200 dark:border-gray-600">
                                 {currentLesson.codeExample}
                             </pre>
                         </div>
 
                         <div>
                             <h3 className="font-semibold mt-4">Expected Output:</h3>
-                            <pre className="bg-black text-white p-4 rounded text-sm whitespace-pre-wrap">
+                            <pre className="bg-black/80 text-white p-4 rounded text-sm whitespace-pre-wrap border border-gray-700 dark:border-gray-600">
                                 {currentLesson.output}
                             </pre>
                         </div>

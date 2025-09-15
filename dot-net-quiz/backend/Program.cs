@@ -46,6 +46,16 @@ app.MapBananaCakePop("/graphql-ui");
 
 app.Run();
 
+// Configure JSON serializer options for camelCase to PascalCase conversion
+public static class JsonSerializerOptionsConfig
+{
+    public static readonly JsonSerializerOptions Options = new JsonSerializerOptions
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        PropertyNameCaseInsensitive = true
+    };
+}
+
 // GraphQL Query type using DataService
 public class Query {
     private readonly backend.Services.DataService _dataService = backend.Services.DataService.Instance;
@@ -80,7 +90,7 @@ public class Query {
         }
 
         var jsonContent = File.ReadAllText(jsonPath);
-        var lessons = System.Text.Json.JsonSerializer.Deserialize<List<LaravelLesson>>(jsonContent);
+        var lessons = System.Text.Json.JsonSerializer.Deserialize<List<LaravelLesson>>(jsonContent, JsonSerializerOptionsConfig.Options);
         
         return backend.Services.DataService.ApplyQuery(lessons ?? new List<LaravelLesson>(), topic, sortBy, sortOrder, limit, offset);
     }
@@ -96,7 +106,7 @@ public class Query {
         }
 
         var jsonContent = File.ReadAllText(jsonPath);
-        var questions = System.Text.Json.JsonSerializer.Deserialize<List<LaravelInterviewQuestion>>(jsonContent);
+        var questions = System.Text.Json.JsonSerializer.Deserialize<List<LaravelInterviewQuestion>>(jsonContent, JsonSerializerOptionsConfig.Options);
         
         return backend.Services.DataService.ApplyQuery(questions ?? new List<LaravelInterviewQuestion>(), topic, sortBy, sortOrder, limit, offset);
     }

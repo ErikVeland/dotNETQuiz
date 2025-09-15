@@ -215,6 +215,7 @@ export default function LaravelInterviewPage() {
   };
 
   if (gqlLoading || loading) return (
+    // Updated container with glass morphism effect
     <div className="py-12 px-4 sm:px-6 lg:px-8">
       <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
         <div className="animate-pulse flex flex-col items-center justify-center space-y-4">
@@ -227,6 +228,7 @@ export default function LaravelInterviewPage() {
   );
   
   if (gqlError) return (
+    // Updated container with glass morphism effect
     <div className="py-12 px-4 sm:px-6 lg:px-8">
       <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
         <div className="text-center">
@@ -244,6 +246,7 @@ export default function LaravelInterviewPage() {
   );
   
   if (!shuffledQuestions.length) return (
+    // Updated container with glass morphism effect
     <div className="py-12 px-4 sm:px-6 lg:px-8">
       <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
         <div className="text-center">
@@ -259,6 +262,7 @@ export default function LaravelInterviewPage() {
   
   if (current >= shuffledQuestions.length)
     return (
+      // Updated container with glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
@@ -296,7 +300,7 @@ export default function LaravelInterviewPage() {
             </div>
 
             {score >= Math.ceil(shuffledQuestions.length * 0.7) && (
-              <div className="mt-8 p-6 border-2 border-red-200 dark:border-red-700 rounded-xl bg-red-50 dark:bg-red-900/20">
+              <div className="mt-8 p-6 border-2 border-red-200 dark:border-red-700 rounded-xl bg-red-50/80 dark:bg-red-900/30 backdrop-blur-sm">
                 <h3 className="text-xl font-bold text-red-800 dark:text-red-200 mb-2">Certificate of Completion</h3>
                 <p className="text-red-700 dark:text-red-300">This certifies that you have successfully completed the Laravel interview preparation quiz.</p>
               </div>
@@ -328,10 +332,11 @@ export default function LaravelInterviewPage() {
   };
 
   return (
+    // Updated container with glass morphism effect
     <div className="py-12 px-4 sm:px-6 lg:px-8">
       <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
         {/* Progress bar */}
-        <div className="bg-gray-100 dark:bg-gray-700 h-2">
+        <div className="bg-gray-100/80 dark:bg-gray-700/80 backdrop-blur-sm h-2">
           <div 
             className="bg-red-600 dark:bg-red-500 h-2 transition-all duration-300 ease-out" 
             style={{ width: `${progress}%` }}
@@ -364,16 +369,16 @@ export default function LaravelInterviewPage() {
                   <div 
                     key={displayIndex}
                     onClick={() => !feedback && setSelected(displayIndex)}
-                    className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 ${
+                    className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 backdrop-blur-sm ${
                       feedback 
                         ? displayIndex === getDisplayCorrectAnswerIndex() 
-                          ? "bg-green-50 dark:bg-green-900/30 border-green-300 dark:border-green-600" 
+                          ? "bg-green-50/80 dark:bg-green-900/40 border-green-300 dark:border-green-600" 
                           : displayIndex === selected 
-                            ? "bg-red-50 dark:bg-red-900/30 border-red-300 dark:border-red-600" 
+                            ? "bg-red-50/80 dark:bg-red-900/40 border-red-300 dark:border-red-600" 
                             : "border-gray-200 dark:border-gray-600" 
                         : displayIndex === selected 
-                          ? "bg-red-50 dark:bg-red-900/30 border-red-300 dark:border-red-600 shadow-sm" 
-                          : "border-gray-200 dark:border-gray-600 hover:border-red-200 dark:hover:border-red-500 hover:bg-red-50 dark:hover:bg-red-900/20"
+                          ? "bg-red-50/80 dark:bg-red-900/40 border-red-300 dark:border-red-600 shadow-sm" 
+                          : "border-gray-200 dark:border-gray-600 hover:border-red-200 dark:hover:border-red-500 hover:bg-red-50/80 dark:hover:bg-red-900/30"
                     }`}
                   >
                     <div className="flex items-start">
@@ -408,10 +413,10 @@ export default function LaravelInterviewPage() {
             
             {/* Open-ended */}
             {q.type === 'open-ended' && (
-              <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700">
+              <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-gray-50/80 dark:bg-gray-700/80 backdrop-blur-sm">
                 <p className="text-gray-600 dark:text-gray-300 italic mb-2">This is an open-ended question. Think about your answer, then click &quot;Show Answer&quot; to see the explanation.</p>
                 {feedback ? (
-                  <div className="bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 rounded p-3">
+                  <div className="bg-green-50/80 dark:bg-green-900/40 border border-green-200 dark:border-green-700 rounded p-3 backdrop-blur-sm">
                     <p className="font-medium text-green-800 dark:text-green-200">Explanation:</p>
                     <p className="text-green-700 dark:text-green-300">{q.explanation}</p>
                   </div>
@@ -431,10 +436,10 @@ export default function LaravelInterviewPage() {
           
           {/* Feedback */}
           {feedback && q.type === 'multiple-choice' && (
-            <div className={`mb-6 p-4 rounded-lg border ${
+            <div className={`mb-6 p-4 rounded-lg border backdrop-blur-sm ${
               feedback.isCorrect 
-                ? 'bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-700' 
-                : 'bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-700'
+                ? 'bg-green-50/80 dark:bg-green-900/40 border-green-200 dark:border-green-700' 
+                : 'bg-red-50/80 dark:bg-red-900/40 border-red-200 dark:border-red-700'
             }`}>
               <p className={`font-medium ${
                 feedback.isCorrect 
@@ -460,7 +465,7 @@ export default function LaravelInterviewPage() {
           <div className="flex justify-between">
             <button
               onClick={() => { clearQuizState(); router.push('/'); }}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50/80 dark:hover:bg-gray-700/80 backdrop-blur-sm transition-colors duration-200"
             >
               Exit Quiz
             </button>

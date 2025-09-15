@@ -45,7 +45,7 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-white dark:bg-gray-800 shadow dark:shadow-gray-700 w-full">
+    <header className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm shadow dark:shadow-gray-700 w-full border-b border-gray-200 dark:border-gray-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <div className="flex-shrink-0 flex items-center">
@@ -62,8 +62,8 @@ export default function Header() {
                 onClick={() => setIsDotNetOpen(!isDotNetOpen)}
                 className={`inline-flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isDotNetOpen 
-                    ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-200' 
-                    : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
+                    ? 'bg-blue-100/80 dark:bg-blue-900/50 text-blue-700 dark:text-blue-200 backdrop-blur-sm' 
+                    : 'text-gray-700 hover:bg-gray-100/80 dark:text-gray-300 dark:hover:bg-gray-700/80'
                 }`}
               >
                 .NET
@@ -73,11 +73,11 @@ export default function Header() {
               </button>
               
               {isDotNetOpen && (
-                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 overflow-hidden z-50">
+                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 overflow-hidden z-50 border border-gray-200 dark:border-gray-700">
                   <div className="py-1" role="menu">
                     <Link
                       href="/lessons"
-                      className={`${isActive('/lessons') ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-200' : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/50'} block px-4 py-3 text-sm font-medium transition-colors duration-150`}
+                      className={`${isActive('/lessons') ? 'bg-blue-50/80 dark:bg-blue-900/30 text-blue-700 dark:text-blue-200' : 'text-gray-700 hover:bg-gray-50/80 dark:text-gray-300 dark:hover:bg-gray-700/50'} block px-4 py-3 text-sm font-medium transition-colors duration-150 backdrop-blur-sm`}
                       role="menuitem"
                       onClick={() => setIsDotNetOpen(false)}
                     >
@@ -85,7 +85,7 @@ export default function Header() {
                     </Link>
                     <Link
                       href="/interview"
-                      className={`${isActive('/interview') ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-200' : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/50'} block px-4 py-3 text-sm font-medium transition-colors duration-150`}
+                      className={`${isActive('/interview') ? 'bg-blue-50/80 dark:bg-blue-900/30 text-blue-700 dark:text-blue-200' : 'text-gray-700 hover:bg-gray-50/80 dark:text-gray-300 dark:hover:bg-gray-700/50'} block px-4 py-3 text-sm font-medium transition-colors duration-150 backdrop-blur-sm`}
                       role="menuitem"
                       onClick={() => setIsDotNetOpen(false)}
                     >
@@ -102,8 +102,8 @@ export default function Header() {
                 onClick={() => setIsNextJSOpen(!isNextJSOpen)}
                 className={`inline-flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isNextJSOpen 
-                    ? 'bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-200' 
-                    : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
+                    ? 'bg-purple-100/80 dark:bg-purple-900/50 text-purple-700 dark:text-purple-200 backdrop-blur-sm' 
+                    : 'text-gray-700 hover:bg-gray-100/80 dark:text-gray-300 dark:hover:bg-gray-700/80'
                 }`}
               >
                 Next.js
@@ -113,11 +113,11 @@ export default function Header() {
               </button>
               
               {isNextJSOpen && (
-                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 overflow-hidden z-50">
+                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 overflow-hidden z-50 border border-gray-200 dark:border-gray-700">
                   <div className="py-1" role="menu">
                     <Link
                       href="/nextjs/lessons"
-                      className={`${isActive('/nextjs/lessons') ? 'bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-200' : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/50'} block px-4 py-3 text-sm font-medium transition-colors duration-150`}
+                      className={`${isActive('/nextjs/lessons') ? 'bg-purple-50/80 dark:bg-purple-900/30 text-purple-700 dark:text-purple-200' : 'text-gray-700 hover:bg-gray-50/80 dark:text-gray-300 dark:hover:bg-gray-700/50'} block px-4 py-3 text-sm font-medium transition-colors duration-150 backdrop-blur-sm`}
                       role="menuitem"
                       onClick={() => setIsNextJSOpen(false)}
                     >
@@ -125,7 +125,7 @@ export default function Header() {
                     </Link>
                     <Link
                       href="/nextjs/interview"
-                      className={`${isActive('/nextjs/interview') ? 'bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-200' : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/50'} block px-4 py-3 text-sm font-medium transition-colors duration-150`}
+                      className={`${isActive('/nextjs/interview') ? 'bg-purple-50/80 dark:bg-purple-900/30 text-purple-700 dark:text-purple-200' : 'text-gray-700 hover:bg-gray-50/80 dark:text-gray-300 dark:hover:bg-gray-700/50'} block px-4 py-3 text-sm font-medium transition-colors duration-150 backdrop-blur-sm`}
                       role="menuitem"
                       onClick={() => setIsNextJSOpen(false)}
                     >
@@ -142,8 +142,8 @@ export default function Header() {
                 onClick={() => setIsGraphQLOpen(!isGraphQLOpen)}
                 className={`inline-flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isGraphQLOpen 
-                    ? 'bg-pink-100 dark:bg-pink-900/50 text-pink-700 dark:text-pink-200' 
-                    : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
+                    ? 'bg-pink-100/80 dark:bg-pink-900/50 text-pink-700 dark:text-pink-200 backdrop-blur-sm' 
+                    : 'text-gray-700 hover:bg-gray-100/80 dark:text-gray-300 dark:hover:bg-gray-700/80'
                 }`}
               >
                 GraphQL
@@ -153,11 +153,11 @@ export default function Header() {
               </button>
               
               {isGraphQLOpen && (
-                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 overflow-hidden z-50">
+                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 overflow-hidden z-50 border border-gray-200 dark:border-gray-700">
                   <div className="py-1" role="menu">
                     <Link
                       href="/graphql/lessons"
-                      className={`${isActive('/graphql/lessons') ? 'bg-pink-50 dark:bg-pink-900/30 text-pink-700 dark:text-pink-200' : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/50'} block px-4 py-3 text-sm font-medium transition-colors duration-150`}
+                      className={`${isActive('/graphql/lessons') ? 'bg-pink-50/80 dark:bg-pink-900/30 text-pink-700 dark:text-pink-200' : 'text-gray-700 hover:bg-gray-50/80 dark:text-gray-300 dark:hover:bg-gray-700/50'} block px-4 py-3 text-sm font-medium transition-colors duration-150 backdrop-blur-sm`}
                       role="menuitem"
                       onClick={() => setIsGraphQLOpen(false)}
                     >
@@ -165,7 +165,7 @@ export default function Header() {
                     </Link>
                     <Link
                       href="/graphql/interview"
-                      className={`${isActive('/graphql/interview') ? 'bg-pink-50 dark:bg-pink-900/30 text-pink-700 dark:text-pink-200' : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/50'} block px-4 py-3 text-sm font-medium transition-colors duration-150`}
+                      className={`${isActive('/graphql/interview') ? 'bg-pink-50/80 dark:bg-pink-900/30 text-pink-700 dark:text-pink-200' : 'text-gray-700 hover:bg-gray-50/80 dark:text-gray-300 dark:hover:bg-gray-700/50'} block px-4 py-3 text-sm font-medium transition-colors duration-150 backdrop-blur-sm`}
                       role="menuitem"
                        onClick={() => setIsGraphQLOpen(false)}
                     >
@@ -182,8 +182,8 @@ export default function Header() {
                 onClick={() => setIsLaravelOpen(!isLaravelOpen)}
                 className={`inline-flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isLaravelOpen 
-                    ? 'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-200' 
-                    : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
+                    ? 'bg-red-100/80 dark:bg-red-900/50 text-red-700 dark:text-red-200 backdrop-blur-sm' 
+                    : 'text-gray-700 hover:bg-gray-100/80 dark:text-gray-300 dark:hover:bg-gray-700/80'
                 }`}
               >
                 Laravel
@@ -193,11 +193,11 @@ export default function Header() {
               </button>
               
               {isLaravelOpen && (
-                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 overflow-hidden z-50">
+                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 overflow-hidden z-50 border border-gray-200 dark:border-gray-700">
                   <div className="py-1" role="menu">
                     <Link
                       href="/laravel/lessons"
-                      className={`${isActive('/laravel/lessons') ? 'bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-200' : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/50'} block px-4 py-3 text-sm font-medium transition-colors duration-150`}
+                      className={`${isActive('/laravel/lessons') ? 'bg-red-50/80 dark:bg-red-900/30 text-red-700 dark:text-red-200' : 'text-gray-700 hover:bg-gray-50/80 dark:text-gray-300 dark:hover:bg-gray-700/50'} block px-4 py-3 text-sm font-medium transition-colors duration-150 backdrop-blur-sm`}
                       role="menuitem"
                       onClick={() => setIsLaravelOpen(false)}
                     >
@@ -205,7 +205,7 @@ export default function Header() {
                     </Link>
                     <Link
                       href="/laravel/interview"
-                      className={`${isActive('/laravel/interview') ? 'bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-200' : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700/50'} block px-4 py-3 text-sm font-medium transition-colors duration-150`}
+                      className={`${isActive('/laravel/interview') ? 'bg-red-50/80 dark:bg-red-900/30 text-red-700 dark:text-red-200' : 'text-gray-700 hover:bg-gray-50/80 dark:text-gray-300 dark:hover:bg-gray-700/50'} block px-4 py-3 text-sm font-medium transition-colors duration-150 backdrop-blur-sm`}
                       role="menuitem"
                       onClick={() => setIsLaravelOpen(false)}
                     >

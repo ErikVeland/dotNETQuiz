@@ -246,8 +246,9 @@ export default function InterviewQuiz() {
 
   if (loading && questions.length === 0) {
     return (
-      <div className="bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+      // Updated container with glass morphism effect
+      <div className="bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="animate-pulse flex flex-col items-center justify-center space-y-4">
             <div className="h-12 w-2/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
             <div className="h-64 w-full bg-gray-200 dark:bg-gray-700 rounded"></div>
@@ -260,8 +261,9 @@ export default function InterviewQuiz() {
 
   if (error) {
     return (
-      <div className="bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+      // Updated container with glass morphism effect
+      <div className="bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
             <p className="mb-4 text-gray-800 dark:text-gray-200">{error}</p>
@@ -279,8 +281,9 @@ export default function InterviewQuiz() {
 
   if (questions.length === 0) {
     return (
-      <div className="bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+      // Updated container with glass morphism effect
+      <div className="bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">No Questions Available</h2>
             <p className="mb-4 text-gray-600 dark:text-gray-300">There are no interview questions available at this time.</p>
@@ -300,8 +303,9 @@ export default function InterviewQuiz() {
     const successRate = Math.round((score / questions.length) * 100);
 
     return (
-      <div className="bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+      // Updated container with glass morphism effect
+      <div className="bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <h2 className={`text-3xl font-bold ${passed ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'} mb-4`}>
               {passed ? 'Congratulations! 🎉' : 'Quiz Completed'}
@@ -337,7 +341,7 @@ export default function InterviewQuiz() {
             </div>
 
             {passed && (
-              <div className="mt-8 p-6 border-2 border-green-200 dark:border-green-700 rounded-lg bg-green-50 dark:bg-green-900/20">
+              <div className="mt-8 p-6 border-2 border-green-200 dark:border-green-700 rounded-lg bg-green-50/80 dark:bg-green-900/30 backdrop-blur-sm">
                 <h3 className="text-xl font-bold text-green-800 dark:text-green-200 mb-2">Certificate of Completion</h3>
                 <p className="text-green-700 dark:text-green-300">This certifies that you have successfully completed the .NET interview preparation quiz.</p>
               </div>
@@ -376,10 +380,11 @@ export default function InterviewQuiz() {
   };
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+    // Updated container with glass morphism effect
+    <div className="bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
         {/* Progress bar */}
-        <div className="bg-gray-100 dark:bg-gray-700 h-2">
+        <div className="bg-gray-100/80 dark:bg-gray-700/80 backdrop-blur-sm h-2">
           <div 
             className="bg-indigo-600 dark:bg-indigo-500 h-2 transition-all duration-300 ease-out" 
             style={{ width: `${progress}%` }}
@@ -412,19 +417,19 @@ export default function InterviewQuiz() {
                   <div 
                     key={displayIndex}
                     onClick={() => !feedback && setSelected(displayIndex)}
-                    className={`p-4 border rounded-lg cursor-pointer transition-colors ${feedback 
+                    className={`p-4 border rounded-lg cursor-pointer transition-colors backdrop-blur-sm ${feedback 
                       ? displayIndex === getDisplayCorrectAnswerIndex() 
-                        ? 'bg-green-50 dark:bg-green-900/30 border-green-300 dark:border-green-600' 
+                        ? 'bg-green-50/80 dark:bg-green-900/40 border-green-300 dark:border-green-600' 
                         : displayIndex === selected 
-                          ? 'bg-red-50 dark:bg-red-900/30 border-red-300 dark:border-red-600' 
+                          ? 'bg-red-50/80 dark:bg-red-900/40 border-red-300 dark:border-red-600' 
                           : 'border-gray-200 dark:border-gray-600' 
                       : displayIndex === selected 
-                        ? 'bg-indigo-50 dark:bg-indigo-900/30 border-indigo-300 dark:border-indigo-600' 
-                        : 'border-gray-200 dark:border-gray-600 hover:border-indigo-200 dark:hover:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/20'
+                        ? 'bg-indigo-50/80 dark:bg-indigo-900/40 border-indigo-300 dark:border-indigo-600' 
+                        : 'border-gray-200 dark:border-gray-600 hover:border-indigo-200 dark:hover:border-indigo-500 hover:bg-indigo-50/80 dark:hover:bg-indigo-900/30'
                     }`}
                   >
                     <div className="flex items-start">
-                      <div className={`flex-shrink-0 h-5 w-5 border rounded-full mt-0.5 mr-3 ${feedback 
+                      <div className={`flex-shrink-0 h-5 w-5 border rounded-full mt-0.5 mr-3 backdrop-blur-sm ${feedback 
                         ? displayIndex === getDisplayCorrectAnswerIndex() 
                           ? 'bg-green-500 border-green-500' 
                           : displayIndex === selected 
@@ -454,10 +459,10 @@ export default function InterviewQuiz() {
             
             {/* Open-ended */}
             {question.type === 'open-ended' && (
-              <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700">
+              <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-gray-50/80 dark:bg-gray-700/80 backdrop-blur-sm">
                 <p className="text-gray-600 dark:text-gray-300 italic mb-2">This is an open-ended question. Think about your answer, then click "Show Answer" to see the explanation.</p>
                 {feedback ? (
-                  <div className="bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 rounded p-3">
+                  <div className="bg-green-50/80 dark:bg-green-900/40 border border-green-200 dark:border-green-700 rounded p-3 backdrop-blur-sm">
                     <p className="font-medium text-green-800 dark:text-green-200">Explanation:</p>
                     <p className="text-green-700 dark:text-green-300">{question.explanation}</p>
                   </div>
@@ -475,7 +480,7 @@ export default function InterviewQuiz() {
           
           {/* Feedback */}
           {feedback && question.type === 'multiple-choice' && (
-            <div className={`mb-6 p-4 border rounded-lg ${feedback.isCorrect ? 'bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-700' : 'bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-700'}`}>
+            <div className={`mb-6 p-4 border rounded-lg backdrop-blur-sm ${feedback.isCorrect ? 'bg-green-50/80 dark:bg-green-900/40 border-green-200 dark:border-green-700' : 'bg-red-50/80 dark:bg-red-900/40 border-red-200 dark:border-red-700'}`}>
               <p className={`font-medium ${feedback.isCorrect ? 'text-green-800 dark:text-green-200' : 'text-red-800 dark:text-red-200'}`}>
                 {feedback.isCorrect ? 'Correct!' : 'Incorrect'}
               </p>
@@ -492,7 +497,7 @@ export default function InterviewQuiz() {
           <div className="flex justify-between">
             <button
               onClick={() => router.push('/')}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded text-gray-700 dark:text-gray-300 hover:bg-gray-50/80 dark:hover:bg-gray-700/80 backdrop-blur-sm"
             >
               Exit Quiz
             </button>

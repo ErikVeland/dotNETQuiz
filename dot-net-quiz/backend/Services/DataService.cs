@@ -82,7 +82,11 @@ namespace backend.Services
             }
 
             var jsonContent = File.ReadAllText(jsonPath);
-            var questions = System.Text.Json.JsonSerializer.Deserialize<List<LaravelInterviewQuestion>>(jsonContent);
+            var questions = System.Text.Json.JsonSerializer.Deserialize<List<LaravelInterviewQuestion>>(jsonContent, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                PropertyNameCaseInsensitive = true
+            });
             
             var question = questions?.FirstOrDefault(q => q.Id == questionId);
             if (question == null)

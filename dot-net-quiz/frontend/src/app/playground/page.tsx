@@ -44,7 +44,8 @@ query {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+    // Updated container with glass morphism effect
+    <div className="min-h-screen bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm p-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">GraphQL Playground</h1>
@@ -53,18 +54,19 @@ query {
           </Link>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+        {/* Updated container with glass morphism effect */}
+        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
             <div>
               <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Query</h2>
               <textarea
-                className="w-full h-80 p-3 border border-gray-300 dark:border-gray-600 rounded-md font-mono text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                className="w-full h-80 p-3 border border-gray-300 dark:border-gray-600 rounded-md font-mono text-sm bg-white/80 dark:bg-gray-700/80 backdrop-blur-sm text-gray-900 dark:text-gray-100"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
               <h2 className="text-lg font-semibold mt-4 mb-2 text-gray-800 dark:text-gray-200">Variables (JSON)</h2>
               <textarea
-                className="w-full h-32 p-3 border border-gray-300 dark:border-gray-600 rounded-md font-mono text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                className="w-full h-32 p-3 border border-gray-300 dark:border-gray-600 rounded-md font-mono text-sm bg-white/80 dark:bg-gray-700/80 backdrop-blur-sm text-gray-900 dark:text-gray-100"
                 value={variables}
                 onChange={(e) => setVariables(e.target.value)}
               />
@@ -79,23 +81,24 @@ query {
             <div>
               <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Response</h2>
               {error && (
-                <div className="mb-4 p-3 bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-300 rounded">
+                <div className="mb-4 p-3 bg-red-100/80 dark:bg-red-900/40 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-300 rounded backdrop-blur-sm">
                   {error}
                 </div>
               )}
-              <pre className="w-full h-[30rem] p-3 border border-gray-300 dark:border-gray-600 rounded-md overflow-auto bg-gray-50 dark:bg-gray-700 font-mono text-sm text-gray-900 dark:text-gray-100">
+              <pre className="w-full h-[30rem] p-3 border border-gray-300 dark:border-gray-600 rounded-md overflow-auto bg-gray-50/80 dark:bg-gray-700/80 backdrop-blur-sm font-mono text-sm text-gray-900 dark:text-gray-100">
                 {response || 'Execute a query to see results'}
               </pre>
             </div>
           </div>
         </div>
 
-        <div className="mt-8 bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
+        {/* Updated container with glass morphism effect */}
+        <div className="mt-8 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg rounded-xl p-6 border border-gray-200 dark:border-gray-700">
           <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Example Queries</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h3 className="text-lg font-medium mb-2 text-gray-800 dark:text-gray-200">Get .NET Lessons</h3>
-              <pre className="p-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100">
+              <pre className="p-3 bg-gray-50/80 dark:bg-gray-700/80 border border-gray-200 dark:border-gray-600 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100 backdrop-blur-sm">
                 {`query {
   dotNetLessons {
     id
@@ -123,7 +126,7 @@ query {
             </div>
             <div>
               <h3 className="text-lg font-medium mb-2 text-gray-800 dark:text-gray-200">Get Interview Questions</h3>
-              <pre className="p-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100">
+              <pre className="p-3 bg-gray-50/80 dark:bg-gray-700/80 border border-gray-200 dark:border-gray-600 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100 backdrop-blur-sm">
                 {`query {
   dotNetInterviewQuestions {
     id
@@ -153,7 +156,7 @@ query {
             </div>
             <div>
               <h3 className="text-lg font-medium mb-2 text-gray-800 dark:text-gray-200">Submit Answer</h3>
-              <pre className="p-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100">
+              <pre className="p-3 bg-gray-50/80 dark:bg-gray-700/80 border border-gray-200 dark:border-gray-600 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100 backdrop-blur-sm">
                 {`mutation {
   submitAnswer(questionId: 1, answerIndex: 0) {
     isCorrect
@@ -177,7 +180,7 @@ query {
             </div>
             <div>
               <h3 className="text-lg font-medium mb-2 text-gray-800 dark:text-gray-200">Filter & Sort</h3>
-              <pre className="p-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100">
+              <pre className="p-3 bg-gray-50/80 dark:bg-gray-700/80 border border-gray-200 dark:border-gray-600 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100 backdrop-blur-sm">
                 {`query {
   dotNetLessons(
     topic: "OOP"
