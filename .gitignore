@@ -90,6 +90,8 @@ project.assets.json
 packages.lock.json
 artifacts/
 **/bin/
+**/release/
+**/Debug/
 **/obj/
 .nuget/packages/
 *.dbmdl
@@ -129,6 +131,7 @@ build/
 dist/
 release/
 publish/
+dotnetquiz-deployment/
 
 # Environment files
 .env
