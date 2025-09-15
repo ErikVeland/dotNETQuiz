@@ -33,20 +33,20 @@ Fullstack Academy is a full-stack educational platform designed to help develope
 The application follows a full-stack architecture with a Next.js frontend and ASP.NET Core Web API backend, communicating via a GraphQL API.
 
 ```
-┌─────────────────┐    GraphQL API    ┌──────────────────┐
-│   Next.js       │ ◄───────────────► │  ASP.NET Core    │
-│   Frontend      │                   │  Web API (.NET)  │
-│                 │                   │                  │
-│ ┌─────────────┐ │                   │ ┌──────────────┐ │
-│ │   React     │ │                   │ │ GraphQL      │ │
-│ │ Components  │ │                   │ │ (HotChocolate)│ │
-│ └─────────────┘ │                   │ └──────────────┘ │
-│                 │                   │                  │
-│ ┌─────────────┐ │                   │ ┌──────────────┐ │
-│ │ Apollo      │ │                   │ │ Data Models  │ │
-│ │ Client      │ │                   │ │ & Services   │ │
-│ └─────────────┘ │                   │ └──────────────┘ │
-└─────────────────┘                   └──────────────────┘
+┌─────────────────┐    GraphQL API    ┌────────────────────┐
+│   Next.js       │ ◄───────────────► │  ASP.NET Core      │
+│   Frontend      │                   │  Web API (.NET)    │
+│                 │                   │                    │
+│ ┌─────────────┐ │                   │ ┌────────────────┐ │
+│ │   React     │ │                   │ │ GraphQL        │ │
+│ │ Components  │ │                   │ │ (HotChocolate) │ │
+│ └─────────────┘ │                   │ └────────────────┘ │
+│                 │                   │                    │
+│ ┌─────────────┐ │                   │ ┌────────────────┐ │
+│ │ Apollo      │ │                   │ │ Data Models    │ │
+│ │ Client      │ │                   │ │ & Services     │ │
+│ └─────────────┘ │                   │ └────────────────┘ │
+└─────────────────┘                   └────────────────────┘
 ```
 
 ## Directory Structure
