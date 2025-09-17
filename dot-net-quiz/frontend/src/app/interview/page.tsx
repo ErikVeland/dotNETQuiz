@@ -363,7 +363,7 @@ export default function InterviewQuiz() {
     if (!question.choiceOrder) return question.choices;
     
     // Return choices in the shuffled order
-    return question.choiceOrder.map(index => question.choices[index]);
+    return question.choiceOrder.map(index => question.choices?.[index] ?? '');
   };
   
   // Get the correct answer index in the display order
