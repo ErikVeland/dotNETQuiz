@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery, gql } from '@apollo/client';
+import TechnologyUtilizationBox from '@/components/TechnologyUtilizationBox';
 
 type NodeLesson = {
     id: number;
@@ -103,6 +104,10 @@ export default function NodeLessonsPage() {
                                 </ul>
                             </div>
                         ))}
+                        <TechnologyUtilizationBox 
+                            technology="Node.js" 
+                            explanation="In this Node.js module, Node.js is being used on the backend to serve lesson content and quiz questions through the GraphQL API. The Node.js concepts are taught using the same technology that powers the backend." 
+                        />
                     </div>
                 )}
 
@@ -140,6 +145,11 @@ export default function NodeLessonsPage() {
                                 {currentLesson.output}
                             </pre>
                         </div>
+
+                        <TechnologyUtilizationBox 
+                            technology="Node.js" 
+                            explanation="In this Node.js module, Node.js is being used on the backend to serve lesson content and quiz questions through the GraphQL API. The Node.js concepts are taught using the same technology that powers the backend." 
+                        />
 
                         <div className="flex justify-between mt-6 gap-4">
                             {/* Previous button (always left) */}

@@ -12,22 +12,16 @@ const DarkModeContext = createContext<DarkModeContextType | undefined>(undefined
 export function DarkModeProvider({ children }: { children: React.ReactNode }) {
   const [darkMode, setDarkMode] = useState(false);
 
-  console.log('DarkModeProvider initialized');
-
   useEffect(() => {
     // Check for saved preference or system preference
     const savedMode = localStorage.getItem('darkMode');
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
-    console.log('Saved mode:', savedMode);
-    console.log('System prefers dark:', systemPrefersDark);
-    
     if (savedMode !== null) {
       setDarkMode(savedMode === 'true');
-      console.log('Using saved mode:', savedMode === 'true');
     } else {
+      // Default to light mode unless system prefers dark
       setDarkMode(systemPrefersDark);
-      console.log('Using system preference:', systemPrefersDark);
     }
   }, []);
 
@@ -41,10 +35,6 @@ export function DarkModeProvider({ children }: { children: React.ReactNode }) {
     
     // Save preference
     localStorage.setItem('darkMode', darkMode.toString());
-    
-    // Debug logging
-    console.log('Dark mode changed to:', darkMode);
-    console.log('Document classes:', document.documentElement.classList);
   }, [darkMode]);
 
   const toggleDarkMode = () => {

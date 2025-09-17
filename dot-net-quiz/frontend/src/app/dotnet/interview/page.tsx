@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useQuery, gql, useMutation } from '@apollo/client';
 import TechnologyUtilizationBox from '@/components/TechnologyUtilizationBox';
 
-interface NodeInterviewQuestion {
+interface DotNetInterviewQuestion {
   id: number;
   topic: string;
   type: string;
@@ -22,11 +22,11 @@ interface AnswerResult {
   explanation?: string;
 }
 
-const NODE_QUIZ_STORAGE_KEY = "node_quiz_state_v1";
+const DOTNET_QUIZ_STORAGE_KEY = "dotnet_quiz_state_v1";
 
-const NODE_INTERVIEW_QUESTIONS_QUERY = gql`
-  query NodeInterviewQuestions {
-    nodeInterviewQuestions {
+const DOTNET_INTERVIEW_QUESTIONS_QUERY = gql`
+  query DotNetInterviewQuestions {
+    dotNetInterviewQuestions {
       id
       topic
       type
@@ -38,9 +38,9 @@ const NODE_INTERVIEW_QUESTIONS_QUERY = gql`
   }
 `;
 
-const SUBMIT_NODE_ANSWER_MUTATION = gql`
-  mutation SubmitNodeAnswer($questionId: Int!, $answerIndex: Int!) {
-    submitNodeAnswer(questionId: $questionId, answerIndex: $answerIndex) {
+const SUBMIT_DOTNET_ANSWER_MUTATION = gql`
+  mutation SubmitDotNetAnswer($questionId: Int!, $answerIndex: Int!) {
+    submitDotNetAnswer(questionId: $questionId, answerIndex: $answerIndex) {
       isCorrect
       explanation
     }
@@ -48,7 +48,7 @@ const SUBMIT_NODE_ANSWER_MUTATION = gql`
 `;
 
 function formatQuestionText(text: string) {
-  return text.replace(/\b(Node\.js|npm|require|module\.exports|process|Buffer|EventEmitter|Stream|fs|http|https|path|url|querystring|util|os|cluster|child_process|dns|net|dgram|tls|crypto|zlib|assert|vm|repl|readline|console|timers|async_hooks|http2|perf_hooks|worker_threads|v8|trace_events|module|global|__dirname|__filename|exports|process\.env|process\.argv|process\.nextTick|setImmediate|clearImmediate|Buffer\.from|Buffer\.alloc|Buffer\.allocUnsafe|EventEmitter\.on|EventEmitter\.emit|Stream\.Readable|Stream\.Writable|fs\.readFile|fs\.writeFile|http\.createServer|path\.join|path\.resolve|url\.parse|util\.promisify|os\.platform|cluster\.fork|child_process\.spawn|dns\.lookup|net\.createServer|dgram\.createSocket|tls\.connect|crypto\.createHash|zlib\.createGzip|assert\.strictEqual|vm\.createContext|repl\.start|readline\.createInterface|console\.log|setTimeout|setInterval|Promise|async|await|callback|middleware|express|koa|hapi|fastify|socket\.io|cluster\.setupMaster|process\.send|process\.on|process\.exit|process\.cwd|process\.chdir|process\.uptime|process\.memoryUsage|process\.cpuUsage|process\.hrtime|process\.kill|process\.abort|process\.umask|process\.getuid|process\.setuid|process\.getgid|process\.setgid|process\.getgroups|process\.setgroups|process\.initgroups|process\.geteuid|process\.seteuid|process\.getegid|process\.setegid|process\.getgroups|process\.setgroups|process\.getpriority|process\.setpriority|process\.hrtime|process\.initgroups|process\.kill|process\.memoryUsage|process\.nextTick|process\.release|process\.resourceUsage|process\.send|process\.setgroups|process\.setpriority|process\.setuid|process\.setgid|process\.title|process\.umask|process\.uptime|process\.version|process\.versions)\b/g, '<code class="bg-gray-100 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">$1</code>');
+  return text.replace(/\b(C#|\.NET|ASP\.NET|Entity Framework|LINQ|async|await|Task|Thread|lock|semaphore|mutex|delegate|event|interface|class|struct|enum|namespace|using|public|private|protected|internal|static|readonly|const|virtual|override|abstract|sealed|base|this|new|var|dynamic|object|string|int|bool|void|try|catch|finally|throw|if|else|switch|case|for|foreach|while|do|break|continue|return|yield|get|set|add|remove|where|select|from|join|group|by|into|orderby|ascending|descending|let|on|equals|in|assembly|module|type|member|method|property|field|constructor|destructor|operator|conversion|extension|attribute|annotation|reflection|serialization|deserialization|garbage collection|GC|memory management|stack|heap|reference type|value type|boxing|unboxing|nullable|tuple|record|pattern matching|switch expression|with expression|init|record struct|primary constructor|auto-property|expression-bodied|lambda|local function|async stream|IAsyncEnumerable|channel|pipeline|middleware|dependency injection|DI|IoC|Inversion of Control|configuration|logging|caching|authentication|authorization|middleware pipeline|host|host builder|generic host|web host|kestrel|IIS|nginx|Apache|docker|container|Kubernetes|k8s|microservice|API|REST|gRPC|GraphQL|SignalR|Blazor|WPF|WinForms|Xamarin|MAUI|EF Core|Dapper|ADO\.NET|SQL|NoSQL|Redis|MongoDB|Cosmos DB|Azure|AWS|GCP|CI\/CD|unit test|integration test|TDD|BDD|xUnit|NUnit|MSTest|Moq|NSubstitute|AutoMapper|FluentValidation|MediatR|CQRS|SOLID|DRY|KISS|YAGNI|design pattern|factory|singleton|observer|strategy|decorator|adapter|bridge|composite|facade|flyweight|proxy|chain of responsibility|command|interpreter|iterator|mediator|memento|state|template method|visitor|builder|prototype)\b/g, '<code class="bg-gray-100 px-1 py-0.5 rounded text-sm font-mono">$1</code>');
 }
 
 function shuffle<T>(array: T[]): T[] {
@@ -61,7 +61,7 @@ function shuffle<T>(array: T[]): T[] {
 }
 
 // Update the shuffle function to track choice order
-function shuffleQuestionChoices(question: NodeInterviewQuestion): NodeInterviewQuestion {
+function shuffleQuestionChoices(question: DotNetInterviewQuestion): DotNetInterviewQuestion {
   // If no choices or only one choice, return as is
   if (!question.choices || question.choices.length <= 1) {
     return question;
@@ -94,7 +94,7 @@ function CircularProgress({ percent }: { percent: number }) {
         cy={radius}
       />
       <circle
-        stroke="#10b981"
+        stroke="#8b5cf6"
         fill="transparent"
         strokeWidth={stroke}
         strokeLinecap="round"
@@ -110,7 +110,7 @@ function CircularProgress({ percent }: { percent: number }) {
         textAnchor="middle"
         dy="0.3em"
         fontSize="1.1em"
-        fill="#10b981"
+        fill="#8b5cf6"
         fontWeight="bold"
       >
         {Math.round(percent)}%
@@ -119,8 +119,8 @@ function CircularProgress({ percent }: { percent: number }) {
   );
 }
 
-export default function NodeInterviewPage() {
-  const [shuffledQuestions, setShuffledQuestions] = useState<NodeInterviewQuestion[]>([]);
+export default function DotNetInterviewPage() {
+  const [shuffledQuestions, setShuffledQuestions] = useState<DotNetInterviewQuestion[]>([]);
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [feedback, setFeedback] = useState<AnswerResult | null>(null);
@@ -130,13 +130,13 @@ export default function NodeInterviewPage() {
   const [shuffled, setShuffled] = useState(false);
   const router = useRouter();
 
-  const { data, loading: gqlLoading, error: gqlError } = useQuery(NODE_INTERVIEW_QUESTIONS_QUERY);
-  const gqlQuestions: NodeInterviewQuestion[] = data?.nodeInterviewQuestions ?? [];
+  const { data, loading: gqlLoading, error: gqlError } = useQuery(DOTNET_INTERVIEW_QUESTIONS_QUERY);
+  const gqlQuestions: DotNetInterviewQuestion[] = data?.dotNetInterviewQuestions ?? [];
 
-  const [submitAnswer] = useMutation(SUBMIT_NODE_ANSWER_MUTATION);
+  const [submitAnswer] = useMutation(SUBMIT_DOTNET_ANSWER_MUTATION);
 
   useEffect(() => {
-    const saved = localStorage.getItem(NODE_QUIZ_STORAGE_KEY);
+    const saved = localStorage.getItem(DOTNET_QUIZ_STORAGE_KEY);
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -166,7 +166,7 @@ export default function NodeInterviewPage() {
   useEffect(() => {
     if (shuffledQuestions.length === 0) return;
     localStorage.setItem(
-      NODE_QUIZ_STORAGE_KEY,
+      DOTNET_QUIZ_STORAGE_KEY,
       JSON.stringify({ questions: shuffledQuestions, current, selected, score })
     );
   }, [shuffledQuestions, current, selected, score]);
@@ -187,15 +187,15 @@ export default function NodeInterviewPage() {
     const { data } = await submitAnswer({
       variables: { questionId: currentQuestion.id, answerIndex: originalSelectedIndex },
       optimisticResponse: {
-        submitNodeAnswer: {
+        submitDotNetAnswer: {
           isCorrect: false, // Optimistic default
           explanation: 'Checking...',
           __typename: 'AnswerResult',
         },
       },
     });
-    setFeedback(data.submitNodeAnswer);
-    if (data.submitNodeAnswer.isCorrect) setScore((s) => s + 1);
+    setFeedback(data.submitDotNetAnswer);
+    if (data.submitDotNetAnswer.isCorrect) setScore((s) => s + 1);
   };
 
   const nextQuestion = () => {
@@ -205,7 +205,7 @@ export default function NodeInterviewPage() {
   };
 
   const clearQuizState = () => {
-    localStorage.removeItem(NODE_QUIZ_STORAGE_KEY);
+    localStorage.removeItem(DOTNET_QUIZ_STORAGE_KEY);
   };
 
   const restartQuiz = () => {
@@ -218,7 +218,6 @@ export default function NodeInterviewPage() {
   };
 
   if (gqlLoading || loading) return (
-    // Updated container with glass morphism effect
     <div className="py-12 px-4 sm:px-6 lg:px-8">
       <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
         <div className="animate-pulse flex flex-col items-center justify-center space-y-4">
@@ -231,7 +230,6 @@ export default function NodeInterviewPage() {
   );
   
   if (gqlError) return (
-    // Updated container with glass morphism effect
     <div className="py-12 px-4 sm:px-6 lg:px-8">
       <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
         <div className="text-center">
@@ -249,12 +247,11 @@ export default function NodeInterviewPage() {
   );
   
   if (!shuffledQuestions.length) return (
-    // Updated container with glass morphism effect
     <div className="py-12 px-4 sm:px-6 lg:px-8">
       <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">No Questions Available</h2>
-          <p className="mb-4 text-gray-600 dark:text-gray-300">There are no Node.js interview questions available at this time.</p>
+          <p className="mb-4 text-gray-600 dark:text-gray-300">There are no .NET interview questions available at this time.</p>
           <Link href="/" className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200">
             Return Home
           </Link>
@@ -265,11 +262,10 @@ export default function NodeInterviewPage() {
   
   if (current >= shuffledQuestions.length)
     return (
-      // Updated container with glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-green-600 dark:text-green-400 mb-4">
+            <h2 className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-4">
               Quiz Completed
             </h2>
             
@@ -280,7 +276,7 @@ export default function NodeInterviewPage() {
               </p>
               <p className="mt-1 text-gray-600 dark:text-gray-300">
                 {score >= Math.ceil(shuffledQuestions.length * 0.7) 
-                  ? 'Great job! You have successfully passed the Node.js interview quiz.' 
+                  ? 'Great job! You have successfully passed the .NET interview quiz.' 
                   : 'You need to score at least 70% to pass. Keep learning and try again!'}
               </p>
             </div>
@@ -290,22 +286,22 @@ export default function NodeInterviewPage() {
                 Return Home
               </Link>
               {score < Math.ceil(shuffledQuestions.length * 0.7) && (
-                <Link href="/node/lessons" className="px-4 py-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-lg hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-150 font-semibold">
+                <Link href="/dotnet/lessons" className="px-4 py-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-lg hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-150 font-semibold">
                   Review Lessons
                 </Link>
               )}
               <button
                 onClick={restartQuiz}
-                className="px-4 py-2 bg-green-600 dark:bg-green-700 text-white rounded-lg hover:bg-green-700 dark:hover:bg-green-600 transition-colors duration-200"
+                className="px-4 py-2 bg-purple-600 dark:bg-purple-700 text-white rounded-lg hover:bg-purple-700 dark:hover:bg-purple-600 transition-colors duration-200"
               >
                 Try Again
               </button>
             </div>
 
             {score >= Math.ceil(shuffledQuestions.length * 0.7) && (
-              <div className="mt-8 p-6 border-2 border-green-200 dark:border-green-700 rounded-xl bg-green-50/80 dark:bg-green-900/30 backdrop-blur-sm">
-                <h3 className="text-xl font-bold text-green-800 dark:text-green-200 mb-2">Certificate of Completion</h3>
-                <p className="text-green-700 dark:text-green-300">This certifies that you have successfully completed the Node.js interview preparation quiz.</p>
+              <div className="mt-8 p-6 border-2 border-purple-200 dark:border-purple-700 rounded-xl bg-purple-50/80 dark:bg-purple-900/30 backdrop-blur-sm">
+                <h3 className="text-xl font-bold text-purple-800 dark:text-purple-200 mb-2">Certificate of Completion</h3>
+                <p className="text-purple-700 dark:text-purple-300">This certifies that you have successfully completed the .NET interview preparation quiz.</p>
               </div>
             )}
           </div>
@@ -335,13 +331,12 @@ export default function NodeInterviewPage() {
   };
 
   return (
-    // Updated container with glass morphism effect
     <div className="py-12 px-4 sm:px-6 lg:px-8">
       <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
         {/* Progress bar */}
         <div className="bg-gray-100/80 dark:bg-gray-700/80 backdrop-blur-sm h-2">
           <div 
-            className="bg-green-600 dark:bg-green-500 h-2 transition-all duration-300 ease-out" 
+            className="bg-purple-600 dark:bg-purple-500 h-2 transition-all duration-300 ease-out" 
             style={{ width: `${progress}%` }}
           ></div>
         </div>
@@ -351,7 +346,7 @@ export default function NodeInterviewPage() {
           <div className="flex justify-between items-center mb-6">
             <div>
               <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Question {current + 1} of {shuffledQuestions.length}</span>
-              <h3 className="text-lg font-medium text-green-600 dark:text-green-400">{q.topic}</h3>
+              <h3 className="text-lg font-medium text-purple-600 dark:text-purple-400">{q.topic}</h3>
             </div>
             <div className="text-right">
               <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Score</span>
@@ -380,8 +375,8 @@ export default function NodeInterviewPage() {
                             ? "bg-red-50/80 dark:bg-red-900/40 border-red-300 dark:border-red-600" 
                             : "border-gray-200 dark:border-gray-600" 
                         : displayIndex === selected 
-                          ? "bg-green-50/80 dark:bg-green-900/40 border-green-300 dark:border-green-600 shadow-sm" 
-                          : "border-gray-200 dark:border-gray-600 hover:border-green-200 dark:hover:border-green-500 hover:bg-green-50/80 dark:hover:bg-green-900/30"
+                          ? "bg-purple-50/80 dark:bg-purple-900/40 border-purple-300 dark:border-purple-600 shadow-sm" 
+                          : "border-gray-200 dark:border-gray-600 hover:border-purple-200 dark:hover:border-purple-500 hover:bg-purple-50/80 dark:hover:bg-purple-900/30"
                     }`}
                   >
                     <div className="flex items-start">
@@ -393,7 +388,7 @@ export default function NodeInterviewPage() {
                               ? "bg-red-500 border-red-500" 
                               : "border-gray-300 dark:border-gray-500" 
                           : displayIndex === selected 
-                            ? "bg-green-500 border-green-500" 
+                            ? "bg-purple-500 border-purple-500" 
                             : "border-gray-300 dark:border-gray-500"
                       }`}>
                         {(feedback && displayIndex === getDisplayCorrectAnswerIndex()) && (
@@ -428,7 +423,7 @@ export default function NodeInterviewPage() {
                     onClick={async () => {
                       setFeedback({ isCorrect: true, explanation: q.explanation });
                     }}
-                    className="mt-2 px-4 py-2 bg-green-600 dark:bg-green-700 text-white rounded-lg hover:bg-green-700 dark:hover:bg-green-600 transition-colors duration-200"
+                    className="mt-2 px-4 py-2 bg-purple-600 dark:bg-purple-700 text-white rounded-lg hover:bg-purple-700 dark:hover:bg-purple-600 transition-colors duration-200"
                   >
                     Show Answer
                   </button>
@@ -481,7 +476,7 @@ export default function NodeInterviewPage() {
                   className={`px-4 py-2 rounded-lg transition-colors duration-200 ${
                     selected === null 
                       ? 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed' 
-                      : 'bg-green-600 dark:bg-green-700 text-white hover:bg-green-700 dark:hover:bg-green-600'
+                      : 'bg-purple-600 dark:bg-purple-700 text-white hover:bg-purple-700 dark:hover:bg-purple-600'
                   }`}
                 >
                   Submit
@@ -494,7 +489,7 @@ export default function NodeInterviewPage() {
                   className={`px-4 py-2 rounded-lg text-white transition-colors duration-200 ${
                     current === shuffledQuestions.length - 1 
                       ? 'bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600' 
-                      : 'bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600'
+                      : 'bg-purple-600 dark:bg-purple-700 hover:bg-purple-700 dark:hover:bg-purple-600'
                   }`}
                 >
                   {current === shuffledQuestions.length - 1 ? 'Finish Quiz 🎉' : 'Next Question'}
@@ -506,8 +501,8 @@ export default function NodeInterviewPage() {
       </div>
       
       <TechnologyUtilizationBox 
-        technology="Node.js" 
-        explanation="In this Node.js module, Node.js is being used on the backend to serve lesson content and quiz questions through the GraphQL API. The Node.js concepts are taught using the same technology that powers the backend." 
+        technology=".NET" 
+        explanation="In this .NET module, .NET is being used as the core backend framework to serve lesson content and quiz questions through the GraphQL API. The .NET concepts are taught using the same technology that powers the backend." 
       />
     </div>
   );

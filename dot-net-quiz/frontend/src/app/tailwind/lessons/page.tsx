@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery, gql } from '@apollo/client';
+import TechnologyUtilizationBox from '@/components/TechnologyUtilizationBox';
 
 type TailwindLesson = {
     id: number;
@@ -103,6 +104,10 @@ export default function TailwindLessonsPage() {
                                 </ul>
                             </div>
                         ))}
+                        <TechnologyUtilizationBox 
+                            technology="Tailwind" 
+                            explanation="In this Tailwind CSS module, Tailwind is being used to style the entire application interface. All visual elements including this explanation box are styled using Tailwind's utility classes." 
+                        />
                     </div>
                 )}
 
@@ -140,6 +145,11 @@ export default function TailwindLessonsPage() {
                                 {currentLesson.output}
                             </pre>
                         </div>
+
+                        <TechnologyUtilizationBox 
+                            technology="Tailwind" 
+                            explanation="In this Tailwind CSS module, Tailwind is being used to style the entire application interface. All visual elements including this explanation box are styled using Tailwind's utility classes." 
+                        />
 
                         <div className="flex justify-between mt-6 gap-4">
                             {/* Previous button (always left) */}

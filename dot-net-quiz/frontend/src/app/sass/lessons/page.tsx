@@ -65,39 +65,37 @@ export default function SassLessonsPage() {
     }
 
     if (loading) return <main className="p-6">Loading SASS lessons...</main>;
-    if (error) return <main className="p-6 text-red-600 dark:text-red-400">Error loading SASS lessons.</main>;
+    if (error) return <main className="p-6 text-red-600">Error loading SASS lessons.</main>;
 
     return (
-        // Updated container with glass morphism effect
         <div className="w-full p-6">
-            {/* Updated container with glass morphism effect */}
-            <div className="max-w-4xl mx-auto bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-                <Link href="/" className="inline-block mb-4 bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200 font-semibold py-1 px-2 rounded shadow hover:bg-pink-200 dark:hover:bg-pink-800 transition-colors duration-150 flex items-center gap-1 text-xs">
+            <div className="max-w-4xl mx-auto bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200">
+                <Link href="/" className="inline-block mb-4 bg-pink-100 text-pink-800 font-semibold py-1 px-2 rounded shadow hover:bg-pink-200 transition-colors duration-150 flex items-center gap-1 text-xs">
                     <span className="text-base">←</span> Back to Home
                 </Link>
-                <h1 className="text-3xl font-bold mb-6 mt-2 text-pink-700 dark:text-pink-300">Learn SASS Step by Step</h1>
+                <h1 className="text-3xl font-bold mb-6 mt-2 text-pink-700">Learn SASS Step by Step</h1>
 
                 {/* Topic Overview */}
                 {selectedTopic === null && (
                     <div>
                         {topicGroups.map(group => (
                             <div key={group.topic} className="mb-10">
-                                <h2 className="text-2xl font-extrabold mb-4 flex items-center gap-2 text-pink-700 dark:text-pink-300">
-                                    <span className="inline-block h-8 w-2 rounded bg-pink-500 dark:bg-pink-400 mr-3"></span>
-                                    <span className="bg-pink-50 dark:bg-pink-900 px-4 py-2 rounded-lg text-pink-800 dark:text-pink-200 shadow-sm">{group.topic}</span>
+                                <h2 className="text-2xl font-extrabold mb-4 flex items-center gap-2 text-pink-700">
+                                    <span className="inline-block h-8 w-2 rounded bg-pink-500 mr-3"></span>
+                                    <span className="bg-pink-50 px-4 py-2 rounded-lg text-pink-800 shadow-sm">{group.topic}</span>
                                 </h2>
                                 <ul className="space-y-2">
                                     {group.lessons.map((lesson, idx) => (
                                         <li
                                             key={lesson.id}
-                                            className="bg-gray-100/80 dark:bg-gray-700/80 backdrop-blur-sm p-4 rounded shadow hover:bg-pink-50 dark:hover:bg-pink-900 cursor-pointer transition-colors duration-150 border border-gray-200 dark:border-gray-600"
+                                            className="bg-gray-100/80 backdrop-blur-sm p-4 rounded shadow hover:bg-pink-50 cursor-pointer transition-colors duration-150 border border-gray-200"
                                             onClick={() => {
                                                 setSelectedTopic(group.topic);
                                                 setSelectedIndex(idx);
                                             }}
                                         >
-                                            <div className="font-semibold text-pink-700 dark:text-pink-300">{lesson.title}</div>
-                                            <p className="text-gray-600 dark:text-gray-300 mt-1 text-sm">{lesson.description}</p>
+                                            <div className="font-semibold text-pink-700">{lesson.title}</div>
+                                            <p className="text-gray-600 mt-1 text-sm">{lesson.description}</p>
                                         </li>
                                     ))}
                                 </ul>
@@ -108,10 +106,9 @@ export default function SassLessonsPage() {
 
                 {/* Lesson Detail View */}
                 {selectedTopic !== null && currentLesson && (
-                    // Updated container with glass morphism effect
-                    <div className="bg-gray-100/80 dark:bg-gray-700/80 backdrop-blur-sm p-6 rounded-xl shadow-lg space-y-4 mt-4 border border-gray-200 dark:border-gray-600">
+                    <div className="bg-gray-100/80 backdrop-blur-sm p-6 rounded-xl shadow-lg space-y-4 mt-4 border border-gray-200">
                         <button
-                            className="w-full mb-4 bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200 font-semibold py-1 rounded shadow hover:bg-pink-200 dark:hover:bg-pink-800 transition-colors duration-150 flex items-center justify-center gap-1 text-xs"
+                            className="w-full mb-4 bg-pink-100 text-pink-800 font-semibold py-1 rounded shadow hover:bg-pink-200 transition-colors duration-150 flex items-center justify-center gap-1 text-xs"
                             onClick={() => {
                                 setSelectedTopic(null);
                                 setSelectedIndex(null);
@@ -121,22 +118,22 @@ export default function SassLessonsPage() {
                         </button>
 
                         <div className="flex items-center justify-between mb-2">
-                            <span className="font-semibold text-pink-700 dark:text-pink-300">{currentLesson.topic}</span>
-                            <span className="text-sm text-gray-600 dark:text-gray-400">Lesson {currentLessonIndex! + 1} of {currentTopicLessons.length}</span>
+                            <span className="font-semibold text-pink-700">{currentLesson.topic}</span>
+                            <span className="text-sm text-gray-600">Lesson {currentLessonIndex! + 1} of {currentTopicLessons.length}</span>
                         </div>
                         <h2 className="text-2xl font-bold">{currentLesson.title}</h2>
-                        <p className="text-gray-700 dark:text-gray-300">{currentLesson.description}</p>
+                        <p className="text-gray-700">{currentLesson.description}</p>
 
                         <div>
-                            <h3 className="font-semibold mt-4 text-pink-700 dark:text-pink-300">SASS Example:</h3>
-                            <pre className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded text-sm whitespace-pre-wrap border border-gray-200 dark:border-gray-600 overflow-x-auto">
+                            <h3 className="font-semibold mt-4 text-pink-700">SASS Example:</h3>
+                            <pre className="bg-white/80 backdrop-blur-sm p-4 rounded text-sm whitespace-pre-wrap border border-gray-200 overflow-x-auto">
                                 <code>{currentLesson.codeExample}</code>
                             </pre>
                         </div>
 
                         <div>
-                            <h3 className="font-semibold mt-4 text-pink-700 dark:text-pink-300">Expected Output:</h3>
-                            <pre className="bg-black/80 text-white p-4 rounded text-sm whitespace-pre-wrap overflow-x-auto border border-gray-700 dark:border-gray-600">
+                            <h3 className="font-semibold mt-4 text-pink-700">Expected Output:</h3>
+                            <pre className="bg-black/80 text-white p-4 rounded text-sm whitespace-pre-wrap overflow-x-auto border border-gray-700">
                                 {currentLesson.output}
                             </pre>
                         </div>
@@ -145,14 +142,14 @@ export default function SassLessonsPage() {
                             {/* Previous button (always left) */}
                             {currentLessonIndex! > 0 ? (
                                 <button
-                                    className="w-1/2 bg-pink-600 dark:bg-pink-700 text-white px-4 py-2 rounded shadow hover:bg-pink-700 dark:hover:bg-pink-600 transition-colors duration-150 flex items-center"
+                                    className="w-1/2 bg-pink-600 text-white px-4 py-2 rounded shadow hover:bg-pink-700 transition-colors duration-150 flex items-center"
                                     onClick={() => setSelectedIndex(currentLessonIndex! - 1)}
                                 >
                                     <span className="mr-2">←</span> {currentTopicLessons[currentLessonIndex! - 1].title}
                                 </button>
                             ) : (
                                 <button
-                                    className="w-1/2 bg-gray-300 dark:bg-gray-600 text-gray-400 dark:text-gray-400 px-4 py-2 rounded shadow cursor-not-allowed"
+                                    className="w-1/2 bg-gray-300 text-gray-400 px-4 py-2 rounded shadow cursor-not-allowed"
                                     disabled
                                 >
                                     &nbsp;
@@ -161,14 +158,14 @@ export default function SassLessonsPage() {
                             {/* Next button (always right) */}
                             {currentLessonIndex! < currentTopicLessons.length - 1 ? (
                                 <button
-                                    className="w-1/2 bg-pink-600 dark:bg-pink-700 text-white px-4 py-2 rounded shadow hover:bg-pink-700 dark:hover:bg-pink-600 transition-colors duration-150 flex items-center justify-end"
+                                    className="w-1/2 bg-pink-600 text-white px-4 py-2 rounded shadow hover:bg-pink-700 transition-colors duration-150 flex items-center justify-end"
                                     onClick={() => setSelectedIndex(currentLessonIndex! + 1)}
                                 >
                                     {currentTopicLessons[currentLessonIndex! + 1].title} <span className="ml-2">→</span>
                                 </button>
                             ) : (
                                 <button
-                                    className="w-1/2 bg-gray-300 dark:bg-gray-600 text-gray-400 dark:text-gray-400 px-4 py-2 rounded shadow cursor-not-allowed"
+                                    className="w-1/2 bg-gray-300 text-gray-400 px-4 py-2 rounded shadow cursor-not-allowed"
                                     disabled
                                 >
                                     &nbsp;

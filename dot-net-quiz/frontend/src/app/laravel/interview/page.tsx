@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery, gql, useMutation } from '@apollo/client';
+import TechnologyUtilizationBox from '@/components/TechnologyUtilizationBox';
 
 interface LaravelInterviewQuestion {
   id: number;
@@ -503,6 +504,11 @@ export default function LaravelInterviewPage() {
           </div>
         </div>
       </div>
+      
+      <TechnologyUtilizationBox 
+        technology="Laravel" 
+        explanation="In this Laravel module, Laravel is being used as the backend framework to serve lesson content and quiz questions through the GraphQL API. The Laravel concepts are taught using the same technology that powers the backend." 
+      />
     </div>
   );
 }

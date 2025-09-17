@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery, gql, useMutation } from '@apollo/client';
+import TechnologyUtilizationBox from '@/components/TechnologyUtilizationBox';
 
 interface TailwindInterviewQuestion {
   id: number;
@@ -503,6 +504,11 @@ export default function TailwindInterviewPage() {
           </div>
         </div>
       </div>
+      
+      <TechnologyUtilizationBox 
+        technology="Tailwind" 
+        explanation="In this Tailwind CSS module, Tailwind is being used to style the entire application interface. All visual elements including this explanation box are styled using Tailwind's utility classes." 
+      />
     </div>
   );
 }

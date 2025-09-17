@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery, gql, useMutation } from '@apollo/client';
+import TechnologyUtilizationBox from '@/components/TechnologyUtilizationBox';
 
 interface InterviewQuestion {
   id: number;
@@ -48,7 +49,7 @@ const SUBMIT_ANSWER_MUTATION = gql`
 `;
 
 function formatQuestionText(text: string) {
-  return text.replace(/\b(Next\.js|App Router|Pages Router|getStaticProps|getServerSideProps|getInitialProps|useEffect|Vercel|Image|API Route|middleware|dynamic route|SSR|SSG|props|handler|POST|NEXT_PUBLIC_|env|React|component|props|state|build|deploy|route|layout|static|server|client|fetch|export|import|async|await|function|const|let|var|return|if|else|for|while|true|false|null)\b/g, '<code class="bg-gray-100 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">$1<\/code>');
+  return text.replace(/\b(Next\.js|App Router|Pages Router|getStaticProps|getServerSideProps|getInitialProps|useEffect|Vercel|Image|API Route|middleware|dynamic route|SSR|SSG|props|handler|POST|NEXT_PUBLIC_|env|React|component|props|state|build|deploy|route|layout|static|server|client|fetch|export|import|async|await|function|const|let|var|return|if|else|for|while|true|false|null)\b/g, '<code class="bg-gray-100 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">$1</code>');
 }
 
 function shuffle<T>(array: T[]): T[] {
@@ -205,57 +206,117 @@ export default function InterviewQuiz() {
     localStorage.removeItem(QUIZ_STORAGE_KEY);
   };
 
-  if (gqlLoading || loading) return <main className="p-6">Loading questions...</main>;
-  if (gqlError) return <main className="p-6 text-red-600 dark:text-red-400">Error loading questions.</main>;
-  if (!shuffledQuestions.length)
-    return <main className="p-6">No questions available.</main>;
-  if (current >= shuffledQuestions.length)
-    return (
-      <div className="text-center">
-        <h2 className={`text-3xl font-bold ${passed ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'} mb-4`}>
-          {passed ? 'Congratulations! 🎉' : 'Quiz Completed'}
-        </h2>
-        
-        <div className="mb-6">
-          <CircularProgress percent={successRate} />
-          <p className="mt-2 text-xl font-semibold text-gray-800 dark:text-gray-200">
-            Score: {score}/{shuffledQuestions.length} ({successRate}%)
-          </p>
-          <p className="mt-1 text-gray-600 dark:text-gray-300">
-            {passed 
-              ? 'Great job! You have successfully passed the interview quiz.' 
-              : 'You need to score at least 70% to pass. Keep learning and try again!'}
-          </p>
-        </div>
+  const restartQuiz = () => {
+    clearQuizState();
+    setCurrent(0);
+    setSelected(null);
+    setFeedback(null);
+    setScore(0);
+    setShuffled(false);
+  };
 
-        <div className="flex flex-wrap justify-center gap-4 mt-8">
-          <Link href="/" className="px-4 py-2 bg-gray-600 dark:bg-gray-700 text-white rounded hover:bg-gray-700 dark:hover:bg-gray-600">
-            Return Home
-          </Link>
-          {!passed && (
-            <Link href="/nextjs/lessons" className="px-4 py-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-150 font-semibold">
-              Review Lessons
-            </Link>
-          )}
+  if (gqlLoading || loading) return (
+    // Updated container with glass morphism effect
+    <div className="py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="animate-pulse flex flex-col items-center justify-center space-y-4">
+          <div className="h-12 w-2/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
+          <div className="h-64 w-full bg-gray-200 dark:bg-gray-700 rounded"></div>
+          <div className="h-10 w-1/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
+        </div>
+      </div>
+    </div>
+  );
+  
+  if (gqlError) return (
+    // Updated container with glass morphism effect
+    <div className="py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
+          <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
           <button
-            onClick={restartQuiz}
-            className="px-4 py-2 bg-purple-600 dark:bg-purple-700 text-white rounded hover:bg-purple-700 dark:hover:bg-purple-600"
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
           >
             Try Again
           </button>
         </div>
+      </div>
+    </div>
+  );
+  
+  if (!shuffledQuestions.length) return (
+    // Updated container with glass morphism effect
+    <div className="py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">No Questions Available</h2>
+          <p className="mb-4 text-gray-600 dark:text-gray-300">There are no Next.js interview questions available at this time.</p>
+          <Link href="/" className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200">
+            Return Home
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+  
+  if (current >= shuffledQuestions.length)
+    return (
+      // Updated container with glass morphism effect
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+          <div className="text-center">
+            <h2 className={`text-3xl font-bold ${passed ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'} mb-4`}>
+              {passed ? 'Congratulations! 🎉' : 'Quiz Completed'}
+            </h2>
+            
+            <div className="mb-6">
+              <CircularProgress percent={successRate} />
+              <p className="mt-2 text-xl font-semibold text-gray-800 dark:text-gray-200">
+                Score: {score}/{shuffledQuestions.length} ({successRate}%)
+              </p>
+              <p className="mt-1 text-gray-600 dark:text-gray-300">
+                {passed 
+                  ? 'Great job! You have successfully passed the interview quiz.' 
+                  : 'You need to score at least 70% to pass. Keep learning and try again!'}
+              </p>
+            </div>
 
-        {passed && (
-          <div className="mt-8 p-6 border-2 border-purple-200 dark:border-purple-700 rounded-lg bg-purple-50/80 dark:bg-purple-900/30 backdrop-blur-sm">
-            <h3 className="text-xl font-bold text-purple-800 dark:text-purple-200 mb-2">Certificate of Completion</h3>
-            <p className="text-purple-700 dark:text-purple-300">This certifies that you have successfully completed the Next.js interview preparation quiz.</p>
+            <div className="flex flex-wrap justify-center gap-4 mt-8">
+              <Link href="/" className="px-4 py-2 bg-gray-600 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
+                Return Home
+              </Link>
+              {!passed && (
+                <Link href="/nextjs/lessons" className="px-4 py-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-lg hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-150 font-semibold">
+                  Review Lessons
+                </Link>
+              )}
+              <button
+                onClick={restartQuiz}
+                className="px-4 py-2 bg-purple-600 dark:bg-purple-700 text-white rounded-lg hover:bg-purple-700 dark:hover:bg-purple-600 transition-colors duration-200"
+              >
+                Try Again
+              </button>
+            </div>
+
+            {passed && (
+              <div className="mt-8 p-6 border-2 border-purple-200 dark:border-purple-700 rounded-xl bg-purple-50/80 dark:bg-purple-900/30 backdrop-blur-sm">
+                <h3 className="text-xl font-bold text-purple-800 dark:text-purple-200 mb-2">Certificate of Completion</h3>
+                <p className="text-purple-700 dark:text-purple-300">This certifies that you have successfully completed the Next.js interview preparation quiz.</p>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     );
 
   const q = shuffledQuestions[current];
-  const percent = ((current) / shuffledQuestions.length) * 100;
+  const progress = ((current + 1) / shuffledQuestions.length) * 100;
+  
+  // Calculate success rate and passed status
+  const successRate = shuffledQuestions.length > 0 ? Math.round((score / shuffledQuestions.length) * 100) : 0;
+  const passed = successRate >= 70;
 
   // Get the choices in the correct display order
   const getDisplayChoices = () => {
@@ -263,7 +324,7 @@ export default function InterviewQuiz() {
     if (!q.choiceOrder) return q.choices;
     
     // Return choices in the shuffled order
-    return q.choiceOrder.map(index => q.choices[index]);
+    return q.choiceOrder.map(index => q.choices![index]);
   };
   
   // Get the correct answer index in the display order
@@ -276,119 +337,190 @@ export default function InterviewQuiz() {
   };
 
   return (
-    <main className="min-h-screen p-6 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm text-gray-800 dark:text-gray-100 flex flex-col items-center">
-      <div className="w-full max-w-xl bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-        <Link href="/" className="inline-block mb-4 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 font-semibold py-1 px-2 rounded shadow hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors duration-150 flex items-center gap-1 text-xs">
-          <span className="text-base">←</span> Back to Home
-        </Link>
-        <h1 className="text-2xl font-bold mb-4 mt-2 text-purple-800 dark:text-purple-300">Next.js Interview Quiz</h1>
-        <div className="bg-purple-50/80 dark:bg-purple-900/40 rounded-lg p-4 mb-6 border border-purple-200 dark:border-purple-800 backdrop-blur-sm">
-          <div className="flex items-center justify-between">
-            <div className="flex flex-col items-center">
-              <CircularProgress percent={percent} />
-              <div className="text-xs text-purple-600 dark:text-purple-400 mt-1 font-medium">Progress</div>
+    // Updated container with glass morphism effect
+    <div className="py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+        {/* Progress bar */}
+        <div className="bg-gray-100/80 dark:bg-gray-700/80 backdrop-blur-sm h-2">
+          <div 
+            className="bg-purple-600 dark:bg-purple-500 h-2 transition-all duration-300 ease-out" 
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+        
+        <div className="p-6">
+          {/* Header */}
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Question {current + 1} of {shuffledQuestions.length}</span>
+              <h3 className="text-lg font-medium text-purple-600 dark:text-purple-400">{q.topic}</h3>
             </div>
-            <div className="flex flex-col items-center">
-              <div className="text-2xl font-bold text-purple-700 dark:text-purple-300">{score}</div>
-              <div className="text-xs text-purple-600 dark:text-purple-400 font-medium">Score</div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">out of {shuffledQuestions.length}</div>
+            <div className="text-right">
+              <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Score</span>
+              <p className="text-lg font-bold text-gray-800 dark:text-gray-200">{score}/{current}</p>
+            </div>
+          </div>
+          
+          {/* Question */}
+          <div className="mb-8">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+              <span dangerouslySetInnerHTML={{ __html: formatQuestionText(q.question) }}></span>
+            </h2>
+            
+            {/* Multiple choice */}
+            {q.type === 'multiple-choice' && q.choices && (
+              <div className="space-y-3">
+                {getDisplayChoices().map((choice, displayIndex) => (
+                  <div 
+                    key={displayIndex}
+                    onClick={() => !feedback && setSelected(displayIndex)}
+                    className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 backdrop-blur-sm ${
+                      feedback 
+                        ? displayIndex === getDisplayCorrectAnswerIndex() 
+                          ? "bg-green-50/80 dark:bg-green-900/40 border-green-300 dark:border-green-600" 
+                          : displayIndex === selected 
+                            ? "bg-red-50/80 dark:bg-red-900/40 border-red-300 dark:border-red-600" 
+                            : "border-gray-200 dark:border-gray-600" 
+                        : displayIndex === selected 
+                          ? "bg-purple-50/80 dark:bg-purple-900/40 border-purple-300 dark:border-purple-600 shadow-sm" 
+                          : "border-gray-200 dark:border-gray-600 hover:border-purple-200 dark:hover:border-purple-500 hover:bg-purple-50/80 dark:hover:bg-purple-900/30"
+                    }`}
+                  >
+                    <div className="flex items-start">
+                      <div className={`flex-shrink-0 h-5 w-5 border rounded-full mt-0.5 mr-3 flex items-center justify-center transition-colors duration-200 ${
+                        feedback 
+                          ? displayIndex === getDisplayCorrectAnswerIndex() 
+                            ? "bg-green-500 border-green-500" 
+                            : displayIndex === selected 
+                              ? "bg-red-500 border-red-500" 
+                              : "border-gray-300 dark:border-gray-500" 
+                          : displayIndex === selected 
+                            ? "bg-purple-500 border-purple-500" 
+                            : "border-gray-300 dark:border-gray-500"
+                      }`}>
+                        {(feedback && displayIndex === getDisplayCorrectAnswerIndex()) && (
+                          <svg className="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                        {(feedback && displayIndex === selected && displayIndex !== getDisplayCorrectAnswerIndex()) && (
+                          <svg className="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                      </div>
+                      <span className="text-gray-800 dark:text-gray-200" dangerouslySetInnerHTML={{ __html: formatQuestionText(choice) }}></span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            
+            {/* Open-ended */}
+            {q.type === 'open-ended' && (
+              <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-gray-50/80 dark:bg-gray-700/80 backdrop-blur-sm">
+                <p className="text-gray-600 dark:text-gray-300 italic mb-2">This is an open-ended question. Think about your answer, then click &quot;Show Answer&quot; to see the explanation.</p>
+                {feedback ? (
+                  <div className="bg-green-50/80 dark:bg-green-900/40 border border-green-200 dark:border-green-700 rounded p-3 backdrop-blur-sm">
+                    <p className="font-medium text-green-800 dark:text-green-200">Explanation:</p>
+                    <p className="text-green-700 dark:text-green-300">{q.explanation}</p>
+                  </div>
+                ) : (
+                  <button
+                    onClick={async () => {
+                      const res = await fetch(`${baseUrl}/api/nextjs/interviewquestions/submit`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                          questionId: q.id,
+                          answerIndex: 0,
+                        }),
+                      });
+                      const data = await res.json();
+                      setFeedback(data);
+                      if (data.isCorrect) setScore((s) => s + 1);
+                    }}
+                    className="mt-2 px-4 py-2 bg-purple-600 dark:bg-purple-700 text-white rounded-lg hover:bg-purple-700 dark:hover:bg-purple-600 transition-colors duration-200"
+                  >
+                    Show Answer
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+          
+          {/* Feedback */}
+          {feedback && q.type === 'multiple-choice' && (
+            <div className={`mb-6 p-4 rounded-lg border backdrop-blur-sm ${
+              feedback.isCorrect 
+                ? 'bg-green-50/80 dark:bg-green-900/40 border-green-200 dark:border-green-700' 
+                : 'bg-red-50/80 dark:bg-red-900/40 border-red-200 dark:border-red-700'
+            }`}>
+              <p className={`font-medium ${
+                feedback.isCorrect 
+                  ? 'text-green-800 dark:text-green-200' 
+                  : 'text-red-800 dark:text-red-200'
+              }`}>
+                {feedback.isCorrect ? 'Correct!' : 'Incorrect'}
+              </p>
+              {feedback.explanation && (
+                <div className="mt-2">
+                  <p className="font-medium text-gray-800 dark:text-gray-200">Explanation:</p>
+                  <p className={
+                    feedback.isCorrect 
+                      ? 'text-green-700 dark:text-green-300' 
+                      : 'text-red-700 dark:text-red-300'
+                  }>{feedback.explanation}</p>
+                </div>
+              )}
+            </div>
+          )}
+          
+          {/* Actions */}
+          <div className="flex justify-between">
+            <button
+              onClick={() => { clearQuizState(); router.push('/'); }}
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50/80 dark:hover:bg-gray-700/80 backdrop-blur-sm transition-colors duration-200"
+            >
+              Exit Quiz
+            </button>
+            
+            <div>
+              {q.type === 'multiple-choice' && !feedback && (
+                <button
+                  onClick={handleSubmit}
+                  disabled={selected === null}
+                  className={`px-4 py-2 rounded-lg transition-colors duration-200 ${
+                    selected === null 
+                      ? 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed' 
+                      : 'bg-purple-600 dark:bg-purple-700 text-white hover:bg-purple-700 dark:hover:bg-purple-600'
+                  }`}
+                >
+                  Submit
+                </button>
+              )}
+              
+              {feedback && (
+                <button
+                  onClick={nextQuestion}
+                  className={`px-4 py-2 rounded-lg text-white transition-colors duration-200 ${
+                    current === shuffledQuestions.length - 1 
+                      ? 'bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600' 
+                      : 'bg-purple-600 dark:bg-purple-700 hover:bg-purple-700 dark:hover:bg-purple-600'
+                  }`}
+                >
+                  {current === shuffledQuestions.length - 1 ? 'Finish Quiz 🎉' : 'Next Question'}
+                </button>
+              )}
             </div>
           </div>
         </div>
-        <div className="mb-2 text-purple-600 dark:text-purple-400 font-medium">Topic: {q.topic}</div>
-        <div className="mb-4 font-semibold text-lg" dangerouslySetInnerHTML={{ __html: `Q${current + 1}: ${formatQuestionText(q.question)}` }} />
-        {/* Multiple choice */}
-        {q.type === "multiple-choice" && q.choices && (
-          <ul className="space-y-3">
-            {getDisplayChoices().map((choice, displayIndex) => (
-              <li key={displayIndex}>
-                <label
-                  className={`flex items-start p-4 border rounded-lg cursor-pointer transition-colors backdrop-blur-sm ${
-                    selected === displayIndex
-                      ? "border-purple-300 dark:border-purple-600 bg-purple-50/80 dark:bg-purple-900/40"
-                      : "border-gray-200 dark:border-gray-700 hover:border-purple-200 dark:hover:border-purple-500"
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name={`question-${q.id}`}
-                    value={displayIndex}
-                    checked={selected === displayIndex}
-                    onChange={() => setSelected(displayIndex)}
-                    className="mt-1 mr-3 h-4 w-4 text-purple-600 dark:text-purple-400 focus:ring-purple-500"
-                  />
-                  <span className="text-gray-800 dark:text-gray-200" dangerouslySetInnerHTML={{ __html: formatQuestionText(choice) }} />
-                </label>
-              </li>
-            ))}
-          </ul>
-        )}
-        {q.type === "open-ended" && (
-          <div className="mb-6 p-4 bg-purple-50/80 dark:bg-purple-900/40 rounded-lg border border-purple-200 dark:border-purple-800 backdrop-blur-sm">
-            <div className="text-purple-700 dark:text-purple-300 italic text-sm">💭 Think about your answer, then reveal the explanation below</div>
-          </div>
-        )}
-        {!feedback && q.type === "multiple-choice" && (
-          <button
-            className="w-full bg-purple-600 dark:bg-purple-700 text-white px-6 py-3 rounded-lg shadow hover:bg-purple-700 dark:hover:bg-purple-600 disabled:opacity-50 transition-colors duration-150 font-semibold"
-            onClick={handleSubmit}
-            disabled={selected === null}
-          >
-            Submit Answer
-          </button>
-        )}
-        {!feedback && q.type === "open-ended" && (
-          <button
-            className="w-full bg-purple-600 dark:bg-purple-700 text-white px-6 py-3 rounded-lg shadow hover:bg-purple-700 dark:hover:bg-purple-600 transition-colors duration-150 font-semibold"
-            onClick={async () => {
-              const res = await fetch(`${baseUrl}/api/nextjs/interviewquestions/submit`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  questionId: q.id,
-                  answerIndex: 0,
-                }),
-              });
-              const data = await res.json();
-              setFeedback(data);
-              if (data.isCorrect) setScore((s) => s + 1);
-            }}
-          >
-            Show Explanation
-          </button>
-        )}
-        {feedback && (
-          <div className="mt-6">
-            {q.type === "multiple-choice" && (
-              <div className={`p-4 rounded-lg mb-4 backdrop-blur-sm ${feedback.isCorrect ? "bg-green-100/80 dark:bg-green-900/40 text-green-800 dark:text-green-300 border border-green-200 dark:border-green-800" : "bg-red-100/80 dark:bg-red-900/40 text-red-800 dark:text-red-300 border border-red-200 dark:border-red-800"}`}>
-                <div className="font-bold text-lg mb-2">
-                  {feedback.isCorrect ? "✅ Correct!" : "❌ Incorrect"}
-                </div>
-              </div>
-            )}
-            <div className="bg-gray-100/80 dark:bg-gray-700/80 p-4 rounded-lg border border-gray-200 dark:border-gray-600 backdrop-blur-sm">
-              <span className="font-semibold text-gray-800 dark:text-gray-200">Explanation:</span>
-              <div className="mt-2 text-gray-700 dark:text-gray-300" dangerouslySetInnerHTML={{ __html: formatQuestionText(feedback.explanation ?? "") }} />
-            </div>
-            {current < shuffledQuestions.length - 1 && (
-              <button
-                className="w-full mt-4 bg-purple-600 dark:bg-purple-700 text-white px-6 py-3 rounded-lg shadow hover:bg-purple-700 dark:hover:bg-purple-600 transition-colors duration-150 font-semibold"
-                onClick={nextQuestion}
-              >
-                Next Question →
-              </button>
-            )}
-            {current === shuffledQuestions.length - 1 && (
-              <button
-                className="w-full mt-4 bg-green-600 dark:bg-green-700 text-white px-6 py-3 rounded-lg shadow hover:bg-green-700 dark:hover:bg-green-600 transition-colors duration-150 font-semibold"
-                onClick={nextQuestion}
-              >
-                Finish Quiz 🎉
-              </button>
-            )}
-          </div>
-        )}
       </div>
-    </main>
+      
+      <TechnologyUtilizationBox 
+        technology="Next.js" 
+        explanation="In this Next.js module, Next.js is being used as the React framework to build the entire user interface. Next.js features like server-side rendering, static site generation, and API routes are used to create a performant and SEO-friendly application." 
+      />
+    </div>
   );
 }

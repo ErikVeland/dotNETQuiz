@@ -91,13 +91,13 @@ public class InterviewQuestionsController : ControllerBase
             Question = "What is the output of: Console.WriteLine(\"{1 + 2}3\");?",
             Choices = new[]
             {
-                "33",
+                "{1 + 2}3",
                 "123",
                 "15",
                 "43"
             },
             CorrectAnswer = 0,
-            Explanation = "1 + 2 = 3, so the output is '33'."
+            Explanation = "Since the string is not prefixed with $, it is not interpolated. The braces { } are treated as literal characters, so the output is '{1 + 2}3'."
         },
         new InterviewQuestion
         {

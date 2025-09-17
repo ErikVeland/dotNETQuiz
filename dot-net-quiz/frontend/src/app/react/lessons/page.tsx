@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery, gql } from '@apollo/client';
+import TechnologyUtilizationBox from '@/components/TechnologyUtilizationBox';
 
 type ReactLesson = {
     id: number;
@@ -103,6 +104,10 @@ export default function ReactLessonsPage() {
                                 </ul>
                             </div>
                         ))}
+                        <TechnologyUtilizationBox 
+                            technology="React" 
+                            explanation="In this React module, React is being used as the core frontend framework to build the entire user interface. React components manage the state and rendering of the lesson content and quiz questions." 
+                        />
                     </div>
                 )}
 
@@ -140,6 +145,11 @@ export default function ReactLessonsPage() {
                                 {currentLesson.output}
                             </pre>
                         </div>
+
+                        <TechnologyUtilizationBox 
+                            technology="React" 
+                            explanation="In this React module, React is being used as the core frontend framework to build the entire user interface. React components manage the state and rendering of the lesson content and quiz questions." 
+                        />
 
                         <div className="flex justify-between mt-6 gap-4">
                             {/* Previous button (always left) */}

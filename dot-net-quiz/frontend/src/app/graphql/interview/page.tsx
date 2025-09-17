@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery, gql, useMutation } from '@apollo/client';
+import TechnologyUtilizationBox from '@/components/TechnologyUtilizationBox';
 
 interface InterviewQuestion {
   id: number;
@@ -221,17 +222,60 @@ export default function InterviewQuiz() {
     setCurrent((c) => c + 1);
   };
 
-  if (gqlLoading || loading) return <main className="p-6">Loading questions...</main>;
-  if (gqlError || error) return <main className="p-6 text-red-600 dark:text-red-400">Error loading questions.</main>;
-  if (!questions.length)
-    return <main className="p-6">No questions available.</main>;
+  if (gqlLoading || loading) return (
+    // Updated container with glass morphism effect
+    <div className="py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="animate-pulse flex flex-col items-center justify-center space-y-4">
+          <div className="h-12 w-2/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
+          <div className="h-64 w-full bg-gray-200 dark:bg-gray-700 rounded"></div>
+          <div className="h-10 w-1/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
+        </div>
+      </div>
+    </div>
+  );
+  
+  if (gqlError || error) return (
+    // Updated container with glass morphism effect
+    <div className="py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
+          <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+  
+  if (!questions.length) return (
+    // Updated container with glass morphism effect
+    <div className="py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">No Questions Available</h2>
+          <p className="mb-4 text-gray-600 dark:text-gray-300">There are no GraphQL interview questions available at this time.</p>
+          <Link href="/" className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200">
+            Return Home
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+  
   if (current >= questions.length)
     return (
-      <main className="min-h-screen p-6 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm text-gray-800 dark:text-gray-100 flex flex-col items-center justify-center">
-        {current >= questionsFromGQL.length && (
+      // Updated container with glass morphism effect
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
-            <h2 className={`text-3xl font-bold ${passed ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'} mb-4`}>
-              {passed ? 'Congratulations! 🎉' : 'Quiz Completed'}
+            <h2 className="text-3xl font-bold text-pink-600 dark:text-pink-400 mb-4">
+              Quiz Completed
             </h2>
             
             <div className="mb-6">
@@ -241,41 +285,41 @@ export default function InterviewQuiz() {
               </p>
               <p className="mt-1 text-gray-600 dark:text-gray-300">
                 {passed 
-                  ? 'Great job! You have successfully passed the interview quiz.' 
+                  ? 'Great job! You have successfully passed the GraphQL interview quiz.' 
                   : 'You need to score at least 70% to pass. Keep learning and try again!'}
               </p>
             </div>
 
             <div className="flex flex-wrap justify-center gap-4 mt-8">
-              <Link href="/" className="px-4 py-2 bg-gray-600 dark:bg-gray-700 text-white rounded hover:bg-gray-700 dark:hover:bg-gray-600">
+              <Link href="/" className="px-4 py-2 bg-gray-600 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
                 Return Home
               </Link>
               {!passed && (
-                <Link href="/graphql/lessons" className="px-4 py-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-150 font-semibold">
+                <Link href="/graphql/lessons" className="px-4 py-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-lg hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-150 font-semibold">
                   Review Lessons
                 </Link>
               )}
               <button
                 onClick={restartQuiz}
-                className="px-4 py-2 bg-pink-600 dark:bg-pink-700 text-white rounded hover:bg-pink-700 dark:hover:bg-pink-600"
+                className="px-4 py-2 bg-pink-600 dark:bg-pink-700 text-white rounded-lg hover:bg-pink-700 dark:hover:bg-pink-600 transition-colors duration-200"
               >
                 Try Again
               </button>
             </div>
 
             {passed && (
-              <div className="mt-8 p-6 border-2 border-pink-200 dark:border-pink-700 rounded-lg bg-pink-50/80 dark:bg-pink-900/30 backdrop-blur-sm">
+              <div className="mt-8 p-6 border-2 border-pink-200 dark:border-pink-700 rounded-xl bg-pink-50/80 dark:bg-pink-900/30 backdrop-blur-sm">
                 <h3 className="text-xl font-bold text-pink-800 dark:text-pink-200 mb-2">Certificate of Completion</h3>
                 <p className="text-pink-700 dark:text-pink-300">This certifies that you have successfully completed the GraphQL interview preparation quiz.</p>
               </div>
             )}
           </div>
-        )}
-      </main>
+        </div>
+      </div>
     );
 
   const q = questions[current];
-  const percent = ((current) / questions.length) * 100;
+  const progress = ((current + 1) / questions.length) * 100;
 
   // Get the choices in the correct display order
   const getDisplayChoices = () => {
@@ -296,120 +340,180 @@ export default function InterviewQuiz() {
   };
 
   return (
-    <main className="min-h-screen p-6 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm text-gray-800 dark:text-gray-100 flex flex-col items-center">
-      <div className="w-full max-w-xl bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-        <Link href="/" className="inline-block mb-4 bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200 font-semibold py-1 px-2 rounded shadow hover:bg-pink-200 dark:hover:bg-pink-800 transition-colors duration-150 flex items-center gap-1 text-xs">
-          <span className="text-base">←</span> Back to Home
-        </Link>
-        <h1 className="text-2xl font-bold mb-4 mt-2 text-pink-800 dark:text-pink-200">GraphQL Interview Quiz</h1>
-        <div className="bg-pink-50/80 dark:bg-pink-900/40 rounded-lg p-4 mb-6 border border-pink-200 dark:border-pink-700 backdrop-blur-sm">
-          <div className="flex items-center justify-between">
-            <div className="flex flex-col items-center">
-              <CircularProgress percent={percent} />
-              <div className="text-xs text-pink-600 dark:text-pink-400 mt-1 font-medium">Progress</div>
+    // Updated container with glass morphism effect
+    <div className="py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+        {/* Progress bar */}
+        <div className="bg-gray-100/80 dark:bg-gray-700/80 backdrop-blur-sm h-2">
+          <div 
+            className="bg-pink-600 dark:bg-pink-500 h-2 transition-all duration-300 ease-out" 
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+        
+        <div className="p-6">
+          {/* Header */}
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Question {current + 1} of {questions.length}</span>
+              <h3 className="text-lg font-medium text-pink-600 dark:text-pink-400">{q.topic}</h3>
             </div>
-            <div className="flex flex-col items-center">
-              <div className="text-2xl font-bold text-pink-700 dark:text-pink-300">{score}</div>
-              <div className="text-xs text-pink-600 dark:text-pink-400 font-medium">Score</div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">out of {questions.length}</div>
+            <div className="text-right">
+              <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Score</span>
+              <p className="text-lg font-bold text-gray-800 dark:text-gray-200">{score}/{current}</p>
+            </div>
+          </div>
+          
+          {/* Question */}
+          <div className="mb-8">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+              <span dangerouslySetInnerHTML={{ __html: formatQuestionText(q.question) }}></span>
+            </h2>
+            
+            {/* Multiple choice */}
+            {q.type === 'multiple-choice' && q.choices && (
+              <div className="space-y-3">
+                {getDisplayChoices().map((choice, displayIndex) => (
+                  <div 
+                    key={displayIndex}
+                    onClick={() => !feedback && setSelected(displayIndex)}
+                    className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 backdrop-blur-sm ${
+                      feedback 
+                        ? displayIndex === getDisplayCorrectAnswerIndex() 
+                          ? "bg-green-50/80 dark:bg-green-900/40 border-green-300 dark:border-green-600" 
+                          : displayIndex === selected 
+                            ? "bg-red-50/80 dark:bg-red-900/40 border-red-300 dark:border-red-600" 
+                            : "border-gray-200 dark:border-gray-600" 
+                        : displayIndex === selected 
+                          ? "bg-pink-50/80 dark:bg-pink-900/40 border-pink-300 dark:border-pink-600 shadow-sm" 
+                          : "border-gray-200 dark:border-gray-600 hover:border-pink-200 dark:hover:border-pink-500 hover:bg-pink-50/80 dark:hover:bg-pink-900/30"
+                    }`}
+                  >
+                    <div className="flex items-start">
+                      <div className={`flex-shrink-0 h-5 w-5 border rounded-full mt-0.5 mr-3 flex items-center justify-center transition-colors duration-200 ${
+                        feedback 
+                          ? displayIndex === getDisplayCorrectAnswerIndex() 
+                            ? "bg-green-500 border-green-500" 
+                            : displayIndex === selected 
+                              ? "bg-red-500 border-red-500" 
+                              : "border-gray-300 dark:border-gray-500" 
+                          : displayIndex === selected 
+                            ? "bg-pink-500 border-pink-500" 
+                            : "border-gray-300 dark:border-gray-500"
+                      }`}>
+                        {(feedback && displayIndex === getDisplayCorrectAnswerIndex()) && (
+                          <svg className="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                        {(feedback && displayIndex === selected && displayIndex !== getDisplayCorrectAnswerIndex()) && (
+                          <svg className="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                      </div>
+                      <span className="text-gray-800 dark:text-gray-200" dangerouslySetInnerHTML={{ __html: formatQuestionText(choice) }}></span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            
+            {/* Open-ended */}
+            {q.type === 'open-ended' && (
+              <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-gray-50/80 dark:bg-gray-700/80 backdrop-blur-sm">
+                <p className="text-gray-600 dark:text-gray-300 italic mb-2">This is an open-ended question. Think about your answer, then click &quot;Show Answer&quot; to see the explanation.</p>
+                {feedback ? (
+                  <div className="bg-green-50/80 dark:bg-green-900/40 border border-green-200 dark:border-green-700 rounded p-3 backdrop-blur-sm">
+                    <p className="font-medium text-green-800 dark:text-green-200">Explanation:</p>
+                    <p className="text-green-700 dark:text-green-300">{q.explanation}</p>
+                  </div>
+                ) : (
+                  <button
+                    onClick={async () => {
+                      setFeedback({ isCorrect: true, explanation: q.explanation });
+                    }}
+                    className="mt-2 px-4 py-2 bg-pink-600 dark:bg-pink-700 text-white rounded-lg hover:bg-pink-700 dark:hover:bg-pink-600 transition-colors duration-200"
+                  >
+                    Show Answer
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+          
+          {/* Feedback */}
+          {feedback && q.type === 'multiple-choice' && (
+            <div className={`mb-6 p-4 rounded-lg border backdrop-blur-sm ${
+              feedback.isCorrect 
+                ? 'bg-green-50/80 dark:bg-green-900/40 border-green-200 dark:border-green-700' 
+                : 'bg-red-50/80 dark:bg-red-900/40 border-red-200 dark:border-red-700'
+            }`}>
+              <p className={`font-medium ${
+                feedback.isCorrect 
+                  ? 'text-green-800 dark:text-green-200' 
+                  : 'text-red-800 dark:text-red-200'
+              }`}>
+                {feedback.isCorrect ? 'Correct!' : 'Incorrect'}
+              </p>
+              {feedback.explanation && (
+                <div className="mt-2">
+                  <p className="font-medium text-gray-800 dark:text-gray-200">Explanation:</p>
+                  <p className={
+                    feedback.isCorrect 
+                      ? 'text-green-700 dark:text-green-300' 
+                      : 'text-red-700 dark:text-red-300'
+                  }>{feedback.explanation}</p>
+                </div>
+              )}
+            </div>
+          )}
+          
+          {/* Actions */}
+          <div className="flex justify-between">
+            <button
+              onClick={() => { clearQuizState(); router.push('/'); }}
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50/80 dark:hover:bg-gray-700/80 backdrop-blur-sm transition-colors duration-200"
+            >
+              Exit Quiz
+            </button>
+            
+            <div>
+              {q.type === 'multiple-choice' && !feedback && (
+                <button
+                  onClick={handleSubmit}
+                  disabled={selected === null}
+                  className={`px-4 py-2 rounded-lg transition-colors duration-200 ${
+                    selected === null 
+                      ? 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed' 
+                      : 'bg-pink-600 dark:bg-pink-700 text-white hover:bg-pink-700 dark:hover:bg-pink-600'
+                  }`}
+                >
+                  Submit
+                </button>
+              )}
+              
+              {feedback && (
+                <button
+                  onClick={nextQuestion}
+                  className={`px-4 py-2 rounded-lg text-white transition-colors duration-200 ${
+                    current === questions.length - 1 
+                      ? 'bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600' 
+                      : 'bg-pink-600 dark:bg-pink-700 hover:bg-pink-700 dark:hover:bg-pink-600'
+                  }`}
+                >
+                  {current === questions.length - 1 ? 'Finish Quiz 🎉' : 'Next Question'}
+                </button>
+              )}
             </div>
           </div>
         </div>
-        <div className="mb-2 text-pink-600 dark:text-pink-400 font-medium">Topic: {q.topic}</div>
-        <div className="mb-4 font-semibold text-lg" dangerouslySetInnerHTML={{ __html: `Q${current + 1}: ${formatQuestionText(q.question)}` }} />
-          {/* Multiple choice */}
-          {q.type === "multiple-choice" && q.choices && (
-            <ul className="space-y-3">
-              {getDisplayChoices().map((choice, displayIndex) => (
-                <li key={displayIndex}>
-                  <label
-                    className={`flex items-start p-4 border rounded-lg cursor-pointer transition-colors backdrop-blur-sm ${
-                      selected === displayIndex
-                        ? "border-pink-300 dark:border-pink-600 bg-pink-50/80 dark:bg-pink-900/40"
-                        : "border-gray-200 dark:border-gray-700 hover:border-pink-200 dark:hover:border-pink-500"
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name={`question-${q.id}`}
-                      value={displayIndex}
-                      checked={selected === displayIndex}
-                      onChange={() => setSelected(displayIndex)}
-                      className="mt-1 mr-3 h-4 w-4 text-pink-600 dark:text-pink-400 focus:ring-pink-500"
-                    />
-                    <span className="text-gray-800 dark:text-gray-200" dangerouslySetInnerHTML={{ __html: formatQuestionText(choice) }} />
-                  </label>
-                </li>
-              ))}
-            </ul>
-          )}
-          {/* Open-ended */}
-          {q.type === "open-ended" && (
-            <div className="mb-6 p-4 bg-pink-50/80 dark:bg-pink-900/40 rounded-lg border border-pink-200 dark:border-pink-700 backdrop-blur-sm">
-              <div className="text-pink-700 dark:text-pink-300 italic text-sm">💭 Think about your answer, then reveal the explanation below</div>
-            </div>
-          )}
-          {!feedback && q.type === "multiple-choice" && (
-            <button
-              className="w-full bg-pink-600 dark:bg-pink-700 text-white px-6 py-3 rounded-lg shadow hover:bg-pink-700 dark:hover:bg-pink-600 disabled:opacity-50 transition-colors duration-150 font-semibold"
-              onClick={handleSubmit}
-              disabled={selected === null}
-            >
-              Submit Answer
-            </button>
-          )}
-          {!feedback && q.type === "open-ended" && (
-            <button
-              className="w-full bg-pink-600 dark:bg-pink-700 text-white px-6 py-3 rounded-lg shadow hover:bg-pink-700 dark:hover:bg-pink-600 transition-colors duration-150 font-semibold"
-              onClick={async () => {
-                const res = await fetch(`${baseUrl}/api/graphql/interviewquestions/submit`, {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({
-                    questionId: q.id,
-                    answerIndex: 0,
-                  }),
-                });
-                const data = await res.json();
-                setFeedback(data);
-                if (data.isCorrect) setScore((s) => s + 1);
-              }}
-            >
-              Show Explanation
-            </button>
-          )}
-          {feedback && (
-            <div className="mt-6">
-              {q.type === "multiple-choice" && (
-                <div className={`p-4 rounded-lg mb-4 backdrop-blur-sm ${feedback.isCorrect ? "bg-green-100/80 dark:bg-green-900/40 text-green-800 dark:text-green-200 border border-green-200 dark:border-green-800" : "bg-red-100/80 dark:bg-red-900/40 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-800"}`}>
-                    <div className="font-bold text-lg mb-2">
-                      {feedback.isCorrect ? "✅ Correct!" : "❌ Incorrect"}
-                    </div>
-                  </div>
-              )}
-              <div className="bg-gray-100/80 dark:bg-gray-700/80 p-4 rounded-lg border border-gray-200 dark:border-gray-600 backdrop-blur-sm">
-                <span className="font-semibold text-gray-800 dark:text-gray-200">Explanation:</span>
-                <div className="mt-2 text-gray-700 dark:text-gray-300" dangerouslySetInnerHTML={{ __html: formatQuestionText(feedback.explanation ?? "") }} />
-              </div>
-              {current < questionsFromGQL.length - 1 && (
-                <button
-                  className="w-full mt-4 bg-pink-600 dark:bg-pink-700 text-white px-6 py-3 rounded-lg shadow hover:bg-pink-700 dark:hover:bg-pink-600 transition-colors duration-150 font-semibold"
-                  onClick={nextQuestion}
-                >
-                  Next Question →
-                </button>
-              )}
-              {current === questionsFromGQL.length - 1 && (
-                <button
-                  className="w-full mt-4 bg-green-600 dark:bg-green-700 text-white px-6 py-3 rounded-lg shadow hover:bg-green-600 dark:hover:bg-green-600 transition-colors duration-150 font-semibold"
-                  onClick={nextQuestion}
-                >
-                  Finish Quiz 🎉
-                </button>
-              )}
-            </div>
-          )}
       </div>
-    </main>
+      
+      <TechnologyUtilizationBox 
+        technology="GraphQL" 
+        explanation="In this GraphQL module, GraphQL is being used as the API query language to fetch lesson content and quiz questions. GraphQL's flexible query system allows for precise data fetching tailored to each component's needs." 
+      />
+    </div>
   );
 }

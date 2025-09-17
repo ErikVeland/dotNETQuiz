@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { gql, useQuery } from '@apollo/client';
+import TechnologyUtilizationBox from '@/components/TechnologyUtilizationBox';
 
 const GET_SASS_QUESTIONS = gql`
   query GetSassInterviewQuestions {
@@ -28,11 +30,62 @@ interface SassInterviewQuestion {
   explanation?: string | null;
 }
 
+// Format code snippets with proper styling for both light and dark modes
+function formatCode(text: string | undefined | null) {
+  if (!text) return text;
+  return text.replace(/`([^`]+)`/g, '<code class="bg-gray-100 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">$1</code>');
+}
+
+function CircularProgress({ percent }: { percent: number }) {
+  const radius = 32;
+  const stroke = 6;
+  const normalizedRadius = radius - stroke / 2;
+  const circumference = normalizedRadius * 2 * Math.PI;
+  const strokeDashoffset = circumference - (percent / 100) * circumference;
+  return (
+    <svg height={radius * 2} width={radius * 2} className="block mx-auto">
+      <circle
+        stroke="#e5e7eb"
+        fill="transparent"
+        strokeWidth={stroke}
+        r={normalizedRadius}
+        cx={radius}
+        cy={radius}
+      />
+      <circle
+        stroke="#ec4899"
+        fill="transparent"
+        strokeWidth={stroke}
+        strokeLinecap="round"
+        strokeDasharray={circumference + " " + circumference}
+        style={{ strokeDashoffset, transition: "stroke-dashoffset 0.5s" }}
+        r={normalizedRadius}
+        cx={radius}
+        cy={radius}
+      />
+      <text
+        x="50%"
+        y="50%"
+        textAnchor="middle"
+        dy="0.3em"
+        fontSize="1.1em"
+        fill="#ec4899"
+        fontWeight="bold"
+      >
+        {Math.round(percent)}%
+      </text>
+    </svg>
+  );
+}
+
 export default function SassInterviewPage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<number[]>([]);
+  const [selected, setSelected] = useState<number | null>(null);
+  const [feedback, setFeedback] = useState<{isCorrect: boolean, explanation?: string} | null>(null);
   const [showResults, setShowResults] = useState(false);
   const [shuffledQuestions, setShuffledQuestions] = useState<SassInterviewQuestion[]>([]);
+  const router = useRouter();
   
   const { loading, error, data } = useQuery(GET_SASS_QUESTIONS);
 
@@ -44,25 +97,53 @@ export default function SassInterviewPage() {
     }
   }, [data]);
 
-  const formatCode = (text: string | undefined | null) => {
-    if (!text) return text;
-    return text.replace(/`([^`]+)`/g, '<code className="bg-pink-100 text-pink-800 px-1 py-0.5 rounded text-sm">$1</code>');
-  };
-
   const handleAnswer = (answerIndex: number) => {
+    if (selected !== null) return; // Prevent multiple selections
+    
+    setSelected(answerIndex);
+    
+    const currentQuestion = shuffledQuestions[currentQuestionIndex];
+    const isCorrect = answerIndex === currentQuestion.correctAnswer;
+    
+    setFeedback({
+      isCorrect,
+      explanation: currentQuestion.explanation || undefined
+    });
+    
     const newAnswers = [...userAnswers, answerIndex];
     setUserAnswers(newAnswers);
 
+    // Move to next question or show results after a delay
+    setTimeout(() => {
+      if (currentQuestionIndex < shuffledQuestions.length - 1) {
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+        setSelected(null);
+        setFeedback(null);
+      } else {
+        setShowResults(true);
+      }
+    }, 1500);
+  };
+
+  const nextQuestion = () => {
     if (currentQuestionIndex < shuffledQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setSelected(null);
+      setFeedback(null);
     } else {
       setShowResults(true);
     }
   };
 
+  const clearQuizState = () => {
+    // Clear any stored quiz state
+  };
+
   const resetQuiz = () => {
     setCurrentQuestionIndex(0);
     setUserAnswers([]);
+    setSelected(null);
+    setFeedback(null);
     setShowResults(false);
     
     // Reshuffle questions
@@ -72,99 +153,75 @@ export default function SassInterviewPage() {
     }
   };
 
-  if (loading) return <div className="flex justify-center items-center h-screen">Loading SASS interview questions...</div>;
-  if (error) return <div className="flex justify-center items-center h-screen text-red-500">Error loading questions. Please try again later.</div>;
-  if (!shuffledQuestions.length) return <div className="flex justify-center items-center h-screen">No questions available.</div>;
+  if (loading) return (
+    // Updated container with glass morphism effect
+    <div className="py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="animate-pulse flex flex-col items-center justify-center space-y-4">
+          <div className="h-12 w-2/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
+          <div className="h-64 w-full bg-gray-200 dark:bg-gray-700 rounded"></div>
+          <div className="h-10 w-1/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
+        </div>
+      </div>
+    </div>
+  );
+  
+  if (error) return (
+    // Updated container with glass morphism effect
+    <div className="py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
+          <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+  
+  if (!shuffledQuestions.length) return (
+    // Updated container with glass morphism effect
+    <div className="py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">No Questions Available</h2>
+          <p className="mb-4 text-gray-600 dark:text-gray-300">There are no SASS interview questions available at this time.</p>
+          <Link href="/" className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200">
+            Return Home
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
 
   const currentQuestion = shuffledQuestions[currentQuestionIndex];
   const score = userAnswers.reduce((acc, answer, index) => {
     return acc + (answer === shuffledQuestions[index].correctAnswer ? 1 : 0);
   }, 0);
+  
+  const progress = ((currentQuestionIndex + 1) / shuffledQuestions.length) * 100;
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 py-8 px-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <Link href="/sass" className="text-pink-600 hover:text-pink-800 font-medium flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
-            </svg>
-            Back to SASS
-          </Link>
-          <h1 className="text-3xl font-bold text-pink-800">SASS Interview Quiz</h1>
-        </div>
-
-        {!showResults ? (
-          <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-            <div className="flex justify-between items-center mb-6">
-              <span className="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm font-medium">
-                Question {currentQuestionIndex + 1} of {shuffledQuestions.length}
-              </span>
-              <span className="text-gray-500 text-sm">
-                Topic: {currentQuestion.topic}
-              </span>
-            </div>
-
-            <div 
-              className="text-xl mb-8 text-gray-800"
-              dangerouslySetInnerHTML={{ 
-                __html: formatCode(currentQuestion.question) || '' 
-              }}
-            />
-
-            {currentQuestion.choices && (
-              <div className="space-y-4">
-                {currentQuestion.choices.map((choice, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleAnswer(index)}
-                    className="w-full text-left p-4 rounded-lg border border-pink-200 hover:border-pink-400 hover:bg-pink-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50"
-                  >
-                    <div className="flex items-center">
-                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center mr-4">
-                        <span className="text-pink-800 font-medium">{String.fromCharCode(65 + index)}</span>
-                      </div>
-                      <span 
-                        className="text-gray-700"
-                        dangerouslySetInnerHTML={{ 
-                          __html: formatCode(choice) || '' 
-                        }}
-                      />
-                    </div>
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {currentQuestion.type === 'open-ended' && (
-              <div className="mt-6">
-                <textarea 
-                  className="w-full p-4 border border-pink-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-                  rows={4}
-                  placeholder="Type your answer here..."
-                ></textarea>
-                <button
-                  onClick={() => handleAnswer(-1)}
-                  className="mt-4 bg-pink-600 hover:bg-pink-700 text-white font-medium py-2 px-6 rounded-lg transition-colors duration-200"
-                >
-                  Submit Answer
-                </button>
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-            <h2 className="text-2xl font-bold text-pink-800 mb-6">Quiz Results</h2>
+  if (showResults) {
+    return (
+      // Updated container with glass morphism effect
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-pink-600 dark:text-pink-400 mb-4">
+              Quiz Completed
+            </h2>
             
-            <div className="text-center mb-8">
-              <div className="inline-block bg-pink-100 rounded-full p-6 mb-4">
-                <span className="text-4xl font-bold text-pink-800">{score}</span>
-                <span className="text-xl text-pink-600">/{shuffledQuestions.length}</span>
-              </div>
-              <p className="text-lg text-gray-700">
-                You scored {score} out of {shuffledQuestions.length} questions correctly
+            <div className="mb-6">
+              <CircularProgress percent={Math.round((score / shuffledQuestions.length) * 100)} />
+              <p className="mt-2 text-xl font-semibold text-gray-800 dark:text-gray-200">
+                Score: {score}/{shuffledQuestions.length} ({Math.round((score / shuffledQuestions.length) * 100)}%)
               </p>
-              <p className="text-gray-600 mt-2">
+              <p className="mt-1 text-gray-600 dark:text-gray-300">
                 {score === shuffledQuestions.length ? 'Perfect! You\'re a SASS expert! 🎉' : 
                  score >= shuffledQuestions.length * 0.8 ? 'Great job! You know your SASS well! 👍' : 
                  score >= shuffledQuestions.length * 0.6 ? 'Good effort! Keep learning! 💪' : 
@@ -172,81 +229,196 @@ export default function SassInterviewPage() {
               </p>
             </div>
 
-            <div className="space-y-6">
-              {shuffledQuestions.map((question, index) => (
-                <div 
-                  key={question.id} 
-                  className={`p-4 rounded-lg border ${
-                    userAnswers[index] === question.correctAnswer 
-                      ? 'bg-green-50 border-green-200' 
-                      : 'bg-red-50 border-red-200'
-                  }`}
-                >
-                  <div className="flex justify-between items-start mb-3">
-                    <h3 className="font-medium text-gray-800">
-                      <span className="mr-2">{index + 1}.</span>
-                      <span dangerouslySetInnerHTML={{ __html: formatCode(question.question) || '' }} />
-                    </h3>
-                    <span className={`px-2 py-1 rounded text-xs font-medium ${
-                      userAnswers[index] === question.correctAnswer 
-                        ? 'bg-green-100 text-green-800' 
-                        : 'bg-red-100 text-red-800'
-                    }`}>
-                      {userAnswers[index] === question.correctAnswer ? 'Correct' : 'Incorrect'}
-                    </span>
-                  </div>
-                  
-                  {userAnswers[index] !== question.correctAnswer && (
-                    <div className="mb-3">
-                      <p className="text-sm text-gray-600">
-                        <span className="font-medium">Your answer:</span>{' '}
-                        <span className="text-red-600">
-                          {question.choices && userAnswers[index] >= 0 
-                            ? question.choices[userAnswers[index]] 
-                            : 'No answer provided'}
-                        </span>
-                      </p>
-                    </div>
-                  )}
-                  
-                  <div className="mb-3">
-                    <p className="text-sm text-gray-600">
-                      <span className="font-medium">Correct answer:</span>{' '}
-                      <span className="text-green-600">
-                        {question.choices && question.correctAnswer !== null 
-                          ? question.choices[question.correctAnswer] 
-                          : 'N/A'}
-                      </span>
-                    </p>
-                  </div>
-                  
-                  {question.explanation && (
-                    <div className="text-sm text-gray-700 bg-pink-50 p-3 rounded">
-                      <span className="font-medium">Explanation:</span> {question.explanation}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <div className="flex justify-center mt-8">
+            <div className="flex flex-wrap justify-center gap-4 mt-8">
+              <Link href="/" className="px-4 py-2 bg-gray-600 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
+                Return Home
+              </Link>
+              {score < Math.ceil(shuffledQuestions.length * 0.7) && (
+                <Link href="/sass/lessons" className="px-4 py-2 bg-gradient-to-r from-pink-500 via-rose-500 to-red-500 text-white rounded-lg hover:from-pink-600 hover:via-rose-600 hover:to-red-600 transition-all duration-150 font-semibold">
+                  Review Lessons
+                </Link>
+              )}
               <button
                 onClick={resetQuiz}
-                className="bg-pink-600 hover:bg-pink-700 text-white font-medium py-3 px-8 rounded-lg transition-colors duration-200 flex items-center"
+                className="px-4 py-2 bg-pink-600 dark:bg-pink-700 text-white rounded-lg hover:bg-pink-700 dark:hover:bg-pink-600 transition-colors duration-200"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
-                </svg>
-                Retake Quiz
+                Try Again
               </button>
             </div>
-          </div>
-        )}
 
-        <div className="text-center text-gray-600 text-sm">
-          <p>Test your SASS knowledge with these interview questions. Good luck!</p>
+            {score >= Math.ceil(shuffledQuestions.length * 0.7) && (
+              <div className="mt-8 p-6 border-2 border-pink-200 dark:border-pink-700 rounded-xl bg-pink-50/80 dark:bg-pink-900/30 backdrop-blur-sm">
+                <h3 className="text-xl font-bold text-pink-800 dark:text-pink-200 mb-2">Certificate of Completion</h3>
+                <p className="text-pink-700 dark:text-pink-300">This certifies that you have successfully completed the SASS interview preparation quiz.</p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
+    );
+  }
+
+  return (
+    // Updated container with glass morphism effect
+    <div className="py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+        {/* Progress bar */}
+        <div className="bg-gray-100/80 dark:bg-gray-700/80 backdrop-blur-sm h-2">
+          <div 
+            className="bg-pink-600 dark:bg-pink-500 h-2 transition-all duration-300 ease-out" 
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+        
+        <div className="p-6">
+          {/* Header */}
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Question {currentQuestionIndex + 1} of {shuffledQuestions.length}</span>
+              <h3 className="text-lg font-medium text-pink-600 dark:text-pink-400">{currentQuestion.topic}</h3>
+            </div>
+            <div className="text-right">
+              <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Score</span>
+              <p className="text-lg font-bold text-gray-800 dark:text-gray-200">{score}/{currentQuestionIndex}</p>
+            </div>
+          </div>
+          
+          {/* Question */}
+          <div className="mb-8">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+              <span dangerouslySetInnerHTML={{ __html: formatCode(currentQuestion.question) || '' }}></span>
+            </h2>
+            
+            {/* Multiple choice */}
+            {currentQuestion.choices && (
+              <div className="space-y-3">
+                {currentQuestion.choices.map((choice, index) => (
+                  <div 
+                    key={index}
+                    onClick={() => !feedback && handleAnswer(index)}
+                    className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 backdrop-blur-sm ${
+                      feedback 
+                        ? index === currentQuestion.correctAnswer 
+                          ? "bg-green-50/80 dark:bg-green-900/40 border-green-300 dark:border-green-600" 
+                          : index === selected 
+                            ? "bg-red-50/80 dark:bg-red-900/40 border-red-300 dark:border-red-600" 
+                            : "border-gray-200 dark:border-gray-600" 
+                        : index === selected 
+                          ? "bg-pink-50/80 dark:bg-pink-900/40 border-pink-300 dark:border-pink-600 shadow-sm" 
+                          : "border-gray-200 dark:border-gray-600 hover:border-pink-200 dark:hover:border-pink-500 hover:bg-pink-50/80 dark:hover:bg-pink-900/30"
+                    }`}
+                  >
+                    <div className="flex items-start">
+                      <div className={`flex-shrink-0 h-5 w-5 border rounded-full mt-0.5 mr-3 flex items-center justify-center transition-colors duration-200 ${
+                        feedback 
+                          ? index === currentQuestion.correctAnswer 
+                            ? "bg-green-500 border-green-500" 
+                            : index === selected 
+                              ? "bg-red-500 border-red-500" 
+                              : "border-gray-300 dark:border-gray-500" 
+                          : index === selected 
+                            ? "bg-pink-500 border-pink-500" 
+                            : "border-gray-300 dark:border-gray-500"
+                      }`}>
+                        {(feedback && index === currentQuestion.correctAnswer) && (
+                          <svg className="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                        {(feedback && index === selected && index !== currentQuestion.correctAnswer) && (
+                          <svg className="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                      </div>
+                      <span className="text-gray-800 dark:text-gray-200" dangerouslySetInnerHTML={{ __html: formatCode(choice) || '' }}></span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            
+            {/* Open-ended */}
+            {currentQuestion.type === 'open-ended' && (
+              <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-gray-50/80 dark:bg-gray-700/80 backdrop-blur-sm">
+                <p className="text-gray-600 dark:text-gray-300 italic mb-2">This is an open-ended question. Think about your answer, then click &quot;Show Answer&quot; to see the explanation.</p>
+                {feedback ? (
+                  <div className="bg-green-50/80 dark:bg-green-900/40 border border-green-200 dark:border-green-700 rounded p-3 backdrop-blur-sm">
+                    <p className="font-medium text-green-800 dark:text-green-200">Explanation:</p>
+                    <p className="text-green-700 dark:text-green-300">{currentQuestion.explanation}</p>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setFeedback({ isCorrect: true, explanation: currentQuestion.explanation });
+                    }}
+                    className="mt-2 px-4 py-2 bg-pink-600 dark:bg-pink-700 text-white rounded-lg hover:bg-pink-700 dark:hover:bg-pink-600 transition-colors duration-200"
+                  >
+                    Show Answer
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+          
+          {/* Feedback */}
+          {feedback && currentQuestion.choices && (
+            <div className={`mb-6 p-4 rounded-lg border backdrop-blur-sm ${
+              feedback.isCorrect 
+                ? 'bg-green-50/80 dark:bg-green-900/40 border-green-200 dark:border-green-700' 
+                : 'bg-red-50/80 dark:bg-red-900/40 border-red-200 dark:border-red-700'
+            }`}>
+              <p className={`font-medium ${
+                feedback.isCorrect 
+                  ? 'text-green-800 dark:text-green-200' 
+                  : 'text-red-800 dark:text-red-200'
+              }`}>
+                {feedback.isCorrect ? 'Correct!' : 'Incorrect'}
+              </p>
+              {feedback.explanation && (
+                <div className="mt-2">
+                  <p className="font-medium text-gray-800 dark:text-gray-200">Explanation:</p>
+                  <p className={
+                    feedback.isCorrect 
+                      ? 'text-green-700 dark:text-green-300' 
+                      : 'text-red-700 dark:text-red-300'
+                  }>{feedback.explanation}</p>
+                </div>
+              )}
+            </div>
+          )}
+          
+          {/* Actions */}
+          <div className="flex justify-between">
+            <button
+              onClick={() => { clearQuizState(); router.push('/'); }}
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50/80 dark:hover:bg-gray-700/80 backdrop-blur-sm transition-colors duration-200"
+            >
+              Exit Quiz
+            </button>
+            
+            <div>
+              {feedback && (
+                <button
+                  onClick={nextQuestion}
+                  className={`px-4 py-2 rounded-lg text-white transition-colors duration-200 ${
+                    currentQuestionIndex === shuffledQuestions.length - 1 
+                      ? 'bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600' 
+                      : 'bg-pink-600 dark:bg-pink-700 hover:bg-pink-700 dark:hover:bg-pink-600'
+                  }`}
+                >
+                  {currentQuestionIndex === shuffledQuestions.length - 1 ? 'Finish Quiz 🎉' : 'Next Question'}
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <TechnologyUtilizationBox 
+        technology="SASS" 
+        explanation="In this SASS module, SASS is being used to preprocess CSS for the application. The styling system uses SASS variables, nesting, and mixins to create maintainable stylesheets." 
+      />
     </div>
   );
 }
