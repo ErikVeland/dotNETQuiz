@@ -185,6 +185,10 @@ export default function NodeLessonsPage() {
                                 </button>
                             )}
                         </div>
+                        <TechnologyUtilizationBox 
+                            technology="Node.js" 
+                            explanation="In this Node.js module, Node.js is being used on the backend to serve lesson content and quiz questions through the GraphQL API. The Node.js concepts are taught using the same technology that powers the backend." 
+                        />
                         {currentLessonIndex === currentTopicLessons.length - 1 && topicGroups.length > 1 && (
                             <>
                                 {isLastCategory ? (
