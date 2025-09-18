@@ -350,7 +350,7 @@ export default function SassInterviewPage() {
                 ) : (
                   <button
                     onClick={() => {
-                      setFeedback({ isCorrect: true, explanation: currentQuestion.explanation });
+                      setFeedback({ isCorrect: true, explanation: currentQuestion.explanation ?? undefined });
                     }}
                     className="mt-2 px-4 py-2 bg-pink-600 dark:bg-pink-700 text-white rounded-lg hover:bg-pink-700 dark:hover:bg-pink-600 transition-colors duration-200"
                   >

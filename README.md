@@ -207,12 +207,46 @@ The frontend will start on `http://localhost:3000`
 
 ## Deployment
 
-### Frontend
+### Frontend (Vercel)
+
+1. Ensure the frontend code is in a Git repository
+2. Connect your Git repository to Vercel:
+   - Log in to your Vercel account
+   - Click "New Project"
+   - Import your Git repository
+3. Configure Project Settings in Vercel:
+   - Build Command: `npm run build`
+   - Output Directory: `.next`
+   - Install Command: `npm install`
+   - Development Command: `npm run dev`
+4. Set up environment variables in Vercel dashboard:
+   - Name: `NEXT_PUBLIC_API_BASE`
+   - Value: The URL of your deployed backend
+5. Deploy the application
+
+### Backend (.NET)
+
+The .NET backend can be deployed to any platform that supports .NET 9:
+
+#### Azure App Service
+1. Create an Azure App Service for .NET
+2. Deploy the backend using Azure CLI or Visual Studio
+3. Configure the App Service to use .NET 9 runtime
+4. Update CORS settings to allow requests from your Vercel domain
+
+#### Other Options
+- AWS Elastic Beanstalk
+- Google Cloud Run
+- DigitalOcean App Platform
+
+### Local Development
+
+#### Frontend
 ```bash
 npm run build
 ```
 
-### Backend
+#### Backend
 ```bash
 dotnet publish
 ```

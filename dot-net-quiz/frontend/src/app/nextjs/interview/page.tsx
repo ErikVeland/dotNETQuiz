@@ -246,6 +246,10 @@ export default function InterviewQuiz() {
     </div>
   );
   
+  // Calculate success rate and passed status for the completed quiz
+  const successRate = shuffledQuestions.length > 0 ? Math.round((score / shuffledQuestions.length) * 100) : 0;
+  const passed = successRate >= 70;
+  
   if (!shuffledQuestions.length) return (
     // Updated container with glass morphism effect
     <div className="py-12 px-4 sm:px-6 lg:px-8">
@@ -313,10 +317,6 @@ export default function InterviewQuiz() {
 
   const q = shuffledQuestions[current];
   const progress = ((current + 1) / shuffledQuestions.length) * 100;
-  
-  // Calculate success rate and passed status
-  const successRate = shuffledQuestions.length > 0 ? Math.round((score / shuffledQuestions.length) * 100) : 0;
-  const passed = successRate >= 70;
 
   // Get the choices in the correct display order
   const getDisplayChoices = () => {

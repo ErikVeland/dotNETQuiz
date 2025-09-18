@@ -1,6 +1,79 @@
-# Frontend for Fullstack Academy
+# Fullstack Academy Frontend
 
-This is the Next.js frontend for Fullstack Academy that provides a user interface for learning and interview preparation in modern web technologies. The frontend consumes content from a unified GraphQL API that seamlessly integrates content from all technology modules.
+This is the frontend application for the Fullstack Academy project, built with Next.js 15, React 19, and TypeScript.
+
+## Deployment to Vercel
+
+### Prerequisites
+
+1. A Vercel account (free tier available)
+2. A GitHub/GitLab/Bitbucket account for code integration
+3. The backend GraphQL API deployed and accessible via a public URL
+4. Node.js 18+ installed locally for testing
+5. Git installed locally
+
+### Vercel Deployment Process
+
+1. Ensure the frontend code is in a Git repository
+2. Verify the project structure:
+   ```
+   frontend/
+   ├── package.json
+   ├── next.config.ts
+   ├── src/
+   │   ├── app/
+   │   │   ├── graphql/
+   │   │   ├── interview/
+   │   │   ├── lessons/
+   │   │   ├── nextjs/
+   │   │   ├── laravel/
+   │   │   ├── react/
+   │   │   ├── tailwind/
+   │   │   ├── node/
+   │   │   ├── sass/
+   │   │   └── page.tsx
+   │   ├── components/
+   │   └── apolloClient.ts
+   └── public/
+   ```
+
+3. Check that the apolloClient.ts file is configured to accept environment variables:
+   ```typescript
+   const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5022';
+   const graphqlUrl = `${baseUrl}/graphql`;
+   ```
+
+4. Connect your Git repository to Vercel:
+   - Log in to your Vercel account
+   - Click "New Project"
+   - Import your Git repository (GitHub/GitLab/Bitbucket)
+   - Select the repository containing the frontend code
+
+5. Configure Project Settings:
+   - Build Command: `npm run build`
+   - Output Directory: `.next`
+   - Install Command: `npm install`
+   - Development Command: `npm run dev`
+
+6. Set up environment variables in Vercel dashboard:
+   - Name: `NEXT_PUBLIC_API_BASE`
+   - Value: The URL of your deployed backend (e.g., `https://your-backend-app.azurewebsites.net`)
+
+7. Deploy the application
+
+### Local Development
+
+1. Create a `.env.local` file with:
+   ```
+   NEXT_PUBLIC_API_BASE=http://localhost:5022
+   ```
+
+2. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+The application will be available at http://localhost:3000.
 
 ## Features
 
