@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: fullstack-academy
+    runtime: docker
+    plan: free
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 8080
