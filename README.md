@@ -298,4 +298,3 @@ curl -X POST -H "Content-Type: application/json" -d '{"query":"{ nodeLessons { i
 Test SASS lessons query:
 ```bash
 curl -X POST -H "Content-Type: application/json" -d '{"query":"{ sassLessons { id title topic } }"}' http://localhost:5022/graphql
-```# Force redeploy
