@@ -13,7 +13,6 @@ RUN npm run build
 FROM node:18-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
-ENV PORT=3000
 
 # Copy standalone output
 COPY --from=builder /app/.next/standalone ./
@@ -24,5 +23,5 @@ COPY --from=builder /app/.next/static ./.next/static
 
 EXPOSE 3000
 
-# Use the PORT environment variable
+# Use the PORT environment variable provided by Render.com, default to 3000
 CMD ["sh", "-c", "node server.js"]
