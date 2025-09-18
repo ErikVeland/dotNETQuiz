@@ -10,9 +10,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
-        policy => policy.AllowAnyOrigin()
+        policy => policy.WithOrigins(
+                "http://localhost:3000",
+                "https://fullstackacademy.onrender.com",
+                "https://fullstack-academy.onrender.com")
                         .AllowAnyHeader()
-                        .AllowAnyMethod());
+                        .AllowAnyMethod()
+                        .AllowCredentials());
 });
 
 // Add authorization services
