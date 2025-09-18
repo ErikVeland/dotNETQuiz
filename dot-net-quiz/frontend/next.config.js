@@ -10,9 +10,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   // Ensure standalone mode works correctly
-  experimental: {
-    serverComponentsExternalPackages: [],
-  },
+  serverExternalPackages: [],
 };
 
 module.exports = nextConfig;

@@ -13,20 +13,17 @@ RUN npm run build
 FROM node:18-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
-# Copy necessary files
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/package*.json ./
-COPY --from=deps /app/node_modules ./node_modules
 
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry.
-# ENV NEXT_TELEMETRY_DISABLED 1
+# Copy standalone output
+COPY --from=builder /app/.next/standalone ./
+# Copy public assets
+COPY --from=builder /app/public ./public
+# Copy .next/static for static assets
+COPY --from=builder /app/.next/static ./.next/static
 
 EXPOSE 3000
 
 ENV PORT=3000
 # server.js is created by next build from the standalone mode
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
