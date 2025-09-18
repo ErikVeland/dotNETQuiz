@@ -30,9 +30,6 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
-
 # vercel
 .vercel
 
@@ -66,7 +63,7 @@ temp/
 *.spec.js
 
 # Package managers
-package-lock.json
+// Removed package-lock.json from here - it's needed for Docker builds
 yarn.lock
 pnpm-lock.yaml
 
