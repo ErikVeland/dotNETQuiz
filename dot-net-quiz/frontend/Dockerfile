@@ -13,6 +13,8 @@ RUN npm run build
 FROM node:18-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
+# Copy env files
+COPY .env* ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package*.json ./
@@ -25,6 +27,7 @@ COPY --from=deps /app/node_modules ./node_modules
 
 EXPOSE 3000
 
+ENV PORT=3000
 # server.js is created by next build from the standalone mode
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
 CMD ["npm", "start"]
