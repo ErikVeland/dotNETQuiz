@@ -13,6 +13,7 @@ RUN npm run build
 FROM node:18-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
+ENV PORT=3000
 
 # Copy standalone output
 COPY --from=builder /app/.next/standalone ./
@@ -23,7 +24,5 @@ COPY --from=builder /app/.next/static ./.next/static
 
 EXPOSE 3000
 
-ENV PORT=3000
-# server.js is created by next build from the standalone mode
-# https://nextjs.org/docs/pages/api-reference/next-config-js/output
-CMD ["node", "server.js"]
+# Use the PORT environment variable
+CMD ["sh", "-c", "node server.js"]
