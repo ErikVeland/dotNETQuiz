@@ -24,4 +24,4 @@ COPY --from=builder /app/.next/static ./.next/static
 EXPOSE 3000
 
 # Use the PORT environment variable provided by Render.com, default to 3000
-CMD ["sh", "-c", "node server.js"]
+CMD ["node", "server.js"]
