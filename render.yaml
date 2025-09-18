@@ -1,14 +1,24 @@
 services:
   - type: web
-    name: fullstack-academy
+    name: fullstack-academy-backend
     runtime: docker
     plan: free
+    rootDir: dot-net-quiz/backend
     envVars:
       - key: ASPNETCORE_ENVIRONMENT
         value: Production
-      - key: NODE_ENV
-        value: production
       - key: PORT
         value: 8080
     healthCheckPath: /api/health
+    autoDeploy: true
+
+  - type: web
+    name: fullstack-academy-frontend
+    runtime: docker
+    plan: free
+    rootDir: dot-net-quiz/frontend
+    envVars:
+      - key: NODE_ENV
+        value: production
+    healthCheckPath: /
     autoDeploy: true
