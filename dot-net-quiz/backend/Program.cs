@@ -56,6 +56,9 @@ app.MapGraphQL("/graphql"); // Keep original GraphQL endpoint
 // Configure Banana Cake Pop with a default query
 app.MapBananaCakePop("/graphql-ui");
 
+// Health check endpoint
+app.MapGet("/api/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }));
+
 app.Run();
 
 // Configure JSON serializer options for camelCase to PascalCase conversion
