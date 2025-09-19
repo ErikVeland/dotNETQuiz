@@ -1,12 +1,12 @@
 # Dockerfile for Next.js Frontend
 FROM node:18-alpine AS deps
 WORKDIR /app
-COPY package*.json ./
-RUN npm ci
+COPY dot-net-quiz/frontend/package*.json ./
+RUN npm install
 
 FROM node:18-alpine AS builder
 WORKDIR /app
-COPY . .
+COPY dot-net-quiz/frontend/. .
 COPY --from=deps /app/node_modules ./node_modules
 RUN npm run build
 
