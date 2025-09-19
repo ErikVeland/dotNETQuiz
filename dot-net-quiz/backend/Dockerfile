@@ -5,10 +5,9 @@ ENV ASPNETCORE_URLS=http://*:8080
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
-COPY dot-net-quiz/backend/backend.csproj ./dot-net-quiz/backend/
-RUN dotnet restore ./dot-net-quiz/backend/backend.csproj
+COPY backend.csproj ./
+RUN dotnet restore backend.csproj
 COPY . .
-WORKDIR "/src/dot-net-quiz/backend"
 RUN dotnet build "backend.csproj" -c Release -o /app/build
 
 FROM build AS publish
