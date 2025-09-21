@@ -23,7 +23,11 @@ query {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch('http://localhost:5022/graphql', {
+      // Use the environment variable or default to the hosted backend
+      const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'https://fullstack-academy-backend.onrender.com';
+      const graphqlUrl = `${baseUrl}/graphql`;
+      
+      const res = await fetch(graphqlUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
