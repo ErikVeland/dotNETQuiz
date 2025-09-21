@@ -17,13 +17,9 @@ builder.WebHost.UseKestrel(options =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
-        policy => policy.WithOrigins(
-                "http://localhost:3000",
-                "https://fullstackacademy.onrender.com",
-                "https://fullstack-academy.onrender.com")
+        policy => policy.AllowAnyOrigin()
                         .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials());
+                        .AllowAnyMethod());
 });
 
 // Add authorization services

@@ -14,6 +14,7 @@ FROM node:18-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 ENV HOSTNAME=0.0.0.0
+ENV NEXT_PUBLIC_API_BASE=https://fullstack-academy-backend.onrender.com
 
 # Copy standalone output
 COPY --from=builder /app/.next/standalone ./
@@ -21,6 +22,9 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/public ./public
 # Copy .next/static for static assets
 COPY --from=builder /app/.next/static ./.next/static
+# Copy environment files
+COPY --from=builder /app/.env* ./
+
 
 EXPOSE 3000
 

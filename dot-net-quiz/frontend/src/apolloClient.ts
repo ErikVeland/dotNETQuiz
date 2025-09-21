@@ -5,6 +5,12 @@ export const createApolloClient = () => {
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5022';
   const graphqlUrl = `${baseUrl}/graphql`;
   
+  console.log('Apollo Client Configuration:', {
+    baseUrl,
+    graphqlUrl,
+    env: process.env.NEXT_PUBLIC_API_BASE
+  });
+  
   return new ApolloClient({
     uri: graphqlUrl,
     cache: new InMemoryCache(),

@@ -23,7 +23,6 @@ interface AnswerResult {
   explanation?: string;
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:5022";
 const QUIZ_STORAGE_KEY = "dotnet_quiz_state_v1";
 
 const QUESTIONS_QUERY = gql`

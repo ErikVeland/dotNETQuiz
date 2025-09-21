@@ -11,6 +11,20 @@ const nextConfig = {
   },
   // Ensure standalone mode works correctly
   serverExternalPackages: [],
+  
+  // Add rewrites for API proxying
+  async rewrites() {
+    return [
+      {
+        source: '/graphql',
+        destination: 'https://fullstack-academy-backend.onrender.com/graphql'
+      },
+      {
+        source: '/api/:path*',
+        destination: 'https://fullstack-academy-backend.onrender.com/api/:path*'
+      }
+    ];
+  }
 };
 
 module.exports = nextConfig;
