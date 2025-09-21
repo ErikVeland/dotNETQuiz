@@ -81,6 +81,7 @@ export default function AnimatedBackgroundDemo() {
   };
 
   return (
+    // Keep the original background for this demo page since it's showcasing the animated background component
     <div className="min-h-screen relative">
       {/* Animated Background Component */}
       <AnimatedBackground 
@@ -101,9 +102,9 @@ export default function AnimatedBackgroundDemo() {
               </h1>
               <Link 
                 href="/" 
-                className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium"
+                className="inline-block mb-4 bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200 font-semibold py-1 px-2 rounded shadow hover:bg-pink-200 dark:hover:bg-pink-800 transition-colors duration-150 flex items-center gap-1 text-xs"
               >
-                ← Back to Home
+                <span className="text-base">←</span> Back to Home
               </Link>
             </div>
           </div>

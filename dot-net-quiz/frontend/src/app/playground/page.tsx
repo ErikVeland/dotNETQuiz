@@ -48,13 +48,13 @@ query {
   };
 
   return (
-    // Updated container with glass morphism effect
-    <div className="min-h-screen bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm p-6">
-      <div className="max-w-7xl mx-auto">
+    // Updated container with standardized background gradient
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">GraphQL Playground</h1>
-          <Link href="/" className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
-            ← Back to Home
+          <Link href="/" className="inline-block mb-4 bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200 font-semibold py-1 px-2 rounded shadow hover:bg-pink-200 dark:hover:bg-pink-800 transition-colors duration-150 flex items-center gap-1 text-xs">
+            <span className="text-base">←</span> Back to Home
           </Link>
         </div>
 
