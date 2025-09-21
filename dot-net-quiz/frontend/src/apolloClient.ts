@@ -2,7 +2,8 @@ import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 export const createApolloClient = () => {
   // Use the base URL from environment or fallback to localhost:5022
-  const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5022';
+  // Explicitly check for the Render environment variable
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'https://fullstack-academy-backend.onrender.com';
   const graphqlUrl = `${baseUrl}/graphql`;
   
   console.log('Apollo Client Configuration:', {
