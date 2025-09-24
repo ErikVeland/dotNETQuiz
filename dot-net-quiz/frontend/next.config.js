@@ -24,6 +24,25 @@ const nextConfig = {
         destination: 'https://fullstack-academy-backend.onrender.com/api/:path*'
       }
     ];
+  },
+  
+  // Add custom headers to handle CORS and other issues
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY'
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff'
+          }
+        ]
+      }
+    ];
   }
 };
 

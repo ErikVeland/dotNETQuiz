@@ -89,6 +89,9 @@ export default function NodeLessonsPage() {
             error.message?.includes('NetworkError') ||
             error.message?.includes('ECONNREFUSED') ||
             error.message?.includes('timeout') ||
+            error.message?.includes('502') || // Bad Gateway
+            error.message?.includes('503') || // Service Unavailable
+            error.message?.includes('504') || // Gateway Timeout
             error.networkError
         );
     };

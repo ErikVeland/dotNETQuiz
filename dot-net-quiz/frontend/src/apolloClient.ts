@@ -9,6 +9,9 @@ const shouldRetry = (error: any) => {
     error.message?.includes('NetworkError') ||
     error.message?.includes('ECONNREFUSED') ||
     error.message?.includes('timeout') ||
+    error.message?.includes('502') ||  // Bad gateway (Render specific)
+    error.message?.includes('503') ||  // Service unavailable
+    error.message?.includes('504') ||  // Gateway timeout
     error.statusCode === 408 ||  // Request timeout
     error.statusCode === 502 ||  // Bad gateway
     error.statusCode === 503 ||  // Service unavailable
