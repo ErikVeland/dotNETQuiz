@@ -39,7 +39,18 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
             ${colors.join(', ')}
           )`;
           backgroundRef.current.style.backgroundSize = '600% 600%';
-          backgroundRef.current.style.animation = `gradientFlow ${speed}s ease infinite`;
+          
+          // Check if user prefers reduced motion
+          const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          
+          // Only animate if user doesn't prefer reduced motion
+          if (!prefersReducedMotion) {
+            backgroundRef.current.style.animation = `gradientFlow ${speed}s ease infinite`;
+          } else {
+            // Apply a static gradient when reduced motion is preferred
+            backgroundRef.current.style.animation = 'none';
+          }
+          
           backgroundRef.current.style.filter = `blur(${blur}px)`;
           backgroundRef.current.style.opacity = `${opacity}`;
         }
@@ -54,7 +65,10 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
       ref={backgroundRef}
       className={`fixed top-0 left-0 w-full h-full -z-10 ${className}`}
       style={{
-        animation: `gradientFlow ${speed}s ease infinite`,
+        // Check if user prefers reduced motion
+        animation: typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+          ? 'none' 
+          : `gradientFlow ${speed}s ease infinite`,
       }}
     />
   );

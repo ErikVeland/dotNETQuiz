@@ -93,9 +93,9 @@ export default function AnimatedBackgroundDemo() {
       
       {/* Content */}
       <div className="relative z-10 min-h-screen flex flex-col">
-        {/* Header */}
-        <header className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header - Modified to have transparent background */}
+        <header className="bg-transparent border-b border-gray-200 dark:border-gray-700">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-6">
               <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 Animated Background Demo
@@ -111,10 +111,10 @@ export default function AnimatedBackgroundDemo() {
         </header>
 
         {/* Main Content */}
-        <main className="flex-grow flex items-center justify-center p-4 sm:p-6 lg:p-8">
+        <main className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="w-full max-w-4xl">
-            <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-              <div className="p-6 sm:p-8">
+            <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+              <div className="p-6">
                 <div className="text-center mb-8">
                   <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
                     Animated Background Component

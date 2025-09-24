@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery, gql } from '@apollo/client';
 import TechnologyUtilizationBox from '@/components/TechnologyUtilizationBox';
+import EnhancedLoadingComponent from '@/components/EnhancedLoadingComponent';
 
 type ReactLesson = {
     id: number;
@@ -36,8 +37,24 @@ const REACT_LESSONS_QUERY = gql`
 export default function ReactLessonsPage() {
     const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+    const retryCountRef = useRef(0);
 
-    const { data, loading, error } = useQuery(REACT_LESSONS_QUERY);
+    const { data, loading, error, refetch } = useQuery(REACT_LESSONS_QUERY, {
+        onError: (error) => {
+            // Increment retry counter for network errors
+            if (isNetworkError(error)) {
+                retryCountRef.current += 1;
+            }
+        }
+    });
+    
+    // Reset retry count on successful load
+    useEffect(() => {
+        if (data && !loading) {
+            retryCountRef.current = 0;
+        }
+    }, [data, loading]);
+
     const lessons: ReactLesson[] = data?.reactLessons ?? [];
 
     // Group lessons by topic
@@ -65,8 +82,51 @@ export default function ReactLessonsPage() {
         nextCategoryTopic = topicGroups[(currentTopicIdx + 1) % topicGroups.length]?.topic ?? null;
     }
 
-    if (loading) return <main className="p-6">Loading React lessons...</main>;
-    if (error) return <main className="p-6 text-red-600 dark:text-red-400">Error loading React lessons.</main>;
+    // Helper function to determine if an error is a network error
+    const isNetworkError = (error: any): boolean => {
+        return !!error && (
+            error.message?.includes('Failed to fetch') ||
+            error.message?.includes('NetworkError') ||
+            error.message?.includes('ECONNREFUSED') ||
+            error.message?.includes('timeout') ||
+            error.networkError
+        );
+    };
+
+    // If we're loading or have retry attempts, show the enhanced loading component
+    if (loading || retryCountRef.current > 0) {
+        return (
+            <div className="w-full p-6">
+                <div className="max-w-4xl mx-auto">
+                    <EnhancedLoadingComponent 
+                        retryCount={retryCountRef.current} 
+                        maxRetries={30} 
+                        error={error}
+                        onRetry={() => {
+                            retryCountRef.current = 0;
+                            refetch();
+                        }}
+                    />
+                </div>
+            </div>
+        );
+    }
+    
+    if (error && !isNetworkError(error)) {
+        return (
+            <main className="p-6">
+                <div className="max-w-4xl mx-auto bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                    <div className="text-red-600 dark:text-red-400">Error loading React lessons.</div>
+                    <button 
+                        className="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors duration-200"
+                        onClick={() => window.location.reload()}
+                    >
+                        Try Again
+                    </button>
+                </div>
+            </main>
+        );
+    }
 
     return (
         // Updated container with glass morphism effect

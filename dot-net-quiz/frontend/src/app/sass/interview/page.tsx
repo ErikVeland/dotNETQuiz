@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { gql, useQuery } from '@apollo/client';
 import TechnologyUtilizationBox from '@/components/TechnologyUtilizationBox';
+import EnhancedLoadingComponent from '@/components/EnhancedLoadingComponent';
 
 const GET_SASS_QUESTIONS = gql`
   query GetSassInterviewQuestions {
@@ -86,8 +87,34 @@ export default function SassInterviewPage() {
   const [showResults, setShowResults] = useState(false);
   const [shuffledQuestions, setShuffledQuestions] = useState<SassInterviewQuestion[]>([]);
   const router = useRouter();
+  const retryCountRef = useRef(0);
   
-  const { loading, error, data } = useQuery(GET_SASS_QUESTIONS);
+  const { loading, error, data, refetch } = useQuery(GET_SASS_QUESTIONS, {
+    onError: (error) => {
+      // Increment retry counter for network errors
+      if (isNetworkError(error)) {
+        retryCountRef.current += 1;
+      }
+    }
+  });
+  
+  // Reset retry count on successful load
+  useEffect(() => {
+    if (data && !loading) {
+      retryCountRef.current = 0;
+    }
+  }, [data, loading]);
+
+  // Helper function to determine if an error is a network error
+  const isNetworkError = (error: any): boolean => {
+    return !!error && (
+      error.message?.includes('Failed to fetch') ||
+      error.message?.includes('NetworkError') ||
+      error.message?.includes('ECONNREFUSED') ||
+      error.message?.includes('timeout') ||
+      error.networkError
+    );
+  };
 
   useEffect(() => {
     if (data?.sassInterviewQuestions) {
@@ -153,51 +180,61 @@ export default function SassInterviewPage() {
     }
   };
 
-  if (loading) return (
-    // Updated container with glass morphism effect
-    <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-        <div className="animate-pulse flex flex-col items-center justify-center space-y-4">
-          <div className="h-12 w-2/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
-          <div className="h-64 w-full bg-gray-200 dark:bg-gray-700 rounded"></div>
-          <div className="h-10 w-1/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
+  // If we're loading or have retry attempts, show the enhanced loading component
+  if (loading || retryCountRef.current > 0) {
+    return (
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <EnhancedLoadingComponent 
+            retryCount={retryCountRef.current} 
+            maxRetries={30} 
+            error={error}
+            onRetry={() => {
+              retryCountRef.current = 0;
+              refetch();
+            }}
+          />
         </div>
       </div>
-    </div>
-  );
+    );
+  }
   
-  if (error) return (
-    // Updated container with glass morphism effect
-    <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
-          <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
-          >
-            Try Again
-          </button>
+  if (error && !isNetworkError(error)) {
+    return (
+      // Updated container with glass morphism effect
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
+            <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
+            >
+              Try Again
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
   
-  if (!shuffledQuestions.length) return (
-    // Updated container with glass morphism effect
-    <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">No Questions Available</h2>
-          <p className="mb-4 text-gray-600 dark:text-gray-300">There are no SASS interview questions available at this time.</p>
-          <Link href="/" className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200">
-            Return Home
-          </Link>
+  if (!shuffledQuestions.length) {
+    return (
+      // Updated container with glass morphism effect
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">No Questions Available</h2>
+            <p className="mb-4 text-gray-600 dark:text-gray-300">There are no SASS interview questions available at this time.</p>
+            <Link href="/" className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200">
+              Return Home
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 
   const currentQuestion = shuffledQuestions[currentQuestionIndex];
   const score = userAnswers.reduce((acc, answer, index) => {

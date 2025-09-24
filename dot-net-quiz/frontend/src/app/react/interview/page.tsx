@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery, gql, useMutation } from '@apollo/client';
 import TechnologyUtilizationBox from '@/components/TechnologyUtilizationBox';
+import EnhancedLoadingComponent from '@/components/EnhancedLoadingComponent';
 
 interface ReactInterviewQuestion {
   id: number;
@@ -129,8 +130,24 @@ export default function ReactInterviewPage() {
   const [score, setScore] = useState(0);
   const [shuffled, setShuffled] = useState(false);
   const router = useRouter();
+  const retryCountRef = useRef(0);
 
-  const { data, loading: gqlLoading, error: gqlError } = useQuery(REACT_INTERVIEW_QUESTIONS_QUERY);
+  const { data, loading: gqlLoading, error: gqlError, refetch } = useQuery(REACT_INTERVIEW_QUESTIONS_QUERY, {
+    onError: (error) => {
+      // Increment retry counter for network errors
+      if (isNetworkError(error)) {
+        retryCountRef.current += 1;
+      }
+    }
+  });
+  
+  // Reset retry count on successful load
+  useEffect(() => {
+    if (data && !gqlLoading) {
+      retryCountRef.current = 0;
+    }
+  }, [data, gqlLoading]);
+
   const gqlQuestions: ReactInterviewQuestion[] = data?.reactInterviewQuestions ?? [];
 
   const [submitAnswer] = useMutation(SUBMIT_REACT_ANSWER_MUTATION);
@@ -217,51 +234,72 @@ export default function ReactInterviewPage() {
     setShuffled(false);
   };
 
-  if (gqlLoading || loading) return (
-    // Updated container with glass morphism effect
-    <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-        <div className="animate-pulse flex flex-col items-center justify-center space-y-4">
-          <div className="h-12 w-2/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
-          <div className="h-64 w-full bg-gray-200 dark:bg-gray-700 rounded"></div>
-          <div className="h-10 w-1/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
+  // Helper function to determine if an error is a network error
+  const isNetworkError = (error: any): boolean => {
+    return !!error && (
+      error.message?.includes('Failed to fetch') ||
+      error.message?.includes('NetworkError') ||
+      error.message?.includes('ECONNREFUSED') ||
+      error.message?.includes('timeout') ||
+      error.networkError
+    );
+  };
+
+  // If we're loading or have retry attempts, show the enhanced loading component
+  if (gqlLoading || loading || retryCountRef.current > 0) {
+    return (
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <EnhancedLoadingComponent 
+            retryCount={retryCountRef.current} 
+            maxRetries={30} 
+            error={gqlError}
+            onRetry={() => {
+              retryCountRef.current = 0;
+              refetch();
+            }}
+          />
         </div>
       </div>
-    </div>
-  );
+    );
+  }
   
-  if (gqlError) return (
-    // Updated container with glass morphism effect
-    <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
-          <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
-          >
-            Try Again
-          </button>
+  if (gqlError && !isNetworkError(gqlError)) {
+    return (
+      // Updated container with glass morphism effect
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
+            <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
+            >
+              Try Again
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
   
-  if (!shuffledQuestions.length) return (
-    // Updated container with glass morphism effect
-    <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">No Questions Available</h2>
-          <p className="mb-4 text-gray-600 dark:text-gray-300">There are no React interview questions available at this time.</p>
-          <Link href="/" className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200">
-            Return Home
-          </Link>
+  if (!shuffledQuestions.length) {
+    return (
+      // Updated container with glass morphism effect
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">No Questions Available</h2>
+            <p className="mb-4 text-gray-600 dark:text-gray-300">There are no React interview questions available at this time.</p>
+            <Link href="/" className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200">
+              Return Home
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
   
   if (current >= shuffledQuestions.length)
     return (

@@ -1,4 +1,32 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+import { RetryLink } from '@apollo/client/link/retry';
+
+// Custom function to determine if we should retry based on error
+const shouldRetry = (error: any) => {
+  // Retry on network errors or server errors that might be due to cold start
+  return !!error && (
+    error.message?.includes('Failed to fetch') ||
+    error.message?.includes('NetworkError') ||
+    error.message?.includes('ECONNREFUSED') ||
+    error.message?.includes('timeout') ||
+    error.statusCode === 408 ||  // Request timeout
+    error.statusCode === 502 ||  // Bad gateway
+    error.statusCode === 503 ||  // Service unavailable
+    error.statusCode === 504     // Gateway timeout
+  );
+};
+
+const retryLink = new RetryLink({
+  delay: {
+    initial: 2000, // Start with 2 second delay
+    max: 30000,    // Max 30 seconds between retries
+    jitter: true,  // Add randomness to prevent thundering herd
+  },
+  attempts: {
+    max: 30,       // Maximum retry attempts
+    retryIf: (error, _operation) => shouldRetry(error),
+  },
+});
 
 export const createApolloClient = () => {
   // Use the base URL from environment or fallback to the hosted backend URL
@@ -12,7 +40,7 @@ export const createApolloClient = () => {
   });
   
   return new ApolloClient({
-    uri: graphqlUrl,
+    link: retryLink.concat(new HttpLink({ uri: graphqlUrl })),
     cache: new InMemoryCache(),
   });
 };
