@@ -1,9 +1,12 @@
 services:
   - type: web
     name: fullstack-academy-backend
-    runtime: docker
+    # Change from docker to dotnet runtime to avoid Docker registry issues
+    runtime: dotnet
     plan: free
     rootDir: dot-net-quiz/backend
+    buildCommand: dotnet publish -c Release
+    startCommand: dotnet backend.dll
     envVars:
       - key: ASPNETCORE_ENVIRONMENT
         value: Production
@@ -14,9 +17,12 @@ services:
 
   - type: web
     name: fullstack-academy-frontend
-    runtime: docker
+    # Change from docker to node runtime to avoid Docker registry issues
+    runtime: node
     plan: free
     rootDir: dot-net-quiz/frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
