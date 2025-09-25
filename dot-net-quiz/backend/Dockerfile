@@ -1,17 +1,30 @@
 # Dockerfile for .NET Backend
-# Using a public image that should not require authentication
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine
+# Using a multi-stage build to avoid registry authentication issues and BuildKit problems
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
+WORKDIR /src
+
+# Copy csproj and restore dependencies
+COPY backend.csproj ./
+RUN dotnet restore backend.csproj
+
+# Copy everything else and build
+COPY . .
+RUN dotnet publish "backend.csproj" -c Release -o /app/publish
+
+# Runtime stage
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS runtime
 WORKDIR /app
 
-# Copy the published application
-COPY . .
+# Copy published app
+COPY --from=build /app/publish .
 
-# Environment variables
+# Set environment variables
 ENV ASPNETCORE_ENVIRONMENT=Production
 ENV ASPNETCORE_URLS=http://*:8080
 ENV PORT=8080
 
+# Expose port
 EXPOSE 8080
 
-# Run the application
+# Run the app
 ENTRYPOINT ["dotnet", "backend.dll"]

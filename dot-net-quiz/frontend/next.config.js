@@ -1,49 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
-  // Handle ESLint errors during build
-  eslint: {
-    ignoreDuringBuilds: true,
+  // Add any other configuration options here
+  reactStrictMode: true,
+  swcMinify: true,
+  // Ensure proper handling of environment variables
+  env: {
+    NEXT_PUBLIC_API_BASE: process.env.NEXT_PUBLIC_API_BASE,
   },
-  // Handle TypeScript errors during build
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  // Ensure standalone mode works correctly
-  serverExternalPackages: [],
-  
-  // Add rewrites for API proxying
-  async rewrites() {
-    return [
-      {
-        source: '/graphql',
-        destination: 'https://fullstack-academy-backend.onrender.com/graphql'
-      },
-      {
-        source: '/api/:path*',
-        destination: 'https://fullstack-academy-backend.onrender.com/api/:path*'
-      }
-    ];
-  },
-  
-  // Add custom headers to handle CORS and other issues
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY'
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff'
-          }
-        ]
-      }
-    ];
-  }
 };
 
 module.exports = nextConfig;
