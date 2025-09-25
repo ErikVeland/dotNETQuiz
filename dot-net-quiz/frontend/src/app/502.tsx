@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
-import EnhancedLoadingComponent from '@/components/EnhancedLoadingComponent';
+import EnhancedLoadingComponent from '../../components/EnhancedLoadingComponent';
 
 export default function Custom502() {
   const [retryCount, setRetryCount] = useState(0);

@@ -1,14 +1,16 @@
 # Dockerfile for Next.js Frontend
-# Using a minimal approach with a base image that should work
+# Using a minimal approach with proper path resolution
 FROM node:18-alpine3.18
 WORKDIR /app
 
 # Install dependencies
 COPY package*.json ./
-RUN npm install --production
+RUN npm ci --only=production
 
-# Copy source and build
+# Copy source code
 COPY . .
+
+# Build the application
 RUN npm run build
 
 # Environment variables

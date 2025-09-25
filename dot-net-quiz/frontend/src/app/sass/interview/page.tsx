@@ -4,8 +4,8 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { gql, useQuery } from '@apollo/client';
-import TechnologyUtilizationBox from '@/components/TechnologyUtilizationBox';
-import EnhancedLoadingComponent from '@/components/EnhancedLoadingComponent';
+import TechnologyUtilizationBox from '../../../components/TechnologyUtilizationBox';
+import EnhancedLoadingComponent from '../../../components/EnhancedLoadingComponent';
 
 const GET_SASS_QUESTIONS = gql`
   query GetSassInterviewQuestions {

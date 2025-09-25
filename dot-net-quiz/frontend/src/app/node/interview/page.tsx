@@ -4,8 +4,8 @@ import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery, gql, useMutation } from '@apollo/client';
-import TechnologyUtilizationBox from '@/components/TechnologyUtilizationBox';
-import EnhancedLoadingComponent from '@/components/EnhancedLoadingComponent';
+import TechnologyUtilizationBox from '../../../components/TechnologyUtilizationBox';
+import EnhancedLoadingComponent from '../../../components/EnhancedLoadingComponent';
 
 interface NodeInterviewQuestion {
   id: number;

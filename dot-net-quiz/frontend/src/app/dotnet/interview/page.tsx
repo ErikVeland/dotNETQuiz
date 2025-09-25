@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useQuery, gql, useMutation } from '@apollo/client';
-import TechnologyUtilizationBox from '@/components/TechnologyUtilizationBox';
+import { gql, useQuery } from '@apollo/client';
+import { getApolloClient } from '../../../apolloClient';
+import TechnologyUtilizationBox from '../../../components/TechnologyUtilizationBox';
 
 interface DotNetInterviewQuestion {
   id: number;
