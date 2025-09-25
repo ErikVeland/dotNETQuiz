@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { gql, useQuery, useMutation } from '@apollo/client';
 import { getApolloClient } from '../../../apolloClient';
 import TechnologyUtilizationBox from '../../../components/TechnologyUtilizationBox';
-import EnhancedLoadingComponent from '../../../components/EnhancedLoadingComponent';
+import EnhancedLoadingComponent from '../../components/EnhancedLoadingComponent';
 
 interface DotNetInterviewQuestion {
   id: number;

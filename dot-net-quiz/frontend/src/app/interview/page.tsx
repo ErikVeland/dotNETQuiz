@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { gql } from '@apollo/client';
 import { getApolloClient } from '../../apolloClient';
-import EnhancedLoadingComponent from '../../components/EnhancedLoadingComponent';
+import EnhancedLoadingComponent from '../components/EnhancedLoadingComponent';
 
 // Types matching backend
 interface InterviewQuestion {

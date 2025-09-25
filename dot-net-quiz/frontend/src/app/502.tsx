@@ -1,35 +1,22 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import EnhancedLoadingComponent from '../../components/EnhancedLoadingComponent';
+import EnhancedLoadingComponent from '../components/EnhancedLoadingComponent';
 
 export default function Custom502() {
   const [retryCount, setRetryCount] = useState(0);
-  const retryCountRef = useRef(0);
-  const [shouldRetry, setShouldRetry] = useState(true);
 
+  // Simulate retry attempts
   useEffect(() => {
-    // Start the retry process automatically
-    const retryTimer = setTimeout(() => {
-      if (retryCountRef.current < 30) {
-        retryCountRef.current += 1;
-        setRetryCount(retryCountRef.current);
-        // Try to reload the page to see if the backend is now available
-        window.location.reload();
-      } else {
-        setShouldRetry(false);
+    const timer = setTimeout(() => {
+      if (retryCount < 30) {
+        setRetryCount(prev => prev + 1);
       }
-    }, 3000); // Start retry after 3 seconds
-    
-    return () => clearTimeout(retryTimer);
-  }, []);
+    }, 2000);
 
-  const handleManualRetry = () => {
-    retryCountRef.current = 0;
-    setRetryCount(0);
-    window.location.reload();
-  };
+    return () => clearTimeout(timer);
+  }, [retryCount]);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50 dark:bg-gray-900">
@@ -37,20 +24,8 @@ export default function Custom502() {
         <EnhancedLoadingComponent 
           retryCount={retryCount} 
           maxRetries={30} 
-          onRetry={handleManualRetry}
+          onRetry={() => setRetryCount(0)}
         />
-        <div className="mt-6 text-center">
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
-            We're automatically retrying every few seconds while the backend starts up.
-            If this takes too long, you can manually retry using the button above.
-          </p>
-          <Link 
-            href="/" 
-            className="mt-4 inline-block text-blue-600 dark:text-blue-400 hover:underline"
-          >
-            Return to Home
-          </Link>
-        </div>
       </div>
     </div>
   );

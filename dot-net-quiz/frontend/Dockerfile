@@ -3,17 +3,17 @@
 FROM node:18-alpine
 WORKDIR /app
 
-# Copy all files
-COPY . .
+# Copy package files
+COPY package*.json ./
 
-# Install dependencies
+# Install all dependencies
 RUN npm ci
+
+# Copy all source files
+COPY . .
 
 # Build the application
 RUN npm run build
-
-# Install production dependencies only
-RUN npm ci --only=production && npm cache clean --force
 
 # Set environment variables
 ENV NODE_ENV=production
