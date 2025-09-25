@@ -12,8 +12,6 @@ services:
         value: 8080
     healthCheckPath: /api/health
     autoDeploy: true
-    # Add build command to avoid BuildKit issues
-    buildCommand: "docker build -t backend ."
 
   - type: web
     name: fullstack-academy-frontend
@@ -28,5 +26,3 @@ services:
         value: https://fullstack-academy-backend.onrender.com
     healthCheckPath: /
     autoDeploy: true
-    # Add build command to avoid BuildKit issues
-    buildCommand: "docker build -t frontend ."

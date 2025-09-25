@@ -1,22 +1,23 @@
 # Dockerfile for .NET Backend
-# Using a multi-stage build to avoid registry authentication issues and BuildKit problems
+# Simpler approach to avoid build issues
 FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
-WORKDIR /src
+WORKDIR /app
 
-# Copy csproj and restore dependencies
-COPY backend.csproj ./
-RUN dotnet restore backend.csproj
-
-# Copy everything else and build
+# Copy everything
 COPY . .
-RUN dotnet publish "backend.csproj" -c Release -o /app/publish
+
+# Restore dependencies
+RUN dotnet restore
+
+# Build and publish
+RUN dotnet publish -c Release -o out
 
 # Runtime stage
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine
 WORKDIR /app
 
 # Copy published app
-COPY --from=build /app/publish .
+COPY --from=build /app/out .
 
 # Set environment variables
 ENV ASPNETCORE_ENVIRONMENT=Production
