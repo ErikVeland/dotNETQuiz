@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery, gql, useMutation } from '@apollo/client';
 import TechnologyUtilizationBox from '../../../components/TechnologyUtilizationBox';
-import EnhancedLoadingComponent from '../../components/EnhancedLoadingComponent';
+import EnhancedLoadingComponent from '../../../components/EnhancedLoadingComponent';
 
 interface TailwindInterviewQuestion {
   id: number;

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery, gql, useMutation } from '@apollo/client';
 import TechnologyUtilizationBox from '../../../components/TechnologyUtilizationBox';
-import EnhancedLoadingComponent from '../../components/EnhancedLoadingComponent';
+import EnhancedLoadingComponent from '../../../components/EnhancedLoadingComponent';
 
 interface InterviewQuestion {
   id: number;
@@ -476,6 +476,7 @@ export default function InterviewQuiz() {
                 ) : (
                   <button
                     onClick={async () => {
+                      const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5022';
                       const res = await fetch(`${baseUrl}/api/nextjs/interviewquestions/submit`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },

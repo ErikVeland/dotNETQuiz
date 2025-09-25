@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery, gql } from '@apollo/client';
-import EnhancedLoadingComponent from '../../components/EnhancedLoadingComponent';
+import EnhancedLoadingComponent from '../../../components/EnhancedLoadingComponent';
 
 type Lesson = {
     id: number;

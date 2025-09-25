@@ -43,7 +43,7 @@ export default function TestApiPage() {
             data: graphqlData
           }
         });
-      } catch (error) {
+      } catch (error: any) {
         setResult({
           error: error.message
         });

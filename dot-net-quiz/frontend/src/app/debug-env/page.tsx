@@ -47,7 +47,7 @@ export default function DebugEnvPage() {
           setApiTestResult(`Failed to connect to ${url}. Status: ${response.status}`);
         }
       } catch (error) {
-        setApiTestResult(`Error connecting to API: ${error.message}`);
+        setApiTestResult(`Error connecting to API: ${(error as Error).message}`);
       }
     };
     
