@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { gql } from '@apollo/client';
 import { getApolloClient } from '../../apolloClient';
+import EnhancedLoadingComponent from '../../components/EnhancedLoadingComponent';
 
 // Types matching backend
 interface InterviewQuestion {
@@ -131,6 +132,9 @@ export default function InterviewQuiz() {
   const [score, setScore] = useState(0);
   const [shuffled, setShuffled] = useState(false);
   const [questions, setQuestions] = useState<InterviewQuestion[]>([]);
+  const [retryCount, setRetryCount] = useState(0);
+  const retryCountRef = useRef(0);
+  const [shouldRetry, setShouldRetry] = useState(true);
   const router = useRouter();
 
   // Fetch questions on mount
@@ -145,16 +149,100 @@ export default function InterviewQuiz() {
         if (data?.dotNetInterviewQuestions) {
           setQuestions(data.dotNetInterviewQuestions);
           setLoading(false);
+          // Reset retry count on successful fetch
+          setRetryCount(0);
+          retryCountRef.current = 0;
         }
-      } catch (err) {
+      } catch (err: any) {
         console.error('Error fetching questions:', err);
-        setError('Failed to load questions. Please try again.');
-        setLoading(false);
+        
+        // Check if this is a network error that should trigger retry
+        if (shouldRetryBackendError(err)) {
+          // Increment retry count
+          const newRetryCount = retryCountRef.current + 1;
+          retryCountRef.current = newRetryCount;
+          setRetryCount(newRetryCount);
+          
+          // If we haven't exceeded max retries, try again
+          if (newRetryCount < 30 && shouldRetry) {
+            // Retry after a delay
+            setTimeout(fetchQuestions, Math.min(2000 * newRetryCount, 30000)); // Exponential backoff
+          } else {
+            setShouldRetry(false);
+            setError('The backend took too long to start. Please try again.');
+            setLoading(false);
+          }
+        } else {
+          setError('Failed to load questions. Please try again.');
+          setLoading(false);
+        }
       }
     }
 
     fetchQuestions();
   }, []);
+
+  // Helper function to determine if we should retry based on error
+  const shouldRetryBackendError = (error: any) => {
+    return !!error && (
+      error.message?.includes('Failed to fetch') ||
+      error.message?.includes('NetworkError') ||
+      error.message?.includes('ECONNREFUSED') ||
+      error.message?.includes('timeout') ||
+      error.message?.includes('502') ||  // Bad gateway (Render specific)
+      error.message?.includes('503') ||  // Service unavailable
+      error.message?.includes('504') ||  // Gateway timeout
+      error.statusCode === 408 ||  // Request timeout
+      error.statusCode === 502 ||  // Bad gateway
+      error.statusCode === 503 ||  // Service unavailable
+      error.statusCode === 504     // Gateway timeout
+    );
+  };
+
+  // Handle manual retry
+  const handleManualRetry = () => {
+    setRetryCount(0);
+    retryCountRef.current = 0;
+    setError(null);
+    setLoading(true);
+    setShouldRetry(true);
+    
+    // Reset the fetch process
+    const fetchQuestions = async () => {
+      try {
+        const client = getApolloClient();
+        const { data } = await client.query({
+          query: QUESTIONS_QUERY
+        });
+        
+        if (data?.dotNetInterviewQuestions) {
+          setQuestions(data.dotNetInterviewQuestions);
+          setLoading(false);
+        }
+      } catch (err: any) {
+        console.error('Error fetching questions:', err);
+        
+        if (shouldRetryBackendError(err)) {
+          const newRetryCount = retryCountRef.current + 1;
+          retryCountRef.current = newRetryCount;
+          setRetryCount(newRetryCount);
+          
+          if (newRetryCount < 30 && shouldRetry) {
+            setTimeout(fetchQuestions, Math.min(2000 * newRetryCount, 30000));
+          } else {
+            setShouldRetry(false);
+            setError('The backend took too long to start. Please try again.');
+            setLoading(false);
+          }
+        } else {
+          setError('Failed to load questions. Please try again.');
+          setLoading(false);
+        }
+      }
+    };
+    
+    fetchQuestions();
+  };
 
   // Restore state from localStorage on mount
   useEffect(() => {
@@ -230,7 +318,48 @@ export default function InterviewQuiz() {
     setFeedback(null);
     setScore(0);
     setShuffled(false);
+    setRetryCount(0);
+    retryCountRef.current = 0;
+    setError(null);
+    setLoading(true);
+    setShouldRetry(true);
     localStorage.removeItem(QUIZ_STORAGE_KEY);
+    
+    // Re-fetch questions
+    const fetchQuestions = async () => {
+      try {
+        const client = getApolloClient();
+        const { data } = await client.query({
+          query: QUESTIONS_QUERY
+        });
+        
+        if (data?.dotNetInterviewQuestions) {
+          setQuestions(data.dotNetInterviewQuestions);
+          setLoading(false);
+        }
+      } catch (err: any) {
+        console.error('Error fetching questions:', err);
+        
+        if (shouldRetryBackendError(err)) {
+          const newRetryCount = retryCountRef.current + 1;
+          retryCountRef.current = newRetryCount;
+          setRetryCount(newRetryCount);
+          
+          if (newRetryCount < 30 && shouldRetry) {
+            setTimeout(fetchQuestions, Math.min(2000 * newRetryCount, 30000));
+          } else {
+            setShouldRetry(false);
+            setError('The backend took too long to start. Please try again.');
+            setLoading(false);
+          }
+        } else {
+          setError('Failed to load questions. Please try again.');
+          setLoading(false);
+        }
+      }
+    };
+    
+    fetchQuestions();
   };
 
   // Shuffle questions and their choices once when loaded
@@ -246,8 +375,29 @@ export default function InterviewQuiz() {
   }, [questions, shuffled]);
 
   if (loading && questions.length === 0) {
+    // Show enhanced loading component during backend startup
+    if (retryCount > 0) {
+      return (
+        <div className="py-12 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-md mx-auto">
+            <EnhancedLoadingComponent 
+              retryCount={retryCount} 
+              maxRetries={30} 
+              onRetry={handleManualRetry}
+            />
+            <div className="mt-6 text-center">
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                We're automatically retrying while the backend starts up.
+                If this takes too long, you can manually retry using the button above.
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    
+    // Show initial loading state
     return (
-      // Updated container with glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="animate-pulse flex flex-col items-center justify-center space-y-4">
@@ -262,14 +412,13 @@ export default function InterviewQuiz() {
 
   if (error) {
     return (
-      // Updated container with glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
             <p className="mb-4 text-gray-800 dark:text-gray-200">{error}</p>
             <button
-              onClick={() => window.location.reload()}
+              onClick={handleManualRetry}
               className="px-4 py-2 bg-indigo-600 dark:bg-indigo-700 text-white rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors duration-200"
             >
               Try Again
@@ -282,7 +431,6 @@ export default function InterviewQuiz() {
 
   if (questions.length === 0) {
     return (
-      // Updated container with glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
@@ -304,7 +452,6 @@ export default function InterviewQuiz() {
     const successRate = Math.round((score / questions.length) * 100);
 
     return (
-      // Updated container with glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
@@ -381,7 +528,6 @@ export default function InterviewQuiz() {
   };
 
   return (
-    // Updated container with glass morphism effect
     <div className="py-12 px-4 sm:px-6 lg:px-8">
       <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
         {/* Progress bar */}

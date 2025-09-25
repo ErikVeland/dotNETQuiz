@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery, gql, useMutation } from '@apollo/client';
 import TechnologyUtilizationBox from '../../../components/TechnologyUtilizationBox';
+import EnhancedLoadingComponent from '../../../components/EnhancedLoadingComponent';
 
 interface TailwindInterviewQuestion {
   id: number;
@@ -129,11 +130,53 @@ export default function TailwindInterviewPage() {
   const [score, setScore] = useState(0);
   const [shuffled, setShuffled] = useState(false);
   const router = useRouter();
+  const retryCountRef = useRef(0);
+  const [shouldRetry, setShouldRetry] = useState(true);
 
-  const { data, loading: gqlLoading, error: gqlError } = useQuery(TAILWIND_INTERVIEW_QUESTIONS_QUERY);
+  const { data, loading: gqlLoading, error: gqlError, refetch } = useQuery(TAILWIND_INTERVIEW_QUESTIONS_QUERY, {
+    onError: (error) => {
+      // Increment retry counter for network errors
+      if (shouldRetryBackendError(error)) {
+        retryCountRef.current += 1;
+      }
+    }
+  });
+  
+  // Reset retry count on successful load
+  useEffect(() => {
+    if (data && !gqlLoading) {
+      retryCountRef.current = 0;
+    }
+  }, [data, gqlLoading]);
+
   const gqlQuestions: TailwindInterviewQuestion[] = data?.tailwindInterviewQuestions ?? [];
 
   const [submitAnswer] = useMutation(SUBMIT_TAILWIND_ANSWER_MUTATION);
+
+  // Helper function to determine if we should retry based on error
+  const shouldRetryBackendError = (error: any) => {
+    return !!error && (
+      error.message?.includes('Failed to fetch') ||
+      error.message?.includes('NetworkError') ||
+      error.message?.includes('ECONNREFUSED') ||
+      error.message?.includes('timeout') ||
+      error.message?.includes('502') ||  // Bad gateway (Render specific)
+      error.message?.includes('503') ||  // Service unavailable
+      error.message?.includes('504') ||  // Gateway timeout
+      error.statusCode === 408 ||  // Request timeout
+      error.statusCode === 502 ||  // Bad gateway
+      error.statusCode === 503 ||  // Service unavailable
+      error.statusCode === 504     // Gateway timeout
+    );
+  };
+
+  // Handle manual retry
+  const handleManualRetry = () => {
+    retryCountRef.current = 0;
+    setError(null);
+    setLoading(true);
+    refetch();
+  };
 
   useEffect(() => {
     const saved = localStorage.getItem(TAILWIND_QUIZ_STORAGE_KEY);
@@ -215,38 +258,53 @@ export default function TailwindInterviewPage() {
     setFeedback(null);
     setScore(0);
     setShuffled(false);
+    retryCountRef.current = 0;
+    setError(null);
+    setLoading(true);
+    refetch();
   };
 
-  if (gqlLoading || loading) return (
-    // Updated container with glass morphism effect
-    <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-        <div className="animate-pulse flex flex-col items-center justify-center space-y-4">
-          <div className="h-12 w-2/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
-          <div className="h-64 w-full bg-gray-200 dark:bg-gray-700 rounded"></div>
-          <div className="h-10 w-1/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
+  // If we're loading or have retry attempts, show the enhanced loading component
+  if (gqlLoading || loading || retryCountRef.current > 0) {
+    return (
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <EnhancedLoadingComponent 
+            retryCount={retryCountRef.current} 
+            maxRetries={30} 
+            error={gqlError}
+            onRetry={handleManualRetry}
+          />
+          <div className="mt-6 text-center">
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
+              We're automatically retrying while the backend starts up.
+              If this takes too long, you can manually retry using the button above.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
   
-  if (gqlError) return (
-    // Updated container with glass morphism effect
-    <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
-          <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
-          >
-            Try Again
-          </button>
+  if (gqlError && !shouldRetryBackendError(gqlError)) {
+    return (
+      // Updated container with glass morphism effect
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
+            <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
+            <button
+              onClick={handleManualRetry}
+              className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
+            >
+              Try Again
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
   
   if (!shuffledQuestions.length) return (
     // Updated container with glass morphism effect

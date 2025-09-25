@@ -131,11 +131,12 @@ export default function LaravelInterviewPage() {
   const [shuffled, setShuffled] = useState(false);
   const router = useRouter();
   const retryCountRef = useRef(0);
+  const [shouldRetry, setShouldRetry] = useState(true); // Add this state
 
   const { data, loading: gqlLoading, error: gqlError, refetch } = useQuery(LARAVEL_INTERVIEW_QUESTIONS_QUERY, {
     onError: (error) => {
       // Increment retry counter for network errors
-      if (isNetworkError(error)) {
+      if (isNetworkError(error) && shouldRetry) {
         retryCountRef.current += 1;
       }
     }
@@ -232,6 +233,9 @@ export default function LaravelInterviewPage() {
     setFeedback(null);
     setScore(0);
     setShuffled(false);
+    retryCountRef.current = 0;
+    setShouldRetry(true);
+    refetch();
   };
 
   // Helper function to determine if an error is a network error
@@ -241,8 +245,18 @@ export default function LaravelInterviewPage() {
       error.message?.includes('NetworkError') ||
       error.message?.includes('ECONNREFUSED') ||
       error.message?.includes('timeout') ||
+      error.message?.includes('502') || // Bad Gateway
+      error.message?.includes('503') || // Service Unavailable
+      error.message?.includes('504') || // Gateway Timeout
       error.networkError
     );
+  };
+
+  // Handle manual retry
+  const handleManualRetry = () => {
+    retryCountRef.current = 0;
+    setShouldRetry(true);
+    refetch();
   };
 
   // If we're loading or have retry attempts, show the enhanced loading component
@@ -254,10 +268,7 @@ export default function LaravelInterviewPage() {
             retryCount={retryCountRef.current} 
             maxRetries={30} 
             error={gqlError}
-            onRetry={() => {
-              retryCountRef.current = 0;
-              refetch();
-            }}
+            onRetry={handleManualRetry}
           />
         </div>
       </div>
@@ -273,7 +284,7 @@ export default function LaravelInterviewPage() {
             <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
             <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
             <button
-              onClick={() => window.location.reload()}
+              onClick={handleManualRetry}
               className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
             >
               Try Again

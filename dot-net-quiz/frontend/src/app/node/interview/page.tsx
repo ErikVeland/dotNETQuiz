@@ -131,11 +131,12 @@ export default function NodeInterviewPage() {
   const [shuffled, setShuffled] = useState(false);
   const router = useRouter();
   const retryCountRef = useRef(0);
+  const [shouldRetry, setShouldRetry] = useState(true); // Add this state
 
   const { data, loading: gqlLoading, error: gqlError, refetch } = useQuery(NODE_INTERVIEW_QUESTIONS_QUERY, {
     onError: (error) => {
       // Increment retry counter for network errors
-      if (isNetworkError(error)) {
+      if (isNetworkError(error) && shouldRetry) {
         retryCountRef.current += 1;
       }
     }
@@ -232,6 +233,9 @@ export default function NodeInterviewPage() {
     setFeedback(null);
     setScore(0);
     setShuffled(false);
+    retryCountRef.current = 0;
+    setShouldRetry(true);
+    refetch();
   };
 
   // Helper function to determine if an error is a network error
@@ -248,6 +252,13 @@ export default function NodeInterviewPage() {
     );
   };
 
+  // Handle manual retry
+  const handleManualRetry = () => {
+    retryCountRef.current = 0;
+    setShouldRetry(true);
+    refetch();
+  };
+
   // If we're loading or have retry attempts, show the enhanced loading component
   if (gqlLoading || loading || retryCountRef.current > 0) {
     return (
@@ -257,10 +268,7 @@ export default function NodeInterviewPage() {
             retryCount={retryCountRef.current} 
             maxRetries={30} 
             error={gqlError}
-            onRetry={() => {
-              retryCountRef.current = 0;
-              refetch();
-            }}
+            onRetry={handleManualRetry}
           />
         </div>
       </div>
@@ -276,7 +284,7 @@ export default function NodeInterviewPage() {
             <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
             <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
             <button
-              onClick={() => window.location.reload()}
+              onClick={handleManualRetry}
               className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
             >
               Try Again

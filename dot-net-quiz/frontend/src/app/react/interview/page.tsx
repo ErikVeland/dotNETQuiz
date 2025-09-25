@@ -131,6 +131,7 @@ export default function ReactInterviewPage() {
   const [shuffled, setShuffled] = useState(false);
   const router = useRouter();
   const retryCountRef = useRef(0);
+  const [shouldRetry, setShouldRetry] = useState(true);
 
   const { data, loading: gqlLoading, error: gqlError, refetch } = useQuery(REACT_INTERVIEW_QUESTIONS_QUERY, {
     onError: (error) => {
@@ -232,6 +233,11 @@ export default function ReactInterviewPage() {
     setFeedback(null);
     setScore(0);
     setShuffled(false);
+    retryCountRef.current = 0;
+    setError(null);
+    setLoading(true);
+    setShouldRetry(true);
+    refetch();
   };
 
   // Helper function to determine if an error is a network error
@@ -241,6 +247,9 @@ export default function ReactInterviewPage() {
       error.message?.includes('NetworkError') ||
       error.message?.includes('ECONNREFUSED') ||
       error.message?.includes('timeout') ||
+      error.message?.includes('502') || // Bad Gateway
+      error.message?.includes('503') || // Service Unavailable
+      error.message?.includes('504') || // Gateway Timeout
       error.networkError
     );
   };
@@ -256,9 +265,16 @@ export default function ReactInterviewPage() {
             error={gqlError}
             onRetry={() => {
               retryCountRef.current = 0;
+              setShouldRetry(true);
               refetch();
             }}
           />
+          <div className="mt-6 text-center">
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
+              We're automatically retrying while the backend starts up.
+              If this takes too long, you can manually retry using the button above.
+            </p>
+          </div>
         </div>
       </div>
     );
@@ -273,7 +289,11 @@ export default function ReactInterviewPage() {
             <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
             <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
             <button
-              onClick={() => window.location.reload()}
+              onClick={() => {
+                retryCountRef.current = 0;
+                setShouldRetry(true);
+                refetch();
+              }}
               className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
             >
               Try Again

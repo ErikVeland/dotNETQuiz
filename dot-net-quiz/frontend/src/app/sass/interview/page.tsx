@@ -88,11 +88,12 @@ export default function SassInterviewPage() {
   const [shuffledQuestions, setShuffledQuestions] = useState<SassInterviewQuestion[]>([]);
   const router = useRouter();
   const retryCountRef = useRef(0);
+  const [shouldRetry, setShouldRetry] = useState(true); // Add this state
   
   const { loading, error, data, refetch } = useQuery(GET_SASS_QUESTIONS, {
     onError: (error) => {
       // Increment retry counter for network errors
-      if (isNetworkError(error)) {
+      if (isNetworkError(error) && shouldRetry) {
         retryCountRef.current += 1;
       }
     }
@@ -112,8 +113,18 @@ export default function SassInterviewPage() {
       error.message?.includes('NetworkError') ||
       error.message?.includes('ECONNREFUSED') ||
       error.message?.includes('timeout') ||
+      error.message?.includes('502') || // Bad Gateway
+      error.message?.includes('503') || // Service Unavailable
+      error.message?.includes('504') || // Gateway Timeout
       error.networkError
     );
+  };
+
+  // Handle manual retry
+  const handleManualRetry = () => {
+    retryCountRef.current = 0;
+    setShouldRetry(true);
+    refetch();
   };
 
   useEffect(() => {
@@ -172,6 +183,8 @@ export default function SassInterviewPage() {
     setSelected(null);
     setFeedback(null);
     setShowResults(false);
+    retryCountRef.current = 0;
+    setShouldRetry(true);
     
     // Reshuffle questions
     if (data?.sassInterviewQuestions) {
@@ -189,10 +202,7 @@ export default function SassInterviewPage() {
             retryCount={retryCountRef.current} 
             maxRetries={30} 
             error={error}
-            onRetry={() => {
-              retryCountRef.current = 0;
-              refetch();
-            }}
+            onRetry={handleManualRetry}
           />
         </div>
       </div>
@@ -208,7 +218,7 @@ export default function SassInterviewPage() {
             <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
             <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
             <button
-              onClick={() => window.location.reload()}
+              onClick={handleManualRetry}
               className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
             >
               Try Again
