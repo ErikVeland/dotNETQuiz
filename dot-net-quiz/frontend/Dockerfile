@@ -1,8 +1,9 @@
 # Dockerfile for Next.js Frontend
+# Using a public image that doesn't require authentication
 FROM node:18-alpine AS deps
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm ci --only=production && npm cache clean --force
 
 FROM node:18-alpine AS builder
 WORKDIR /app
@@ -24,8 +25,12 @@ COPY --from=builder /app/public ./public
 # Copy .next/static for static assets
 COPY --from=builder /app/.next/static ./.next/static
 
-
 EXPOSE 3000
+
+# Create a non-root user
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+USER nextjs
 
 # Use the PORT environment variable provided by Render.com, default to 3000
 CMD ["node", "server.js"]
