@@ -4,12 +4,12 @@ services:
   # .NET Backend Service
   backend:
     build:
-      context: .
-      dockerfile: dot-net-quiz/backend/Dockerfile
+      context: ./dot-net-quiz/backend
+      dockerfile: Dockerfile
     ports:
-      - "5023:8080"
+      - "8080:8080"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - PORT=8080
     networks:
       - app-network
@@ -17,13 +17,13 @@ services:
   # Next.js Frontend Service
   frontend:
     build:
-      context: .
-      dockerfile: dot-net-quiz/frontend/Dockerfile
+      context: ./dot-net-quiz/frontend
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=development
-      - NEXT_PUBLIC_API_BASE=http://backend:8080
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_BASE=https://fullstack-academy-backend.onrender.com
     depends_on:
       - backend
     networks:

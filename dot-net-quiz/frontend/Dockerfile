@@ -1,36 +1,23 @@
 # Dockerfile for Next.js Frontend
-# Using a public image that doesn't require authentication
-FROM node:18-alpine AS deps
+# Using a minimal approach with a base image that should work
+FROM node:18-alpine3.18
 WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production && npm cache clean --force
 
-FROM node:18-alpine AS builder
-WORKDIR /app
+# Install dependencies
+COPY package*.json ./
+RUN npm install --production
+
+# Copy source and build
 COPY . .
-COPY --from=deps /app/node_modules ./node_modules
 RUN npm run build
 
-FROM node:18-alpine AS runner
-WORKDIR /app
+# Environment variables
 ENV NODE_ENV=production
 ENV HOSTNAME=0.0.0.0
-# Set the default API base URL for the hosted environment
 ENV NEXT_PUBLIC_API_BASE=https://fullstack-academy-backend.onrender.com
-
-# Copy standalone output
-COPY --from=builder /app/.next/standalone ./
-# Copy public assets
-COPY --from=builder /app/public ./public
-# Copy .next/static for static assets
-COPY --from=builder /app/.next/static ./.next/static
+ENV PORT=3000
 
 EXPOSE 3000
 
-# Create a non-root user
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
-USER nextjs
-
-# Use the PORT environment variable provided by Render.com, default to 3000
-CMD ["node", "server.js"]
+# Start the application
+CMD ["npm", "start"]
