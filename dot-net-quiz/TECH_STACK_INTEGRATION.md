@@ -40,8 +40,8 @@ graph TB
     end
 
     subgraph "Deployment"
-        T[Vercel - Frontend]
-        U[Azure - Backend]
+        T[Docker - Frontend]
+        U[Docker - Backend]
     end
 
     A --> T
@@ -142,15 +142,15 @@ graph TB
 
 ### 6. Deployment Integration
 
-**Vercel** for frontend hosting:
-- Automatic deployments from Git
-- Global CDN for performance
-- Preview deployments for pull requests
+**Docker** for containerized deployment:
+- Consistent environments across development and production
+- Easy scaling and deployment
+- Isolated services for frontend and backend
 
-**Azure** for backend hosting:
-- Scalable cloud infrastructure
-- Managed services for .NET applications
-- Monitoring and logging capabilities
+**Render.com** for cloud hosting:
+- Automatic deployments from Git
+- Managed Docker container hosting
+- Free tier for development and testing
 
 ## Data Flow Integration
 

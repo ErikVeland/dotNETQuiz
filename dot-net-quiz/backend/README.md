@@ -4,9 +4,38 @@ This is the backend application for the Fullstack Academy project, built with .N
 
 ## Deployment Options
 
-Since Vercel only hosts the frontend, you'll need to deploy the .NET backend separately. Here are several options:
+Since the frontend is deployed separately, you'll need to deploy the .NET backend separately. Here are several options:
 
-### Azure App Service (Recommended)
+### Docker Deployment (Recommended)
+
+This application is designed for Docker deployment using either docker-compose or individual container deployment.
+
+#### Using Docker Compose (Local Development)
+```bash
+docker-compose up --build
+```
+
+This will start both the frontend (on port 3000) and backend (on port 8080) services.
+
+#### Individual Container Deployment
+Build and run each service separately:
+
+**Backend:**
+```bash
+cd dot-net-quiz/backend
+docker build -t fullstack-backend .
+docker run -p 8080:8080 fullstack-backend
+```
+
+### Render.com (Recommended for Cloud Deployment)
+
+1. Fork this repository to your GitHub account
+2. Create a new Web Service on Render for the backend component:
+   - Use the Docker runtime
+   - Set the root directory to `dot-net-quiz/backend`
+   - Configure environment variables as needed
+
+### Azure App Service
 
 1. Create an Azure App Service:
    - Choose .NET runtime
@@ -24,14 +53,14 @@ Since Vercel only hosts the frontend, you'll need to deploy the .NET backend sep
    - Configure custom domain if needed
    - Set up SSL certificate
 
-4. Update CORS settings in `Program.cs` to allow your Vercel domain:
+4. Update CORS settings in `Program.cs` to allow your frontend domain:
    ```csharp
    builder.Services.AddCors(options =>
    {
        options.AddPolicy("AllowFrontend",
            policy => policy.WithOrigins(
                "http://localhost:3000", 
-               "https://your-vercel-domain.vercel.app",
+               "https://your-render-domain.onrender.com",
                "https://your-custom-domain.com")
                            .AllowAnyHeader()
                            .AllowAnyMethod());

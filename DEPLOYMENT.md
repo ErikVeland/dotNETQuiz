@@ -2,7 +2,45 @@
 
 This guide provides detailed instructions for deploying the Fullstack Academy application to various platforms.
 
-## Azure App Service Deployment
+## Docker Deployment (Recommended)
+
+This application is designed for Docker deployment using either docker-compose or individual container deployment.
+
+### Using Docker Compose (Local Development)
+```bash
+docker-compose up --build
+```
+
+This will start both the frontend (on port 3000) and backend (on port 8080) services.
+
+### Individual Container Deployment
+Build and run each service separately:
+
+**Backend:**
+```bash
+cd dot-net-quiz/backend
+docker build -t fullstack-backend .
+docker run -p 8080:8080 fullstack-backend
+```
+
+**Frontend:**
+```bash
+cd dot-net-quiz/frontend
+docker build -t fullstack-frontend .
+docker run -p 3000:3000 fullstack-frontend
+```
+
+## Cloud Deployment Options
+
+### Render.com (Recommended)
+1. Fork this repository to your GitHub account
+2. Create a new Web Service on Render for each component:
+   - Backend service using the Docker runtime
+   - Frontend service using the Docker runtime
+3. Configure environment variables as needed
+4. Set up the services to communicate with each other
+
+### Azure App Service Deployment
 
 ### Prerequisites
 - Azure account (Free tier is sufficient)
@@ -44,16 +82,6 @@ This guide provides detailed instructions for deploying the Fullstack Academy ap
 7. Push changes to trigger the deployment workflow
 
 ## Alternative Deployment Options
-
-### Render.com
-1. Create a free Render account
-2. Connect your GitHub repository
-3. Create a new Web Service
-4. Set the following configuration:
-   - Runtime: .NET
-   - Build Command: `cd dot-net-quiz/backend && dotnet publish -c Release -o ./publish`
-   - Start Command: `cd dot-net-quiz/backend/publish && dotnet backend.dll`
-   - Plan: Free
 
 ### Railway.app
 1. Create a free Railway account
@@ -100,7 +128,7 @@ curl -X POST -H "Content-Type: application/json" \
 ### CORS Settings
 The backend is configured to allow CORS from:
 - `http://localhost:3000` (local development)
-- `https://your-vercel-domain.vercel.app` (Vercel deployment)
+- `https://your-render-domain.onrender.com` (Render deployment)
 - `https://your-custom-domain.com` (custom domain)
 
 To add your frontend domain, update the CORS policy in `dot-net-quiz/backend/Program.cs`.

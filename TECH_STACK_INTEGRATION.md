@@ -35,8 +35,8 @@ graph TB
         I --> K[Question Data]
     end
 
-    A --> L[Vercel - Frontend]
-    F --> M[Azure - Backend]
+    A --> L[Docker - Frontend]
+    F --> M[Docker - Backend]
 
     style G fill:#e57373,stroke:#c62828
 ```
@@ -120,8 +120,8 @@ graph TB
 - **Laravel**: Composer
 
 #### Deployment Targets
-- **Frontend**: Vercel
-- **Backend**: Azure App Service
+- **Frontend**: Docker Containers
+- **Backend**: Docker Containers
 
 ## Integration Patterns
 

@@ -2,64 +2,36 @@
 
 This is the frontend application for the Fullstack Academy project, built with Next.js 15, React 19, and TypeScript.
 
-## Deployment to Vercel
+## Docker Deployment (Recommended)
 
-### Prerequisites
+This application is designed for Docker deployment using either docker-compose or individual container deployment.
 
-1. A Vercel account (free tier available)
-2. A GitHub/GitLab/Bitbucket account for code integration
-3. The backend GraphQL API deployed and accessible via a public URL
-4. Node.js 18+ installed locally for testing
-5. Git installed locally
+### Using Docker Compose (Local Development)
+```bash
+docker-compose up --build
+```
 
-### Vercel Deployment Process
+This will start both the frontend (on port 3000) and backend (on port 8080) services.
 
-1. Ensure the frontend code is in a Git repository
-2. Verify the project structure:
-   ```
-   frontend/
-   ├── package.json
-   ├── next.config.ts
-   ├── src/
-   │   ├── app/
-   │   │   ├── graphql/
-   │   │   ├── interview/
-   │   │   ├── lessons/
-   │   │   ├── nextjs/
-   │   │   ├── laravel/
-   │   │   ├── react/
-   │   │   ├── tailwind/
-   │   │   ├── node/
-   │   │   ├── sass/
-   │   │   └── page.tsx
-   │   ├── components/
-   │   └── apolloClient.ts
-   └── public/
-   ```
+### Individual Container Deployment
+Build and run each service separately:
 
-3. Check that the apolloClient.ts file is configured to accept environment variables:
-   ```typescript
-   const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5022';
-   const graphqlUrl = `${baseUrl}/graphql`;
-   ```
+**Frontend:**
+```bash
+cd dot-net-quiz/frontend
+docker build -t fullstack-frontend .
+docker run -p 3000:3000 fullstack-frontend
+```
 
-4. Connect your Git repository to Vercel:
-   - Log in to your Vercel account
-   - Click "New Project"
-   - Import your Git repository (GitHub/GitLab/Bitbucket)
-   - Select the repository containing the frontend code
+## Cloud Deployment Options
 
-5. Configure Project Settings:
-   - Build Command: `npm run build`
-   - Output Directory: `.next`
-   - Install Command: `npm install`
-   - Development Command: `npm run dev`
+### Render.com (Recommended)
 
-6. Set up environment variables in Vercel dashboard:
-   - Name: `NEXT_PUBLIC_API_BASE`
-   - Value: The URL of your deployed backend (e.g., `https://your-backend-app.azurewebsites.net`)
-
-7. Deploy the application
+1. Fork this repository to your GitHub account
+2. Create a new Web Service on Render for the frontend component:
+   - Use the Docker runtime
+   - Set the root directory to `dot-net-quiz/frontend`
+   - Configure environment variables as needed
 
 ### Local Development
 

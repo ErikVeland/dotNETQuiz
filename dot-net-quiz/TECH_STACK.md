@@ -40,8 +40,8 @@ graph TB
     end
 
     subgraph Deployment
-        P[Vercel]
-        Q[Azure]
+        P[Docker Containers]
+        Q[Docker Containers]
     end
 
     A --> P
@@ -126,15 +126,15 @@ graph TB
 
 ### Deployment Platforms
 
-1. **Vercel**
-   - Frontend hosting platform
-   - Automatic deployments from Git
-   - Global CDN for performance
+1. **Docker Containers**
+   - Containerized deployment for consistency
+   - Easy scaling and management
+   - Platform-agnostic deployment
 
-2. **Azure**
-   - Cloud platform for backend services
-   - Scalable infrastructure
-   - Managed database services
+2. **Render.com**
+   - Cloud platform for container hosting
+   - Automatic deployments from Git
+   - Free tier for development and testing
 
 ## Integration Flow
 
@@ -156,8 +156,8 @@ graph TB
    - Code changes are committed to Git
    - Continuous integration builds and tests changes
    - Successful builds are automatically deployed
-   - Frontend is deployed to Vercel
-   - Backend services are deployed to Azure
+   - Frontend and backend services are deployed as Docker containers
+   - Services are hosted on Render.com
 
 ## Benefits of This Architecture
 

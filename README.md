@@ -72,8 +72,8 @@ graph TB
     end
     
     subgraph "Deployment"
-        T[Vercel - Frontend]
-        U[Azure - Backend]
+        T[Docker - Frontend]
+        U[Docker - Backend]
     end
     
     A --> T
@@ -207,36 +207,48 @@ The frontend will start on `http://localhost:3000`
 
 ## Deployment
 
-### Frontend (Vercel)
+### Docker Deployment (Recommended)
 
-1. Ensure the frontend code is in a Git repository
-2. Connect your Git repository to Vercel:
-   - Log in to your Vercel account
-   - Click "New Project"
-   - Import your Git repository
-3. Configure Project Settings in Vercel:
-   - Build Command: `npm run build`
-   - Output Directory: `.next`
-   - Install Command: `npm install`
-   - Development Command: `npm run dev`
-4. Set up environment variables in Vercel dashboard:
-   - Name: `NEXT_PUBLIC_API_BASE`
-   - Value: The URL of your deployed backend
-5. Deploy the application
+This application is designed for Docker deployment using either docker-compose or individual container deployment.
 
-### Backend (.NET)
+#### Using Docker Compose (Local Development)
+```bash
+docker-compose up --build
+```
 
-The .NET backend can be deployed to any platform that supports .NET 9:
+This will start both the frontend (on port 3000) and backend (on port 8080) services.
 
-#### Azure App Service
-1. Create an Azure App Service for .NET
-2. Deploy the backend using Azure CLI or Visual Studio
-3. Configure the App Service to use .NET 9 runtime
-4. Update CORS settings to allow requests from your Vercel domain
+#### Individual Container Deployment
+Build and run each service separately:
+
+**Backend:**
+```bash
+cd dot-net-quiz/backend
+docker build -t fullstack-backend .
+docker run -p 8080:8080 fullstack-backend
+```
+
+**Frontend:**
+```bash
+cd dot-net-quiz/frontend
+docker build -t fullstack-frontend .
+docker run -p 3000:3000 fullstack-frontend
+```
+
+### Cloud Deployment Options
+
+#### Render.com (Recommended)
+1. Fork this repository to your GitHub account
+2. Create a new Web Service on Render for each component:
+   - Backend service using the Docker runtime
+   - Frontend service using the Docker runtime
+3. Configure environment variables as needed
+4. Set up the services to communicate with each other
 
 #### Other Options
-- AWS Elastic Beanstalk
+- AWS ECS
 - Google Cloud Run
+- Azure Container Instances
 - DigitalOcean App Platform
 
 ### Local Development
@@ -298,3 +310,5 @@ curl -X POST -H "Content-Type: application/json" -d '{"query":"{ nodeLessons { i
 Test SASS lessons query:
 ```bash
 curl -X POST -H "Content-Type: application/json" -d '{"query":"{ sassLessons { id title topic } }"}' http://localhost:5022/graphql
+
+```
