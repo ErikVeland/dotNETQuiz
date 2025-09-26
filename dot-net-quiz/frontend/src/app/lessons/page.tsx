@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery, gql } from '@apollo/client';
+import EnhancedLoadingComponent from '../../components/EnhancedLoadingComponent';
 
 type Lesson = {
     id: number;
@@ -35,8 +36,24 @@ const LESSONS_QUERY = gql`
 export default function LessonsPage() {
     const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+    const retryCountRef = useRef(0);
 
-    const { data, loading, error } = useQuery(LESSONS_QUERY);
+    const { data, loading, error, refetch } = useQuery(LESSONS_QUERY, {
+        onError: (error) => {
+            // Increment retry counter for network errors
+            if (isNetworkError(error)) {
+                retryCountRef.current += 1;
+            }
+        }
+    });
+    
+    // Reset retry count on successful load
+    useEffect(() => {
+        if (data && !loading) {
+            retryCountRef.current = 0;
+        }
+    }, [data, loading]);
+
     const lessons: Lesson[] = data?.dotNetLessons ?? [];
 
     // Group lessons by topic
@@ -64,8 +81,51 @@ export default function LessonsPage() {
         nextCategoryTopic = topicGroups[(currentTopicIdx + 1) % topicGroups.length]?.topic ?? null;
     }
 
-    if (loading) return <main className="p-6">Loading lessons...</main>;
-    if (error) return <main className="p-6 text-red-600 dark:text-red-400">Error loading lessons.</main>;
+    // Helper function to determine if an error is a network error
+    const isNetworkError = (error: any): boolean => {
+        return !!error && (
+            error.message?.includes('Failed to fetch') ||
+            error.message?.includes('NetworkError') ||
+            error.message?.includes('ECONNREFUSED') ||
+            error.message?.includes('timeout') ||
+            error.networkError
+        );
+    };
+
+    // If we're loading or have retry attempts, show the enhanced loading component
+    if (loading || retryCountRef.current > 0) {
+        return (
+            <main className="min-h-screen p-6 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm text-gray-800 dark:text-gray-100">
+                <div className="max-w-2xl mx-auto">
+                    <EnhancedLoadingComponent 
+                        retryCount={retryCountRef.current} 
+                        maxRetries={30} 
+                        error={error}
+                        onRetry={() => {
+                            retryCountRef.current = 0;
+                            refetch();
+                        }}
+                    />
+                </div>
+            </main>
+        );
+    }
+    
+    if (error && !isNetworkError(error)) {
+        return (
+            <main className="min-h-screen p-6 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm text-gray-800 dark:text-gray-100">
+                <div className="max-w-2xl mx-auto bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                    <div className="text-red-600 dark:text-red-400">Error loading lessons.</div>
+                    <button 
+                        className="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors duration-200"
+                        onClick={() => window.location.reload()}
+                    >
+                        Try Again
+                    </button>
+                </div>
+            </main>
+        );
+    }
 
     return (
         <div className="w-full p-6">
