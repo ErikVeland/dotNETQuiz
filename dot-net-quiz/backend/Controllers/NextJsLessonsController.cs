@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using backend.Models;
 
 namespace backend.Controllers
 {
@@ -8,7 +9,7 @@ namespace backend.Controllers
     [Route("[controller]")]
     public class NextJsLessonsController : ControllerBase
     {
-        private static readonly List<Lesson> Lessons = new List<Lesson>
+        public static readonly List<Lesson> Lessons = new List<Lesson>
         {
             new Lesson { Id = 1, Topic = "Routing", Title = "Dynamic Routes", Description = "Create dynamic routes with bracket syntax.", CodeExample = "// pages/posts/[id].js\nexport default function Post({ post }) { ... }", Output = "Dynamic route for posts." },
             new Lesson { Id = 2, Topic = "Data Fetching", Title = "getServerSideProps", Description = "Fetch data on each request.", CodeExample = "export async function getServerSideProps(context) { ... }", Output = "Server-side rendered page." },

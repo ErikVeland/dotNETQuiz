@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using backend.Models;
 
 namespace backend.Controllers
 {
@@ -9,7 +10,7 @@ namespace backend.Controllers
     [Route("[controller]")]
     public class NextJsInterviewQuestionsController : ControllerBase
     {
-        private static readonly List<InterviewQuestion> Questions = new List<InterviewQuestion>
+        public static readonly List<InterviewQuestion> Questions = new List<InterviewQuestion>
         {
             new InterviewQuestion { Id = 1, Topic = "Routing", Type = "multiple-choice", Question = "How do you define a dynamic route in the Pages Router?", Choices = new[]{"[id].js","{id}.js","$id.js","id.js"}, CorrectAnswer = 0, Explanation = "[id].js defines a dynamic route." },
             new InterviewQuestion { Id = 2, Topic = "Routing", Type = "multiple-choice", Question = "How do you define a dynamic route in the App Router?", Choices = new[]{"[id]/page.js","{id}/page.js","$id/page.js","id/page.js"}, CorrectAnswer = 0, Explanation = "[id]/page.js defines a dynamic route." },
