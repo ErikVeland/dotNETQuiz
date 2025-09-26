@@ -1,19 +1,31 @@
 # Dockerfile for Next.js Frontend
-# Simpler approach to avoid module resolution issues
-FROM node:18-alpine
+FROM node:18-alpine AS builder
 WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
 
-# Install all dependencies
+# Install dependencies
 RUN npm ci
 
-# Copy all source files
+# Copy source code
 COPY . .
 
 # Build the application
 RUN npm run build
+
+# Production stage
+FROM node:18-alpine AS runner
+WORKDIR /app
+
+# Copy standalone output
+COPY --from=builder /app/.next/standalone ./
+
+# Copy static assets
+COPY --from=builder /app/.next/static ./.next/static
+
+# Copy public assets
+COPY --from=builder /app/public ./public
 
 # Set environment variables
 ENV NODE_ENV=production
@@ -25,4 +37,4 @@ ENV PORT=3000
 EXPOSE 3000
 
 # Start the application
-CMD ["node", ".next/standalone/server.js"]
+CMD ["node", "server.js"]
