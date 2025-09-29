@@ -374,7 +374,8 @@ export default function InterviewQuiz() {
     }
   }, [questions, shuffled]);
 
-  if (loading && questions.length === 0) {
+  // If we're loading or have retry attempts, show the enhanced loading component
+  if (loading || retryCountRef.current > 0) {
     // Show enhanced loading component during backend startup
     if (retryCount > 0) {
       return (
@@ -410,7 +411,8 @@ export default function InterviewQuiz() {
     );
   }
 
-  if (error) {
+  // Only show error if it's not a network error (network errors are handled by retry mechanism)
+  if (error && !shouldRetryBackendError(error)) {
     return (
       <div className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">

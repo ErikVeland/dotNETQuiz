@@ -215,57 +215,79 @@ export default function InterviewQuiz() {
     if (data.submitAnswer.isCorrect) setScore((s) => s + 1);
   };
 
+  // Helper function to determine if an error is a network error
+  const isNetworkError = (error: any): boolean => {
+    return !!error && (
+      error.message?.includes('Failed to fetch') ||
+      error.message?.includes('NetworkError') ||
+      error.message?.includes('ECONNREFUSED') ||
+      error.message?.includes('timeout') ||
+      error.message?.includes('502') || // Bad Gateway
+      error.message?.includes('503') || // Service Unavailable
+      error.message?.includes('504') || // Gateway Timeout
+      error.networkError
+    );
+  };
+
   const nextQuestion = () => {
     setSelected(null);
     setFeedback(null);
     setCurrent((c) => c + 1);
   };
 
-  if (gqlLoading || loading) return (
-    // Updated container with glass morphism effect
-    <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-        <div className="animate-pulse flex flex-col items-center justify-center space-y-4">
-          <div className="h-12 w-2/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
-          <div className="h-64 w-full bg-gray-200 dark:bg-gray-700 rounded"></div>
-          <div className="h-10 w-1/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
+  // If we're loading or have retry attempts, show the enhanced loading component
+  if (gqlLoading || loading) {
+    return (
+      // Updated container with glass morphism effect
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+          <div className="animate-pulse flex flex-col items-center justify-center space-y-4">
+            <div className="h-12 w-2/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
+            <div className="h-64 w-full bg-gray-200 dark:bg-gray-700 rounded"></div>
+            <div className="h-10 w-1/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
   
-  if (gqlError || error) return (
-    // Updated container with glass morphism effect
-    <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
-          <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
-          >
-            Try Again
-          </button>
+  // Only show error if it's not a network error (network errors should be retried)
+  if ((gqlError || error) && !isNetworkError(gqlError) && !isNetworkError(error)) {
+    return (
+      // Updated container with glass morphism effect
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
+            <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
+            >
+              Try Again
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
   
-  if (!questions.length) return (
-    // Updated container with glass morphism effect
-    <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">No Questions Available</h2>
-          <p className="mb-4 text-gray-600 dark:text-gray-300">There are no GraphQL interview questions available at this time.</p>
-          <Link href="/" className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200">
-            Return Home
-          </Link>
+  if (!questions.length) {
+    return (
+      // Updated container with glass morphism effect
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">No Questions Available</h2>
+            <p className="mb-4 text-gray-600 dark:text-gray-300">There are no GraphQL interview questions available at this time.</p>
+            <Link href="/" className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200">
+              Return Home
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
   
   if (current >= questions.length)
     return (

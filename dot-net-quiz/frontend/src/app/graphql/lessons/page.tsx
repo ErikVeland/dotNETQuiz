@@ -111,6 +111,7 @@ export default function GraphQLLessonsPage() {
         );
     }
     
+    // Only show error if it's not a network error (network errors are handled by retry mechanism)
     if (error && !isNetworkError(error)) {
         return (
             <main className="min-h-screen p-6 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm text-gray-800 dark:text-gray-100">
