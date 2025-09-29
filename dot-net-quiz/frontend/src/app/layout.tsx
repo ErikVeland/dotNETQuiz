@@ -53,7 +53,7 @@ export default function RootLayout({
             <footer className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-t border-gray-200 dark:border-gray-700 w-full max-w-7xl mx-auto mt-auto relative">
               <div className="py-6 px-4 sm:px-6 lg:px-8">
                 <p className="text-center text-sm text-gray-500 dark:text-gray-400">
-                  {new Date().getFullYear()} <a href="https://veland.au">Erik Veland</a>. No rights reserved. Go ahead, fork and learn!
+                  {new Date().getFullYear()} <a href="https://veland.au">Erik Veland</a>. No rights reserved. Go ahead, <a href="https://github.com/ErikVeland/dotNETQuiz" target="_blank" rel="noopener noreferrer">fork and learn</a>!
                 </p>
               </div>
             </footer>
