@@ -36,12 +36,6 @@ export const createApolloClient = () => {
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'https://fullstack-academy-backend.onrender.com';
   const graphqlUrl = `${baseUrl}/graphql`;
   
-  console.log('Apollo Client Configuration:', {
-    baseUrl,
-    graphqlUrl,
-    env: process.env.NEXT_PUBLIC_API_BASE
-  });
-  
   return new ApolloClient({
     link: retryLink.concat(new HttpLink({ uri: graphqlUrl })),
     cache: new InMemoryCache(),

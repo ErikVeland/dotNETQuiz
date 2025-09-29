@@ -123,6 +123,23 @@ function CircularProgress({ percent }: { percent: number }) {
   );
 }
 
+// Helper function to determine if we should retry based on error
+const shouldRetryBackendError = (error: any) => {
+  return !!error && (
+    error.message?.includes('Failed to fetch') ||
+    error.message?.includes('NetworkError') ||
+    error.message?.includes('ECONNREFUSED') ||
+    error.message?.includes('timeout') ||
+    error.message?.includes('502') ||  // Bad gateway (Render specific)
+    error.message?.includes('503') ||  // Service unavailable
+    error.message?.includes('504') ||  // Gateway timeout
+    error.statusCode === 408 ||  // Request timeout
+    error.statusCode === 502 ||  // Bad gateway
+    error.statusCode === 503 ||  // Service unavailable
+    error.statusCode === 504     // Gateway timeout
+  );
+};
+
 export default function InterviewQuiz() {
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
@@ -181,23 +198,6 @@ export default function InterviewQuiz() {
 
     fetchQuestions();
   }, []);
-
-  // Helper function to determine if we should retry based on error
-  const shouldRetryBackendError = (error: any) => {
-    return !!error && (
-      error.message?.includes('Failed to fetch') ||
-      error.message?.includes('NetworkError') ||
-      error.message?.includes('ECONNREFUSED') ||
-      error.message?.includes('timeout') ||
-      error.message?.includes('502') ||  // Bad gateway (Render specific)
-      error.message?.includes('503') ||  // Service unavailable
-      error.message?.includes('504') ||  // Gateway timeout
-      error.statusCode === 408 ||  // Request timeout
-      error.statusCode === 502 ||  // Bad gateway
-      error.statusCode === 503 ||  // Service unavailable
-      error.statusCode === 504     // Gateway timeout
-    );
-  };
 
   // Handle manual retry
   const handleManualRetry = () => {
@@ -374,7 +374,7 @@ export default function InterviewQuiz() {
     }
   }, [questions, shuffled]);
 
-  // If we're loading or have retry attempts, show the enhanced loading component
+  // Show loading state during initial load or when retrying
   if (loading || retryCountRef.current > 0) {
     // Show enhanced loading component during backend startup
     if (retryCount > 0) {
@@ -411,7 +411,7 @@ export default function InterviewQuiz() {
     );
   }
 
-  // Only show error if it's not a network error (network errors are handled by retry mechanism)
+  // Show error only if it's not a network error that should be retried
   if (error && !shouldRetryBackendError(error)) {
     return (
       <div className="py-12 px-4 sm:px-6 lg:px-8">

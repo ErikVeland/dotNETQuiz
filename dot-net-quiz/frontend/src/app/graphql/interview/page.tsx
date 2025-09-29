@@ -235,7 +235,7 @@ export default function InterviewQuiz() {
     setCurrent((c) => c + 1);
   };
 
-  // If we're loading or have retry attempts, show the enhanced loading component
+  // Show loading state during initial load
   if (gqlLoading || loading) {
     return (
       // Updated container with glass morphism effect
@@ -251,7 +251,7 @@ export default function InterviewQuiz() {
     );
   }
   
-  // Only show error if it's not a network error (network errors should be retried)
+  // Show error only if it's not a network error that should be retried
   if ((gqlError || error) && !isNetworkError(gqlError) && !isNetworkError(error)) {
     return (
       // Updated container with glass morphism effect
@@ -266,6 +266,35 @@ export default function InterviewQuiz() {
             >
               Try Again
             </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+  // Handle network errors by showing a retry mechanism
+  if (isNetworkError(gqlError) || isNetworkError(error)) {
+    return (
+      // Updated container with glass morphism effect
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-yellow-600 dark:text-yellow-400 mb-4">Server Starting Up</h2>
+            <p className="mb-4 text-gray-800 dark:text-gray-200">
+              The server is currently starting up. This can take up to 30 seconds on the free tier.
+            </p>
+            <div className="mb-4">
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-yellow-500"></div>
+            </div>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-yellow-600 dark:bg-yellow-700 text-white rounded-lg hover:bg-yellow-700 dark:hover:bg-yellow-600 transition-colors duration-200"
+            >
+              Retry Now
+            </button>
+            <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+              Don't worry! This is normal for free tier deployments. The server will be ready soon.
+            </p>
           </div>
         </div>
       </div>

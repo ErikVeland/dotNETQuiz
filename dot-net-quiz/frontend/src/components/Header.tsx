@@ -93,7 +93,7 @@ export default function Header() {
               </button>
               
               {isDotNetOpen && (
-                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 overflow-hidden z-[9999] border border-gray-200 dark:border-gray-700">
+                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 z-[9999] border border-gray-200 dark:border-gray-700">
                   <div className="py-1" role="menu">
                     <Link
                       href="/lessons"
@@ -133,7 +133,7 @@ export default function Header() {
               </button>
               
               {isNextJSOpen && (
-                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 overflow-hidden z-[9999] border border-gray-200 dark:border-gray-700">
+                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 z-[9999] border border-gray-200 dark:border-gray-700">
                   <div className="py-1" role="menu">
                     <Link
                       href="/nextjs/lessons"
@@ -173,7 +173,7 @@ export default function Header() {
               </button>
               
               {isGraphQLOpen && (
-                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 overflow-hidden z-[9999] border border-gray-200 dark:border-gray-700">
+                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 z-[9999] border border-gray-200 dark:border-gray-700">
                   <div className="py-1" role="menu">
                     <Link
                       href="/graphql/lessons"
@@ -213,7 +213,7 @@ export default function Header() {
               </button>
               
               {isLaravelOpen && (
-                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 overflow-hidden z-[9999] border border-gray-200 dark:border-gray-700">
+                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 z-[9999] border border-gray-200 dark:border-gray-700">
                   <div className="py-1" role="menu">
                     <Link
                       href="/laravel/lessons"
@@ -253,7 +253,7 @@ export default function Header() {
               </button>
               
               {isReactOpen && (
-                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 overflow-hidden z-[9999] border border-gray-200 dark:border-gray-700">
+                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 z-[9999] border border-gray-200 dark:border-gray-700">
                   <div className="py-1" role="menu">
                     <Link
                       href="/react/lessons"
@@ -293,7 +293,7 @@ export default function Header() {
               </button>
               
               {isTailwindOpen && (
-                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 overflow-hidden z-[9999] border border-gray-200 dark:border-gray-700">
+                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 z-[9999] border border-gray-200 dark:border-gray-700">
                   <div className="py-1" role="menu">
                     <Link
                       href="/tailwind/lessons"
@@ -333,7 +333,7 @@ export default function Header() {
               </button>
               
               {isNodeOpen && (
-                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 overflow-hidden z-[9999] border border-gray-200 dark:border-gray-700">
+                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 z-[9999] border border-gray-200 dark:border-gray-700">
                   <div className="py-1" role="menu">
                     <Link
                       href="/node/lessons"
@@ -373,7 +373,7 @@ export default function Header() {
               </button>
               
               {isSassOpen && (
-                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 overflow-hidden z-[9999] border border-gray-200 dark:border-gray-700">
+                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5 z-[9999] border border-gray-200 dark:border-gray-700">
                   <div className="py-1" role="menu">
                     <Link
                       href="/sass/lessons"
