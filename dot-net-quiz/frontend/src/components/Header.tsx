@@ -6,6 +6,8 @@ import { usePathname } from "next/navigation";
 import MobileMenu from './MobileMenu';
 import DarkModeToggle from './DarkModeToggle';
 // import { useProgressTracking } from '../hooks/useProgressTracking';
+import { useProgressTracking } from '../hooks/useProgressTracking';
+// import { AccessibilityPanel, useAccessibility } from './AccessibilityProvider';
 
 interface NavigationModule {
   id: string;
@@ -25,8 +27,8 @@ export default function Header() {
   const frontendRef = useRef<HTMLDivElement>(null);
   const qualityRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  // const { progress } = useProgressTracking();
-  const progress = {}; // Temporary
+  const { progress, calculateOverallProgress, getCompletedModulesCount } = useProgressTracking();
+  // const { announceToScreenReader } = useAccessibility();
 
   // Navigation structure with progress tracking
   const navigationModules: NavigationModule[] = [

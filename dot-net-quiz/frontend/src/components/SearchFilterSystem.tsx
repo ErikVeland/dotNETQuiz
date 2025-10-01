@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react';
-// import { useProgressTracking } from '../hooks/useProgressTracking';
+import { useProgressTracking } from '../hooks/useProgressTracking';
 
 interface Module {
   id: string;
@@ -27,11 +27,7 @@ interface SearchFilters {
   status: 'all' | 'not-started' | 'in-progress' | 'completed';
 }
 
-interface SearchFilterSystemProps {
-  modules: Module[];
-  onFilteredModules: (filteredModules: Module[]) => void;
-  className?: string;
-}
+
 
 const SearchInput: React.FC<{
   value: string;
@@ -215,7 +211,7 @@ const SearchResults: React.FC<{
       <div className="text-sm text-blue-800 dark:text-blue-200">
         {query && (
           <>
-            Showing {filteredResults} result{filteredResults !== 1 ? 's' : ''} for "{query}"
+            Showing {filteredResults} result{filteredResults !== 1 ? 's' : ''} for &quot;{query}&quot;
             {filteredResults !== totalResults && ` (filtered from ${totalResults})`}
           </>
         )}
@@ -235,11 +231,8 @@ const SearchResults: React.FC<{
   );
 };
 
-export const SearchFilterSystem: React.FC<SearchFilterSystemProps> = ({ 
-  modules, 
-  onFilteredModules, 
-  className = "" 
-}) => {
+export // Standalone Search and Filter Component
+const SearchFilterSystem: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState<SearchFilters>({
     tier: 'all',
@@ -248,8 +241,10 @@ export const SearchFilterSystem: React.FC<SearchFilterSystemProps> = ({
     status: 'all'
   });
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  // const { progress } = useProgressTracking();
-  const progress: any = {}; // Temporary
+  const { progress } = useProgressTracking();
+
+  // Mock modules data for demonstration
+  const modules: Module[] = [];
 
   const getModuleStatus = (moduleId: string): 'not-started' | 'in-progress' | 'completed' => {
     const moduleProgress = progress[moduleId];
@@ -284,10 +279,6 @@ export const SearchFilterSystem: React.FC<SearchFilterSystemProps> = ({
 
   const filteredModules = filterModules(modules, searchQuery, filters);
 
-  useEffect(() => {
-    onFilteredModules(filteredModules);
-  }, [searchQuery, filters, modules, onFilteredModules, filteredModules]);
-
   const handleQuickFilter = (quickFilter: Partial<SearchFilters>) => {
     const newFilters = { ...filters };
     
@@ -295,9 +286,9 @@ export const SearchFilterSystem: React.FC<SearchFilterSystemProps> = ({
     Object.entries(quickFilter).forEach(([key, value]) => {
       const filterKey = key as keyof SearchFilters;
       if (newFilters[filterKey] === value) {
-        newFilters[filterKey] = 'all' as any;
+        newFilters[filterKey] = 'all';
       } else {
-        newFilters[filterKey] = value;
+        newFilters[filterKey] = value as any;
       }
     });
     
@@ -317,7 +308,7 @@ export const SearchFilterSystem: React.FC<SearchFilterSystemProps> = ({
   const hasActiveFilters = searchQuery !== '' || Object.values(filters).some(value => value !== 'all');
 
   return (
-    <div className={`w-full max-w-6xl mx-auto mb-8 ${className}`}>
+    <div className="w-full max-w-6xl mx-auto mb-8">
       <div className="space-y-6">
         {/* Search Input */}
         <div className="relative">

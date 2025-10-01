@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-// import { useProgressTracking } from '../hooks/useProgressTracking';
+import { useProgressTracking } from '../hooks/useProgressTracking';
 
 interface Achievement {
   id: string;
@@ -213,24 +213,15 @@ const StatsCard: React.FC<{
 };
 
 export const GamificationDashboard: React.FC = () => {
-  // const { 
-  //   progress, 
-  //   streak, 
-  //   achievements: earnedAchievements, 
-  //   calculateOverallProgress,
-  //   getCompletedModulesCount,
-  //   getTotalTimeSpent,
-  //   getAverageQuizScore
-  // } = useProgressTracking();
-  
-  // Temporary placeholders
-  const progress = {};
-  const streak = { currentStreak: 0, longestStreak: 0 };
-  const earnedAchievements: any[] = [];
-  const calculateOverallProgress = () => 0;
-  const getCompletedModulesCount = () => 0;
-  const getTotalTimeSpent = () => 0;
-  const getAverageQuizScore = () => 0;
+  const { 
+    progress, 
+    streak, 
+    achievements: earnedAchievements, 
+    calculateOverallProgress,
+    getCompletedModulesCount,
+    getTotalTimeSpent,
+    getAverageQuizScore
+  } = useProgressTracking();
 
   const [showAllAchievements, setShowAllAchievements] = useState(false);
 
@@ -350,4 +341,5 @@ export const GamificationDashboard: React.FC = () => {
   );
 };
 
+export { GamificationDashboard as GamificationSystem };
 export default GamificationDashboard;
