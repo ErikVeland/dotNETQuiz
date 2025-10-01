@@ -283,7 +283,6 @@ export default function DatabaseInterviewPage() {
   
   if (gqlError && !isNetworkError(gqlError)) {
     return (
-      // Updated container with glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
@@ -307,7 +306,6 @@ export default function DatabaseInterviewPage() {
   
   if (!shuffledQuestions.length) {
     return (
-      // Updated container with glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
@@ -324,7 +322,6 @@ export default function DatabaseInterviewPage() {
   
   if (current >= shuffledQuestions.length)
     return (
-      // Updated container with glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
@@ -366,78 +363,8 @@ export default function DatabaseInterviewPage() {
                 <h3 className="text-xl font-bold text-purple-800 dark:text-purple-200 mb-2">Certificate of Completion</h3>
                 <p className="text-purple-700 dark:text-purple-300">This certifies that you have successfully completed the Database interview preparation quiz.</p>
               </div>
-            )}
-          </div>
+            )}          </div>
         </div>
       </div>
     );
-
-  const q = shuffledQuestions[current];
-  const progress = ((current + 1) / shuffledQuestions.length) * 100;
-
-  // Get the choices in the correct display order
-  const getDisplayChoices = () => {
-    if (!q.choices) return [];
-    if (!q.choiceOrder) return q.choices;
-    
-    // Return choices in the shuffled order
-    return q.choiceOrder.map(index => q.choices![index]);
-  };
-  
-  // Get the correct answer index in the display order
-  const getDisplayCorrectAnswerIndex = () => {
-    if (q.correctAnswer === undefined) return -1;
-    if (!q.choiceOrder) return q.correctAnswer;
-    
-    // Find where the original correct answer is in the shuffled order
-    return q.choiceOrder.indexOf(q.correctAnswer);
-  };
-
-  return (
-    // Updated container with glass morphism effect
-    <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
-        {/* Progress bar */}
-        <div className="bg-gray-100/30 dark:bg-gray-700/30 backdrop-blur-sm h-2">
-          <div 
-            className="bg-purple-600 dark:bg-purple-500 h-2 transition-all duration-300 ease-out" 
-            style={{ width: `${progress}%` }}
-          ></div>
-        </div>
-        
-        <div className="p-6">
-          {/* Header */}
-          <div className="flex justify-between items-center mb-6">
-            <div>
-              <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Question {current + 1} of {shuffledQuestions.length}</span>
-              <h3 className="text-lg font-medium text-purple-600 dark:text-purple-400">{q.topic}</h3>
-            </div>
-            <div className="text-right">
-              <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Score</span>
-              <p className="text-lg font-bold text-gray-800 dark:text-gray-200">{score}/{current}</p>
-            </div>
-          </div>
-          
-          {/* Question */}
-          <div className="mb-8">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-              <span dangerouslySetInnerHTML={{ __html: formatQuestionText(q.question) }}></span>
-            </h2>
-            
-            {/* Multiple choice */}
-            {q.type === 'multiple-choice' && q.choices && (
-              <div className="space-y-3">
-                {getDisplayChoices().map((choice, displayIndex) => (
-                  <div 
-                    key={displayIndex}
-                    onClick={() => !feedback && setSelected(displayIndex)}
-                    className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 backdrop-blur-sm ${
-                      feedback 
-                        ? displayIndex === getDisplayCorrectAnswerIndex() 
-                          ? "bg-green-50/30 dark:bg-green-900/20 border-green-300 dark:border-green-600" 
-                          : displayIndex === selected 
-                            ? "bg-red-50/30 dark:bg-red-900/20 border-red-300 dark:border-red-600" 
-                            : "border-gray-200 dark:border-gray-600" 
-                        : displayIndex === selected 
-                          ? "bg-purple-50/30 dark:bg-purple-900/20 border-purple-300 dark:border-purple-600 shadow-sm" 
-                          : "border-gray-200 dark:border-gray-600 hover:border-purple-200 dark:hover:border-purple-500 hover:bg-purple
+}
