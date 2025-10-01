@@ -19,6 +19,10 @@ namespace backend.Services
             LoadTailwindData();
             LoadNodeData();
             LoadSassData();
+            LoadVueData();
+            LoadTypescriptData();
+            LoadDatabaseData();
+            LoadTestingData();
         }
 
         // Data collections
@@ -44,6 +48,22 @@ namespace backend.Services
         // SASS data collections
         public IEnumerable<SassLesson> SassLessons { get; private set; } = new List<SassLesson>();
         public IEnumerable<SassInterviewQuestion> SassInterviewQuestions { get; private set; } = new List<SassInterviewQuestion>();
+        
+        // Vue data collections
+        public IEnumerable<VueLesson> VueLessons { get; private set; } = new List<VueLesson>();
+        public IEnumerable<VueInterviewQuestion> VueInterviewQuestions { get; private set; } = new List<VueInterviewQuestion>();
+        
+        // TypeScript data collections
+        public IEnumerable<TypescriptLesson> TypescriptLessons { get; private set; } = new List<TypescriptLesson>();
+        public IEnumerable<TypescriptInterviewQuestion> TypescriptInterviewQuestions { get; private set; } = new List<TypescriptInterviewQuestion>();
+        
+        // Database data collections
+        public IEnumerable<DatabaseLesson> DatabaseLessons { get; private set; } = new List<DatabaseLesson>();
+        public IEnumerable<DatabaseInterviewQuestion> DatabaseInterviewQuestions { get; private set; } = new List<DatabaseInterviewQuestion>();
+        
+        // Testing data collections
+        public IEnumerable<TestingLesson> TestingLessons { get; private set; } = new List<TestingLesson>();
+        public IEnumerable<TestingInterviewQuestion> TestingInterviewQuestions { get; private set; } = new List<TestingInterviewQuestion>();
 
         // Helper methods
         public static IEnumerable<T> ApplyQuery<T>(IEnumerable<T> items, string? topic, string? sortBy, string? sortOrder, int? limit, int? offset)
@@ -275,6 +295,142 @@ namespace backend.Services
             }
         }
 
+        // Load Vue data from JSON files
+        private void LoadVueData()
+        {
+            try
+            {
+                var lessonsPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "vue_lessons.json");
+                if (System.IO.File.Exists(lessonsPath))
+                {
+                    var lessonsJson = System.IO.File.ReadAllText(lessonsPath);
+                    VueLessons = System.Text.Json.JsonSerializer.Deserialize<List<VueLesson>>(lessonsJson, new JsonSerializerOptions
+                    {
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                        PropertyNameCaseInsensitive = true
+                    }) ?? new List<VueLesson>();
+                }
+
+                var questionsPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "vue_questions.json");
+                if (System.IO.File.Exists(questionsPath))
+                {
+                    var questionsJson = System.IO.File.ReadAllText(questionsPath);
+                    VueInterviewQuestions = System.Text.Json.JsonSerializer.Deserialize<List<VueInterviewQuestion>>(questionsJson, new JsonSerializerOptions
+                    {
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                        PropertyNameCaseInsensitive = true
+                    }) ?? new List<VueInterviewQuestion>();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log error or handle as needed
+                Console.WriteLine($"Error loading Vue data: {ex.Message}");
+            }
+        }
+
+        // Load TypeScript data from JSON files
+        private void LoadTypescriptData()
+        {
+            try
+            {
+                var lessonsPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "typescript_lessons.json");
+                if (System.IO.File.Exists(lessonsPath))
+                {
+                    var lessonsJson = System.IO.File.ReadAllText(lessonsPath);
+                    TypescriptLessons = System.Text.Json.JsonSerializer.Deserialize<List<TypescriptLesson>>(lessonsJson, new JsonSerializerOptions
+                    {
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                        PropertyNameCaseInsensitive = true
+                    }) ?? new List<TypescriptLesson>();
+                }
+
+                var questionsPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "typescript_questions.json");
+                if (System.IO.File.Exists(questionsPath))
+                {
+                    var questionsJson = System.IO.File.ReadAllText(questionsPath);
+                    TypescriptInterviewQuestions = System.Text.Json.JsonSerializer.Deserialize<List<TypescriptInterviewQuestion>>(questionsJson, new JsonSerializerOptions
+                    {
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                        PropertyNameCaseInsensitive = true
+                    }) ?? new List<TypescriptInterviewQuestion>();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log error or handle as needed
+                Console.WriteLine($"Error loading TypeScript data: {ex.Message}");
+            }
+        }
+
+        // Load Database data from JSON files
+        private void LoadDatabaseData()
+        {
+            try
+            {
+                var lessonsPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "database_lessons.json");
+                if (System.IO.File.Exists(lessonsPath))
+                {
+                    var lessonsJson = System.IO.File.ReadAllText(lessonsPath);
+                    DatabaseLessons = System.Text.Json.JsonSerializer.Deserialize<List<DatabaseLesson>>(lessonsJson, new JsonSerializerOptions
+                    {
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                        PropertyNameCaseInsensitive = true
+                    }) ?? new List<DatabaseLesson>();
+                }
+
+                var questionsPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "database_questions.json");
+                if (System.IO.File.Exists(questionsPath))
+                {
+                    var questionsJson = System.IO.File.ReadAllText(questionsPath);
+                    DatabaseInterviewQuestions = System.Text.Json.JsonSerializer.Deserialize<List<DatabaseInterviewQuestion>>(questionsJson, new JsonSerializerOptions
+                    {
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                        PropertyNameCaseInsensitive = true
+                    }) ?? new List<DatabaseInterviewQuestion>();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log error or handle as needed
+                Console.WriteLine($"Error loading Database data: {ex.Message}");
+            }
+        }
+
+        // Load Testing data from JSON files
+        private void LoadTestingData()
+        {
+            try
+            {
+                var lessonsPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "testing_lessons.json");
+                if (System.IO.File.Exists(lessonsPath))
+                {
+                    var lessonsJson = System.IO.File.ReadAllText(lessonsPath);
+                    TestingLessons = System.Text.Json.JsonSerializer.Deserialize<List<TestingLesson>>(lessonsJson, new JsonSerializerOptions
+                    {
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                        PropertyNameCaseInsensitive = true
+                    }) ?? new List<TestingLesson>();
+                }
+
+                var questionsPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "testing_questions.json");
+                if (System.IO.File.Exists(questionsPath))
+                {
+                    var questionsJson = System.IO.File.ReadAllText(questionsPath);
+                    TestingInterviewQuestions = System.Text.Json.JsonSerializer.Deserialize<List<TestingInterviewQuestion>>(questionsJson, new JsonSerializerOptions
+                    {
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                        PropertyNameCaseInsensitive = true
+                    }) ?? new List<TestingInterviewQuestion>();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log error or handle as needed
+                Console.WriteLine($"Error loading Testing data: {ex.Message}");
+            }
+        }
+
         // React answer validation
         public AnswerResult ValidateReactAnswer(int questionId, int answerIndex)
         {
@@ -348,6 +504,98 @@ namespace backend.Services
         public AnswerResult ValidateSassAnswer(int questionId, int answerIndex)
         {
             var question = SassInterviewQuestions.FirstOrDefault(q => q.Id == questionId);
+            if (question == null)
+            {
+                return new AnswerResult 
+                { 
+                    IsCorrect = false, 
+                    Explanation = "Question not found." 
+                };
+            }
+
+            bool isCorrect = question.Type == "open-ended" || 
+                            (question.CorrectAnswer.HasValue && answerIndex == question.CorrectAnswer.Value);
+
+            return new AnswerResult
+            {
+                IsCorrect = isCorrect,
+                Explanation = question.Explanation
+            };
+        }
+
+        // Vue answer validation
+        public AnswerResult ValidateVueAnswer(int questionId, int answerIndex)
+        {
+            var question = VueInterviewQuestions.FirstOrDefault(q => q.Id == questionId);
+            if (question == null)
+            {
+                return new AnswerResult 
+                { 
+                    IsCorrect = false, 
+                    Explanation = "Question not found." 
+                };
+            }
+
+            bool isCorrect = question.Type == "open-ended" || 
+                            (question.CorrectAnswer.HasValue && answerIndex == question.CorrectAnswer.Value);
+
+            return new AnswerResult
+            {
+                IsCorrect = isCorrect,
+                Explanation = question.Explanation
+            };
+        }
+
+        // TypeScript answer validation
+        public AnswerResult ValidateTypescriptAnswer(int questionId, int answerIndex)
+        {
+            var question = TypescriptInterviewQuestions.FirstOrDefault(q => q.Id == questionId);
+            if (question == null)
+            {
+                return new AnswerResult 
+                { 
+                    IsCorrect = false, 
+                    Explanation = "Question not found." 
+                };
+            }
+
+            bool isCorrect = question.Type == "open-ended" || 
+                            (question.CorrectAnswer.HasValue && answerIndex == question.CorrectAnswer.Value);
+
+            return new AnswerResult
+            {
+                IsCorrect = isCorrect,
+                Explanation = question.Explanation
+            };
+        }
+
+        // Database answer validation
+        public AnswerResult ValidateDatabaseAnswer(int questionId, int answerIndex)
+        {
+            var question = DatabaseInterviewQuestions.FirstOrDefault(q => q.Id == questionId);
+            if (question == null)
+            {
+                return new AnswerResult 
+                { 
+                    IsCorrect = false, 
+                    Explanation = "Question not found." 
+                };
+            }
+
+            bool isCorrect = question.Type == "open-ended" || 
+                            (question.CorrectAnswer.HasValue && answerIndex == question.CorrectAnswer.Value);
+
+            return new AnswerResult
+            {
+                IsCorrect = isCorrect,
+                Explanation = question.Explanation
+            };
+        }
+
+        // Testing answer validation
+        public AnswerResult ValidateTestingAnswer(int questionId, int answerIndex)
+        {
+            var question = TestingInterviewQuestions.FirstOrDefault(q => q.Id == questionId);
             if (question == null)
             {
                 return new AnswerResult 

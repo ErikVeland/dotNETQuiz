@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "topic": "Core Concepts",
+    "title": "Vue Instance and Lifecycle",
+    "description": "Learn about the Vue instance and its lifecycle hooks, which control the behavior of components throughout their existence.",
+    "codeExample": "const app = Vue.createApp({\n  data() {\n    return {\n      message: 'Hello Vue!'\n    }\n  },\n  // Lifecycle hooks\n  beforeCreate() {\n    console.log('Before create - data and events are not set up yet')\n  },\n  created() {\n    console.log('Created - data and events are active, but DOM not mounted')\n    // Good place for API calls\n  },\n  beforeMount() {\n    console.log('Before mount - template and render functions about to be compiled')\n  },\n  mounted() {\n    console.log('Component is mounted!')\n    // Good place for DOM manipulation\n  },\n  beforeUpdate() {\n    console.log('Before update - called when data changes, before DOM update')\n  },\n  updated() {\n    console.log('Updated - called after DOM update')\n  },\n  beforeUnmount() {\n    console.log('Before unmount - called before component is destroyed')\n  },\n  unmounted() {\n    console.log('Unmounted - called after component is destroyed')\n  }\n})\n\napp.mount('#app')",
+    "output": "Hello Vue!\nComponent lifecycle logs in console showing the order of execution"
+  },
+  {
+    "id": 2,
+    "topic": "Core Concepts",
+    "title": "Template Syntax and Directives",
+    "description": "Learn how to use Vue's powerful template syntax for data binding, conditional rendering, and list rendering with built-in directives.",
+    "codeExample": "<div id=\"app\">\n  <!-- Text interpolation -->\n  <p>{{ message }}</p>\n  \n  <!-- Raw HTML (be careful with XSS) -->\n  <p v-html=\"rawHtml\"></p>\n  \n  <!-- Attribute binding -->\n  <div v-bind:id=\"dynamicId\">Bound ID</div>\n  <button v-bind:disabled=\"isButtonDisabled\">Button</button>\n  \n  <!-- Conditional rendering -->\n  <p v-if=\"seen\">Now you see me</p>\n  <p v-else>Now you don't</p>\n  \n  <!-- List rendering -->\n  <ul>\n    <li v-for=\"item in items\" :key=\"item.id\">\n      {{ item.text }}\n    </li>\n  </ul>\n  \n  <!-- Event handling -->\n  <button v-on:click=\"reverseMessage\">Reverse Message</button>\n  <button @click=\"counter += 1\">Count: {{ counter }}</button>\n  \n  <!-- Two-way binding -->\n  <input v-model=\"userInput\" placeholder=\"Type something\">\n  <p>You typed: {{ userInput }}</p>\n</div>\n\nconst app = Vue.createApp({\n  data() {\n    return {\n      message: 'Hello Vue!',\n      rawHtml: '<span style=\"color: red\">This is red</span>',\n      dynamicId: 'dynamic-id',\n      isButtonDisabled: false,\n      seen: true,\n      counter: 0,\n      userInput: '',\n      items: [\n        { id: 1, text: 'Item 1' },\n        { id: 2, text: 'Item 2' },\n        { id: 3, text: 'Item 3' }\n      ]\n    }\n  },\n  methods: {\n    reverseMessage() {\n      this.message = this.message.split('').reverse().join('')\n    }\n  }\n})",
+    "output": "Interactive component with text interpolation, attribute binding, conditional rendering, list rendering, event handling, and two-way binding"
+  },
+  {
+    "id": 3,
+    "topic": "Components",
+    "title": "Component Basics and Communication",
+    "description": "Learn how to create and use Vue components with props for parent-to-child communication and events for child-to-parent communication.",
+    "codeExample": "// Define a child component\nconst BlogPost = {\n  template: `\n    <div class=\"blog-post\">\n      <h3>{{ title }}</h3>\n      <p>{{ content }}</p>\n      <button @click=\"$emit('enlarge-text', 0.1)\">Enlarge text</button>\n      <button @click=\"$emit('delete-post')\">Delete</button>\n    </div>\n  `,\n  // Declare props\n  props: ['title', 'content'],\n  // Emits declaration (optional but recommended)\n  emits: ['enlarge-text', 'delete-post']\n}\n\nconst app = Vue.createApp({\n  data() {\n    return {\n      posts: [\n        { id: 1, title: 'My Journey with Vue', content: 'Content of post 1...' },\n        { id: 2, title: 'Blogging with Vue', content: 'Content of post 2...' },\n        { id: 3, title: 'Why Vue is Great', content: 'Content of post 3...' }\n      ],\n      postFontSize: 1\n    }\n  },\n  components: {\n    BlogPost\n  },\n  methods: {\n    onEnlargeText(enlargeAmount) {\n      this.postFontSize += enlargeAmount\n    },\n    onDeletePost() {\n      // Handle delete logic\n      console.log('Post deleted')\n    }\n  }\n})\n\n// In template:\n// <div :style=\"{ fontSize: postFontSize + 'em' }\">\n//   <blog-post\n//     v-for=\"post in posts\"\n//     :key=\"post.id\"\n//     :title=\"post.title\"\n//     :content=\"post.content\"\n//     @enlarge-text=\"onEnlargeText\"\n//     @delete-post=\"onDeletePost\"\n//   ></blog-post>\n// </div>",
+    "output": "A list of blog posts with interactive buttons to enlarge text or delete posts, demonstrating component communication"
+  },
+  {
+    "id": 4,
+    "topic": "Components",
+    "title": "Slots and Dynamic Components",
+    "description": "Learn how to use slots for content distribution and dynamic components for flexible UI composition.",
+    "codeExample": "// Component with slots\nconst BaseLayout = {\n  template: `\n    <div class=\"container\">\n      <header>\n        <slot name=\"header\">Default header</slot>\n      </header>\n      <main>\n        <slot></slot>\n      </main>\n      <footer>\n        <slot name=\"footer\">Default footer</slot>\n      </footer>\n    </div>\n  `\n}\n\n// Dynamic component example\nconst Home = {\n  template: `<div>Home Component</div>`\n}\n\nconst About = {\n  template: `<div>About Component</div>`\n}\n\nconst Contact = {\n  template: `<div>Contact Component</div>`\n}\n\nconst app = Vue.createApp({\n  data() {\n    return {\n      currentComponent: 'Home'\n    }\n  },\n  components: {\n    BaseLayout,\n    Home,\n    About,\n    Contact\n  }\n})\n\n// In template:\n// <base-layout>\n//   <template #header>\n//     <h1>Here might be a page title</h1>\n//   </template>\n// \n//   <p>A paragraph for the main content.</p>\n//   <p>And another one.</p>\n// \n//   <template #footer>\n//     <p>Here's some contact info</p>\n//   </template>\n// </base-layout>\n// \n// <!-- Dynamic component -->\n// <component :is=\"currentComponent\"></component>\n// <button @click=\"currentComponent = 'Home'\">Home</button>\n// <button @click=\"currentComponent = 'About'\">About</button>\n// <button @click=\"currentComponent = 'Contact'\">Contact</button>",
+    "output": "Flexible layout component with named slots and dynamic component switching"
+  },
+  {
+    "id": 5,
+    "topic": "Composition API",
+    "title": "Reactive References and Composables",
+    "description": "Learn how to use reactive references with the Composition API and create reusable composables for complex logic.",
+    "codeExample": "const { createApp, ref, reactive, computed, watch, onMounted } = Vue\n\n// Reusable composable function\nfunction useCounter(initialValue = 0) {\n  const count = ref(initialValue)\n  const increment = () => count.value++\n  const decrement = () => count.value--\n  const reset = () => count.value = initialValue\n  \n  const isEven = computed(() => count.value % 2 === 0)\n  \n  watch(count, (newVal, oldVal) => {\n    console.log(`Count changed from ${oldVal} to ${newVal}`)\n  })\n  \n  return { count, increment, decrement, reset, isEven }\n}\n\nconst app = createApp({\n  setup() {\n    // Using reactive references\n    const message = ref('Hello Vue 3!')\n    const user = reactive({\n      name: 'John Doe',\n      age: 30,\n      email: 'john@example.com'\n    })\n    \n    // Using computed property\n    const userInfo = computed(() => {\n      return `${user.name} (${user.age}) - ${user.email}`\n    })\n    \n    // Using composable\n    const { count, increment, decrement, reset, isEven } = useCounter(10)\n    \n    // Lifecycle hook\n    onMounted(() => {\n      console.log('Component mounted!')\n    })\n    \n    // Methods\n    const updateUser = () => {\n      user.name = 'Jane Doe'\n      user.age = 25\n    }\n    \n    return {\n      message,\n      user,\n      userInfo,\n      count,\n      increment,\n      decrement,\n      reset,\n      isEven,\n      updateUser\n    }\n  }\n})",
+    "output": "Reactive component with computed properties, watchers, and reusable composable functions"
+  }
+]

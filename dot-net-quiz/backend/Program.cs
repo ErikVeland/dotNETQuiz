@@ -49,6 +49,18 @@ builder.Services.AddGraphQLServer()
     // SASS GraphQL types
     .AddType<backend.GraphQL.SassLessonType>()
     .AddType<backend.GraphQL.SassInterviewQuestionType>()
+    // Vue GraphQL types
+    .AddType<backend.GraphQL.VueLessonType>()
+    .AddType<backend.GraphQL.VueInterviewQuestionType>()
+    // TypeScript GraphQL types
+    .AddType<backend.GraphQL.TypescriptLessonType>()
+    .AddType<backend.GraphQL.TypescriptInterviewQuestionType>()
+    // Database GraphQL types
+    .AddType<backend.GraphQL.DatabaseLessonType>()
+    .AddType<backend.GraphQL.DatabaseInterviewQuestionType>()
+    // Testing GraphQL types
+    .AddType<backend.GraphQL.TestingLessonType>()
+    .AddType<backend.GraphQL.TestingInterviewQuestionType>()
     .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true);
 
 var app = builder.Build();
@@ -264,6 +276,138 @@ public class Query {
         
         return backend.Services.DataService.ApplyQuery(questions ?? new List<SassInterviewQuestion>(), topic, sortBy, sortOrder, limit, offset);
     }
+    
+    // Vue content queries
+    public IEnumerable<VueLesson> VueLessons(string? topic = null, string? sortBy = null, string? sortOrder = null, int? limit = null, int? offset = null)
+    {
+        // Load Vue lessons from JSON file
+        var jsonPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "vue_lessons.json");
+        if (!File.Exists(jsonPath))
+        {
+            // Return empty collection if file not found
+            return new List<VueLesson>();
+        }
+
+        var jsonContent = File.ReadAllText(jsonPath);
+        var lessons = System.Text.Json.JsonSerializer.Deserialize<List<VueLesson>>(jsonContent, JsonSerializerOptionsConfig.Options);
+        
+        return backend.Services.DataService.ApplyQuery(lessons ?? new List<VueLesson>(), topic, sortBy, sortOrder, limit, offset);
+    }
+    
+    public IEnumerable<VueInterviewQuestion> VueInterviewQuestions(string? topic = null, string? sortBy = null, string? sortOrder = null, int? limit = null, int? offset = null)
+    {
+        // Load Vue interview questions from JSON file
+        var jsonPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "vue_questions.json");
+        if (!File.Exists(jsonPath))
+        {
+            // Return empty collection if file not found
+            return new List<VueInterviewQuestion>();
+        }
+
+        var jsonContent = File.ReadAllText(jsonPath);
+        var questions = System.Text.Json.JsonSerializer.Deserialize<List<VueInterviewQuestion>>(jsonContent, JsonSerializerOptionsConfig.Options);
+        
+        return backend.Services.DataService.ApplyQuery(questions ?? new List<VueInterviewQuestion>(), topic, sortBy, sortOrder, limit, offset);
+    }
+    
+    // TypeScript content queries
+    public IEnumerable<TypescriptLesson> TypescriptLessons(string? topic = null, string? sortBy = null, string? sortOrder = null, int? limit = null, int? offset = null)
+    {
+        // Load TypeScript lessons from JSON file
+        var jsonPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "typescript_lessons.json");
+        if (!File.Exists(jsonPath))
+        {
+            // Return empty collection if file not found
+            return new List<TypescriptLesson>();
+        }
+
+        var jsonContent = File.ReadAllText(jsonPath);
+        var lessons = System.Text.Json.JsonSerializer.Deserialize<List<TypescriptLesson>>(jsonContent, JsonSerializerOptionsConfig.Options);
+        
+        return backend.Services.DataService.ApplyQuery(lessons ?? new List<TypescriptLesson>(), topic, sortBy, sortOrder, limit, offset);
+    }
+    
+    public IEnumerable<TypescriptInterviewQuestion> TypescriptInterviewQuestions(string? topic = null, string? sortBy = null, string? sortOrder = null, int? limit = null, int? offset = null)
+    {
+        // Load TypeScript interview questions from JSON file
+        var jsonPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "typescript_questions.json");
+        if (!File.Exists(jsonPath))
+        {
+            // Return empty collection if file not found
+            return new List<TypescriptInterviewQuestion>();
+        }
+
+        var jsonContent = File.ReadAllText(jsonPath);
+        var questions = System.Text.Json.JsonSerializer.Deserialize<List<TypescriptInterviewQuestion>>(jsonContent, JsonSerializerOptionsConfig.Options);
+        
+        return backend.Services.DataService.ApplyQuery(questions ?? new List<TypescriptInterviewQuestion>(), topic, sortBy, sortOrder, limit, offset);
+    }
+    
+    // Database content queries
+    public IEnumerable<DatabaseLesson> DatabaseLessons(string? topic = null, string? sortBy = null, string? sortOrder = null, int? limit = null, int? offset = null)
+    {
+        // Load Database lessons from JSON file
+        var jsonPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "database_lessons.json");
+        if (!File.Exists(jsonPath))
+        {
+            // Return empty collection if file not found
+            return new List<DatabaseLesson>();
+        }
+
+        var jsonContent = File.ReadAllText(jsonPath);
+        var lessons = System.Text.Json.JsonSerializer.Deserialize<List<DatabaseLesson>>(jsonContent, JsonSerializerOptionsConfig.Options);
+        
+        return backend.Services.DataService.ApplyQuery(lessons ?? new List<DatabaseLesson>(), topic, sortBy, sortOrder, limit, offset);
+    }
+    
+    public IEnumerable<DatabaseInterviewQuestion> DatabaseInterviewQuestions(string? topic = null, string? sortBy = null, string? sortOrder = null, int? limit = null, int? offset = null)
+    {
+        // Load Database interview questions from JSON file
+        var jsonPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "database_questions.json");
+        if (!File.Exists(jsonPath))
+        {
+            // Return empty collection if file not found
+            return new List<DatabaseInterviewQuestion>();
+        }
+
+        var jsonContent = File.ReadAllText(jsonPath);
+        var questions = System.Text.Json.JsonSerializer.Deserialize<List<DatabaseInterviewQuestion>>(jsonContent, JsonSerializerOptionsConfig.Options);
+        
+        return backend.Services.DataService.ApplyQuery(questions ?? new List<DatabaseInterviewQuestion>(), topic, sortBy, sortOrder, limit, offset);
+    }
+    
+    // Testing content queries
+    public IEnumerable<TestingLesson> TestingLessons(string? topic = null, string? sortBy = null, string? sortOrder = null, int? limit = null, int? offset = null)
+    {
+        // Load Testing lessons from JSON file
+        var jsonPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "testing_lessons.json");
+        if (!File.Exists(jsonPath))
+        {
+            // Return empty collection if file not found
+            return new List<TestingLesson>();
+        }
+
+        var jsonContent = File.ReadAllText(jsonPath);
+        var lessons = System.Text.Json.JsonSerializer.Deserialize<List<TestingLesson>>(jsonContent, JsonSerializerOptionsConfig.Options);
+        
+        return backend.Services.DataService.ApplyQuery(lessons ?? new List<TestingLesson>(), topic, sortBy, sortOrder, limit, offset);
+    }
+    
+    public IEnumerable<TestingInterviewQuestion> TestingInterviewQuestions(string? topic = null, string? sortBy = null, string? sortOrder = null, int? limit = null, int? offset = null)
+    {
+        // Load Testing interview questions from JSON file
+        var jsonPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "testing_questions.json");
+        if (!File.Exists(jsonPath))
+        {
+            // Return empty collection if file not found
+            return new List<TestingInterviewQuestion>();
+        }
+
+        var jsonContent = File.ReadAllText(jsonPath);
+        var questions = System.Text.Json.JsonSerializer.Deserialize<List<TestingInterviewQuestion>>(jsonContent, JsonSerializerOptionsConfig.Options);
+        
+        return backend.Services.DataService.ApplyQuery(questions ?? new List<TestingInterviewQuestion>(), topic, sortBy, sortOrder, limit, offset);
+    }
 }
 
 public class Mutation {
@@ -307,5 +451,29 @@ public class Mutation {
     public AnswerResult SubmitSassAnswer(int questionId, int answerIndex)
     {
         return _dataService.ValidateSassAnswer(questionId, answerIndex);
+    }
+    
+    // Vue answer submission
+    public AnswerResult SubmitVueAnswer(int questionId, int answerIndex)
+    {
+        return _dataService.ValidateVueAnswer(questionId, answerIndex);
+    }
+    
+    // TypeScript answer submission
+    public AnswerResult SubmitTypescriptAnswer(int questionId, int answerIndex)
+    {
+        return _dataService.ValidateTypescriptAnswer(questionId, answerIndex);
+    }
+    
+    // Database answer submission
+    public AnswerResult SubmitDatabaseAnswer(int questionId, int answerIndex)
+    {
+        return _dataService.ValidateDatabaseAnswer(questionId, answerIndex);
+    }
+    
+    // Testing answer submission
+    public AnswerResult SubmitTestingAnswer(int questionId, int answerIndex)
+    {
+        return _dataService.ValidateTestingAnswer(questionId, answerIndex);
     }
 }

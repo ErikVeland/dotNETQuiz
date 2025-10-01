@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "topic": "Basic Types",
+    "title": "Primitive Types and Type Annotations",
+    "description": "Learn about TypeScript's primitive types including string, number, and boolean, along with advanced types like any, unknown, and never.",
+    "codeExample": "// Primitive types with explicit annotations\nlet isDone: boolean = false\nlet decimal: number = 6\nlet hex: number = 0xf00d\nlet binary: number = 0b1010\nlet octal: number = 0o744\nlet color: string = \"blue\"\n\ncolor = 'red'  // Still valid\n\nlet fullName: string = `Bob Bobbington`\nlet sentence: string = `Hello, my name is ${fullName}`\n\n// Special types\nlet notSure: any = 4  // Can be anything (avoid when possible)\nnotSure = \"maybe a string instead\"\nnotSure = false\n\nlet uncertain: unknown = 4  // Safer than any\n// uncertain.toFixed(); // Error: Object is of type 'unknown'\nif (typeof uncertain === 'number') {\n  uncertain.toFixed()  // OK\n}\n\nfunction fail(): never {\n  throw new Error(\"Something failed\")\n}",
+    "output": "Variables with explicit type annotations for various primitive types, demonstrating the difference between any and unknown"
+  },
+  {
+    "id": 2,
+    "topic": "Basic Types",
+    "title": "Arrays, Tuples, and Enums",
+    "description": "Learn how to work with arrays, tuples, and enums in TypeScript for more precise type safety.",
+    "codeExample": "// Arrays\nlet list: number[] = [1, 2, 3]\nlet list2: Array<number> = [1, 2, 3]\n\n// Tuples - fixed-length arrays with known types\nlet x: [string, number]\nx = ['hello', 10]  // OK\n// x = [10, 'hello']  // Error\n\nconsole.log(x[0].substring(1))  // OK\n// console.log(x[1].substring(1))  // Error, 'number' does not have 'substring'\n\nx[3] = 'world'  // OK, 'string' can be assigned to (string | number)\nx[5] = 100  // OK, 'number' can be assigned to (string | number)\n// x[6] = true  // Error, 'boolean' isn't (string | number)\n\n// Enums\nenum Color { Red, Green, Blue }\nlet c: Color = Color.Green\n\nenum Color2 { Red = 1, Green, Blue }\nlet c2: Color2 = Color2.Green\n\nenum Color3 { Red = 1, Green = 2, Blue = 4 }\nlet c3: Color3 = Color3.Green\n\n// String enums\nenum Direction {\n  Up = \"UP\",\n  Down = \"DOWN\",\n  Left = \"LEFT\",\n  Right = \"RIGHT\",\n}",
+    "output": "Type-safe arrays, tuples with fixed types, and enums for named constants"
+  },
+  {
+    "id": 3,
+    "topic": "Interfaces",
+    "title": "Interface Declaration and Extension",
+    "description": "Learn how to define interfaces to describe the shape of objects, including optional properties, readonly properties, and extending interfaces.",
+    "codeExample": "// Basic interface\ninterface Person {\n  firstName: string\n  lastName: string\n  age?: number  // Optional property\n  readonly ssn: string  // Readonly property\n}\n\nfunction greeter(person: Person) {\n  // person.ssn = \"123-45-6789\"  // Error! Cannot assign to 'ssn'\n  return `Hello, ${person.firstName} ${person.lastName}${person.age ? `, age ${person.age}` : ''}`\n}\n\nlet user = { firstName: \"Jane\", lastName: \"User\", ssn: \"123-45-6789\", age: 25 }\n\ngreeter(user)\n\n// Extending interfaces\ninterface Shape {\n  color: string\n}\n\ninterface Square extends Shape {\n  sideLength: number\n}\n\nlet square = <Square>{ color: \"blue\", sideLength: 10 }\n\n// Multiple inheritance\ninterface PenStroke {\n  penWidth: number\n}\n\ninterface Square2 extends Shape, PenStroke {\n  sideLength: number\n}\n\nlet square2 = <Square2>{ color: \"blue\", sideLength: 10, penWidth: 5.0 }",
+    "output": "Type-safe object manipulation with interfaces, showing optional and readonly properties, and interface extension"
+  },
+  {
+    "id": 4,
+    "topic": "Classes",
+    "title": "Class Implementation with Access Modifiers and Abstract Classes",
+    "description": "Learn how to implement classes with access modifiers in TypeScript, including abstract classes and method overriding.",
+    "codeExample": "abstract class Department {\n  // Public by default\n  name: string\n  \n  // Protected - accessible within class and subclasses\n  protected employees: string[] = []\n  \n  // Private - only accessible within this class\n  private readonly id: string\n  \n  constructor(id: string, n: string) {\n    this.id = id\n    this.name = n\n  }\n  \n  // Abstract method - must be implemented in derived classes\n  abstract describe(): void\n  \n  addEmployee(employee: string) {\n    this.employees.push(employee)\n  }\n  \n  printEmployeeInformation() {\n    console.log(`Department: ${this.name} (${this.id})`)\n    console.log('Employees:', this.employees)\n  }\n}\n\nclass ITDepartment extends Department {\n  admins: string[]\n  \n  constructor(id: string, admins: string[]) {\n    super(id, 'IT')  // Call parent constructor\n    this.admins = admins\n  }\n  \n  describe() {\n    console.log(`IT Department - ID: ${this.id}`)\n  }\n  \n  addEmployee(name: string) {\n    if (name === 'Bill') {\n      return  // Don't add Bill\n    }\n    super.addEmployee(name)  // Call parent method\n  }\n}\n\nlet it = new ITDepartment('d1', ['Max'])\nit.addEmployee('Max')\nit.addEmployee('Bill')  // Won't be added\nit.printEmployeeInformation()\nit.describe()",
+    "output": "Class hierarchy with proper encapsulation, abstract classes, and method overriding"
+  },
+  {
+    "id": 5,
+    "topic": "Generics",
+    "title": "Generic Types and Constraints",
+    "description": "Learn how to create reusable components with generics, including generic constraints for more precise type safety.",
+    "codeExample": "// Simple generic function\nfunction identity<T>(arg: T): T {\n  return arg\n}\n\nlet output1 = identity<string>(\"myString\")\nlet output2 = identity(\"myString\")  // Type argument inferred\n\n// Generic interface\ninterface GenericIdentityFn<T> {\n  (arg: T): T\n}\n\nfunction identity2<T>(arg: T): T {\n  return arg\n}\n\nlet myIdentity: GenericIdentityFn<number> = identity2\n\n// Generic class\nclass GenericNumber<T> {\n  zeroValue: T\n  add: (x: T, y: T) => T\n}\n\nlet myGenericNumber = new GenericNumber<number>()\nmyGenericNumber.zeroValue = 0\nmyGenericNumber.add = function(x, y) {\n  return x + y\n}\n\n// Generic constraints\ninterface Lengthwise {\n  length: number\n}\n\nfunction loggingIdentity<T extends Lengthwise>(arg: T): T {\n  console.log(arg.length)  // Now we know it has a .length property\n  return arg\n}\n\nloggingIdentity(\"hello\")  // OK - string has length\nloggingIdentity([1, 2, 3])  // OK - array has length\n// loggingIdentity(3)  // Error - number doesn't have length\n\n// Using type parameters in generic constraints\nfunction getProperty<T, K extends keyof T>(obj: T, key: K) {\n  return obj[key]\n}\n\nlet x = { a: 1, b: 2, c: 3, d: 4 }\ngetProperty(x, \"a\")  // OK\n// getProperty(x, \"m\")  // Error - Argument of type '\"m\"' is not assignable to parameter of type '\"a\" | \"b\" | \"c\" | \"d\"'",
+    "output": "Type-safe generic functions, interfaces, and classes with constraints for flexible yet safe type usage"
+  }
+]

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import AnimatedBackground from '../../components/AnimatedBackground';
+import EnhancedLoadingComponent from '../../components/EnhancedLoadingComponent';
 
 export default function AnimatedBackgroundDemo() {
   const [colors, setColors] = useState([
@@ -17,6 +18,9 @@ export default function AnimatedBackgroundDemo() {
   const [speed, setSpeed] = useState(25);
   const [blur, setBlur] = useState(55);
   const [opacity, setOpacity] = useState(0.77);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
 
   const presetColors = [
     {
@@ -80,9 +84,100 @@ export default function AnimatedBackgroundDemo() {
     setColors(preset.colors);
   };
 
+  // Handle manual retry
+  const handleManualRetry = () => {
+    setRetryCount(0);
+    setError(null);
+    setLoading(true);
+    
+    // Simulate a loading process
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  };
+
+  // Show loading state
+  if (loading) {
+    if (retryCount > 0) {
+      return (
+        <div className="min-h-screen relative">
+          <AnimatedBackground 
+            colors={colors}
+            speed={speed}
+            blur={blur}
+            opacity={opacity}
+          />
+          <div className="relative z-10 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-md mx-auto">
+              <EnhancedLoadingComponent 
+                retryCount={retryCount} 
+                maxRetries={30} 
+                onRetry={handleManualRetry}
+              />
+            </div>
+          </div>
+        </div>
+      );
+    }
+    
+    // Show initial loading state without opaque background
+    return (
+      <div className="min-h-screen relative">
+        <AnimatedBackground 
+          colors={colors}
+          speed={speed}
+          blur={blur}
+          opacity={opacity}
+        />
+        <div className="relative z-10 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto">
+            <div className="animate-pulse flex flex-col items-center justify-center space-y-4">
+              <div className="h-12 w-2/3 bg-white/30 dark:bg-gray-700/30 rounded"></div>
+              <div className="h-64 w-full bg-white/30 dark:bg-gray-700/30 rounded"></div>
+              <div className="h-10 w-1/3 bg-white/30 dark:bg-gray-700/30 rounded"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error only after loading
+  if (error) {
+    return (
+      <div className="min-h-screen relative">
+        <AnimatedBackground 
+          colors={colors}
+          speed={speed}
+          blur={blur}
+          opacity={opacity}
+        />
+        <div className="relative z-10 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+          <div className="w-full max-w-3xl">
+            <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+              <div className="text-center">
+                <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
+                <p className="mb-4 text-gray-800 dark:text-gray-200">{error}</p>
+                <button
+                  onClick={handleManualRetry}
+                  className="px-4 py-2 bg-indigo-600 dark:bg-indigo-700 text-white rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors duration-200"
+                >
+                  Try Again
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     // Keep the original background for this demo page since it's showcasing the animated background component
     <div className="min-h-screen relative">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-white dark:focus:bg-gray-800 focus:text-blue-600 dark:focus:text-blue-400 z-50">
+        Skip to main content
+      </a>
       {/* Animated Background Component */}
       <AnimatedBackground 
         colors={colors}
@@ -95,7 +190,7 @@ export default function AnimatedBackgroundDemo() {
       <div className="relative z-10 min-h-screen flex flex-col">
         {/* Header - Modified to have transparent background */}
         <header className="bg-transparent border-b border-gray-200 dark:border-gray-700">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-6">
               <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 Animated Background Demo
@@ -111,8 +206,8 @@ export default function AnimatedBackgroundDemo() {
         </header>
 
         {/* Main Content */}
-        <main className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-          <div className="w-full max-w-4xl">
+        <main id="main-content" className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+          <div className="w-full max-w-3xl">
             <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
               <div className="p-6">
                 <div className="text-center mb-8">
@@ -133,16 +228,18 @@ export default function AnimatedBackgroundDemo() {
                     
                     <div className="space-y-6">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label htmlFor="speed-control" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                           Animation Speed: {speed}s
                         </label>
                         <input
+                          id="speed-control"
                           type="range"
                           min="5"
                           max="60"
                           value={speed}
                           onChange={(e) => setSpeed(parseInt(e.target.value))}
                           className="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-lg appearance-none cursor-pointer"
+                          aria-label="Animation speed control"
                         />
                         <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
                           <span>Fast</span>
@@ -151,24 +248,27 @@ export default function AnimatedBackgroundDemo() {
                       </div>
                       
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label htmlFor="blur-control" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                           Blur: {blur}px
                         </label>
                         <input
+                          id="blur-control"
                           type="range"
                           min="0"
                           max="100"
                           value={blur}
                           onChange={(e) => setBlur(parseInt(e.target.value))}
                           className="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-lg appearance-none cursor-pointer"
+                          aria-label="Blur effect control"
                         />
                       </div>
                       
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label htmlFor="opacity-control" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                           Opacity: {opacity.toFixed(2)}
                         </label>
                         <input
+                          id="opacity-control"
                           type="range"
                           min="0"
                           max="1"
@@ -176,6 +276,7 @@ export default function AnimatedBackgroundDemo() {
                           value={opacity}
                           onChange={(e) => setOpacity(parseFloat(e.target.value))}
                           className="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-lg appearance-none cursor-pointer"
+                          aria-label="Background opacity control"
                         />
                       </div>
                     </div>
@@ -190,6 +291,7 @@ export default function AnimatedBackgroundDemo() {
                             key={index}
                             onClick={() => applyPreset(preset)}
                             className="py-2 px-3 text-sm font-medium rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200"
+                            aria-label={`Apply ${preset.name} color preset`}
                           >
                             {preset.name}
                           </button>

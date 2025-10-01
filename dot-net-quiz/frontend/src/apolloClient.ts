@@ -21,23 +21,42 @@ const shouldRetry = (error: any) => {
 
 const retryLink = new RetryLink({
   delay: {
-    initial: 2000, // Start with 2 second delay
-    max: 30000,    // Max 30 seconds between retries
+    initial: 300, // Reduced from 1000 to 300ms for faster initial retry
+    max: 5000,    // Reduced from 15000 to 5000ms between retries
     jitter: true,  // Add randomness to prevent thundering herd
   },
   attempts: {
-    max: 30,       // Maximum retry attempts
+    max: 5,       // Reduced from 15 to 5 retry attempts
     retryIf: (error, _operation) => shouldRetry(error),
   },
 });
 
 export const createApolloClient = () => {
-  // Use the base URL from environment or fallback to the hosted backend URL
-  const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'https://fullstack-academy-backend.onrender.com';
+  // Use the base URL from environment or fallback to localhost for development
+  let baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'https://fullstack-academy-backend.onrender.com';
+  
+  // For local development, use the backend service name from docker-compose
+  if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+    // When running in Docker, the backend is accessible via the service name 'backend'
+    // When running locally without Docker, it's on localhost:8080
+    baseUrl = window.location.port === '3000' ? 'http://localhost:8080' : 'http://backend:8080';
+  }
+  
   const graphqlUrl = `${baseUrl}/graphql`;
   
   return new ApolloClient({
-    link: retryLink.concat(new HttpLink({ uri: graphqlUrl })),
+    link: retryLink.concat(new HttpLink({ 
+      uri: graphqlUrl,
+      // Add timeout for faster failure detection
+      fetch: (uri, options) => {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+        return fetch(uri, {
+          ...options,
+          signal: controller.signal
+        }).finally(() => clearTimeout(timeoutId));
+      }
+    })),
     cache: new InMemoryCache(),
   });
 };

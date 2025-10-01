@@ -78,3 +78,54 @@ code {
 html:not(.dark) body {
   @apply bg-gray-100 text-gray-900;
 }
+
+/* Focus styles for accessibility */
+:focus {
+  outline: 2px solid #4F46E5; /* indigo-600 */
+  outline-offset: 2px;
+}
+
+/* Special focus style for skip links */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only.focus:not-sr-only {
+  position: absolute;
+  width: auto;
+  height: auto;
+  padding: 1rem;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  color: #4F46E5; /* indigo-600 */
+  font-weight: bold;
+  text-decoration: underline;
+  z-index: 50;
+}
+
+/* Dark mode focus styles */
+@media (prefers-color-scheme: dark) {
+  .sr-only.focus:not-sr-only {
+    background-color: #1F2937; /* gray-800 */
+    color: #818CF8; /* indigo-400 */
+  }
+}
+
+/* Ensure focus styles work in dark mode */
+.dark :focus {
+  outline: 2px solid #818CF8; /* indigo-400 */
+  outline-offset: 2px;
+}
