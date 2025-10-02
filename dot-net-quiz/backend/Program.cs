@@ -7,11 +7,10 @@ using System.Collections.Generic;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure Kestrel to listen on the PORT environment variable
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+// Configure Kestrel to listen on port 5023
 builder.WebHost.UseKestrel(options =>
 {
-    options.ListenAnyIP(int.Parse(port));
+    options.ListenAnyIP(5023);
 });
 
 builder.Services.AddCors(options =>
