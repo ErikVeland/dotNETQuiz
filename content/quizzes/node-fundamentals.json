@@ -66,21 +66,21 @@
       "topic": "Express",
       "difficulty": "Beginner",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "A minimal Node.js web framework that simplifies building web servers and APIs",
+        "A database management system for Node.js applications",
+        "A testing framework for Node.js unit tests",
+        "A code editor specifically designed for Node.js development"
       ],
       "correctIndex": 0,
-      "explanation": "Express.js is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications. It simplifies the process of building web servers and APIs by providing helpful utilities and middleware.",
-      "industryContext": "Node.js is essential for modern backend development and tooling.",
+      "explanation": "Express.js is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications. It simplifies the process of building web servers and APIs by providing helpful utilities and middleware. Express is built on top of Node.js and provides a thin layer of fundamental web application features, without obscuring Node.js features that you know and love. It's the most popular web framework for Node.js and is used by many major companies.",
+      "industryContext": "Express.js is the most widely used web framework for Node.js, serving as the foundation for countless web applications and APIs. Understanding Express is essential for any Node.js backend developer, as it provides the building blocks for creating robust, scalable web services.",
       "tags": [
         "Express",
         "beginner",
         "node"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 3,
         "originalType": "open-ended",
@@ -174,21 +174,21 @@
       "topic": "NPM",
       "difficulty": "Beginner",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "The default package manager for Node.js used to install, share, and manage packages",
+        "A database management system for Node.js applications",
+        "A testing framework for Node.js unit tests",
+        "A code editor specifically designed for Node.js development"
       ],
       "correctIndex": 0,
-      "explanation": "NPM (Node Package Manager) is the default package manager for Node.js. It is used to install, share, and manage packages (libraries and tools) in Node.js projects. It also helps with dependency management and script execution.",
-      "industryContext": "Node.js is essential for modern backend development and tooling.",
+      "explanation": "NPM (Node Package Manager) is the default package manager for Node.js. It is used to install, share, and manage packages (libraries and tools) in Node.js projects. It also helps with dependency management and script execution. NPM hosts the world's largest registry of open-source packages and is essential for modern JavaScript development, allowing developers to easily share and reuse code.",
+      "industryContext": "NPM is fundamental to Node.js development, serving as the primary package manager for installing dependencies, managing project versions, and running scripts. Understanding NPM is essential for any Node.js developer working on real-world applications.",
       "tags": [
         "NPM",
         "beginner",
         "node"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 7,
         "originalType": "open-ended",
@@ -282,21 +282,21 @@
       "topic": "Security",
       "difficulty": "Intermediate",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Input validation, HTTPS everywhere, helmet.js for security headers, and dependency updates",
+        "Using only synchronous code to prevent race conditions",
+        "Storing all configuration in public repositories for transparency",
+        "Disabling all logging to prevent information disclosure"
       ],
       "correctIndex": 0,
-      "explanation": "Essential security practices include: using HTTPS everywhere, validating and sanitizing all input, implementing proper authentication and authorization, using helmet.js for security headers, rate limiting, keeping dependencies updated, using environment variables for secrets, implementing CSRF protection, using secure session management, and regular security audits with tools like npm audit.",
-      "industryContext": "Node.js is essential for modern backend development and tooling.",
+      "explanation": "Essential security practices for Node.js applications include: using HTTPS everywhere to encrypt data in transit, validating and sanitizing all input to prevent injection attacks, implementing proper authentication and authorization mechanisms, using helmet.js for security headers to protect against common web vulnerabilities, rate limiting to prevent abuse, keeping dependencies updated to patch known vulnerabilities, using environment variables for secrets instead of hardcoding them, implementing CSRF protection, using secure session management, and regular security audits with tools like npm audit.",
+      "industryContext": "Security is critical for production Node.js applications, especially those handling sensitive user data or financial transactions. Following security best practices is essential for protecting applications from common vulnerabilities like injection attacks, cross-site scripting, and data breaches.",
       "tags": [
         "Security",
         "intermediate",
         "node"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 11,
         "originalType": "open-ended",
@@ -363,21 +363,21 @@
       "topic": "Error Handling",
       "difficulty": "Intermediate",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Use process.on('uncaughtException') to log errors and gracefully shut down, plus process managers for restarts",
+        "Ignore them as Node.js handles them automatically",
+        "Restart the server manually every time an exception occurs",
+        "Wrap all code in a single global try-catch block"
       ],
       "correctIndex": 0,
-      "explanation": "Handle uncaught exceptions by: 1) Using process.on('uncaughtException') to log errors and gracefully shut down, 2) Using process.on('unhandledRejection') for unhandled Promise rejections, 3) Implementing proper error handling in all async operations, 4) Using try-catch blocks around critical code, 5) Using process managers like PM2 for automatic restarts, 6) Logging all errors for debugging. Never ignore uncaught exceptions as they can lead to memory leaks and unstable applications.",
-      "industryContext": "Node.js is essential for modern backend development and tooling.",
+      "explanation": "Handle uncaught exceptions by: 1) Using process.on('uncaughtException') to log errors and gracefully shut down, 2) Using process.on('unhandledRejection') for unhandled Promise rejections, 3) Implementing proper error handling in all async operations, 4) Using try-catch blocks around critical code, 5) Using process managers like PM2 for automatic restarts, 6) Logging all errors for debugging. Never ignore uncaught exceptions as they can lead to memory leaks and unstable applications. The recommended approach is to log the error, perform cleanup operations, and then exit the process, allowing a process manager to restart it.",
+      "industryContext": "Proper error handling is crucial for building reliable Node.js applications that can gracefully recover from unexpected issues. Unhandled exceptions can cause application crashes and downtime, making robust error handling essential for production systems.",
       "tags": [
         "Error Handling",
         "intermediate",
         "node"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 14,
         "originalType": "open-ended",
@@ -417,21 +417,21 @@
       "topic": "Security",
       "difficulty": "Advanced",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Input validation, secure password hashing, authentication/authorization, and dependency updates",
+        "Using only built-in Node.js modules to avoid security vulnerabilities",
+        "Disabling all logging to prevent information disclosure",
+        "Running the application as root user for maximum privileges"
       ],
       "correctIndex": 0,
-      "explanation": "Key security considerations include: input validation and sanitization to prevent XSS and injection attacks, secure password hashing with bcrypt, proper authentication and authorization, rate limiting to prevent DoS attacks, using HTTPS and security headers (helmet), keeping dependencies updated, implementing proper error handling without exposing sensitive information, and using environment variables for secrets.",
-      "industryContext": "Security is critical for production Node.js applications, especially in enterprise environments handling sensitive data.",
+      "explanation": "Key security considerations when developing Node.js applications include: input validation and sanitization to prevent XSS and injection attacks (SQL injection, command injection), secure password hashing with bcrypt or similar strong hashing algorithms, proper authentication and authorization mechanisms with secure session management, rate limiting to prevent DoS attacks, using HTTPS and security headers (helmet.js) to protect against common web vulnerabilities, keeping dependencies updated to patch known vulnerabilities, implementing proper error handling without exposing sensitive information that could aid attackers, and using environment variables for secrets like API keys and database credentials rather than hardcoding them.",
+      "industryContext": "Security is critical for production Node.js applications, especially in enterprise environments handling sensitive data. Following security best practices helps protect against common vulnerabilities like injection attacks, cross-site scripting, broken authentication, and insecure dependencies that could lead to data breaches or system compromise.",
       "tags": [
         "Security",
         "advanced",
         "node"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180
+      "questionType": "multiple-choice",
+      "estimatedTime": 90
     },
     {
       "id": "node-fundamentals-q17",
@@ -483,21 +483,21 @@
       "topic": "Architecture",
       "difficulty": "Advanced",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Benefits: independent deployment, technology diversity; Challenges: service communication complexity, distributed system issues",
+        "Benefits: simpler monolithic structure; Challenges: harder to scale individual components",
+        "Benefits: reduced network latency; Challenges: increased memory usage",
+        "Benefits: single technology stack; Challenges: team coordination difficulties"
       ],
       "correctIndex": 0,
-      "explanation": "Benefits include: independent deployment and scaling, technology diversity, fault isolation, and team autonomy. Challenges include: increased complexity in service communication, distributed system challenges (consistency, monitoring), network latency, data consistency across services, and operational overhead. Node.js is well-suited for microservices due to its lightweight nature and excellent I/O handling.",
-      "industryContext": "Microservices architecture is widely adopted in enterprise environments for scalable, maintainable applications.",
+      "explanation": "Benefits of microservices architecture with Node.js include: independent deployment and scaling of services allowing teams to work autonomously, technology diversity enabling different services to use the most appropriate technologies, fault isolation so that failures in one service don't bring down the entire system, and team autonomy with different teams able to own different services. Challenges include: increased complexity in service communication requiring robust APIs and messaging systems, distributed system challenges such as maintaining consistency and monitoring across services, network latency between service calls, data consistency across services requiring distributed transactions or eventual consistency patterns, and operational overhead of managing multiple services. Node.js is well-suited for microservices due to its lightweight nature, excellent I/O handling, and rich ecosystem of packages.",
+      "industryContext": "Microservices architecture is widely adopted in enterprise environments for scalable, maintainable applications. Node.js's non-blocking I/O model and lightweight runtime make it an excellent choice for building microservices that need to handle high concurrency and respond quickly to requests.",
       "tags": [
         "Architecture",
         "advanced",
         "node"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180
+      "questionType": "multiple-choice",
+      "estimatedTime": 90
     },
     {
       "id": "node-fundamentals-q20",

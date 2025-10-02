@@ -174,21 +174,21 @@
       "topic": "Mocking",
       "difficulty": "Beginner",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Each test runs independently using fresh data, mocks, and setup/teardown to ensure reliability",
+        "Tests run in parallel to save time",
+        "All tests share the same database for consistency",
+        "Tests are grouped by functionality for better organization"
       ],
       "correctIndex": 0,
-      "explanation": "Test isolation means each test can run independently without being affected by other tests. It's important because it ensures tests are reliable, repeatable, and can be run in any order. You achieve it by using fresh test data for each test, mocking external dependencies, avoiding shared state between tests, and using setup/teardown methods to prepare and clean up the test environment.",
-      "industryContext": "These skills are valuable in professional development environments.",
+      "explanation": "Test isolation means each test can run independently without being affected by other tests. It's important because it ensures tests are reliable, repeatable, and can be run in any order. You achieve it by using fresh test data for each test, mocking external dependencies, avoiding shared state between tests, and using setup/teardown methods to prepare and clean up the test environment. Isolated tests prevent cascading failures and make it easier to identify the root cause of test failures.",
+      "industryContext": "Test isolation is a fundamental principle in professional software development that ensures test reliability and maintainability. Without proper isolation, tests can become flaky, making it difficult to trust test results and slowing down development processes.",
       "tags": [
         "Mocking",
         "beginner",
         "testing"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 7,
         "originalType": "open-ended",
@@ -282,21 +282,21 @@
       "topic": "Coverage",
       "difficulty": "Intermediate",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Line coverage (executed lines), branch coverage (taken branches), and function coverage (called functions)",
+        "Speed coverage (execution time), memory coverage (RAM usage), and disk coverage (storage)",
+        "Frontend coverage (UI tests), backend coverage (API tests), and database coverage (queries)",
+        "Unit coverage (unit tests), integration coverage (integration tests), and E2E coverage (end-to-end tests)"
       ],
       "correctIndex": 0,
-      "explanation": "Line coverage: percentage of code lines executed. Branch coverage: percentage of code branches taken. Function coverage: percentage of functions called. Statement coverage: percentage of statements executed. Condition coverage: percentage of boolean conditions evaluated to both true and false.",
-      "industryContext": "These skills are valuable in professional development environments.",
+      "explanation": "Line coverage: percentage of code lines executed. Branch coverage: percentage of code branches taken (if/else, switch statements). Function coverage: percentage of functions called. Statement coverage: percentage of statements executed. Condition coverage: percentage of boolean conditions evaluated to both true and false. These metrics help identify untested code paths but don't guarantee code correctness.",
+      "industryContext": "Understanding different types of code coverage is essential for professional software developers to effectively measure test quality and identify gaps in test coverage. Different coverage types provide insights into different aspects of code execution paths.",
       "tags": [
         "Coverage",
         "intermediate",
         "testing"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 11,
         "originalType": "open-ended",
@@ -363,21 +363,21 @@
       "topic": "API Testing",
       "difficulty": "Intermediate",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "HTTP status codes, response structure, authentication, input validation, and error handling",
+        "Only the happy path scenarios with valid inputs",
+        "UI elements and visual design aspects",
+        "Database schema and table structures"
       ],
       "correctIndex": 0,
-      "explanation": "Test: HTTP status codes, response data structure and content, request/response headers, authentication/authorization, input validation, error handling, performance under load, and edge cases like invalid data or missing parameters.",
-      "industryContext": "These skills are valuable in professional development environments.",
+      "explanation": "When testing REST APIs, you should test: HTTP status codes to ensure proper responses, response data structure and content for correctness, request/response headers for proper metadata, authentication and authorization for security, input validation for data integrity, error handling for robustness, performance under load for scalability, and edge cases like invalid data or missing parameters. Comprehensive API testing ensures reliability, security, and proper functionality.",
+      "industryContext": "API testing is critical for modern web applications that rely on RESTful services. Professional developers must understand comprehensive API testing strategies to ensure system reliability, security, and performance in production environments.",
       "tags": [
         "API Testing",
         "intermediate",
         "testing"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 14,
         "originalType": "open-ended",

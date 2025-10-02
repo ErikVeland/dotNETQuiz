@@ -5,52 +5,69 @@
     "title": "React Components Basics",
     "order": 1,
     "objectives": [
-      "Implement practical solutions",
-      "Build foundational understanding"
+      "Create functional and class components in React",
+      "Understand the component lifecycle and props",
+      "Implement component composition for reusable UI elements"
     ],
-    "intro": "Welcome to the revolutionary world of React components - the building blocks that have transformed modern web development into a more intuitive, reusable, and maintainable practice. React's component-based architecture represents a paradigm shift from traditional DOM manipulation to declarative programming, where user interfaces are composed of independent, encapsulated pieces that manage their own state and logic.\n\nComponents in React function as custom HTML elements that encapsulate both structure and behavior, enabling developers to create complex applications from simple, reusable pieces. This approach promotes code reusability, easier testing, and better organization of large-scale applications, making React the preferred choice for companies ranging from startups to Fortune 500 enterprises.\n\nIn this foundational lesson, you'll discover how React components transform static HTML into dynamic, interactive user interfaces through the power of JSX syntax and component composition. You'll learn to think in terms of component hierarchy, data flow, and the unidirectional data pattern that makes React applications predictable and debuggable.\n\nThe component concepts you master here form the cornerstone of React development, enabling you to build everything from simple interactive widgets to complex single-page applications. Understanding components is essential for modern frontend development, as similar patterns have been adopted across frameworks like Vue, Angular, and even native mobile development.\n\nBy the end of this lesson, you'll confidently create, compose, and manage React components, understanding how to structure applications that are both performant and maintainable while following React's core principles of composition over inheritance.",
+    "intro": "React components are the fundamental building blocks of React applications. They are reusable, encapsulated pieces of code that return React elements describing what should appear on the screen. Components let you split the UI into independent, reusable pieces, and think about each piece in isolation.\n\nThere are two types of components in React: functional components and class components. Functional components are simpler and are defined as JavaScript functions that accept props and return React elements. Class components are ES6 classes that extend React.Component and must implement a render method.\n\nThis lesson will explore component creation, props handling, component composition, and the fundamental principles that make React components powerful for building user interfaces. You'll learn how to create reusable components that can be composed together to build complex applications.",
     "code": {
-      "example": "function Welcome(props) {\n  return <h1>Hello, {props.name}</h1>;\n}\n\nfunction App() {\n  return (\n    <div>\n      <Welcome name=\"Sara\" />\n      <Welcome name=\"Cahal\" />\n      <Welcome name=\"Edite\" />\n    </div>\n  );\n}",
-      "explanation": "This example produces: Hello, Sara\nHello, Cahal\nHello, Edite\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
+      "example": "import React from 'react';\n\n// Functional component with props\nfunction Welcome(props) {\n  return <h1>Hello, {props.name}!</h1>;\n}\n\n// Functional component using destructuring\nfunction WelcomeDestructured({ name, title }) {\n  return (\n    <div>\n      <h1>Hello, {name}!</h1>\n      <p>{title}</p>\n    </div>\n  );\n}\n\n// Class component\nclass WelcomeClass extends React.Component {\n  render() {\n    return <h1>Hello, {this.props.name}!</h1>;\n  }\n}\n\n// Component composition example\nfunction App() {\n  return (\n    <div>\n      <Welcome name=\"Alice\" />\n      <WelcomeDestructured name=\"Bob\" title=\"Software Engineer\" />\n      <WelcomeClass name=\"Charlie\" />\n    </div>\n  );\n}\n\nexport default App;",
+      "explanation": "This example demonstrates different ways to create React components:\n\n1. **Functional Component**: The simplest way to define a component using a function that accepts props\n2. **Destructured Props**: Using ES6 destructuring to extract specific props\n3. **Class Component**: Traditional class-based approach extending React.Component\n4. **Component Composition**: Combining multiple components in a parent component\n\nThe output shows:\nHello, Alice!\nHello, Bob!\nSoftware Engineer\nHello, Charlie!\n\nKey concepts illustrated:\n- Component definition syntax\n- Props passing and usage\n- Component composition patterns\n- Modern vs. traditional component approaches",
       "language": "javascript"
     },
     "pitfalls": [
       {
-        "mistake": "Not using keys in lists",
-        "solution": "Always provide unique keys for list items",
+        "mistake": "Forgetting to return JSX from functional components",
+        "solution": "Always ensure functional components return valid JSX or null",
         "severity": "high"
       },
       {
-        "mistake": "Mutating props directly",
-        "solution": "Props are read-only, create new objects for updates",
+        "mistake": "Mutating props directly within components",
+        "solution": "Props are read-only; create new objects or use state for mutable data",
+        "severity": "high"
+      },
+      {
+        "mistake": "Not using keys when rendering lists of components",
+        "solution": "Always provide unique keys for list items to help React identify changes",
         "severity": "medium"
       }
     ],
     "exercises": [
       {
-        "title": "Practice: React Components Basics",
-        "description": "Apply the concepts from this lesson on Components",
+        "title": "Practice: Create a User Profile Component",
+        "description": "Build a reusable user profile component that displays user information",
         "checkpoints": [
-          "Understand the core concept",
-          "Implement the example code",
-          "Experiment with variations"
+          "Create a functional component that accepts user data as props",
+          "Display user name, email, and role",
+          "Add default props for optional fields",
+          "Compose multiple user profile components in a parent component"
         ]
       }
     ],
-    "next": [],
-    "estimatedMinutes": 25,
+    "next": [
+      "react-fundamentals-lesson-2"
+    ],
+    "estimatedMinutes": 30,
     "difficulty": "Beginner",
     "tags": [
       "Components",
+      "Functional Components",
+      "Class Components",
+      "Props",
       "react"
     ],
-    "legacy": {
-      "originalId": 1,
-      "originalTopic": "Components",
-      "migrated": "2025-10-01T06:41:13.466Z"
-    },
-    "lastUpdated": "2025-10-01T06:41:13.474Z",
-    "version": "1.0.0"
+    "sources": [
+      {
+        "title": "React Components and Props - React Documentation",
+        "url": "https://reactjs.org/docs/components-and-props.html"
+      },
+      {
+        "title": "React.Component - React Documentation",
+        "url": "https://reactjs.org/docs/react-component.html"
+      }
+    ],
+    "lastUpdated": "2025-10-02T10:00:00.000Z",
+    "version": "1.1.0"
   },
   {
     "id": "react-fundamentals-lesson-2",
@@ -58,53 +75,69 @@
     "title": "Component State and Lifecycle",
     "order": 2,
     "objectives": [
-      "Master component creation and usage",
-      "Understand state management and lifecycle",
-      "Implement practical solutions"
+      "Manage component state using setState in class components",
+      "Understand the React component lifecycle methods",
+      "Implement side effects and cleanup in lifecycle methods"
     ],
-    "intro": "Welcome to this comprehensive lesson on Components.\n\nLearn how to manage state and handle component lifecycle events in React.\n\nThroughout this lesson, you'll gain hands-on experience with practical implementations and real-world scenarios. We'll explore both the theoretical foundations and practical applications, ensuring you can immediately apply what you learn.\n\nThis lesson is designed to build upon previous concepts while introducing new techniques that will enhance your development skills. By the end, you'll have a solid understanding of the key principles and be ready to tackle more advanced topics.\n\nThe knowledge gained here will serve as a foundation for subsequent lessons and real-world projects.",
+    "intro": "State is a built-in React object that is used to contain data or information about the component. A component's state can change over time; whenever it changes, the component re-renders. State is what allows React components to be dynamic and interactive.\n\nIn class components, state is managed using this.state and this.setState(). The setState() method is the primary way to update the UI in response to event handlers and server responses. React may batch multiple setState() calls into a single update for performance.\n\nReact class components have several lifecycle methods that allow you to run code at particular times in the component's lifecycle. These include mounting (when a component is being created and inserted into the DOM), updating (when a component is being re-rendered), and unmounting (when a component is being removed from the DOM).\n\nThis lesson will cover state management in class components, lifecycle methods, and how to properly handle side effects and cleanup to prevent memory leaks.",
     "code": {
-      "example": "class Clock extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {date: new Date()};\n  }\n\n  componentDidMount() {\n    this.timerID = setInterval(\n      () => this.tick(),\n      1000\n    );\n  }\n\n  componentWillUnmount() {\n    clearInterval(this.timerID);\n  }\n\n  tick() {\n    this.setState({\n      date: new Date()\n    });\n  }\n\n  render() {\n    return (\n      <div>\n        <h1>Hello, world!</h1>\n        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>\n      </div>\n    );\n  }\n}",
-      "explanation": "This example produces: Hello, world!\nIt is [current time]\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
+      "example": "import React, { Component } from 'react';\n\nclass Clock extends Component {\n  constructor(props) {\n    super(props);\n    // Initialize state in constructor\n    this.state = { \n      date: new Date(),\n      timezone: 'UTC'\n    };\n  }\n\n  // Lifecycle method: runs after component is mounted to the DOM\n  componentDidMount() {\n    // Set up a timer that updates the clock every second\n    this.timerID = setInterval(\n      () => this.tick(),\n      1000\n    );\n    console.log('Clock component mounted');\n  }\n\n  // Lifecycle method: runs before component is removed from the DOM\n  componentWillUnmount() {\n    // Clean up the timer to prevent memory leaks\n    clearInterval(this.timerID);\n    console.log('Clock component will unmount');\n  }\n\n  // Custom method to update state\n  tick() {\n    this.setState({\n      date: new Date()\n    });\n  }\n\n  // Method to change timezone\n  changeTimezone = (newTimezone) => {\n    this.setState({\n      timezone: newTimezone\n    });\n  }\n\n  // Lifecycle method: runs when component updates\n  componentDidUpdate(prevProps, prevState) {\n    // Only log if date actually changed\n    if (prevState.date !== this.state.date) {\n      console.log('Clock updated:', this.state.date.toLocaleTimeString());\n    }\n  }\n\n  render() {\n    return (\n      <div>\n        <h2>Current time: {this.state.date.toLocaleTimeString()}</h2>\n        <p>Timezone: {this.state.timezone}</p>\n        <button onClick={() => this.changeTimezone('PST')}>\n          Change to PST\n        </button>\n      </div>\n    );\n  }\n}\n\nexport default Clock;",
+      "explanation": "This example demonstrates state management and lifecycle methods in a React class component:\n\n1. **Constructor**: Initializes state and binds methods\n2. **componentDidMount**: Runs after component is added to DOM, sets up timer\n3. **componentWillUnmount**: Runs before component is removed, cleans up timer\n4. **componentDidUpdate**: Runs after component updates, logs changes\n5. **setState**: Updates component state and triggers re-render\n\nThe output shows a live clock that updates every second with a button to change timezones.\n\nKey concepts illustrated:\n- State initialization and updates\n- Lifecycle method usage\n- Side effect management\n- Proper cleanup to prevent memory leaks\n- Event handling with state updates",
       "language": "javascript"
     },
     "pitfalls": [
       {
-        "mistake": "Not using keys in lists",
-        "solution": "Always provide unique keys for list items",
+        "mistake": "Not cleaning up side effects in componentWillUnmount",
+        "solution": "Always clean up subscriptions, timers, and event listeners to prevent memory leaks",
         "severity": "high"
       },
       {
-        "mistake": "Mutating props directly",
-        "solution": "Props are read-only, create new objects for updates",
-        "severity": "medium"
+        "mistake": "Calling setState in componentWillUnmount",
+        "solution": "Avoid setState calls in componentWillUnmount as component is being unmounted",
+        "severity": "high"
+      },
+      {
+        "mistake": "Modifying state directly instead of using setState",
+        "solution": "Always use setState() to update state to ensure proper re-rendering",
+        "severity": "high"
       }
     ],
     "exercises": [
       {
-        "title": "Practice: Component State and Lifecycle",
-        "description": "Apply the concepts from this lesson on Components",
+        "title": "Practice: Create a Timer Component",
+        "description": "Build a timer component that can start, pause, and reset",
         "checkpoints": [
-          "Understand the core concept",
-          "Implement the example code",
-          "Experiment with variations"
+          "Initialize state for time, isRunning, and interval ID",
+          "Implement start, pause, and reset methods",
+          "Use componentDidMount and componentWillUnmount for timer management",
+          "Add componentDidUpdate to log timer state changes"
         ]
       }
     ],
-    "next": [],
-    "estimatedMinutes": 25,
+    "next": [
+      "react-fundamentals-lesson-3"
+    ],
+    "estimatedMinutes": 45,
     "difficulty": "Intermediate",
     "tags": [
-      "Components",
+      "State",
+      "Lifecycle",
+      "Class Components",
+      "Side Effects",
       "react"
     ],
-    "legacy": {
-      "originalId": 2,
-      "originalTopic": "Components",
-      "migrated": "2025-10-01T06:41:13.474Z"
-    },
-    "lastUpdated": "2025-10-01T06:41:13.474Z",
-    "version": "1.0.0"
+    "sources": [
+      {
+        "title": "React State and Lifecycle - React Documentation",
+        "url": "https://reactjs.org/docs/state-and-lifecycle.html"
+      },
+      {
+        "title": "React Component Lifecycle - React Documentation",
+        "url": "https://reactjs.org/docs/react-component.html#the-component-lifecycle"
+      }
+    ],
+    "lastUpdated": "2025-10-02T10:00:00.000Z",
+    "version": "1.1.0"
   },
   {
     "id": "react-fundamentals-lesson-3",
@@ -112,53 +145,73 @@
     "title": "Introduction to React Hooks",
     "order": 3,
     "objectives": [
-      "Understand state management and lifecycle",
-      "Apply hooks for state and effects",
-      "Implement practical solutions"
+      "Use useState hook to manage state in functional components",
+      "Implement useEffect hook for side effects and lifecycle events",
+      "Understand the rules of hooks and best practices"
     ],
-    "intro": "Welcome to this comprehensive lesson on Hooks.\n\nLearn how to use React Hooks to manage state and side effects in functional components.\n\nThroughout this lesson, you'll gain hands-on experience with practical implementations and real-world scenarios. We'll explore both the theoretical foundations and practical applications, ensuring you can immediately apply what you learn.\n\nThis lesson is designed to build upon previous concepts while introducing new techniques that will enhance your development skills. By the end, you'll have a solid understanding of the key principles and be ready to tackle more advanced topics.\n\nThe knowledge gained here will serve as a foundation for subsequent lessons and real-world projects.",
+    "intro": "Hooks are a new addition in React 16.8 that let you use state and other React features without writing a class. They allow you to reuse stateful logic without changing your component hierarchy, and they make it easier to split one component into smaller functions based on related pieces of state.\n\nThe useState hook is the most common hook and allows you to add React state to functional components. The useEffect hook serves the same purpose as componentDidMount, componentDidUpdate, and componentWillUnmount in React classes, but unified into a single API.\n\nThis lesson will explore the useState and useEffect hooks in detail, covering how to manage state in functional components, handle side effects, and follow the rules of hooks to ensure your components work correctly.",
     "code": {
-      "example": "import React, { useState, useEffect } from 'react';\n\nfunction Example() {\n  const [count, setCount] = useState(0);\n\n  useEffect(() => {\n    document.title = `You clicked ${count} times`;\n  });\n\n  return (\n    <div>\n      <p>You clicked {count} times</p>\n      <button onClick={() => setCount(count + 1)}>\n        Click me\n      </button>\n    </div>\n  );\n}",
-      "explanation": "This example produces: You clicked 0 times\n[Button: Click me]\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
+      "example": "import React, { useState, useEffect } from 'react';\n\nfunction Counter() {\n  // useState returns an array with the current state value and a function to update it\n  const [count, setCount] = useState(0);\n  const [name, setName] = useState('');\n\n  // useEffect replaces componentDidMount, componentDidUpdate, and componentWillUnmount\n  useEffect(() => {\n    // This runs after every render\n    document.title = `Count: ${count}`;\n    \n    // Cleanup function (optional) - runs before next effect or unmount\n    return () => {\n      console.log('Cleaning up effect for count:', count);\n    };\n  }, [count]); // Dependency array - effect runs when count changes\n\n  // Effect that runs only once (like componentDidMount)\n  useEffect(() => {\n    console.log('Component mounted');\n    \n    // Cleanup for mount effect\n    return () => {\n      console.log('Component will unmount');\n    };\n  }, []); // Empty dependency array means run only once\n\n  return (\n    <div>\n      <p>You clicked {count} times</p>\n      <button onClick={() => setCount(count + 1)}>\n        Click me\n      </button>\n      <button onClick={() => setCount(0)}>\n        Reset\n      </button>\n      <div>\n        <label>\n          Name:\n          <input \n            value={name}\n            onChange={(e) => setName(e.target.value)}\n          />\n        </label>\n        <p>Hello, {name}!</p>\n      </div>\n    </div>\n  );\n}\n\nexport default Counter;",
+      "explanation": "This example demonstrates the useState and useEffect hooks:\n\n1. **useState**: Manages state in functional components\n   - Returns [currentValue, setterFunction]\n   - Can be called multiple times for different state variables\n2. **useEffect**: Handles side effects\n   - Replaces lifecycle methods\n   - Can return cleanup function\n   - Dependency array controls when effect runs\n\nThe output shows:\n- A counter that updates document title\n- A name input that updates a greeting\n- Console logs for mount, update, and unmount\n\nKey concepts illustrated:\n- State management with useState\n- Side effects with useEffect\n- Dependency arrays for performance\n- Cleanup functions for resource management\n- Combining multiple hooks in one component",
       "language": "javascript"
     },
     "pitfalls": [
       {
-        "mistake": "Calling hooks conditionally",
-        "solution": "Always call hooks at the top level",
+        "mistake": "Calling hooks conditionally or in loops",
+        "solution": "Always call hooks at the top level of your React function",
         "severity": "high"
       },
       {
-        "mistake": "Missing dependencies in useEffect",
-        "solution": "Include all used variables in dependency array",
+        "mistake": "Forgetting dependency arrays in useEffect",
+        "solution": "Always specify dependencies to prevent infinite loops or stale values",
+        "severity": "high"
+      },
+      {
+        "mistake": "Updating state based on previous state incorrectly",
+        "solution": "Use functional updates: setCount(prevCount => prevCount + 1)",
         "severity": "medium"
       }
     ],
     "exercises": [
       {
-        "title": "Practice: Introduction to React Hooks",
-        "description": "Apply the concepts from this lesson on Hooks",
+        "title": "Practice: Create a Data Fetching Component",
+        "description": "Build a component that fetches and displays user data using hooks",
         "checkpoints": [
-          "Understand the core concept",
-          "Implement the example code",
-          "Experiment with variations"
+          "Use useState to manage loading, data, and error states",
+          "Use useEffect to fetch data when component mounts",
+          "Implement cleanup to cancel requests if component unmounts",
+          "Add error handling for failed requests"
         ]
       }
     ],
-    "next": [],
-    "estimatedMinutes": 25,
-    "difficulty": "Beginner",
+    "next": [
+      "react-fundamentals-lesson-4"
+    ],
+    "estimatedMinutes": 40,
+    "difficulty": "Intermediate",
     "tags": [
       "Hooks",
+      "useState",
+      "useEffect",
+      "Functional Components",
       "react"
     ],
-    "legacy": {
-      "originalId": 3,
-      "originalTopic": "Hooks",
-      "migrated": "2025-10-01T06:41:13.474Z"
-    },
-    "lastUpdated": "2025-10-01T06:41:13.474Z",
-    "version": "1.0.0"
+    "sources": [
+      {
+        "title": "React Hooks - React Documentation",
+        "url": "https://reactjs.org/docs/hooks-intro.html"
+      },
+      {
+        "title": "Using the State Hook - React Documentation",
+        "url": "https://reactjs.org/docs/hooks-state.html"
+      },
+      {
+        "title": "Using the Effect Hook - React Documentation",
+        "url": "https://reactjs.org/docs/hooks-effect.html"
+      }
+    ],
+    "lastUpdated": "2025-10-02T10:00:00.000Z",
+    "version": "1.1.0"
   },
   {
     "id": "react-fundamentals-lesson-4",
@@ -166,122 +219,70 @@
     "title": "Custom Hooks",
     "order": 4,
     "objectives": [
-      "Apply hooks for state and effects",
-      "Implement practical solutions"
+      "Create reusable custom hooks to share stateful logic",
+      "Extract and encapsulate component logic into custom hooks",
+      "Follow naming conventions and best practices for custom hooks"
     ],
-    "intro": "Welcome to this comprehensive lesson on Hooks.\n\nLearn how to create custom hooks to reuse stateful logic between components.\n\nThroughout this lesson, you'll gain hands-on experience with practical implementations and real-world scenarios. We'll explore both the theoretical foundations and practical applications, ensuring you can immediately apply what you learn.\n\nThis lesson is designed to build upon previous concepts while introducing new techniques that will enhance your development skills. By the end, you'll have a solid understanding of the key principles and be ready to tackle more advanced topics.\n\nThe knowledge gained here will serve as a foundation for subsequent lessons and real-world projects.",
+    "intro": "Custom Hooks are a mechanism to reuse stateful logic (such as setting up a subscription and remembering the current value), but every time you use a custom Hook, all state and effects inside of it are fully isolated. They allow you to extract component logic into reusable functions.\n\nA custom Hook is a JavaScript function whose name starts with 'use' and that may call other Hooks. Unlike a React component, a custom Hook doesn't need to have a specific signature. We can decide what it takes as arguments, and what, if anything, it should return.\n\nThis lesson will explore how to create custom hooks to extract and share common logic between components, making your code more modular, testable, and maintainable.",
     "code": {
-      "example": "import { useState, useEffect } from 'react';\n\nfunction useFriendStatus(friendID) {\n  const [isOnline, setIsOnline] = useState(null);\n\n  useEffect(() => {\n    function handleStatusChange(status) {\n      setIsOnline(status.isOnline);\n    }\n\n    ChatAPI.subscribeToFriendStatus(friendID, handleStatusChange);\n    return () => {\n      ChatAPI.unsubscribeFromFriendStatus(friendID, handleStatusChange);\n    };\n  });\n\n  return isOnline;\n}\n\nfunction FriendStatus(props) {\n  const isOnline = useFriendStatus(props.friend.id);\n\n  if (isOnline === null) {\n    return 'Loading...';\n  }\n  return isOnline ? 'Online' : 'Offline';\n}",
-      "explanation": "This example produces: Loading... or Online/Offline based on friend status\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
+      "example": "import { useState, useEffect } from 'react';\n\n// Custom hook for managing form state\nfunction useForm(initialValues) {\n  const [values, setValues] = useState(initialValues);\n\n  const handleChange = (e) => {\n    setValues({\n      ...values,\n      [e.target.name]: e.target.value\n    });\n  };\n\n  const reset = () => {\n    setValues(initialValues);\n  };\n\n  return [values, handleChange, reset];\n}\n\n// Custom hook for browser window size\nfunction useWindowSize() {\n  const [windowSize, setWindowSize] = useState({\n    width: window.innerWidth,\n    height: window.innerHeight,\n  });\n\n  useEffect(() => {\n    const handleResize = () => {\n      setWindowSize({\n        width: window.innerWidth,\n        height: window.innerHeight,\n      });\n    };\n\n    window.addEventListener('resize', handleResize);\n\n    // Cleanup\n    return () => window.removeEventListener('resize', handleResize);\n  }, []);\n\n  return windowSize;\n}\n\n// Component using custom hooks\nfunction MyComponent() {\n  const [formValues, handleFormChange, resetForm] = useForm({\n    name: '',\n    email: ''\n  });\n\n  const windowSize = useWindowSize();\n\n  return (\n    <div>\n      <h2>Window Size: {windowSize.width} x {windowSize.height}</h2>\n      <form>\n        <input\n          name=\"name\"\n          value={formValues.name}\n          onChange={handleFormChange}\n          placeholder=\"Name\"\n        />\n        <input\n          name=\"email\"\n          value={formValues.email}\n          onChange={handleFormChange}\n          placeholder=\"Email\"\n        />\n        <button type=\"button\" onClick={resetForm}>Reset</button>\n      </form>\n      <p>Name: {formValues.name}</p>\n      <p>Email: {formValues.email}</p>\n    </div>\n  );\n}\n\nexport default MyComponent;",
+      "explanation": "This example demonstrates two custom hooks and their usage:\n\n1. **useForm**: Manages form state and input handling\n   - Encapsulates form logic for reuse\n   - Returns state and handler functions\n2. **useWindowSize**: Tracks browser window dimensions\n   - Handles browser event listeners\n   - Includes proper cleanup\n\nThe output shows:\n- Real-time window dimensions that update on resize\n- Form inputs with synchronized state\n- Reset button that clears form\n\nKey concepts illustrated:\n- Custom hook creation and naming conventions\n- Logic extraction and encapsulation\n- State and effect management in custom hooks\n- Hook composition in components\n- Proper cleanup in effect hooks\n- Reusable logic across components",
       "language": "javascript"
     },
     "pitfalls": [
       {
-        "mistake": "Calling hooks conditionally",
-        "solution": "Always call hooks at the top level",
+        "mistake": "Not following the 'use' naming convention for custom hooks",
+        "solution": "Custom hooks must start with 'use' to be properly detected by React's linting rules",
         "severity": "high"
       },
       {
-        "mistake": "Missing dependencies in useEffect",
-        "solution": "Include all used variables in dependency array",
-        "severity": "medium"
-      }
-    ],
-    "exercises": [
-      {
-        "title": "Practice: Custom Hooks",
-        "description": "Apply the concepts from this lesson on Hooks",
-        "checkpoints": [
-          "Understand the core concept",
-          "Implement the example code",
-          "Experiment with variations"
-        ]
-      }
-    ],
-    "next": [],
-    "estimatedMinutes": 25,
-    "difficulty": "Advanced",
-    "tags": [
-      "Hooks",
-      "react"
-    ],
-    "legacy": {
-      "originalId": 4,
-      "originalTopic": "Hooks",
-      "migrated": "2025-10-01T06:41:13.474Z"
-    },
-    "lastUpdated": "2025-10-01T06:41:13.474Z",
-    "version": "1.0.0"
-  },
-  {
-    "id": "react-fundamentals-lesson-5",
-    "moduleSlug": "react-fundamentals",
-    "title": "React Context API",
-    "order": 5,
-    "objectives": [
-      "Master component creation and usage",
-      "Implement practical solutions"
-    ],
-    "intro": "Welcome to this comprehensive lesson on Context.\n\nLearn how to use React Context to share data between components without prop drilling.\n\nThroughout this lesson, you'll gain hands-on experience with practical implementations and real-world scenarios. We'll explore both the theoretical foundations and practical applications, ensuring you can immediately apply what you learn.\n\nThis lesson is designed to build upon previous concepts while introducing new techniques that will enhance your development skills. By the end, you'll have a solid understanding of the key principles and be ready to tackle more advanced topics.\n\nThe knowledge gained here will serve as a foundation for subsequent lessons and real-world projects.",
-    "code": {
-      "example": "const themes = {\n  light: {\n    foreground: '#000000',\n    background: '#eeeeee',\n  },\n  dark: {\n    foreground: '#ffffff',\n    background: '#222222',\n  },\n};\n\nconst ThemeContext = React.createContext(themes.light);\n\nfunction App() {\n  return (\n    <ThemeContext.Provider value={themes.dark}>\n      <Toolbar />\n    </ThemeContext.Provider>\n  );\n}\n\nfunction Toolbar(props) {\n  return (\n    <div>\n      <ThemedButton />\n    </div>\n  );\n}\n\nfunction ThemedButton() {\n  const theme = React.useContext(ThemeContext);\n  return (\n    <button style={{ background: theme.background, color: theme.foreground }}>\n      I am styled by theme context!\n    </button>\n  );\n}",
-      "explanation": "This example produces: Button with dark theme styling\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
-      "language": "javascript"
-    },
-    "pitfalls": [
-      {
-        "mistake": "Not following best practices",
-        "solution": "Review documentation and community guidelines",
+        "mistake": "Mixing unrelated logic in a single custom hook",
+        "solution": "Keep custom hooks focused on a single responsibility or related functionality",
         "severity": "medium"
       },
       {
-        "mistake": "Skipping error handling",
-        "solution": "Implement proper error boundaries and validation",
-        "severity": "low"
+        "mistake": "Forgetting to return cleanup functions from effects in custom hooks",
+        "solution": "Always implement cleanup for subscriptions, timers, and event listeners",
+        "severity": "high"
       }
     ],
     "exercises": [
       {
-        "title": "Practice: React Context API",
-        "description": "Apply the concepts from this lesson on Context",
+        "title": "Practice: Create a Custom Hook for Dark Mode",
+        "description": "Build a custom hook that manages dark mode state and persists it",
         "checkpoints": [
-          "Understand the core concept",
-          "Implement the example code",
-          "Experiment with variations"
+          "Use useState to manage dark mode state",
+          "Use useEffect to persist state to localStorage",
+          "Add logic to detect system preference",
+          "Return state and toggle function for use in components"
         ]
       }
     ],
-    "next": [],
-    "estimatedMinutes": 25,
-    "difficulty": "Intermediate",
+    "next": [
+      "react-fundamentals-lesson-5"
+    ],
+    "estimatedMinutes": 45,
+    "difficulty": "Advanced",
     "tags": [
-      "Context",
+      "Custom Hooks",
+      "Logic Reuse",
+      "State Management",
       "react"
     ],
-    "legacy": {
-      "originalId": 5,
-      "originalTopic": "Context",
-      "migrated": "2025-10-01T06:41:13.474Z"
-    },
-    "lastUpdated": "2025-10-01T06:41:13.474Z",
-    "version": "1.0.0"
-  },
-  {
-    "id": "react-fundamentals-lesson-6",
-    "moduleSlug": "react-fundamentals",
-    "title": "Event Handling in React",
-    "order": 6,
-    "objectives": [
-      "Master component creation and usage",
-      "Implement practical solutions"
+    "sources": [
+      {
+        "title": "Building Your Own Hooks - React Documentation",
+        "url": "https://reactjs.org/docs/hooks-custom.html"
+      },
+      {
+        "title": "React Hooks FAQ - React Documentation",
+        "url": "https://reactjs.org/docs/hooks-faq.html"
+      }
     ],
-    "intro": "Welcome to this comprehensive lesson on Event Handling.\n\nLearn how to handle events in React components and understand synthetic events.\n\nThroughout this lesson, you'll gain hands-on experience with practical implementations and real-world scenarios. We'll explore both the theoretical foundations and practical applications, ensuring you can immediately apply what you learn.\n\nThis lesson is designed to build upon previous concepts while introducing new techniques that will enhance your development skills. By the end, you'll have a solid understanding of the key principles and be ready to tackle more advanced topics.\n\nThe knowledge gained here will serve as a foundation for subsequent lessons and real-world projects.",
-    "code": {
-      "example": "import React, { useState } from 'react';\n\nfunction EventHandling() {\n  const [name, setName] = useState('');\n  const [submittedName, setSubmittedName] = useState('');\n\n  const handleInputChange = (event) => {\n    setName(event.target.value);\n  };\n\n  const handleSubmit = (event) => {\n    event.preventDefault();\n    setSubmittedName(name);\n    setName('');\n  };\n\n  const handleButtonClick = (event) => {\n    console.log('Button clicked!', event.type);\n  };\n\n  return (\n    <div>\n      <form onSubmit={handleSubmit}>\n        <input\n          type=\"text\"\n          value={name}\n          onChange={handleInputChange}\n          placeholder=\"Enter your name\"\n        />\n        <button type=\"submit\">Submit</button>\n      </form>\n      <button onClick={handleButtonClick}>Click me</button>\n      {submittedName && <p>Hello, {submittedName}!</p>}\n    </div>\n  );\n}",
-      "explanation": "This example produces: Form with input field and buttons, displays greeting when submitted\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
-      "language": "javascript"
-    },
-    "pitfalls": [
+    "lastUpdated": "2025-10-02T10:00:00.000Z",
+    "version": "1.1.0"
+  }
+]
       {
         "mistake": "Not following best practices",
         "solution": "Review documentation and community guidelines",

@@ -174,21 +174,21 @@
       "topic": "Eloquent ORM",
       "difficulty": "Beginner",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Laravel's implementation of the Active Record pattern for database interactions",
+        "A caching system for improving application performance",
+        "A package manager for installing Laravel components",
+        "A testing framework for unit testing database operations"
       ],
       "correctIndex": 0,
-      "explanation": "Eloquent ORM is Laravel's implementation of the Active Record pattern. It provides a beautiful, simple ActiveRecord implementation for working with your database. Each database table has a corresponding 'Model' which is used to interact with that table.",
-      "industryContext": "These skills are valuable in professional development environments.",
+      "explanation": "Eloquent ORM is Laravel's implementation of the Active Record pattern. It provides a beautiful, simple ActiveRecord implementation for working with your database. Each database table has a corresponding 'Model' which is used to interact with that table. Eloquent offers a simple and beautiful ActiveRecord implementation for working with your database, allowing you to work with database objects and relationships using an expressive syntax.",
+      "industryContext": "Eloquent ORM is a fundamental part of Laravel development, enabling developers to interact with databases using intuitive, object-oriented syntax rather than writing raw SQL queries. This is essential for building maintainable and secure database-driven applications.",
       "tags": [
         "Eloquent ORM",
         "beginner",
         "laravel"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 7,
         "originalType": "open-ended",
@@ -228,21 +228,21 @@
       "topic": "Middleware",
       "difficulty": "Beginner",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "A filter for HTTP requests that can examine and modify requests entering your application",
+        "A database optimization tool for improving query performance",
+        "A template engine for rendering views in Laravel applications",
+        "A caching mechanism for storing frequently accessed data"
       ],
       "correctIndex": 0,
-      "explanation": "Middleware acts as a filter for HTTP requests entering your application. It can examine the request and decide whether to allow it to proceed or redirect the user somewhere else. Common uses include authentication, CSRF protection, and logging.",
-      "industryContext": "These skills are valuable in professional development environments.",
+      "explanation": "Middleware acts as a filter for HTTP requests entering your application. It can examine the request and decide whether to allow it to proceed or redirect the user somewhere else. Common uses include authentication, CSRF protection, and logging. Middleware provides a convenient mechanism for inspecting and filtering HTTP requests entering your application, sitting between the request and the response cycle.",
+      "industryContext": "Middleware is essential for implementing cross-cutting concerns in web applications such as authentication, authorization, CSRF protection, and request logging. Understanding middleware is crucial for building secure and well-structured Laravel applications.",
       "tags": [
         "Middleware",
         "beginner",
         "laravel"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 9,
         "originalType": "open-ended",
@@ -309,21 +309,21 @@
       "topic": "Routing",
       "difficulty": "Beginner",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "A feature that automatically resolves Eloquent models based on route parameters",
+        "A method for encrypting route parameters for security",
+        "A technique for caching frequently accessed routes",
+        "A way to bind multiple routes to the same controller method"
       ],
       "correctIndex": 0,
-      "explanation": "Route model binding provides a convenient way to inject model instances into your routes. Laravel will automatically resolve Eloquent models defined in routes or controller methods whose type-hinted variable names match a route segment name.",
-      "industryContext": "These skills are valuable in professional development environments.",
+      "explanation": "Route model binding provides a convenient way to inject model instances into your routes. Laravel will automatically resolve Eloquent models defined in routes or controller methods whose type-hinted variable names match a route segment name. This eliminates the need to manually query the database for a model within your route or controller, making your code cleaner and more expressive.",
+      "industryContext": "Route model binding is a powerful Laravel feature that simplifies working with Eloquent models in routes and controllers. It's a key feature for building RESTful APIs and CRUD applications where you frequently need to retrieve models based on route parameters.",
       "tags": [
         "Routing",
         "beginner",
         "laravel"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 12,
         "originalType": "open-ended",
@@ -417,21 +417,21 @@
       "topic": "Database",
       "difficulty": "Intermediate",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Version control for your database schema that allows team collaboration on database changes",
+        "A backup system for automatically saving database snapshots",
+        "A performance optimization tool for indexing database tables",
+        "A security feature for encrypting sensitive database columns"
       ],
       "correctIndex": 0,
-      "explanation": "Migrations are like version control for your database, allowing your team to define and share the application's database schema definition. They are typically paired with Laravel's schema builder to build your application's database schema.",
-      "industryContext": "These skills are valuable in professional development environments.",
+      "explanation": "Migrations are like version control for your database, allowing your team to define and share the application's database schema definition. They are typically paired with Laravel's schema builder to build your application's database schema. Migrations enable you to modify your database schema over time in a structured and organized way, making it easy to collaborate with team members and deploy database changes across different environments.",
+      "industryContext": "Database migrations are essential for modern web development, enabling teams to collaborate on database schema changes and deploy updates consistently across development, staging, and production environments. This is a critical feature for maintaining database integrity in team-based development workflows.",
       "tags": [
         "Database",
         "intermediate",
         "laravel"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 16,
         "originalType": "open-ended",

@@ -66,21 +66,21 @@
       "topic": "Layout",
       "difficulty": "Intermediate",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Unprefixed classes apply to all screens, responsive prefixes apply to breakpoints and larger",
+        "Desktop-first approach with max-width media queries",
+        "Only applies styles to mobile devices with special mobile classes",
+        "Requires separate CSS files for each screen size"
       ],
       "correctIndex": 0,
-      "explanation": "Tailwind uses a mobile-first approach where unprefixed classes apply to all screen sizes, and responsive prefixes (sm:, md:, lg:, xl:) apply to specific breakpoints and larger screens. This means styles stack as the screen size increases.",
-      "industryContext": "These skills are valuable in professional development environments.",
+      "explanation": "Tailwind uses a mobile-first approach where unprefixed classes apply to all screen sizes, and responsive prefixes (sm:, md:, lg:, xl:) apply to specific breakpoints and larger screens. This means styles stack as the screen size increases. For example, <div class="text-sm md:text-base lg:text-lg"> will be text-sm on mobile, text-base on medium screens and larger, and text-lg on large screens and larger. This approach reduces CSS bloat and makes responsive design more intuitive.",
+      "industryContext": "Understanding Tailwind's mobile-first responsive approach is crucial for professional frontend developers building modern, responsive web applications. This methodology aligns with current web development best practices and helps create consistent, maintainable responsive designs.",
       "tags": [
         "Layout",
         "intermediate",
         "tailwind"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 3,
         "originalType": "open-ended",
@@ -174,21 +174,21 @@
       "topic": "Responsive",
       "difficulty": "Intermediate",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "sm: 640px, md: 768px, lg: 1024px, xl: 1280px, 2xl: 1536px",
+        "sm: 576px, md: 768px, lg: 992px, xl: 1200px",
+        "mobile: 480px, tablet: 768px, desktop: 1024px",
+        "small: 600px, medium: 900px, large: 1200px"
       ],
       "correctIndex": 0,
-      "explanation": "Tailwind's default breakpoints are: sm (640px), md (768px), lg (1024px), xl (1280px), and 2xl (1536px). These can be customized in the tailwind.config.js file.",
-      "industryContext": "These skills are valuable in professional development environments.",
+      "explanation": "Tailwind's default breakpoints are: sm (640px), md (768px), lg (1024px), xl (1280px), and 2xl (1536px). These follow a mobile-first approach and can be customized in the tailwind.config.js file to match your specific design requirements. Each breakpoint represents a minimum screen width at which the responsive styles will be applied.",
+      "industryContext": "Understanding Tailwind's responsive breakpoints is essential for building mobile-first, responsive web applications. Professional frontend developers need to know these default values to effectively use Tailwind's responsive utility classes and customize them when needed for specific project requirements.",
       "tags": [
         "Responsive",
         "intermediate",
         "tailwind"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 7,
         "originalType": "open-ended",
@@ -282,21 +282,21 @@
       "topic": "Dark Mode",
       "difficulty": "Beginner",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Set darkMode: 'class' in config and use dark: prefix utilities like 'dark:bg-gray-800'",
+        "Use a separate dark.css file for all dark mode styles",
+        "Add !important to all dark mode CSS rules",
+        "Dark mode is automatically enabled in Tailwind v3+"
       ],
       "correctIndex": 0,
-      "explanation": "Enable dark mode by setting darkMode: 'class' in config, then use dark: prefixed utilities like 'bg-white dark:bg-gray-800'. Toggle by adding/removing 'dark' class on document element.",
-      "industryContext": "These skills are valuable in professional development environments.",
+      "explanation": "To implement dark mode in Tailwind CSS, first enable it by setting darkMode: 'class' in your tailwind.config.js file. Then use the dark: prefix on utility classes to apply styles only in dark mode, such as 'bg-white dark:bg-gray-800'. Toggle dark mode by adding or removing the 'dark' class on the document element or a parent container. This approach provides explicit control over when dark mode is active.",
+      "industryContext": "Dark mode implementation is increasingly important for modern web applications as users expect customizable viewing experiences. Professional frontend developers need to understand how to implement dark mode properly to meet accessibility standards and user preferences.",
       "tags": [
         "Dark Mode",
         "beginner",
         "tailwind"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 11,
         "originalType": "open-ended",
@@ -363,21 +363,21 @@
       "topic": "Plugins",
       "difficulty": "Intermediate",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Extensions that add new utilities, components, or base styles to Tailwind CSS",
+        "Third-party CSS frameworks that replace Tailwind",
+        "JavaScript libraries that must be installed separately",
+        "Built-in features that require no configuration"
       ],
       "correctIndex": 0,
-      "explanation": "Tailwind plugins extend the framework by adding new utilities, components, or base styles. Official plugins include @tailwindcss/forms, @tailwindcss/typography, and @tailwindcss/aspect-ratio. Custom plugins can add project-specific utilities.",
-      "industryContext": "These skills are valuable in professional development environments.",
+      "explanation": "Tailwind plugins extend the framework by adding new utilities, components, or base styles. Official plugins include @tailwindcss/forms for better form styling, @tailwindcss/typography for styling prose content, and @tailwindcss/aspect-ratio for maintaining aspect ratios. Custom plugins can add project-specific utilities, components, or modify the theme. Plugins are installed via npm and added to the plugins array in tailwind.config.js.",
+      "industryContext": "Tailwind plugins are essential for extending the framework's capabilities to meet specific project requirements. Professional developers use plugins to add functionality like form styling, typography enhancements, and custom components while maintaining consistency with the utility-first approach.",
       "tags": [
         "Plugins",
         "intermediate",
         "tailwind"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 14,
         "originalType": "open-ended",
@@ -417,21 +417,21 @@
       "topic": "Advanced Patterns",
       "difficulty": "Advanced",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Customizing design tokens, creating component variants, and optimizing bundle size with PurgeCSS",
+        "Using only default Tailwind classes without customization",
+        "Writing all custom CSS instead of using utility classes",
+        "Avoiding responsive design to simplify implementation"
       ],
       "correctIndex": 0,
-      "explanation": "Advanced techniques include: creating configurable component variants using utility combinations, implementing consistent design tokens through Tailwind config customization, using CSS-in-JS libraries like styled-components with Tailwind, leveraging @apply directive for complex patterns, implementing staggered animations with CSS custom properties, optimizing bundle size with PurgeCSS, and building reusable component libraries with variant APIs.",
-      "industryContext": "Advanced Tailwind patterns are essential for large-scale applications and design system implementation in enterprise environments.",
+      "explanation": "Advanced techniques for building scalable design systems with Tailwind CSS include: customizing design tokens through the theme configuration to match your brand guidelines, creating configurable component variants using utility combinations and the @apply directive, implementing consistent spacing and typography scales, leveraging CSS custom properties for dynamic values, optimizing bundle size with PurgeCSS to remove unused classes, and building reusable component libraries with well-defined APIs. These techniques help maintain consistency across large applications while keeping the codebase maintainable.",
+      "industryContext": "Advanced Tailwind patterns are essential for large-scale applications and design system implementation in enterprise environments. Professional frontend architects use these techniques to create maintainable, consistent design systems that can scale across multiple products and teams while maintaining performance and developer experience.",
       "tags": [
         "Advanced Patterns",
         "advanced",
         "tailwind"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180
+      "questionType": "multiple-choice",
+      "estimatedTime": 90
     }
   ],
   "metadata": {

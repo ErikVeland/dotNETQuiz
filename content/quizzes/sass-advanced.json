@@ -66,21 +66,21 @@
       "topic": "Nesting",
       "difficulty": "Intermediate",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Selectors inside other selectors that mirror HTML structure, making stylesheets more organized",
+        "Grouping all CSS rules in a single file for better performance",
+        "Using only global selectors to avoid specificity issues",
+        "Creating separate files for each HTML element to improve maintainability"
       ],
       "correctIndex": 0,
-      "explanation": "Nesting in SASS allows you to write selectors inside other selectors, creating a visual hierarchy that mirrors the HTML structure. This makes stylesheets more organized and easier to read, and reduces repetition in selector names.",
-      "industryContext": "These skills are valuable in professional development environments.",
+      "explanation": "Nesting in SASS allows you to write selectors inside other selectors, creating a visual hierarchy that mirrors the HTML structure. This makes stylesheets more organized and easier to read, and reduces repetition in selector names. For example, instead of writing .navbar { ... } and .navbar .nav-item { ... } separately, you can nest .nav-item inside .navbar. This improves code organization and maintainability, especially for complex component styles.",
+      "industryContext": "Nesting is a fundamental SASS feature that professional frontend developers use to create well-organized, maintainable stylesheets. Understanding proper nesting techniques helps developers write cleaner CSS that's easier to understand and modify, which is essential for large-scale web applications.",
       "tags": [
         "Nesting",
         "intermediate",
         "sass"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 3,
         "originalType": "open-ended",
@@ -174,21 +174,21 @@
       "topic": "Compilation",
       "difficulty": "Beginner",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        ".scss uses braces and semicolons like CSS, while .sass uses indentation and line breaks",
+        ".scss is newer than .sass and has more features",
+        ".sass compiles faster than .scss",
+        "There is no difference, they are identical"
       ],
       "correctIndex": 0,
-      "explanation": "SASS offers two syntaxes: .scss (Sassy CSS) which is CSS-compatible and uses braces and semicolons, and .sass (indented syntax) which uses indentation instead of braces and line breaks instead of semicolons. Both compile to the same CSS.",
-      "industryContext": "These skills are valuable in professional development environments.",
+      "explanation": "SASS offers two syntaxes: .scss (Sassy CSS) which is CSS-compatible and uses braces and semicolons like standard CSS, making it easier for developers familiar with CSS to adopt. The .sass syntax (indented syntax) uses indentation instead of braces and line breaks instead of semicolons, similar to Python's syntax. Both syntaxes compile to the same CSS output, so the choice is largely a matter of personal or team preference.",
+      "industryContext": "Understanding both SASS syntaxes is valuable for professional frontend development, as different teams and projects may have preferences for one syntax over the other. The .scss syntax is more commonly used because it's CSS-compatible, making the transition from CSS to SASS easier for development teams.",
       "tags": [
         "Compilation",
         "beginner",
         "sass"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 7,
         "originalType": "open-ended",
@@ -282,21 +282,21 @@
       "topic": "Advanced Features",
       "difficulty": "Intermediate",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Use @extend for shared styles without parameters, mixins for reusable patterns with parameters",
+        "Use @extend for all situations as it's more efficient",
+        "Use mixins for all situations as they're more readable",
+        "@extend and mixins are identical and interchangeable"
       ],
       "correctIndex": 0,
-      "explanation": "Use @extend for shared base styles that don't need parameters (creates grouped selectors). Use mixins for reusable patterns with parameters or complex logic. @extend can cause bloated CSS if overused, while mixins provide more flexibility but duplicate code.",
-      "industryContext": "These skills are valuable in professional development environments.",
+      "explanation": "Use @extend for shared base styles that don't need parameters, as it creates grouped selectors in the compiled CSS, reducing code duplication. Use mixins for reusable patterns with parameters or complex logic, as they provide more flexibility but may duplicate code in the compiled CSS. @extend can cause bloated CSS if overused with complex selector chains, while mixins provide more flexibility but may result in larger CSS files due to code duplication.",
+      "industryContext": "Choosing between @extend and mixins is an important architectural decision in SASS development that affects both code maintainability and CSS output size. Professional frontend developers need to understand these trade-offs to write efficient and maintainable stylesheets.",
       "tags": [
         "Advanced Features",
         "intermediate",
         "sass"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 11,
         "originalType": "open-ended",
@@ -363,21 +363,21 @@
       "topic": "Control Directives",
       "difficulty": "Intermediate",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "@if/@else for conditionals, @for/@each/@while for loops - used for generating repetitive CSS patterns",
+        "@import for importing files, @media for responsive design",
+        "@extend for inheritance, @mixin for reusable code blocks",
+        "@keyframes for animations, @font-face for custom fonts"
       ],
       "correctIndex": 0,
-      "explanation": "Main control directives: @if/@else for conditional logic, @for for counted loops, @each for iterating over lists/maps, @while for conditional loops. Use them to generate utility classes, responsive breakpoints, color variations, and other repetitive CSS patterns.",
-      "industryContext": "These skills are valuable in professional development environments.",
+      "explanation": "Main control directives: @if/@else for conditional logic allowing different styles based on conditions, @for for counted loops to generate repetitive styles with numeric variations, @each for iterating over lists and maps to create styles for multiple items, and @while for conditional loops that continue until a condition is met. These are used to generate utility classes, responsive breakpoints, color variations, grid systems, and other repetitive CSS patterns programmatically.",
+      "industryContext": "Control directives are powerful features that enable developers to write more dynamic and maintainable stylesheets. They're essential for creating design systems, utility classes, and responsive frameworks in professional frontend development.",
       "tags": [
         "Control Directives",
         "intermediate",
         "sass"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 14,
         "originalType": "open-ended",

@@ -174,21 +174,21 @@
       "topic": "Interfaces",
       "difficulty": "Intermediate",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Combining multiple declarations with the same name, useful for extending interfaces and global objects",
+        "Merging multiple TypeScript files into one",
+        "Combining different data types into a single type",
+        "Merging arrays and objects during runtime"
       ],
       "correctIndex": 0,
-      "explanation": "Declaration merging allows TypeScript to combine multiple declarations with the same name into a single definition. This is particularly useful for interfaces, where multiple interface declarations with the same name are merged into one. It's commonly used to extend existing types or add properties to global objects without modifying the original definition.",
-      "industryContext": "TypeScript is increasingly adopted in large codebases for better maintainability.",
+      "explanation": "Declaration merging allows TypeScript to combine multiple declarations with the same name into a single definition. This is particularly useful for interfaces, where multiple interface declarations with the same name are merged into one. It's commonly used to extend existing types or add properties to global objects without modifying the original definition. For example, you can extend the Window interface to add custom properties to the global window object.",
+      "industryContext": "Declaration merging is an important TypeScript feature for extending existing types and working with global objects in large codebases. Professional TypeScript developers use this feature to augment third-party library types or extend built-in JavaScript objects with custom properties.",
       "tags": [
         "Interfaces",
         "intermediate",
         "typescript"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 7,
         "originalType": "open-ended",
@@ -282,21 +282,21 @@
       "topic": "Type Guards",
       "difficulty": "Intermediate",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Functions that return boolean and use 'is' keyword to narrow types in conditional blocks",
+        "Functions that predict future variable values",
+        "Functions that validate user input at runtime",
+        "Functions that generate random types"
       ],
       "correctIndex": 0,
-      "explanation": "Type predicates are functions that return a boolean and use the 'is' keyword to tell TypeScript the type of a variable. They narrow types within conditional blocks, improving type safety.",
-      "industryContext": "TypeScript is increasingly adopted in large codebases for better maintainability.",
+      "explanation": "Type predicates are functions that return a boolean and use the 'is' keyword to tell TypeScript the type of a variable. They narrow types within conditional blocks, improving type safety. For example: function isString(value: unknown): value is string { return typeof value === 'string'; } This allows TypeScript to understand that after calling isString(value), the value is definitely a string.",
+      "industryContext": "Type predicates are essential for professional TypeScript development, especially when working with union types and unknown values. They provide a way to create custom type guards that help TypeScript understand complex type relationships and improve code safety.",
       "tags": [
         "Type Guards",
         "intermediate",
         "typescript"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 11,
         "originalType": "open-ended",
@@ -363,21 +363,21 @@
       "topic": "Conditional Types",
       "difficulty": "Intermediate",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Use ternary syntax 'T extends U ? X : Y' to select types based on conditions",
+        "Use if-else statements to conditionally compile code",
+        "Use switch statements to select different type implementations",
+        "Use try-catch blocks to handle type errors"
       ],
       "correctIndex": 0,
-      "explanation": "Conditional types use the ternary operator syntax 'T extends U ? X : Y' to select types based on conditions, enabling powerful type transformations and generic constraints.",
-      "industryContext": "TypeScript is increasingly adopted in large codebases for better maintainability.",
+      "explanation": "Conditional types use the ternary operator syntax 'T extends U ? X : Y' to select types based on conditions, enabling powerful type transformations and generic constraints. They work at the type level and are evaluated during compilation. For example, Extract<T, U> = T extends U ? T : never. This enables advanced type manipulation and inference patterns.",
+      "industryContext": "Conditional types are a powerful TypeScript feature used in advanced type definitions and utility types. Professional TypeScript developers use them to create sophisticated type transformations and build type-safe APIs with complex generic constraints.",
       "tags": [
         "Conditional Types",
         "intermediate",
         "typescript"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 14,
         "originalType": "open-ended",
@@ -439,21 +439,21 @@
       "topic": "Migration",
       "difficulty": "Advanced",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Gradual adoption, tsconfig setup, type definitions, and CI/CD integration",
+        "Rewriting everything from scratch in TypeScript",
+        "Simply changing file extensions from .js to .ts",
+        "Removing all existing JavaScript libraries"
       ],
       "correctIndex": 0,
-      "explanation": "Key considerations include: gradual adoption by renaming .js to .ts files incrementally, configuring tsconfig.json with appropriate strictness levels, adding type definitions for third-party libraries, creating .d.ts files for legacy code, setting up proper build tools (webpack, rollup), establishing team conventions, and implementing type checking in CI/CD pipelines.",
-      "industryContext": "Many companies migrate existing JavaScript codebases to TypeScript to improve maintainability and developer experience.",
+      "explanation": "Key considerations when migrating a JavaScript project to TypeScript include: gradual adoption by renaming .js to .ts files incrementally to minimize disruption, configuring tsconfig.json with appropriate strictness levels that balance type safety with migration effort, adding type definitions (@types packages) for third-party libraries, creating .d.ts files for legacy JavaScript code, setting up proper build tools (webpack, rollup) to handle TypeScript compilation, establishing team conventions for type usage and naming, and implementing type checking in CI/CD pipelines to prevent type errors from reaching production.",
+      "industryContext": "Many companies migrate existing JavaScript codebases to TypeScript to improve maintainability and developer experience. Professional TypeScript migration requires careful planning and execution to minimize disruption while maximizing the benefits of type safety.",
       "tags": [
         "Migration",
         "advanced",
         "typescript"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180
+      "questionType": "multiple-choice",
+      "estimatedTime": 90
     },
     {
       "id": "typescript-fundamentals-q18",

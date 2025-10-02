@@ -174,21 +174,21 @@
       "topic": "Lifecycle",
       "difficulty": "Intermediate",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "created (init data), mounted (DOM ops), updated (post-render), unmounted (cleanup)",
+        "beforeCreate (DOM setup), created (API calls), mounted (data init), unmounted (rendering)",
+        "setup (all operations), render (DOM updates), destroy (cleanup)",
+        "init (everything), update (all changes), destroy (final cleanup)"
       ],
       "correctIndex": 0,
-      "explanation": "Vue component lifecycle hooks include: created (for initializing data and events), mounted (for DOM manipulation and API calls), updated (for operations after DOM updates), and unmounted (for cleanup). In Composition API, these are onMounted, onUpdated, onUnmounted, etc. Use created for data initialization, mounted for DOM-dependent operations, updated for post-render updates, and unmounted for cleanup.",
-      "industryContext": "These skills are valuable in professional development environments.",
+      "explanation": "Vue component lifecycle hooks include: created (for initializing data and events), mounted (for DOM manipulation and API calls), updated (for operations after DOM updates), and unmounted (for cleanup). In Composition API, these are onMounted, onUpdated, onUnmounted, etc. Use created for data initialization, mounted for DOM-dependent operations, updated for post-render updates, and unmounted for cleanup. Understanding these hooks is essential for proper component management and avoiding memory leaks.",
+      "industryContext": "Understanding Vue lifecycle hooks is crucial for professional Vue.js development, especially when working with DOM manipulation, API calls, and memory management. Proper use of lifecycle hooks helps optimize performance and prevent common issues like memory leaks.",
       "tags": [
         "Lifecycle",
         "intermediate",
         "vue"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 7,
         "originalType": "open-ended",
@@ -282,21 +282,21 @@
       "topic": "Performance",
       "difficulty": "Advanced",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Lazy loading, v-show vs v-if, virtual scrolling, computed optimization, keep-alive caching",
+        "Using only functional components and avoiding state management",
+        "Increasing bundle size with more dependencies for better features",
+        "Disabling reactivity for all components to reduce overhead"
       ],
       "correctIndex": 0,
-      "explanation": "Optimize Vue apps through: lazy loading components, using v-show vs v-if appropriately, implementing virtual scrolling, optimizing computed properties, using keep-alive for cached components, and minimizing reactivity overhead.",
-      "industryContext": "These skills are valuable in professional development environments.",
+      "explanation": "Optimize Vue apps through: lazy loading components to reduce initial bundle size, using v-show vs v-if appropriately based on toggle frequency, implementing virtual scrolling for large lists, optimizing computed properties to avoid unnecessary recalculations, using keep-alive for cached components to prevent re-rendering, and minimizing reactivity overhead by using shallowRef or markRaw for non-reactive data. These techniques help improve load times, reduce memory usage, and enhance user experience.",
+      "industryContext": "Performance optimization is critical for professional Vue.js applications, especially in enterprise environments where user experience and SEO are important. Professional developers use these techniques to build fast, responsive applications that scale well with complex data and user interactions.",
       "tags": [
         "Performance",
         "advanced",
         "vue"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 11,
         "originalType": "open-ended",
@@ -363,21 +363,21 @@
       "topic": "Advanced",
       "difficulty": "Intermediate",
       "choices": [
-        "Open-ended question - no multiple choice",
-        "This is a conceptual question",
-        "Answer requires explanation",
-        "Multiple approaches possible"
+        "Render components outside their parent hierarchy, useful for modals and tooltips",
+        "Transfer data between components without props",
+        "Teleport users to different pages in the application",
+        "Move components between different Vue applications"
       ],
       "correctIndex": 0,
-      "explanation": "Teleports allow rendering component templates in different parts of the DOM tree, outside the component hierarchy. Use for modals, tooltips, or notifications that need to escape parent containers.",
-      "industryContext": "These skills are valuable in professional development environments.",
+      "explanation": "Teleports allow rendering component templates in different parts of the DOM tree, outside the component hierarchy. Use for modals, tooltips, or notifications that need to escape parent containers. The Teleport component takes a 'to' prop that specifies the target DOM element where the content should be rendered. This is particularly useful for CSS positioning issues and z-index conflicts that arise when components are nested deeply in the DOM.",
+      "industryContext": "Teleports are an important Vue 3 feature for building professional UI components that need to break out of their container constraints. Professional Vue developers use Teleports for creating overlay components like modals, dropdowns, and tooltips that require proper positioning and z-index management.",
       "tags": [
         "Advanced",
         "intermediate",
         "vue"
       ],
-      "questionType": "open-ended",
-      "estimatedTime": 180,
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
       "legacy": {
         "originalId": 14,
         "originalType": "open-ended",

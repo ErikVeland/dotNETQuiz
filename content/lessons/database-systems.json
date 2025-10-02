@@ -5,52 +5,75 @@
     "title": "Relational Model and Normalization",
     "order": 1,
     "objectives": [
-      "Implement practical solutions",
-      "Build foundational understanding"
+      "Understand the principles of the relational model and its mathematical foundations",
+      "Apply normalization rules to eliminate data redundancy and update anomalies",
+      "Design efficient relational schemas that balance performance with data integrity"
     ],
-    "intro": "Welcome to the fundamental world of database design and relational data modeling - the cornerstone of data-driven applications that power everything from e-commerce platforms to social networks. Understanding the relational model is essential for creating efficient, scalable, and maintainable database systems that can handle real-world business requirements while ensuring data integrity and performance.\n\nThe relational model, introduced by Edgar F. Codd in 1970, revolutionized how we think about data storage and retrieval by organizing information into tables with clearly defined relationships. This approach provides a mathematical foundation for data operations while offering intuitive concepts that translate directly to business logic and application requirements.\n\nIn this comprehensive introduction, you'll master the essential concepts of primary keys, foreign keys, and referential integrity that ensure data consistency across your database. You'll explore normalization principles that eliminate data redundancy and update anomalies, learning to design schemas that balance efficiency with maintainability for various application scenarios.\n\nDatabase constraints and indexes form the backbone of data quality and performance optimization. Understanding how to properly implement these features prevents data corruption, enforces business rules at the database level, and ensures your applications can scale from hundreds to millions of records without performance degradation.\n\nBy the end of this lesson, you'll confidently design relational database schemas that reflect real-world business requirements, implement proper constraints for data integrity, and create efficient table structures that serve as the foundation for robust, scalable applications.",
+    "intro": "The relational model, introduced by Edgar F. Codd in 1970, is the theoretical foundation of modern relational database management systems (RDBMS). It provides a mathematical framework for organizing and manipulating data using tables (relations), rows (tuples), and columns (attributes).\n\nAt the core of the relational model are fundamental concepts: relations (tables), tuples (rows), attributes (columns), domains (valid values for attributes), and keys (unique identifiers). These concepts ensure data integrity, consistency, and provide a solid foundation for complex data operations.\n\nNormalization is the process of organizing data to minimize redundancy and dependency anomalies. The normalization process involves decomposing tables into smaller, related tables while defining relationships between them. This lesson will cover the first three normal forms (1NF, 2NF, 3NF) and their practical applications in database design.\n\nUnderstanding these principles is crucial for designing databases that are both efficient and maintainable, ensuring data integrity while supporting complex queries and transactions in real-world applications.",
     "code": {
-      "example": "-- Creating a properly normalized table with constraints\nCREATE TABLE users (\n  id INT PRIMARY KEY AUTO_INCREMENT,\n  first_name VARCHAR(50) NOT NULL,\n  last_name VARCHAR(50) NOT NULL,\n  email VARCHAR(100) UNIQUE NOT NULL,\n  birth_date DATE,\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n  CHECK (email LIKE '%@%'),\n  INDEX idx_email (email),\n  INDEX idx_name (last_name, first_name)\n);\n\n-- Inserting data with proper validation\nINSERT INTO users (first_name, last_name, email, birth_date) VALUES \n('John', 'Doe', 'john@example.com', '1990-05-15'),\n('Jane', 'Smith', 'jane@example.com', '1985-12-03');\n\n-- Querying with joins and ordering\nSELECT first_name, last_name, email FROM users \nWHERE birth_date > '1980-01-01' \nORDER BY last_name, first_name;\n\n-- First Normal Form (1NF) - Atomic values\n-- Second Normal Form (2NF) - 1NF + no partial dependencies\n-- Third Normal Form (3NF) - 2NF + no transitive dependencies",
-      "explanation": "This example produces: Properly normalized table with constraints, indexes, and sample data following database design best practices\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
+      "example": "-- First Normal Form (1NF) - Atomic values in each column\nCREATE TABLE unnormalized_orders (\n  order_id INT PRIMARY KEY,\n  customer_name VARCHAR(100),\n  products VARCHAR(500) -- Violation: 'ProductA, ProductB, ProductC'\n);\n\n-- 1NF compliant table\nCREATE TABLE orders_1nf (\n  order_id INT,\n  product_name VARCHAR(100),\n  quantity INT,\n  PRIMARY KEY (order_id, product_name)\n);\n\n-- Second Normal Form (2NF) - 1NF + no partial dependencies\n-- Violation: partial dependency on composite key\nCREATE TABLE order_details_bad (\n  order_id INT,\n  product_id INT,\n  customer_name VARCHAR(100), -- Depends only on order_id, not product_id\n  product_name VARCHAR(100),   -- Depends only on product_id, not order_id\n  quantity INT,\n  PRIMARY KEY (order_id, product_id)\n);\n\n-- 2NF compliant design\nCREATE TABLE orders (\n  order_id INT PRIMARY KEY,\n  customer_id INT,\n  order_date DATE\n);\n\nCREATE TABLE order_items (\n  order_id INT,\n  product_id INT,\n  quantity INT,\n  PRIMARY KEY (order_id, product_id)\n);\n\nCREATE TABLE customers (\n  customer_id INT PRIMARY KEY,\n  customer_name VARCHAR(100)\n);\n\nCREATE TABLE products (\n  product_id INT PRIMARY KEY,\n  product_name VARCHAR(100)\n);\n\n-- Third Normal Form (3NF) - 2NF + no transitive dependencies\n-- Violation: transitive dependency\nCREATE TABLE employees_bad (\n  employee_id INT PRIMARY KEY,\n  employee_name VARCHAR(100),\n  department_id INT,\n  department_name VARCHAR(100), -- Depends on department_id, not employee_id\n  manager_name VARCHAR(100)     -- Depends on department_id, not employee_id\n);\n\n-- 3NF compliant design\nCREATE TABLE departments (\n  department_id INT PRIMARY KEY,\n  department_name VARCHAR(100),\n  manager_name VARCHAR(100)\n);\n\nCREATE TABLE employees (\n  employee_id INT PRIMARY KEY,\n  employee_name VARCHAR(100),\n  department_id INT,\n  FOREIGN KEY (department_id) REFERENCES departments(department_id)\n);",
+      "explanation": "This example demonstrates the progression from unnormalized data to properly normalized relational schemas:\n\n1. **First Normal Form (1NF)**: Eliminates repeating groups and ensures atomic values\n   - Multi-valued attributes are moved to separate rows\n   - Each cell contains only a single value\n\n2. **Second Normal Form (2NF)**: Removes partial dependencies\n   - Eliminates redundancy caused by composite primary keys\n   - Data that depends on only part of a composite key is moved to separate tables\n\n3. **Third Normal Form (3NF)**: Removes transitive dependencies\n   - Eliminates redundancy caused by non-key attributes depending on other non-key attributes\n   - Data that is indirectly dependent on the primary key is moved to separate tables\n\nThe output shows properly structured database schemas that follow normalization principles, ensuring data integrity and reducing redundancy.",
       "language": "sql"
     },
     "pitfalls": [
       {
-        "mistake": "Not following best practices",
-        "solution": "Review documentation and community guidelines",
+        "mistake": "Over-normalizing database schemas leading to excessive joins",
+        "solution": "Balance normalization with performance requirements; consider denormalization for read-heavy applications",
         "severity": "medium"
       },
       {
-        "mistake": "Skipping error handling",
-        "solution": "Implement proper error boundaries and validation",
-        "severity": "low"
+        "mistake": "Ignoring business requirements in favor of theoretical normalization",
+        "solution": "Apply normalization principles while considering real-world usage patterns and performance needs",
+        "severity": "high"
+      },
+      {
+        "mistake": "Violating atomicity by storing multiple values in a single column",
+        "solution": "Use separate tables with foreign key relationships for multi-valued attributes",
+        "severity": "high"
       }
     ],
     "exercises": [
       {
-        "title": "Practice: Relational Model and Normalization",
-        "description": "Apply the concepts from this lesson on Database Fundamentals",
+        "title": "Practice: Normalize a University Database Schema",
+        "description": "Design a normalized database schema for a university system with students, courses, and enrollments",
         "checkpoints": [
-          "Understand the core concept",
-          "Implement the example code",
-          "Experiment with variations"
+          "Identify entities and their attributes in the university system",
+          "Apply 1NF to eliminate repeating groups",
+          "Apply 2NF to remove partial dependencies",
+          "Apply 3NF to remove transitive dependencies",
+          "Create appropriate primary and foreign keys"
         ]
       }
     ],
-    "next": [],
-    "estimatedMinutes": 25,
+    "next": [
+      "database-systems-lesson-2"
+    ],
+    "estimatedMinutes": 60,
     "difficulty": "Intermediate",
     "tags": [
-      "Database Fundamentals",
-      "database"
+      "Relational Model",
+      "Normalization",
+      "Database Design",
+      "1NF",
+      "2NF",
+      "3NF"
     ],
-    "legacy": {
-      "originalId": 1,
-      "originalTopic": "Database Fundamentals",
-      "migrated": "2025-10-01T06:41:13.481Z"
-    },
-    "lastUpdated": "2025-10-01T06:41:13.481Z",
-    "version": "1.0.0"
+    "sources": [
+      {
+        "title": "A Relational Model of Data for Large Shared Data Banks - E.F. Codd",
+        "url": "https://www.seas.upenn.edu/~zives/03s/cis550/codd.pdf"
+      },
+      {
+        "title": "Database System Concepts - Abraham Silberschatz, Henry F. Korth, S. Sudarshan",
+        "url": "https://www.db-book.com/"
+      },
+      {
+        "title": "Fundamentals of Database Systems - Ramez Elmasri, Shamkant B. Navathe",
+        "url": "https://www.pearson.com/us/higher-education/program/Elmasri-Fundamentals-of-Database-Systems-7th-Edition/PGM118419.html"
+      }
+    ],
+    "lastUpdated": "2025-10-02T10:00:00.000Z",
+    "version": "1.1.0"
   },
   {
     "id": "database-systems-lesson-2",
@@ -58,52 +81,74 @@
     "title": "Keys, Constraints, and Indexes",
     "order": 2,
     "objectives": [
-      "Implement practical solutions",
-      "Build foundational understanding"
+      "Implement primary keys, foreign keys, and unique constraints for data integrity",
+      "Design and apply check constraints to enforce business rules at the database level",
+      "Create and optimize indexes for query performance while considering maintenance costs"
     ],
-    "intro": "Welcome to this comprehensive lesson on Database Fundamentals.\n\nLearn about different types of keys, constraints for data integrity, and indexes for performance optimization.\n\nThroughout this lesson, you'll gain hands-on experience with practical implementations and real-world scenarios. We'll explore both the theoretical foundations and practical applications, ensuring you can immediately apply what you learn.\n\nThis lesson is designed to build upon previous concepts while introducing new techniques that will enhance your development skills. By the end, you'll have a solid understanding of the key principles and be ready to tackle more advanced topics.\n\nThe knowledge gained here will serve as a foundation for subsequent lessons and real-world projects.",
+    "intro": "Keys, constraints, and indexes are fundamental mechanisms for ensuring data integrity, enforcing business rules, and optimizing database performance. These features work together to create robust database systems that maintain consistency while providing efficient data access.\n\nKeys are attributes or combinations of attributes that uniquely identify rows in a table. Primary keys uniquely identify each row within a table, while foreign keys establish relationships between tables by referencing primary keys in other tables. Unique constraints ensure that specific columns or combinations of columns contain unique values.\n\nConstraints are rules applied to columns or tables that restrict the type of data that can be stored. Check constraints validate that column values meet specific conditions, not-null constraints prevent null values, and referential integrity constraints maintain consistency between related tables.\n\nIndexes are database structures that improve query performance by providing quick access paths to data. Different types of indexes, such as B-tree, hash, and bitmap indexes, are optimized for different query patterns. However, indexes also impose maintenance overhead during data modifications.\n\nThis lesson will explore these concepts in depth, showing how to properly implement them for robust database design and optimal performance.",
     "code": {
-      "example": "-- Primary key (unique identifier)\nCREATE TABLE products (\n  product_id INT PRIMARY KEY AUTO_INCREMENT,\n  sku VARCHAR(50) UNIQUE NOT NULL,\n  name VARCHAR(100) NOT NULL,\n  price DECIMAL(10, 2) NOT NULL CHECK (price >= 0),\n  category_id INT,\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);\n\n-- Foreign key (relationship between tables)\nCREATE TABLE orders (\n  order_id INT PRIMARY KEY AUTO_INCREMENT,\n  user_id INT NOT NULL,\n  order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n  status ENUM('pending', 'processing', 'shipped', 'delivered') DEFAULT 'pending',\n  total_amount DECIMAL(10, 2) NOT NULL CHECK (total_amount >= 0),\n  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,\n  INDEX idx_user_date (user_id, order_date),\n  INDEX idx_status (status)\n);\n\n-- Composite primary key\nCREATE TABLE order_items (\n  order_id INT,\n  product_id INT,\n  quantity INT NOT NULL CHECK (quantity > 0),\n  price_per_unit DECIMAL(10, 2) NOT NULL,\n  PRIMARY KEY (order_id, product_id),\n  FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,\n  FOREIGN KEY (product_id) REFERENCES products(product_id)\n);\n\n-- Check constraints for business rules\nALTER TABLE users \nADD CONSTRAINT chk_birth_date CHECK (birth_date <= CURDATE() AND birth_date >= '1900-01-01');",
-      "explanation": "This example produces: Database schema with proper keys, constraints, and indexes for data integrity and performance\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
+      "example": "-- Primary key constraint\nCREATE TABLE customers (\n  customer_id INT AUTO_INCREMENT,\n  email VARCHAR(255) NOT NULL,\n  first_name VARCHAR(100) NOT NULL,\n  last_name VARCHAR(100) NOT NULL,\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n  PRIMARY KEY (customer_id),\n  UNIQUE KEY uk_email (email)\n);\n\n-- Foreign key with referential actions\nCREATE TABLE orders (\n  order_id INT AUTO_INCREMENT,\n  customer_id INT NOT NULL,\n  order_date DATE NOT NULL,\n  total_amount DECIMAL(10,2) NOT NULL,\n  status ENUM('pending', 'processing', 'shipped', 'delivered', 'cancelled') DEFAULT 'pending',\n  PRIMARY KEY (order_id),\n  FOREIGN KEY fk_orders_customer (customer_id) REFERENCES customers(customer_id)\n    ON DELETE CASCADE ON UPDATE CASCADE,\n  INDEX idx_order_date (order_date),\n  INDEX idx_status (status)\n);\n\n-- Check constraints for business rules\nCREATE TABLE products (\n  product_id INT AUTO_INCREMENT,\n  name VARCHAR(255) NOT NULL,\n  price DECIMAL(10,2) NOT NULL,\n  category VARCHAR(100) NOT NULL,\n  stock_quantity INT NOT NULL DEFAULT 0,\n  discontinued BOOLEAN NOT NULL DEFAULT FALSE,\n  PRIMARY KEY (product_id),\n  CHECK (price > 0),\n  CHECK (stock_quantity >= 0),\n  INDEX idx_category (category)\n);\n\n-- Composite key and multiple constraints\nCREATE TABLE order_items (\n  order_id INT,\n  product_id INT,\n  quantity INT NOT NULL,\n  unit_price DECIMAL(10,2) NOT NULL,\n  PRIMARY KEY (order_id, product_id),\n  FOREIGN KEY fk_order_items_order (order_id) REFERENCES orders(order_id)\n    ON DELETE CASCADE,\n  FOREIGN KEY fk_order_items_product (product_id) REFERENCES products(product_id),\n  CHECK (quantity > 0),\n  CHECK (unit_price > 0)\n);\n\n-- Advanced indexing strategies\n-- Composite index for multi-column queries\nCREATE INDEX idx_customer_name ON customers (last_name, first_name);\n\n-- Partial index for filtered queries\nCREATE INDEX idx_active_orders ON orders (order_date) WHERE status != 'cancelled';\n\n-- Full-text index for text search\nCREATE FULLTEXT INDEX idx_product_name ON products (name);",
+      "explanation": "This example demonstrates various keys, constraints, and indexes:\n\n1. **Primary and Unique Keys**: \n   - AUTO_INCREMENT primary key for unique row identification\n   - UNIQUE constraint on email to prevent duplicates\n\n2. **Foreign Keys with Referential Actions**:\n   - CASCADE actions for automatic cleanup when referenced rows are deleted/updated\n   - Indexes on foreign key columns for join performance\n\n3. **Check Constraints**:\n   - Business rule enforcement at the database level\n   - Prevention of invalid data entry\n\n4. **Indexing Strategies**:\n   - Composite indexes for multi-column queries\n   - Partial indexes for filtered queries\n   - Full-text indexes for text search\n\nThe output shows a well-structured database schema with proper integrity constraints and performance optimizations.",
       "language": "sql"
     },
     "pitfalls": [
       {
-        "mistake": "Not following best practices",
-        "solution": "Review documentation and community guidelines",
+        "mistake": "Creating too many indexes leading to performance degradation during writes",
+        "solution": "Analyze query patterns and create only necessary indexes; regularly review index usage statistics",
+        "severity": "high"
+      },
+      {
+        "mistake": "Not defining appropriate referential actions for foreign keys",
+        "solution": "Choose CASCADE, SET NULL, or RESTRICT based on business requirements and data integrity needs",
         "severity": "medium"
       },
       {
-        "mistake": "Skipping error handling",
-        "solution": "Implement proper error boundaries and validation",
+        "mistake": "Using generic constraint names that are difficult to understand",
+        "solution": "Use descriptive names that clearly indicate the constraint's purpose (e.g., fk_orders_customer)",
         "severity": "low"
       }
     ],
     "exercises": [
       {
-        "title": "Practice: Keys, Constraints, and Indexes",
-        "description": "Apply the concepts from this lesson on Database Fundamentals",
+        "title": "Practice: Design a Library Management System Schema",
+        "description": "Create a database schema for a library system with books, borrowers, and loans",
         "checkpoints": [
-          "Understand the core concept",
-          "Implement the example code",
-          "Experiment with variations"
+          "Define tables for books, borrowers, and loans with appropriate primary keys",
+          "Implement foreign key relationships between tables",
+          "Add check constraints for business rules (e.g., loan dates, return dates)",
+          "Create indexes for common query patterns",
+          "Ensure referential integrity with appropriate actions"
         ]
       }
     ],
-    "next": [],
-    "estimatedMinutes": 25,
-    "difficulty": "Advanced",
-    "tags": [
-      "Database Fundamentals",
-      "database"
+    "next": [
+      "database-systems-lesson-3"
     ],
-    "legacy": {
-      "originalId": 2,
-      "originalTopic": "Database Fundamentals",
-      "migrated": "2025-10-01T06:41:13.481Z"
-    },
-    "lastUpdated": "2025-10-01T06:41:13.481Z",
-    "version": "1.0.0"
+    "estimatedMinutes": 55,
+    "difficulty": "Intermediate",
+    "tags": [
+      "Keys",
+      "Constraints",
+      "Indexes",
+      "Referential Integrity",
+      "Performance Optimization"
+    ],
+    "sources": [
+      {
+        "title": "SQL for Web Nerds - Constraints Chapter",
+        "url": "http://philip.greenspun.com/sql/constraints.html"
+      },
+      {
+        "title": "Database Internals - Indexing Chapter",
+        "url": "https://www.databass.dev/"
+      },
+      {
+        "title": "MySQL 8.0 Reference Manual - Constraints",
+        "url": "https://dev.mysql.com/doc/refman/8.0/en/create-table-constraints.html"
+      }
+    ],
+    "lastUpdated": "2025-10-02T10:00:00.000Z",
+    "version": "1.1.0"
   },
   {
     "id": "database-systems-lesson-3",
@@ -111,52 +156,73 @@
     "title": "Advanced Queries with Joins, Subqueries, and Set Operations",
     "order": 3,
     "objectives": [
-      "Implement practical solutions",
-      "Build foundational understanding"
+      "Write complex queries using different types of joins for data retrieval",
+      "Implement correlated and non-correlated subqueries for advanced filtering",
+      "Apply set operations to combine results from multiple queries"
     ],
-    "intro": "Welcome to this comprehensive lesson on SQL.\n\nLearn how to write complex queries using different join types, subqueries, and set operations for data analysis.\n\nThroughout this lesson, you'll gain hands-on experience with practical implementations and real-world scenarios. We'll explore both the theoretical foundations and practical applications, ensuring you can immediately apply what you learn.\n\nThis lesson is designed to build upon previous concepts while introducing new techniques that will enhance your development skills. By the end, you'll have a solid understanding of the key principles and be ready to tackle more advanced topics.\n\nThe knowledge gained here will serve as a foundation for subsequent lessons and real-world projects.",
+    "intro": "Advanced SQL queries are essential for extracting meaningful insights from complex database schemas. As applications grow in complexity, simple SELECT statements are insufficient for retrieving the data needed for reporting, analytics, and business intelligence.\n\nJoins are used to combine rows from two or more tables based on related columns. Different types of joins serve different purposes: INNER JOIN returns only matching rows, LEFT JOIN includes all rows from the left table, RIGHT JOIN includes all rows from the right table, and FULL OUTER JOIN includes all rows from both tables.\n\nSubqueries are queries nested within other queries, providing powerful capabilities for filtering, calculation, and data manipulation. Correlated subqueries reference columns from the outer query and are executed once for each row, while non-correlated subqueries are executed once and their results are used by the outer query.\n\nSet operations such as UNION, INTERSECT, and EXCEPT allow combining results from multiple queries. UNION combines results and removes duplicates, UNION ALL combines results including duplicates, INTERSECT returns only rows that appear in both queries, and EXCEPT returns rows from the first query that are not in the second.\n\nThis lesson will explore these advanced querying techniques with practical examples that demonstrate their real-world applications.",
     "code": {
-      "example": "-- Different types of joins\n-- Inner join (only matching records)\nSELECT u.first_name, u.last_name, o.order_date, o.total_amount\nFROM users u\nINNER JOIN orders o ON u.id = o.user_id;\n\n-- Left join (all users, even without orders)\nSELECT u.first_name, u.last_name, COUNT(o.order_id) as order_count\nFROM users u\nLEFT JOIN orders o ON u.id = o.user_id\nGROUP BY u.id, u.first_name, u.last_name;\n\n-- Subqueries\n-- Correlated subquery\nSELECT first_name, last_name\nFROM users u\nWHERE EXISTS (\n  SELECT 1 FROM orders o \n  WHERE o.user_id = u.id AND o.total_amount > 1000\n);\n\n-- Subquery in SELECT\nSELECT first_name, last_name,\n  (SELECT COUNT(*) FROM orders WHERE user_id = users.id) as order_count\nFROM users;\n\n-- Set operations\n-- UNION (combines results, removes duplicates)\nSELECT first_name FROM users WHERE first_name LIKE 'J%'\nUNION\nSELECT name FROM products WHERE name LIKE 'J%';\n\n-- UNION ALL (combines results, keeps duplicates)\nSELECT email FROM users\nUNION ALL\nSELECT email FROM newsletter_subscribers;",
-      "explanation": "This example produces: Complex queries demonstrating various join types, correlated and non-correlated subqueries, and set operations\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
+      "example": "-- Different types of joins\n-- INNER JOIN: Only customers who have placed orders\nSELECT c.first_name, c.last_name, o.order_date, o.total_amount\nFROM customers c\nINNER JOIN orders o ON c.customer_id = o.customer_id\nORDER BY o.order_date DESC;\n\n-- LEFT JOIN: All customers, including those without orders\nSELECT c.first_name, c.last_name, COUNT(o.order_id) as order_count\nFROM customers c\nLEFT JOIN orders o ON c.customer_id = o.customer_id\nGROUP BY c.customer_id, c.first_name, c.last_name\nORDER BY order_count DESC;\n\n-- RIGHT JOIN: All orders, including those with invalid customer references\nSELECT c.first_name, c.last_name, o.order_date\nFROM customers c\nRIGHT JOIN orders o ON c.customer_id = o.customer_id\nWHERE c.customer_id IS NULL;\n\n-- Self JOIN: Find customers in the same city\nSELECT c1.first_name as customer1, c2.first_name as customer2, c1.city\nFROM customers c1\nINNER JOIN customers c2 ON c1.city = c2.city AND c1.customer_id < c2.customer_id;\n\n-- Correlated subquery: Customers with orders over $1000\nSELECT first_name, last_name\nFROM customers c\nWHERE EXISTS (\n  SELECT 1 FROM orders o \n  WHERE o.customer_id = c.customer_id AND o.total_amount > 1000\n);\n\n-- Non-correlated subquery: Customers who ordered the most expensive product\nSELECT first_name, last_name\nFROM customers\nWHERE customer_id IN (\n  SELECT customer_id FROM orders \n  WHERE order_id IN (\n    SELECT order_id FROM order_items \n    WHERE product_id = (\n      SELECT product_id FROM products \n      ORDER BY price DESC LIMIT 1\n    )\n  )\n);\n\n-- Set operations\n-- UNION: Combine customer and supplier names (removes duplicates)\nSELECT first_name, last_name FROM customers\nUNION\nSELECT contact_first_name, contact_last_name FROM suppliers\nORDER BY last_name, first_name;\n\n-- UNION ALL: Include all names including duplicates\nSELECT city FROM customers\nUNION ALL\nSELECT city FROM suppliers;\n\n-- INTERSECT: Cities that have both customers and suppliers (MySQL workaround)\nSELECT DISTINCT c.city\nFROM customers c\nINNER JOIN suppliers s ON c.city = s.city;\n\n-- EXCEPT: Cities with customers but no suppliers (MySQL workaround)\nSELECT DISTINCT city FROM customers\nWHERE city NOT IN (SELECT city FROM suppliers WHERE city IS NOT NULL);",
+      "explanation": "This example demonstrates advanced querying techniques:\n\n1. **Join Types**:\n   - INNER JOIN for matching data only\n   - LEFT JOIN to include all rows from left table\n   - RIGHT JOIN to include all rows from right table\n   - Self JOIN for relationships within the same table\n\n2. **Subqueries**:\n   - Correlated subquery that executes for each row\n   - Nested non-correlated subqueries for complex filtering\n   - EXISTS for existence checks\n   - IN for membership tests\n\n3. **Set Operations**:\n   - UNION for combining results without duplicates\n   - UNION ALL for combining results with duplicates\n   - INTERSECT and EXCEPT workarounds for MySQL\n\nThe output shows various ways to retrieve and combine data from multiple tables, demonstrating the power of SQL for complex data analysis.",
       "language": "sql"
     },
     "pitfalls": [
       {
-        "mistake": "Not following best practices",
-        "solution": "Review documentation and community guidelines",
-        "severity": "medium"
+        "mistake": "Using Cartesian products unintentionally by omitting JOIN conditions",
+        "solution": "Always specify proper JOIN conditions; use EXPLAIN to verify query execution plans",
+        "severity": "high"
       },
       {
-        "mistake": "Skipping error handling",
-        "solution": "Implement proper error boundaries and validation",
-        "severity": "low"
+        "mistake": "Writing inefficient correlated subqueries that perform poorly on large datasets",
+        "solution": "Consider JOIN alternatives or ensure proper indexing for correlated subqueries",
+        "severity": "high"
+      },
+      {
+        "mistake": "Not considering NULL values in set operations and JOINs",
+        "solution": "Explicitly handle NULL values with IS NULL/IS NOT NULL conditions and COALESCE functions",
+        "severity": "medium"
       }
     ],
     "exercises": [
       {
-        "title": "Practice: Advanced Queries with Joins, Subqueries, and Set Operations",
-        "description": "Apply the concepts from this lesson on SQL",
+        "title": "Practice: Analyze Sales Data with Advanced Queries",
+        "description": "Write queries to analyze sales performance and customer behavior",
         "checkpoints": [
-          "Understand the core concept",
-          "Implement the example code",
-          "Experiment with variations"
+          "Find top 10 customers by total spending using JOINs",
+          "Identify products never ordered using subqueries",
+          "Combine results from different time periods using set operations",
+          "Calculate customer lifetime value with complex aggregations"
         ]
       }
     ],
-    "next": [],
-    "estimatedMinutes": 25,
+    "next": [
+      "database-systems-lesson-4"
+    ],
+    "estimatedMinutes": 65,
     "difficulty": "Advanced",
     "tags": [
-      "SQL",
-      "database"
+      "Joins",
+      "Subqueries",
+      "Set Operations",
+      "Data Analysis",
+      "Complex Queries"
     ],
-    "legacy": {
-      "originalId": 3,
-      "originalTopic": "SQL",
-      "migrated": "2025-10-01T06:41:13.481Z"
-    },
-    "lastUpdated": "2025-10-01T06:41:13.481Z",
-    "version": "1.0.0"
+    "sources": [
+      {
+        "title": "SQL Cookbook - Query Solutions and Techniques",
+        "url": "https://www.oreilly.com/library/view/sql-cookbook/0596009763/"
+      },
+      {
+        "title": "Learning SQL - Alan Beaulieu",
+        "url": "https://www.oreilly.com/library/view/learning-sql-2nd/9780596801835/"
+      },
+      {
+        "title": "High Performance MySQL - Optimization and Tuning",
+        "url": "https://www.oreilly.com/library/view/high-performance-mysql/9781492080503/"
+      }
+    ],
+    "lastUpdated": "2025-10-02T10:00:00.000Z",
+    "version": "1.1.0"
   },
   {
     "id": "database-systems-lesson-4",

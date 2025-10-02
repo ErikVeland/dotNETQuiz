@@ -203,92 +203,111 @@ const TierSection: React.FC<{
   
   if (!isVisible) return null;
   
+  // Define tier-specific gradient classes for edge-to-edge backgrounds
+  const tierGradientClass = {
+    foundational: 'from-blue-500 to-cyan-500',
+    core: 'from-green-500 to-emerald-500',
+    specialized: 'from-purple-500 to-violet-500',
+    quality: 'from-orange-500 to-red-500'
+  }[tierKey] || 'from-blue-500 to-cyan-500';
+  
   return (
     <section 
-      className={`tier-section liquid-glass-tier-${tierKey}`}
+      className={`tier-section-full-width w-full`} // Full width section for edge-to-edge layout
       data-tier={tierKey}
       aria-labelledby={`tier-${tierKey}-heading`}
       role="region"
     >
-      <div className="liquid-glass p-8 rounded-xl">
-        <div className="tier-header mb-8">
-          <div className="flex justify-between items-start mb-6">
-            <div className="flex-1">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold text-lg">
-                  {tier.level}
+      {/* Tier background that spans full width */}
+      <div className={`w-full bg-gradient-to-r ${tierGradientClass} py-12 px-4`}>
+        <div className="tier-content"> {/* Constrain content width while keeping background full */}
+          <div className="glass-morphism p-8 rounded-xl"> {/* Glass card for content */}
+            <div className="tier-header mb-8">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-6">
+                <div className="flex-1">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${tierGradientClass} flex items-center justify-center text-white font-bold text-2xl`}>
+                      {tier.level}
+                    </div>
+                    <div>
+                      <h2 className="text-3xl md:text-4xl font-bold text-white" id={`tier-${tierKey}-heading`}>
+                        {tier.title}
+                      </h2>
+                      <p className="text-white/90 mt-2 text-lg">{tier.description}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="glass-morphism rounded-lg p-4 mb-4">
+                    <p className="font-medium text-white">
+                      <strong>Focus Area:</strong> {tier.focusArea}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="text-3xl font-bold text-white" id={`tier-${tierKey}-heading`}>
-                    {tier.title}
-                  </h2>
-                  <p className="text-white/90">{tier.description}</p>
+                
+                <div className="tier-progress-summary">
+                  <div className="text-center bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                    <div className="text-4xl font-bold text-white">{tierProgress}%</div>
+                    <div className="text-white/80">Complete</div>
+                    <div className="text-white/80 mt-1">
+                      {completedModules} of {modules.length} modules
+                    </div>
+                  </div>
                 </div>
               </div>
               
-              <div className="liquid-glass rounded-lg p-4 mb-4">
-                <p className="font-medium text-white">
-                  <strong>Focus:</strong> {tier.focusArea}
-                </p>
+              {/* Learning objectives */}
+              <div className="learning-objectives glass-morphism rounded-xl p-6">
+                <h3 className="text-2xl font-semibold text-white mb-4">Learning Objectives</h3>
+                <ul className="grid md:grid-cols-2 gap-4">
+                  {tier.learningObjectives.map((objective, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <span className="text-green-400 mt-1 flex-shrink-0 text-xl">✓</span>
+                      <span className="text-white/90 text-lg">{objective}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
             
-            <div className="tier-progress-summary ml-8">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-white">{tierProgress}%</div>
-                <div className="text-white/80">Complete</div>
-                <div className="text-white/80 mt-1">
-                  {completedModules} of {modules.length} modules
+            {/* Modules grid */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8" role="list" aria-label={`${tier.title} modules`}>
+              {modules.map((module: Module) => (
+                <div key={module.slug} role="listitem">
+                  <ModuleCard
+                    module={module}
+                    tierColor={tier.color}
+                    tierKey={tierKey}
+                  />
+                </div>
+              ))}
+            </div>
+            
+            {/* Tier completion indicator */}
+            {tierProgress === 100 && (
+              <div className="tier-completion-celebration mt-12 text-center">
+                <div className="glass-morphism p-8 rounded-xl">
+                  <span className="text-6xl mb-4 block">🎉</span>
+                  <h3 className="text-3xl font-bold text-white mb-4">Tier Complete!</h3>
+                  <p className="text-white/90 text-xl mb-6">
+                    Congratulations! You've mastered the {tier.title} tier.
+                  </p>
+                  {tierKey !== 'quality' && (
+                    <button className="glass-button glass-interactive text-lg px-8 py-4">
+                      → Continue to Next Tier
+                    </button>
+                  )}
+                  {tierKey === 'quality' && (
+                    <div className="mt-6">
+                      <span className="text-4xl block">🏆</span>
+                      <h4 className="text-2xl font-bold text-white mt-2">Full Stack Developer Achieved!</h4>
+                      <p className="text-white/90 mt-2">You've completed all tiers and mastered full stack development!</p>
+                    </div>
+                  )}
                 </div>
               </div>
-            </div>
-          </div>
-          
-          {/* Learning objectives */}
-          <div className="learning-objectives liquid-glass rounded-xl p-6">
-            <h3 className="text-xl font-semibold text-white mb-4">Learning Objectives</h3>
-            <ul className="grid md:grid-cols-2 gap-3">
-              {tier.learningObjectives.map((objective, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <span className="text-green-400 mt-1 flex-shrink-0">✓</span>
-                  <span className="text-white/90">{objective}</span>
-                </li>
-              ))}
-            </ul>
+            )}
           </div>
         </div>
-        
-        {/* Modules grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" role="list" aria-label={`${tier.title} modules`}>
-          {modules.map((module: Module) => (
-            <div key={module.slug} role="listitem">
-              <ModuleCard
-                module={module}
-                tierColor={tier.color}
-                tierKey={tierKey}
-              />
-            </div>
-          ))}
-        </div>
-        
-        {/* Tier completion indicator */}
-        {tierProgress === 100 && (
-          <div className="tier-completion-celebration mt-8 text-center">
-            <div className="liquid-glass p-6 rounded-xl">
-              <span className="text-4xl mb-4 block">🎆</span>
-              <h3 className="text-2xl font-bold text-white mb-2">Tier Complete!</h3>
-              <p className="text-white/90 mb-4">
-                Congratulations! You've mastered the {tier.title} tier. 
-                {tierKey !== 'quality' && 'Ready for the next challenge?'}
-              </p>
-              {tierKey !== 'quality' && (
-                <button className="liquid-glass-button">
-                  → Continue to Next Tier
-                </button>
-              )}
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );
@@ -370,7 +389,7 @@ const HomePage: React.FC = () => {
     return (
       <div className="liquid-glass-layout">
         <div className="max-w-4xl mx-auto">
-          <div className="liquid-glass p-8 rounded-xl text-center">
+          <div className="glass-morphism p-8 rounded-xl text-center">
             <div className="text-6xl mb-4">🙁</div>
             <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
               Something went wrong
@@ -380,7 +399,7 @@ const HomePage: React.FC = () => {
             </p>
             <button 
               onClick={() => window.location.reload()}
-              className="liquid-glass-button"
+              className="glass-button"
             >
               Try Again
             </button>
@@ -462,9 +481,6 @@ const HomePage: React.FC = () => {
     setSelectedStatus(null);
   };
 
-  const hasActiveFilters = searchQuery || selectedTier || selectedDifficulty || selectedCategory || selectedStatus;
-  
-  // Skip to main content for accessibility
   const skipToMainContent = () => {
     const mainContent = document.getElementById('learning-tiers');
     if (mainContent) {
@@ -473,88 +489,104 @@ const HomePage: React.FC = () => {
     }
   };
 
+  // Define the correct tier order for display
+  const tierOrder = ['foundational', 'core', 'specialized', 'quality'];
+
   return (
     <div className="liquid-glass-layout">
-      <div className="max-w-4xl mx-auto">
-        <main id="main-content" className="homepage" role="main">
-        {/* Hero Section */}
-        <section className="hero-section liquid-glass rounded-2xl p-8 mb-12">
-          <div className="hero-content">
-            <h1 className="hero-title text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4">
-              Master Modern Web Development
-              <span className="hero-subtitle block mt-2 text-2xl">Comprehensive Learning Path</span>
-            </h1>
-            <p className="hero-description text-lg md:text-xl text-white/90 mb-6">
-              Comprehensive learning paths across 18 technology modules with interactive lessons, 
-              real-world projects, and interview preparation.
-            </p>
-            
-            <div className="hero-stats">
-              <div className="stat-item">
-                <span className="stat-number text-white" aria-label={`${totalModules} total modules`}>
-                  {totalModules}
-                </span>
-                <span className="stat-label text-white/80">Modules</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number text-white" aria-label={`${completedModules} completed modules`}>
-                  {completedModules}
-                </span>
-                <span className="stat-label text-white/80">Completed</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number text-white" aria-label={`${Math.round(overallProgress)}% overall progress`}>
-                  {Math.round(overallProgress)}%
-                </span>
-                <span className="stat-label text-white/80">Progress</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number text-white" aria-label={`${streak.currentStreak} day streak`}>
-                  {streak.currentStreak}
-                </span>
-                <span className="stat-label text-white/80">Day Streak</span>
-              </div>
-            </div>
-            
-            {/* Recent achievements showcase */}
-            {recentAchievements.length > 0 && (
-              <div className="recent-achievements mt-6">
-                <h2 className="achievements-title text-white font-semibold mb-3">Recent Achievements</h2>
-                <div className="achievements-list">
-                  {recentAchievements.map(achievement => (
-                    <div key={achievement.id} className="achievement-item liquid-glass rounded-lg p-3 mb-2">
-                      <span className="achievement-icon mr-2">🏆</span>
-                      <span className="achievement-description text-white">{achievement.description}</span>
+      {/* Ensure no gutters - content spans full width */}
+      <main id="main-content" className="homepage w-full edge-to-edge" role="main">
+        {/* Hero Section with proper edge-to-edge layout */}
+        <section className="hero-section w-full bg-gradient-to-r from-blue-600 to-purple-600 py-16 md:py-24 edge-to-edge">
+          <div className="edge-to-edge-content">
+            <div className="glass-morphism rounded-2xl p-8 md:p-12">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div className="hero-content">
+                  <h1 className="hero-title text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 text-white">
+                    Master Modern Web Development
+                    <span className="hero-subtitle block mt-4 text-2xl text-white/90">Comprehensive Learning Path</span>
+                  </h1>
+                  <p className="hero-description text-lg md:text-xl text-white/90 mb-8">
+                    Comprehensive learning paths across 18 technology modules with interactive lessons, 
+                    real-world projects, and interview preparation.
+                  </p>
+                  
+                  <div className="hero-stats grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div className="stat-item glass-morphism rounded-xl p-4 text-center">
+                      <span className="stat-number text-3xl font-bold text-white" aria-label={`${totalModules} total modules`}>
+                        {totalModules}
+                      </span>
+                      <span className="stat-label text-white/80 block mt-1">Modules</span>
                     </div>
-                  ))}
+                    <div className="stat-item glass-morphism rounded-xl p-4 text-center">
+                      <span className="stat-number text-3xl font-bold text-white" aria-label={`${completedModules} completed modules`}>
+                        {completedModules}
+                      </span>
+                      <span className="stat-label text-white/80 block mt-1">Completed</span>
+                    </div>
+                    <div className="stat-item glass-morphism rounded-xl p-4 text-center">
+                      <span className="stat-number text-3xl font-bold text-white" aria-label={`${Math.round(overallProgress)}% overall progress`}>
+                        {Math.round(overallProgress)}%
+                      </span>
+                      <span className="stat-label text-white/80 block mt-1">Progress</span>
+                    </div>
+                    <div className="stat-item glass-morphism rounded-xl p-4 text-center">
+                      <span className="stat-number text-3xl font-bold text-white" aria-label={`${streak.currentStreak} day streak`}>
+                        {streak.currentStreak}
+                      </span>
+                      <span className="stat-label text-white/80 block mt-1">Day Streak</span>
+                    </div>
+                  </div>
+                  
+                  {/* Recent achievements showcase */}
+                  {recentAchievements.length > 0 && (
+                    <div className="recent-achievements mt-8">
+                      <h2 className="achievements-title text-white text-xl font-semibold mb-4">Recent Achievements</h2>
+                      <div className="achievements-list space-y-3">
+                        {recentAchievements.map(achievement => (
+                          <div key={achievement.id} className="achievement-item glass-morphism rounded-lg p-4">
+                            <div className="flex items-center">
+                              <span className="achievement-icon text-2xl mr-3">🏆</span>
+                              <span className="achievement-description text-white flex-1">{achievement.description}</span>
+                              <span className="text-white/70 text-sm">{new Date(achievement.earnedDate).toLocaleDateString()}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                
+                <div className="hero-visual flex justify-center">
+                  <div className="learning-path-visualization w-full max-w-md">
+                    <svg viewBox="0 0 400 300" className="path-svg w-full h-auto" role="img" aria-label="Learning path visualization">
+                      <defs>
+                        <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#3B82F6" />
+                          <stop offset="25%" stopColor="#10B981" />
+                          <stop offset="50%" stopColor="#8B5CF6" />
+                          <stop offset="100%" stopColor="#F59E0B" />
+                        </linearGradient>
+                      </defs>
+                      <path
+                        d="M50,250 Q150,200 200,150 T350,50"
+                        stroke="url(#pathGradient)"
+                        strokeWidth="6"
+                        fill="none"
+                        className="learning-path"
+                      />
+                      <circle cx="50" cy="250" r="12" fill="#3B82F6" className="tier-node" aria-label="Foundational tier" />
+                      <circle cx="150" cy="175" r="12" fill="#10B981" className="tier-node" aria-label="Core technologies tier" />
+                      <circle cx="250" cy="125" r="12" fill="#8B5CF6" className="tier-node" aria-label="Specialized skills tier" />
+                      <circle cx="350" cy="50" r="12" fill="#F59E0B" className="tier-node" aria-label="Quality and testing tier" />
+                      <text x="50" y="275" textAnchor="middle" fill="white" fontSize="12">Foundational</text>
+                      <text x="150" y="200" textAnchor="middle" fill="white" fontSize="12">Core</text>
+                      <text x="250" y="150" textAnchor="middle" fill="white" fontSize="12">Specialized</text>
+                      <text x="350" y="75" textAnchor="middle" fill="white" fontSize="12">Quality</text>
+                    </svg>
+                  </div>
                 </div>
               </div>
-            )}
-          </div>
-          
-          <div className="hero-visual">
-            <div className="learning-path-visualization">
-              <svg viewBox="0 0 400 300" className="path-svg" role="img" aria-label="Learning path visualization">
-                <defs>
-                  <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#3B82F6" />
-                    <stop offset="25%" stopColor="#10B981" />
-                    <stop offset="50%" stopColor="#8B5CF6" />
-                    <stop offset="100%" stopColor="#F59E0B" />
-                  </linearGradient>
-                </defs>
-                <path
-                  d="M50,250 Q150,200 200,150 T350,50"
-                  stroke="url(#pathGradient)"
-                  strokeWidth="4"
-                  fill="none"
-                  className="learning-path"
-                />
-                <circle cx="50" cy="250" r="8" fill="#3B82F6" className="tier-node" aria-label="Foundational tier" />
-                <circle cx="150" cy="175" r="8" fill="#10B981" className="tier-node" aria-label="Core technologies tier" />
-                <circle cx="250" cy="125" r="8" fill="#8B5CF6" className="tier-node" aria-label="Specialized skills tier" />
-                <circle cx="350" cy="50" r="8" fill="#F59E0B" className="tier-node" aria-label="Quality and testing tier" />
-              </svg>
             </div>
           </div>
         </section>
@@ -563,111 +595,121 @@ const HomePage: React.FC = () => {
         <GamificationDashboard />
 
         {/* Enhanced Search and Filter System */}
-        <section className="search-filter-section mb-12" aria-labelledby="search-heading">
-          <h2 id="search-heading" className="sr-only">Search and filter learning modules</h2>
-          <div className="liquid-glass-search-container rounded-2xl">
-            <SearchFilterSystem 
-              searchQuery={searchQuery}
-              onSearchChange={setSearchQuery}
-              selectedTier={selectedTier}
-              onTierChange={setSelectedTier}
-              selectedDifficulty={selectedDifficulty}
-              onDifficultyChange={setSelectedDifficulty}
-              selectedCategory={selectedCategory}
-              onCategoryChange={setSelectedCategory}
-              selectedStatus={selectedStatus}
-              onStatusChange={setSelectedStatus}
-              onClearFilters={clearFilters}
-              totalResults={totalModules}
-              filteredResults={Object.values(filteredTiers).reduce((sum, tier) => sum + tier.modules.length, 0)}
-            />
+        <section className="search-filter-section w-full py-12 bg-gradient-to-r from-gray-800 to-gray-900 edge-to-edge">
+          <div className="edge-to-edge-content">
+            <div className="glass-search-container rounded-2xl">
+              <SearchFilterSystem 
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                selectedTier={selectedTier}
+                onTierChange={setSelectedTier}
+                selectedDifficulty={selectedDifficulty}
+                onDifficultyChange={setSelectedDifficulty}
+                selectedCategory={selectedCategory}
+                onCategoryChange={setSelectedCategory}
+                selectedStatus={selectedStatus}
+                onStatusChange={setSelectedStatus}
+                onClearFilters={clearFilters}
+                totalResults={totalModules}
+                filteredResults={Object.values(filteredTiers).reduce((sum, tier) => sum + tier.modules.length, 0)}
+              />
+            </div>
           </div>
         </section>
 
-        {/* Learning Tiers */}
+        {/* Learning Tiers - Proper 4-tier layout with edge-to-edge backgrounds */}
         <div 
           id="learning-tiers" 
-          className="learning-tiers" 
+          className="learning-tiers w-full edge-to-edge" 
           tabIndex={-1}
           role="region" 
           aria-label="Learning modules organized by tier"
         >
           {hasActiveFilters && Object.keys(filteredTiers).length === 0 && (
-            <div className="no-results" role="status" aria-live="polite">
-              <div className="no-results-content">
-                <div className="no-results-icon">🔍</div>
-                <h3 className="no-results-title">No modules found</h3>
-                <p className="no-results-description">
-                  Try adjusting your search terms or filters to find what you're looking for.
-                </p>
-                <button 
-                  onClick={clearFilters}
-                  className="clear-filters-button"
-                >
-                  Clear all filters
-                </button>
+            <div className="no-results py-20" role="status" aria-live="polite">
+              <div className="max-w-3xl mx-auto text-center">
+                <div className="glass-morphism rounded-2xl p-12">
+                  <div className="no-results-icon text-6xl mb-6">🔍</div>
+                  <h3 className="no-results-title text-3xl font-bold text-white mb-4">No modules found</h3>
+                  <p className="no-results-description text-white/90 text-xl mb-8">
+                    Try adjusting your search terms or filters to find what you're looking for.
+                  </p>
+                  <button 
+                    onClick={clearFilters}
+                    className="glass-button text-lg px-8 py-4"
+                  >
+                    Clear all filters
+                  </button>
+                </div>
               </div>
             </div>
           )}
           
-          {Object.entries(filteredTiers).map(([tierKey, tierData]) => (
-            <TierSection 
-              key={tierKey} 
-              tier={tierData.tier} 
-              modules={tierData.modules}
-              tierKey={tierKey}
-              isVisible={!hasActiveFilters || tierData.modules.length > 0}
-            />
-          ))}
+          {/* Render tiers in the correct order */}
+          {tierOrder.map(tierKey => {
+            const tierData = filteredTiers[tierKey];
+            if (!tierData) return null;
+            
+            return (
+              <TierSection 
+                key={tierKey} 
+                tier={tierData.tier} 
+                modules={tierData.modules}
+                tierKey={tierKey}
+                isVisible={!hasActiveFilters || tierData.modules.length > 0}
+              />
+            );
+          })}
         </div>
 
         {/* Quick Actions */}
-        <section className="quick-actions mb-12" aria-labelledby="quick-actions-heading">
-          <h2 id="quick-actions-heading" className="text-3xl font-bold text-center text-white mb-8">Quick Actions</h2>
-          <div className="actions-grid grid md:grid-cols-2 lg:grid-cols-4 gap-6" role="list">
-            <Link href="/playground" className="liquid-glass liquid-glass-interactive rounded-xl p-6 text-center" role="listitem">
-              <span className="action-icon text-4xl block mb-3" role="img" aria-label="Playground icon">🛝</span>
-              <h3 className="text-xl font-semibold text-white mb-2">GraphQL Playground</h3>
-              <p className="text-white/80">Experiment with GraphQL queries and mutations</p>
-            </Link>
-            
-            <Link href="/animated-background-demo" className="liquid-glass liquid-glass-interactive rounded-xl p-6 text-center" role="listitem">
-              <span className="action-icon text-4xl block mb-3" role="img" aria-label="Design icon">🎨</span>
-              <h3 className="text-xl font-semibold text-white mb-2">Design Showcase</h3>
-              <p className="text-white/80">Explore our animated backgrounds and UI components</p>
-            </Link>
-            
-            <Link href="/interview-prep" className="liquid-glass liquid-glass-interactive rounded-xl p-6 text-center" role="listitem">
-              <span className="action-icon text-4xl block mb-3" role="img" aria-label="Interview icon">💼</span>
-              <h3 className="text-xl font-semibold text-white mb-2">Interview Prep</h3>
-              <p className="text-white/80">Practice with real interview questions</p>
-            </Link>
-            
-            <button 
-              onClick={() => {
-                const progressData = { progress, achievements, streak };
-                const dataStr = JSON.stringify(progressData, null, 2);
-                const dataBlob = new Blob([dataStr], { type: 'application/json' });
-                const url = URL.createObjectURL(dataBlob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = `learning-progress-${new Date().toISOString().split('T')[0]}.json`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
-              }}
-              className="liquid-glass liquid-glass-interactive rounded-xl p-6 text-center"
-              role="listitem"
-            >
-              <span className="action-icon text-4xl block mb-3" role="img" aria-label="Export icon">📥</span>
-              <h3 className="text-xl font-semibold text-white mb-2">Export Progress</h3>
-              <p className="text-white/80">Download your learning progress and achievements</p>
-            </button>
+        <section className="quick-actions w-full py-16 bg-gradient-to-r from-gray-900 to-black edge-to-edge">
+          <div className="edge-to-edge-content">
+            <h2 id="quick-actions-heading" className="text-4xl font-bold text-center text-white mb-12">Quick Actions</h2>
+            <div className="actions-grid grid md:grid-cols-2 lg:grid-cols-4 gap-6" role="list">
+              <Link href="/playground" className="glass-module-card glass-interactive rounded-xl p-6 text-center" role="listitem">
+                <span className="action-icon text-5xl block mb-4" role="img" aria-label="Playground icon">🛝</span>
+                <h3 className="text-2xl font-semibold text-white mb-3">GraphQL Playground</h3>
+                <p className="text-white/80">Experiment with GraphQL queries and mutations</p>
+              </Link>
+              
+              <Link href="/animated-background-demo" className="glass-module-card glass-interactive rounded-xl p-6 text-center" role="listitem">
+                <span className="action-icon text-5xl block mb-4" role="img" aria-label="Design icon">🎨</span>
+                <h3 className="text-2xl font-semibold text-white mb-3">Design Showcase</h3>
+                <p className="text-white/80">Explore our animated backgrounds and UI components</p>
+              </Link>
+              
+              <Link href="/interview-prep" className="glass-module-card glass-interactive rounded-xl p-6 text-center" role="listitem">
+                <span className="action-icon text-5xl block mb-4" role="img" aria-label="Interview icon">💼</span>
+                <h3 className="text-2xl font-semibold text-white mb-3">Interview Prep</h3>
+                <p className="text-white/80">Practice with real interview questions</p>
+              </Link>
+              
+              <button 
+                onClick={() => {
+                  const progressData = { progress, achievements, streak };
+                  const dataStr = JSON.stringify(progressData, null, 2);
+                  const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                  const url = URL.createObjectURL(dataBlob);
+                  const link = document.createElement('a');
+                  link.href = url;
+                  link.download = `learning-progress-${new Date().toISOString().split('T')[0]}.json`;
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                  URL.revokeObjectURL(url);
+                }}
+                className="glass-module-card glass-interactive rounded-xl p-6 text-center"
+                role="listitem"
+              >
+                <span className="action-icon text-5xl block mb-4" role="img" aria-label="Export icon">📥</span>
+                <h3 className="text-2xl font-semibold text-white mb-3">Export Progress</h3>
+                <p className="text-white/80">Download your learning progress and achievements</p>
+              </button>
+            </div>
           </div>
         </section>
       </main>
-      </div>
     </div>
   );
 };
