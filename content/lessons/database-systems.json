@@ -1,0 +1,846 @@
+[
+  {
+    "id": "database-systems-lesson-1",
+    "moduleSlug": "database-systems",
+    "title": "Relational Model and Normalization",
+    "order": 1,
+    "objectives": [
+      "Implement practical solutions",
+      "Build foundational understanding"
+    ],
+    "intro": "Welcome to the fundamental world of database design and relational data modeling - the cornerstone of data-driven applications that power everything from e-commerce platforms to social networks. Understanding the relational model is essential for creating efficient, scalable, and maintainable database systems that can handle real-world business requirements while ensuring data integrity and performance.\n\nThe relational model, introduced by Edgar F. Codd in 1970, revolutionized how we think about data storage and retrieval by organizing information into tables with clearly defined relationships. This approach provides a mathematical foundation for data operations while offering intuitive concepts that translate directly to business logic and application requirements.\n\nIn this comprehensive introduction, you'll master the essential concepts of primary keys, foreign keys, and referential integrity that ensure data consistency across your database. You'll explore normalization principles that eliminate data redundancy and update anomalies, learning to design schemas that balance efficiency with maintainability for various application scenarios.\n\nDatabase constraints and indexes form the backbone of data quality and performance optimization. Understanding how to properly implement these features prevents data corruption, enforces business rules at the database level, and ensures your applications can scale from hundreds to millions of records without performance degradation.\n\nBy the end of this lesson, you'll confidently design relational database schemas that reflect real-world business requirements, implement proper constraints for data integrity, and create efficient table structures that serve as the foundation for robust, scalable applications.",
+    "code": {
+      "example": "-- Creating a properly normalized table with constraints\nCREATE TABLE users (\n  id INT PRIMARY KEY AUTO_INCREMENT,\n  first_name VARCHAR(50) NOT NULL,\n  last_name VARCHAR(50) NOT NULL,\n  email VARCHAR(100) UNIQUE NOT NULL,\n  birth_date DATE,\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n  CHECK (email LIKE '%@%'),\n  INDEX idx_email (email),\n  INDEX idx_name (last_name, first_name)\n);\n\n-- Inserting data with proper validation\nINSERT INTO users (first_name, last_name, email, birth_date) VALUES \n('John', 'Doe', 'john@example.com', '1990-05-15'),\n('Jane', 'Smith', 'jane@example.com', '1985-12-03');\n\n-- Querying with joins and ordering\nSELECT first_name, last_name, email FROM users \nWHERE birth_date > '1980-01-01' \nORDER BY last_name, first_name;\n\n-- First Normal Form (1NF) - Atomic values\n-- Second Normal Form (2NF) - 1NF + no partial dependencies\n-- Third Normal Form (3NF) - 2NF + no transitive dependencies",
+      "explanation": "This example produces: Properly normalized table with constraints, indexes, and sample data following database design best practices\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
+      "language": "sql"
+    },
+    "pitfalls": [
+      {
+        "mistake": "Not following best practices",
+        "solution": "Review documentation and community guidelines",
+        "severity": "medium"
+      },
+      {
+        "mistake": "Skipping error handling",
+        "solution": "Implement proper error boundaries and validation",
+        "severity": "low"
+      }
+    ],
+    "exercises": [
+      {
+        "title": "Practice: Relational Model and Normalization",
+        "description": "Apply the concepts from this lesson on Database Fundamentals",
+        "checkpoints": [
+          "Understand the core concept",
+          "Implement the example code",
+          "Experiment with variations"
+        ]
+      }
+    ],
+    "next": [],
+    "estimatedMinutes": 25,
+    "difficulty": "Intermediate",
+    "tags": [
+      "Database Fundamentals",
+      "database"
+    ],
+    "legacy": {
+      "originalId": 1,
+      "originalTopic": "Database Fundamentals",
+      "migrated": "2025-10-01T06:41:13.481Z"
+    },
+    "lastUpdated": "2025-10-01T06:41:13.481Z",
+    "version": "1.0.0"
+  },
+  {
+    "id": "database-systems-lesson-2",
+    "moduleSlug": "database-systems",
+    "title": "Keys, Constraints, and Indexes",
+    "order": 2,
+    "objectives": [
+      "Implement practical solutions",
+      "Build foundational understanding"
+    ],
+    "intro": "Welcome to this comprehensive lesson on Database Fundamentals.\n\nLearn about different types of keys, constraints for data integrity, and indexes for performance optimization.\n\nThroughout this lesson, you'll gain hands-on experience with practical implementations and real-world scenarios. We'll explore both the theoretical foundations and practical applications, ensuring you can immediately apply what you learn.\n\nThis lesson is designed to build upon previous concepts while introducing new techniques that will enhance your development skills. By the end, you'll have a solid understanding of the key principles and be ready to tackle more advanced topics.\n\nThe knowledge gained here will serve as a foundation for subsequent lessons and real-world projects.",
+    "code": {
+      "example": "-- Primary key (unique identifier)\nCREATE TABLE products (\n  product_id INT PRIMARY KEY AUTO_INCREMENT,\n  sku VARCHAR(50) UNIQUE NOT NULL,\n  name VARCHAR(100) NOT NULL,\n  price DECIMAL(10, 2) NOT NULL CHECK (price >= 0),\n  category_id INT,\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);\n\n-- Foreign key (relationship between tables)\nCREATE TABLE orders (\n  order_id INT PRIMARY KEY AUTO_INCREMENT,\n  user_id INT NOT NULL,\n  order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n  status ENUM('pending', 'processing', 'shipped', 'delivered') DEFAULT 'pending',\n  total_amount DECIMAL(10, 2) NOT NULL CHECK (total_amount >= 0),\n  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,\n  INDEX idx_user_date (user_id, order_date),\n  INDEX idx_status (status)\n);\n\n-- Composite primary key\nCREATE TABLE order_items (\n  order_id INT,\n  product_id INT,\n  quantity INT NOT NULL CHECK (quantity > 0),\n  price_per_unit DECIMAL(10, 2) NOT NULL,\n  PRIMARY KEY (order_id, product_id),\n  FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,\n  FOREIGN KEY (product_id) REFERENCES products(product_id)\n);\n\n-- Check constraints for business rules\nALTER TABLE users \nADD CONSTRAINT chk_birth_date CHECK (birth_date <= CURDATE() AND birth_date >= '1900-01-01');",
+      "explanation": "This example produces: Database schema with proper keys, constraints, and indexes for data integrity and performance\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
+      "language": "sql"
+    },
+    "pitfalls": [
+      {
+        "mistake": "Not following best practices",
+        "solution": "Review documentation and community guidelines",
+        "severity": "medium"
+      },
+      {
+        "mistake": "Skipping error handling",
+        "solution": "Implement proper error boundaries and validation",
+        "severity": "low"
+      }
+    ],
+    "exercises": [
+      {
+        "title": "Practice: Keys, Constraints, and Indexes",
+        "description": "Apply the concepts from this lesson on Database Fundamentals",
+        "checkpoints": [
+          "Understand the core concept",
+          "Implement the example code",
+          "Experiment with variations"
+        ]
+      }
+    ],
+    "next": [],
+    "estimatedMinutes": 25,
+    "difficulty": "Advanced",
+    "tags": [
+      "Database Fundamentals",
+      "database"
+    ],
+    "legacy": {
+      "originalId": 2,
+      "originalTopic": "Database Fundamentals",
+      "migrated": "2025-10-01T06:41:13.481Z"
+    },
+    "lastUpdated": "2025-10-01T06:41:13.481Z",
+    "version": "1.0.0"
+  },
+  {
+    "id": "database-systems-lesson-3",
+    "moduleSlug": "database-systems",
+    "title": "Advanced Queries with Joins, Subqueries, and Set Operations",
+    "order": 3,
+    "objectives": [
+      "Implement practical solutions",
+      "Build foundational understanding"
+    ],
+    "intro": "Welcome to this comprehensive lesson on SQL.\n\nLearn how to write complex queries using different join types, subqueries, and set operations for data analysis.\n\nThroughout this lesson, you'll gain hands-on experience with practical implementations and real-world scenarios. We'll explore both the theoretical foundations and practical applications, ensuring you can immediately apply what you learn.\n\nThis lesson is designed to build upon previous concepts while introducing new techniques that will enhance your development skills. By the end, you'll have a solid understanding of the key principles and be ready to tackle more advanced topics.\n\nThe knowledge gained here will serve as a foundation for subsequent lessons and real-world projects.",
+    "code": {
+      "example": "-- Different types of joins\n-- Inner join (only matching records)\nSELECT u.first_name, u.last_name, o.order_date, o.total_amount\nFROM users u\nINNER JOIN orders o ON u.id = o.user_id;\n\n-- Left join (all users, even without orders)\nSELECT u.first_name, u.last_name, COUNT(o.order_id) as order_count\nFROM users u\nLEFT JOIN orders o ON u.id = o.user_id\nGROUP BY u.id, u.first_name, u.last_name;\n\n-- Subqueries\n-- Correlated subquery\nSELECT first_name, last_name\nFROM users u\nWHERE EXISTS (\n  SELECT 1 FROM orders o \n  WHERE o.user_id = u.id AND o.total_amount > 1000\n);\n\n-- Subquery in SELECT\nSELECT first_name, last_name,\n  (SELECT COUNT(*) FROM orders WHERE user_id = users.id) as order_count\nFROM users;\n\n-- Set operations\n-- UNION (combines results, removes duplicates)\nSELECT first_name FROM users WHERE first_name LIKE 'J%'\nUNION\nSELECT name FROM products WHERE name LIKE 'J%';\n\n-- UNION ALL (combines results, keeps duplicates)\nSELECT email FROM users\nUNION ALL\nSELECT email FROM newsletter_subscribers;",
+      "explanation": "This example produces: Complex queries demonstrating various join types, correlated and non-correlated subqueries, and set operations\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
+      "language": "sql"
+    },
+    "pitfalls": [
+      {
+        "mistake": "Not following best practices",
+        "solution": "Review documentation and community guidelines",
+        "severity": "medium"
+      },
+      {
+        "mistake": "Skipping error handling",
+        "solution": "Implement proper error boundaries and validation",
+        "severity": "low"
+      }
+    ],
+    "exercises": [
+      {
+        "title": "Practice: Advanced Queries with Joins, Subqueries, and Set Operations",
+        "description": "Apply the concepts from this lesson on SQL",
+        "checkpoints": [
+          "Understand the core concept",
+          "Implement the example code",
+          "Experiment with variations"
+        ]
+      }
+    ],
+    "next": [],
+    "estimatedMinutes": 25,
+    "difficulty": "Advanced",
+    "tags": [
+      "SQL",
+      "database"
+    ],
+    "legacy": {
+      "originalId": 3,
+      "originalTopic": "SQL",
+      "migrated": "2025-10-01T06:41:13.481Z"
+    },
+    "lastUpdated": "2025-10-01T06:41:13.481Z",
+    "version": "1.0.0"
+  },
+  {
+    "id": "database-systems-lesson-4",
+    "moduleSlug": "database-systems",
+    "title": "ER Diagrams and Advanced Relationships",
+    "order": 4,
+    "objectives": [
+      "Implement practical solutions",
+      "Build foundational understanding"
+    ],
+    "intro": "Welcome to this comprehensive lesson on Data Modeling.\n\nLearn how to create comprehensive Entity-Relationship diagrams and model complex relationships including inheritance and polymorphic associations.\n\nThroughout this lesson, you'll gain hands-on experience with practical implementations and real-world scenarios. We'll explore both the theoretical foundations and practical applications, ensuring you can immediately apply what you learn.\n\nThis lesson is designed to build upon previous concepts while introducing new techniques that will enhance your development skills. By the end, you'll have a solid understanding of the key principles and be ready to tackle more advanced topics.\n\nThe knowledge gained here will serve as a foundation for subsequent lessons and real-world projects.",
+    "code": {
+      "example": "-- One-to-One relationship (User Profile)\nCREATE TABLE users (\n  id INT PRIMARY KEY AUTO_INCREMENT,\n  username VARCHAR(50) UNIQUE NOT NULL\n);\n\nCREATE TABLE profiles (\n  id INT PRIMARY KEY AUTO_INCREMENT,\n  user_id INT UNIQUE,  -- UNIQUE constraint makes it one-to-one\n  bio TEXT,\n  website VARCHAR(100),\n  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE\n);\n\n-- Many-to-Many with attributes (Enrollment with grades)\nCREATE TABLE students (\n  id INT PRIMARY KEY AUTO_INCREMENT,\n  name VARCHAR(100) NOT NULL\n);\n\nCREATE TABLE courses (\n  id INT PRIMARY KEY AUTO_INCREMENT,\n  title VARCHAR(100) NOT NULL,\n  credits INT DEFAULT 3\n);\n\nCREATE TABLE enrollments (\n  student_id INT,\n  course_id INT,\n  enrollment_date DATE,\n  grade CHAR(2),\n  PRIMARY KEY (student_id, course_id),\n  FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,\n  FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE\n);\n\n-- Hierarchical data (Adjacency List Model)\nCREATE TABLE categories (\n  id INT PRIMARY KEY AUTO_INCREMENT,\n  name VARCHAR(100) NOT NULL,\n  parent_id INT,\n  FOREIGN KEY (parent_id) REFERENCES categories(id)\n);\n\n-- Self-referencing relationship (Manager-Subordinate)\nCREATE TABLE employees (\n  id INT PRIMARY KEY AUTO_INCREMENT,\n  name VARCHAR(100) NOT NULL,\n  manager_id INT,\n  FOREIGN KEY (manager_id) REFERENCES employees(id)\n);",
+      "explanation": "This example produces: Advanced database schema designs showing one-to-one relationships, many-to-many with attributes, and hierarchical data modeling\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
+      "language": "sql"
+    },
+    "pitfalls": [
+      {
+        "mistake": "Not following best practices",
+        "solution": "Review documentation and community guidelines",
+        "severity": "medium"
+      },
+      {
+        "mistake": "Skipping error handling",
+        "solution": "Implement proper error boundaries and validation",
+        "severity": "low"
+      }
+    ],
+    "exercises": [
+      {
+        "title": "Practice: ER Diagrams and Advanced Relationships",
+        "description": "Apply the concepts from this lesson on Data Modeling",
+        "checkpoints": [
+          "Understand the core concept",
+          "Implement the example code",
+          "Experiment with variations"
+        ]
+      }
+    ],
+    "next": [],
+    "estimatedMinutes": 25,
+    "difficulty": "Advanced",
+    "tags": [
+      "Data Modeling",
+      "database"
+    ],
+    "legacy": {
+      "originalId": 4,
+      "originalTopic": "Data Modeling",
+      "migrated": "2025-10-01T06:41:13.481Z"
+    },
+    "lastUpdated": "2025-10-01T06:41:13.481Z",
+    "version": "1.0.0"
+  },
+  {
+    "id": "database-systems-lesson-5",
+    "moduleSlug": "database-systems",
+    "title": "Entity Framework Core Advanced Patterns",
+    "order": 5,
+    "objectives": [
+      "Implement practical solutions",
+      "Build foundational understanding"
+    ],
+    "intro": "Welcome to this comprehensive lesson on ORM Integration.\n\nLearn advanced Entity Framework Core patterns including lazy loading, eager loading, and performance optimization techniques.\n\nThroughout this lesson, you'll gain hands-on experience with practical implementations and real-world scenarios. We'll explore both the theoretical foundations and practical applications, ensuring you can immediately apply what you learn.\n\nThis lesson is designed to build upon previous concepts while introducing new techniques that will enhance your development skills. By the end, you'll have a solid understanding of the key principles and be ready to tackle more advanced topics.\n\nThe knowledge gained here will serve as a foundation for subsequent lessons and real-world projects.",
+    "code": {
+      "example": "// Entity classes with relationships\npublic class Blog\n{\n    public int BlogId { get; set; }\n    public string Url { get; set; } = string.Empty;\n    \n    // Navigation property for related posts\n    public List<Post> Posts { get; } = new();\n    \n    // One-to-one relationship\n    public BlogDetails? BlogDetails { get; set; }\n}\n\npublic class Post\n{\n    public int PostId { get; set; }\n    public string Title { get; set; } = string.Empty;\n    public string Content { get; set; } = string.Empty;\n    \n    // Foreign key\n    public int BlogId { get; set; }\n    \n    // Navigation property\n    public Blog Blog { get; set; } = null!;\n    \n    // Many-to-many relationship\n    public List<Tag> Tags { get; } = new();\n}\n\npublic class Tag\n{\n    public int TagId { get; set; }\n    public string Name { get; set; } = string.Empty;\n    \n    public List<Post> Posts { get; } = new();\n}\n\npublic class BlogDetails\n{\n    public int BlogDetailsId { get; set; }\n    public DateTime CreatedOn { get; set; }\n    public string Owner { get; set; } = string.Empty;\n    \n    public int BlogId { get; set; }\n    public Blog Blog { get; set; } = null!;\n}\n\n// DbContext with advanced configuration\npublic class BloggingContext : DbContext\n{\n    public DbSet<Blog> Blogs { get; set; }\n    public DbSet<Post> Posts { get; set; }\n    public DbSet<Tag> Tags { get; set; }\n    public DbSet<BlogDetails> BlogDetails { get; set; }\n    \n    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)\n    {\n        optionsBuilder.UseSqlServer(\n            @\"Server=(localdb)\\mssqllocaldb;Database=Blogging;Trusted_Connection=True\");\n    }\n    \n    protected override void OnModelCreating(ModelBuilder modelBuilder)\n    {\n        // Configure many-to-many relationship\n        modelBuilder.Entity<Post>()\n            .HasMany(p => p.Tags)\n            .WithMany(t => t.Posts)\n            .UsingEntity(j => j.ToTable(\"PostTags\"));\n            \n        // Configure indexes\n        modelBuilder.Entity<Blog>()\n            .HasIndex(b => b.Url)\n            .IsUnique();\n    }\n}\n\n// Query optimization examples\n// Eager loading to avoid N+1 problem\nvar blogs = context.Blogs\n    .Include(b => b.Posts)\n        .ThenInclude(p => p.Tags)\n    .ToList();\n    \n// Projection to load only needed data\nvar blogSummaries = context.Blogs\n    .Select(b => new { b.Url, PostCount = b.Posts.Count() })\n    .ToList();",
+      "explanation": "This example produces: Advanced C# entity classes and DbContext configuration showing relationships, navigation properties, and performance optimization techniques\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
+      "language": "sql"
+    },
+    "pitfalls": [
+      {
+        "mistake": "Not following best practices",
+        "solution": "Review documentation and community guidelines",
+        "severity": "medium"
+      },
+      {
+        "mistake": "Skipping error handling",
+        "solution": "Implement proper error boundaries and validation",
+        "severity": "low"
+      }
+    ],
+    "exercises": [
+      {
+        "title": "Practice: Entity Framework Core Advanced Patterns",
+        "description": "Apply the concepts from this lesson on ORM Integration",
+        "checkpoints": [
+          "Understand the core concept",
+          "Implement the example code",
+          "Experiment with variations"
+        ]
+      }
+    ],
+    "next": [],
+    "estimatedMinutes": 25,
+    "difficulty": "Advanced",
+    "tags": [
+      "ORM Integration",
+      "database"
+    ],
+    "legacy": {
+      "originalId": 5,
+      "originalTopic": "ORM Integration",
+      "migrated": "2025-10-01T06:41:13.481Z"
+    },
+    "lastUpdated": "2025-10-01T06:41:13.481Z",
+    "version": "1.0.0"
+  },
+  {
+    "id": "database-systems-lesson-6",
+    "moduleSlug": "database-systems",
+    "title": "ACID Properties and Transaction Management",
+    "order": 6,
+    "objectives": [
+      "Implement practical solutions",
+      "Build foundational understanding"
+    ],
+    "intro": "Welcome to this comprehensive lesson on Transactions.\n\nLearn about ACID properties, transaction isolation levels, and managing concurrent database operations.\n\nThroughout this lesson, you'll gain hands-on experience with practical implementations and real-world scenarios. We'll explore both the theoretical foundations and practical applications, ensuring you can immediately apply what you learn.\n\nThis lesson is designed to build upon previous concepts while introducing new techniques that will enhance your development skills. By the end, you'll have a solid understanding of the key principles and be ready to tackle more advanced topics.\n\nThe knowledge gained here will serve as a foundation for subsequent lessons and real-world projects.",
+    "code": {
+      "example": "-- Transaction with ACID properties\nSTART TRANSACTION;\n\n-- Atomicity: All operations succeed or all fail\nUPDATE accounts SET balance = balance - 100 WHERE id = 1;\nUPDATE accounts SET balance = balance + 100 WHERE id = 2;\n\n-- Check for errors and commit or rollback\nIF @@ERROR = 0\n  COMMIT;\nELSE\n  ROLLBACK;\n\n-- Isolation levels\nSET TRANSACTION ISOLATION LEVEL READ COMMITTED;\nSET TRANSACTION ISOLATION LEVEL REPEATABLE READ;\nSET TRANSACTION ISOLATION LEVEL SERIALIZABLE;\n\n-- Savepoints for partial rollbacks\nSTART TRANSACTION;\nINSERT INTO users (name, email) VALUES ('John', 'john@example.com');\nSAVEPOINT sp1;\nINSERT INTO orders (user_id, total) VALUES (1, 100);\n-- Rollback to savepoint if needed\nROLLBACK TO SAVEPOINT sp1;\nCOMMIT;",
+      "explanation": "This example produces: Safe transaction handling with ACID compliance and rollback capabilities\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
+      "language": "sql"
+    },
+    "pitfalls": [
+      {
+        "mistake": "Not following best practices",
+        "solution": "Review documentation and community guidelines",
+        "severity": "medium"
+      },
+      {
+        "mistake": "Skipping error handling",
+        "solution": "Implement proper error boundaries and validation",
+        "severity": "low"
+      }
+    ],
+    "exercises": [
+      {
+        "title": "Practice: ACID Properties and Transaction Management",
+        "description": "Apply the concepts from this lesson on Transactions",
+        "checkpoints": [
+          "Understand the core concept",
+          "Implement the example code",
+          "Experiment with variations"
+        ]
+      }
+    ],
+    "next": [],
+    "estimatedMinutes": 25,
+    "difficulty": "Intermediate",
+    "tags": [
+      "Transactions",
+      "database"
+    ],
+    "legacy": {
+      "originalId": 6,
+      "originalTopic": "Transactions",
+      "migrated": "2025-10-01T06:41:13.481Z"
+    },
+    "lastUpdated": "2025-10-01T06:41:13.481Z",
+    "version": "1.0.0"
+  },
+  {
+    "id": "database-systems-lesson-7",
+    "moduleSlug": "database-systems",
+    "title": "Query Optimization and Execution Plans",
+    "order": 7,
+    "objectives": [
+      "Implement practical solutions",
+      "Build foundational understanding"
+    ],
+    "intro": "Welcome to this comprehensive lesson on Performance.\n\nLearn how to analyze and optimize query performance using execution plans and indexing strategies.\n\nThroughout this lesson, you'll gain hands-on experience with practical implementations and real-world scenarios. We'll explore both the theoretical foundations and practical applications, ensuring you can immediately apply what you learn.\n\nThis lesson is designed to build upon previous concepts while introducing new techniques that will enhance your development skills. By the end, you'll have a solid understanding of the key principles and be ready to tackle more advanced topics.\n\nThe knowledge gained here will serve as a foundation for subsequent lessons and real-world projects.",
+    "code": {
+      "example": "-- Analyze query execution plan\nEXPLAIN SELECT u.name, COUNT(o.id) as order_count\nFROM users u\nLEFT JOIN orders o ON u.id = o.user_id\nWHERE u.created_at > '2023-01-01'\nGROUP BY u.id, u.name\nHAVING COUNT(o.id) > 5;\n\n-- Create indexes for better performance\nCREATE INDEX idx_users_created_at ON users(created_at);\nCREATE INDEX idx_orders_user_id ON orders(user_id);\nCREATE INDEX idx_composite ON orders(user_id, created_at);\n\n-- Query optimization techniques\n-- 1. Use LIMIT for large datasets\nSELECT * FROM products ORDER BY price DESC LIMIT 10;\n\n-- 2. Use EXISTS instead of IN for subqueries\nSELECT * FROM users u\nWHERE EXISTS (SELECT 1 FROM orders o WHERE o.user_id = u.id);\n\n-- 3. Avoid SELECT * in production\nSELECT id, name, email FROM users WHERE active = 1;\n\n-- Partitioning for large tables\nCREATE TABLE sales (\n  id INT,\n  sale_date DATE,\n  amount DECIMAL(10,2)\n) PARTITION BY RANGE (YEAR(sale_date)) (\n  PARTITION p2022 VALUES LESS THAN (2023),\n  PARTITION p2023 VALUES LESS THAN (2024),\n  PARTITION p2024 VALUES LESS THAN (2025)\n);",
+      "explanation": "This example produces: Optimized queries with proper indexing and execution plan analysis\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
+      "language": "sql"
+    },
+    "pitfalls": [
+      {
+        "mistake": "Not following best practices",
+        "solution": "Review documentation and community guidelines",
+        "severity": "medium"
+      },
+      {
+        "mistake": "Skipping error handling",
+        "solution": "Implement proper error boundaries and validation",
+        "severity": "low"
+      }
+    ],
+    "exercises": [
+      {
+        "title": "Practice: Query Optimization and Execution Plans",
+        "description": "Apply the concepts from this lesson on Performance",
+        "checkpoints": [
+          "Understand the core concept",
+          "Implement the example code",
+          "Experiment with variations"
+        ]
+      }
+    ],
+    "next": [],
+    "estimatedMinutes": 25,
+    "difficulty": "Advanced",
+    "tags": [
+      "Performance",
+      "database"
+    ],
+    "legacy": {
+      "originalId": 7,
+      "originalTopic": "Performance",
+      "migrated": "2025-10-01T06:41:13.481Z"
+    },
+    "lastUpdated": "2025-10-01T06:41:13.481Z",
+    "version": "1.0.0"
+  },
+  {
+    "id": "database-systems-lesson-8",
+    "moduleSlug": "database-systems",
+    "title": "Stored Procedures and User-Defined Functions",
+    "order": 8,
+    "objectives": [
+      "Implement practical solutions",
+      "Build foundational understanding"
+    ],
+    "intro": "Welcome to this comprehensive lesson on Functions.\n\nLearn how to create and use stored procedures and functions for business logic encapsulation.\n\nThroughout this lesson, you'll gain hands-on experience with practical implementations and real-world scenarios. We'll explore both the theoretical foundations and practical applications, ensuring you can immediately apply what you learn.\n\nThis lesson is designed to build upon previous concepts while introducing new techniques that will enhance your development skills. By the end, you'll have a solid understanding of the key principles and be ready to tackle more advanced topics.\n\nThe knowledge gained here will serve as a foundation for subsequent lessons and real-world projects.",
+    "code": {
+      "example": "-- Stored procedure with parameters\nDELIMITER //\nCREATE PROCEDURE GetUserOrders(\n  IN userId INT,\n  IN fromDate DATE,\n  OUT totalOrders INT,\n  OUT totalAmount DECIMAL(10,2)\n)\nBEGIN\n  DECLARE EXIT HANDLER FOR SQLEXCEPTION\n  BEGIN\n    ROLLBACK;\n    RESIGNAL;\n  END;\n  \n  START TRANSACTION;\n  \n  SELECT COUNT(*), COALESCE(SUM(total_amount), 0)\n  INTO totalOrders, totalAmount\n  FROM orders\n  WHERE user_id = userId AND order_date >= fromDate;\n  \n  COMMIT;\nEND //\nDELIMITER ;\n\n-- Call stored procedure\nCALL GetUserOrders(1, '2023-01-01', @orders, @amount);\nSELECT @orders, @amount;\n\n-- User-defined function\nDELIMITER //\nCREATE FUNCTION CalculateDiscount(\n  orderAmount DECIMAL(10,2),\n  customerType VARCHAR(20)\n) RETURNS DECIMAL(10,2)\nREADS SQL DATA\nDETERMINISTIC\nBEGIN\n  DECLARE discount DECIMAL(10,2) DEFAULT 0;\n  \n  CASE customerType\n    WHEN 'premium' THEN SET discount = orderAmount * 0.15;\n    WHEN 'gold' THEN SET discount = orderAmount * 0.10;\n    WHEN 'silver' THEN SET discount = orderAmount * 0.05;\n    ELSE SET discount = 0;\n  END CASE;\n  \n  RETURN discount;\nEND //\nDELIMITER ;\n\n-- Use function in query\nSELECT *, \n  CalculateDiscount(total_amount, customer_type) as discount\nFROM orders;",
+      "explanation": "This example produces: Reusable stored procedures and functions for complex business logic\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
+      "language": "sql"
+    },
+    "pitfalls": [
+      {
+        "mistake": "Not following best practices",
+        "solution": "Review documentation and community guidelines",
+        "severity": "medium"
+      },
+      {
+        "mistake": "Skipping error handling",
+        "solution": "Implement proper error boundaries and validation",
+        "severity": "low"
+      }
+    ],
+    "exercises": [
+      {
+        "title": "Practice: Stored Procedures and User-Defined Functions",
+        "description": "Apply the concepts from this lesson on Functions",
+        "checkpoints": [
+          "Understand the core concept",
+          "Implement the example code",
+          "Experiment with variations"
+        ]
+      }
+    ],
+    "next": [],
+    "estimatedMinutes": 25,
+    "difficulty": "Intermediate",
+    "tags": [
+      "Functions",
+      "database"
+    ],
+    "legacy": {
+      "originalId": 8,
+      "originalTopic": "Functions",
+      "migrated": "2025-10-01T06:41:13.481Z"
+    },
+    "lastUpdated": "2025-10-01T06:41:13.481Z",
+    "version": "1.0.0"
+  },
+  {
+    "id": "database-systems-lesson-9",
+    "moduleSlug": "database-systems",
+    "title": "Document Databases and MongoDB",
+    "order": 9,
+    "objectives": [
+      "Implement practical solutions",
+      "Build foundational understanding"
+    ],
+    "intro": "Welcome to this comprehensive lesson on NoSQL.\n\nLearn about NoSQL concepts and working with document databases like MongoDB.\n\nThroughout this lesson, you'll gain hands-on experience with practical implementations and real-world scenarios. We'll explore both the theoretical foundations and practical applications, ensuring you can immediately apply what you learn.\n\nThis lesson is designed to build upon previous concepts while introducing new techniques that will enhance your development skills. By the end, you'll have a solid understanding of the key principles and be ready to tackle more advanced topics.\n\nThe knowledge gained here will serve as a foundation for subsequent lessons and real-world projects.",
+    "code": {
+      "example": "// MongoDB document structure\n// Users collection\n{\n  \"_id\": ObjectId(\"507f1f77bcf86cd799439011\"),\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"profile\": {\n    \"age\": 30,\n    \"interests\": [\"programming\", \"music\", \"travel\"],\n    \"address\": {\n      \"street\": \"123 Main St\",\n      \"city\": \"New York\",\n      \"zipcode\": \"10001\"\n    }\n  },\n  \"createdAt\": ISODate(\"2023-01-15T10:30:00Z\")\n}\n\n// MongoDB queries\n// Find documents\ndb.users.find({ \"profile.age\": { $gte: 18 } })\n\n// Complex query with multiple conditions\ndb.users.find({\n  $and: [\n    { \"profile.age\": { $gte: 25 } },\n    { \"profile.interests\": \"programming\" }\n  ]\n})\n\n// Update document\ndb.users.updateOne(\n  { \"_id\": ObjectId(\"507f1f77bcf86cd799439011\") },\n  { \n    $set: { \"profile.age\": 31 },\n    $push: { \"profile.interests\": \"reading\" }\n  }\n)\n\n// Aggregation pipeline\ndb.users.aggregate([\n  { $match: { \"profile.age\": { $gte: 25 } } },\n  { $group: {\n    _id: \"$profile.address.city\",\n    count: { $sum: 1 },\n    avgAge: { $avg: \"$profile.age\" }\n  }},\n  { $sort: { count: -1 } }\n])\n\n// Create index\ndb.users.createIndex({ \"email\": 1 }, { unique: true })\ndb.users.createIndex({ \"profile.age\": 1, \"profile.interests\": 1 })",
+      "explanation": "This example produces: Flexible document storage with nested data structures and powerful querying capabilities\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
+      "language": "sql"
+    },
+    "pitfalls": [
+      {
+        "mistake": "Not following best practices",
+        "solution": "Review documentation and community guidelines",
+        "severity": "medium"
+      },
+      {
+        "mistake": "Skipping error handling",
+        "solution": "Implement proper error boundaries and validation",
+        "severity": "low"
+      }
+    ],
+    "exercises": [
+      {
+        "title": "Practice: Document Databases and MongoDB",
+        "description": "Apply the concepts from this lesson on NoSQL",
+        "checkpoints": [
+          "Understand the core concept",
+          "Implement the example code",
+          "Experiment with variations"
+        ]
+      }
+    ],
+    "next": [],
+    "estimatedMinutes": 25,
+    "difficulty": "Intermediate",
+    "tags": [
+      "NoSQL",
+      "database"
+    ],
+    "legacy": {
+      "originalId": 9,
+      "originalTopic": "NoSQL",
+      "migrated": "2025-10-01T06:41:13.481Z"
+    },
+    "lastUpdated": "2025-10-01T06:41:13.481Z",
+    "version": "1.0.0"
+  },
+  {
+    "id": "database-systems-lesson-10",
+    "moduleSlug": "database-systems",
+    "title": "Database Backup and Recovery Strategies",
+    "order": 10,
+    "objectives": [
+      "Implement practical solutions",
+      "Build foundational understanding"
+    ],
+    "intro": "Welcome to this comprehensive lesson on Backup.\n\nLearn essential backup and recovery techniques to protect data integrity and business continuity.\n\nThroughout this lesson, you'll gain hands-on experience with practical implementations and real-world scenarios. We'll explore both the theoretical foundations and practical applications, ensuring you can immediately apply what you learn.\n\nThis lesson is designed to build upon previous concepts while introducing new techniques that will enhance your development skills. By the end, you'll have a solid understanding of the key principles and be ready to tackle more advanced topics.\n\nThe knowledge gained here will serve as a foundation for subsequent lessons and real-world projects.",
+    "code": {
+      "example": "-- Full database backup\nmysqldump -u root -p --all-databases > full_backup.sql\n\n-- Backup specific database with structure and data\nmysqldump -u root -p --databases myapp > myapp_backup.sql\n\n-- Backup only structure (schema)\nmysqldump -u root -p --no-data myapp > schema_backup.sql\n\n-- Backup only data\nmysqldump -u root -p --no-create-info myapp > data_backup.sql\n\n-- Point-in-time recovery setup\n-- Enable binary logging in my.cnf\nlog-bin=mysql-bin\nserver-id=1\nbinlog-format=ROW\n\n-- Create incremental backup\nmysqlbinlog mysql-bin.000001 > incremental_backup.sql\n\n-- Restore from backup\nmysql -u root -p < full_backup.sql\n\n-- Restore specific database\nmysql -u root -p myapp < myapp_backup.sql\n\n-- Automated backup script (bash)\n#!/bin/bash\nBACKUP_DIR=\"/var/backups/mysql\"\nDATE=$(date +%Y%m%d_%H%M%S)\nBACKUP_FILE=\"$BACKUP_DIR/backup_$DATE.sql\"\n\n# Create backup directory if it doesn't exist\nmkdir -p $BACKUP_DIR\n\n# Perform backup\nmysqldump -u backup_user -p$BACKUP_PASSWORD --all-databases > $BACKUP_FILE\n\n# Compress backup\ngzip $BACKUP_FILE\n\n# Remove backups older than 7 days\nfind $BACKUP_DIR -name \"*.gz\" -mtime +7 -delete\n\necho \"Backup completed: $BACKUP_FILE.gz\"",
+      "explanation": "This example produces: Comprehensive backup solution with full, incremental, and automated backup strategies\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
+      "language": "sql"
+    },
+    "pitfalls": [
+      {
+        "mistake": "Not following best practices",
+        "solution": "Review documentation and community guidelines",
+        "severity": "medium"
+      },
+      {
+        "mistake": "Skipping error handling",
+        "solution": "Implement proper error boundaries and validation",
+        "severity": "low"
+      }
+    ],
+    "exercises": [
+      {
+        "title": "Practice: Database Backup and Recovery Strategies",
+        "description": "Apply the concepts from this lesson on Backup",
+        "checkpoints": [
+          "Understand the core concept",
+          "Implement the example code",
+          "Experiment with variations"
+        ]
+      }
+    ],
+    "next": [],
+    "estimatedMinutes": 25,
+    "difficulty": "Intermediate",
+    "tags": [
+      "Backup",
+      "database"
+    ],
+    "legacy": {
+      "originalId": 10,
+      "originalTopic": "Backup",
+      "migrated": "2025-10-01T06:41:13.481Z"
+    },
+    "lastUpdated": "2025-10-01T06:41:13.481Z",
+    "version": "1.0.0"
+  },
+  {
+    "id": "database-systems-lesson-11",
+    "moduleSlug": "database-systems",
+    "title": "Database Security and Access Control",
+    "order": 11,
+    "objectives": [
+      "Implement practical solutions",
+      "Build foundational understanding"
+    ],
+    "intro": "Welcome to this comprehensive lesson on Security.\n\nLearn database security best practices including user management, encryption, and SQL injection prevention.\n\nThroughout this lesson, you'll gain hands-on experience with practical implementations and real-world scenarios. We'll explore both the theoretical foundations and practical applications, ensuring you can immediately apply what you learn.\n\nThis lesson is designed to build upon previous concepts while introducing new techniques that will enhance your development skills. By the end, you'll have a solid understanding of the key principles and be ready to tackle more advanced topics.\n\nThe knowledge gained here will serve as a foundation for subsequent lessons and real-world projects.",
+    "code": {
+      "example": "-- User management and privileges\n-- Create database user\nCREATE USER 'app_user'@'localhost' IDENTIFIED BY 'SecurePassword123!';\n\n-- Grant specific privileges\nGRANT SELECT, INSERT, UPDATE ON myapp.* TO 'app_user'@'localhost';\nGRANT EXECUTE ON PROCEDURE myapp.GetUserOrders TO 'app_user'@'localhost';\n\n-- Create read-only user\nCREATE USER 'readonly_user'@'%' IDENTIFIED BY 'ReadOnlyPass456!';\nGRANT SELECT ON myapp.* TO 'readonly_user'@'%';\n\n-- Revoke privileges\nREVOKE INSERT ON myapp.users FROM 'app_user'@'localhost';\n\n-- Show user privileges\nSHOW GRANTS FOR 'app_user'@'localhost';\n\n-- SQL injection prevention (parameterized queries)\n-- Vulnerable code (DON'T DO THIS)\n-- query = \"SELECT * FROM users WHERE id = \" + userId;\n\n-- Safe parameterized query (C#)\nstring query = \"SELECT * FROM users WHERE id = @userId\";\nusing var command = new MySqlCommand(query, connection);\ncommand.Parameters.AddWithValue(\"@userId\", userId);\n\n-- Data encryption\n-- Encrypt sensitive columns\nCREATE TABLE users (\n  id INT PRIMARY KEY AUTO_INCREMENT,\n  email VARCHAR(255),\n  ssn VARBINARY(255), -- Encrypted field\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);\n\n-- Insert encrypted data\nINSERT INTO users (email, ssn) \nVALUES ('user@example.com', AES_ENCRYPT('123-45-6789', 'encryption_key'));\n\n-- Retrieve and decrypt\nSELECT email, AES_DECRYPT(ssn, 'encryption_key') as ssn_decrypted \nFROM users WHERE id = 1;\n\n-- Connection security\n-- Require SSL connections\nREQUIRE SSL;\nREQUIRE X509;\n\n-- Password policy\nSET GLOBAL validate_password.policy = STRONG;\nSET GLOBAL validate_password.length = 12;",
+      "explanation": "This example produces: Secure database configuration with proper user privileges, encryption, and injection prevention\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
+      "language": "sql"
+    },
+    "pitfalls": [
+      {
+        "mistake": "Not following best practices",
+        "solution": "Review documentation and community guidelines",
+        "severity": "medium"
+      },
+      {
+        "mistake": "Skipping error handling",
+        "solution": "Implement proper error boundaries and validation",
+        "severity": "low"
+      }
+    ],
+    "exercises": [
+      {
+        "title": "Practice: Database Security and Access Control",
+        "description": "Apply the concepts from this lesson on Security",
+        "checkpoints": [
+          "Understand the core concept",
+          "Implement the example code",
+          "Experiment with variations"
+        ]
+      }
+    ],
+    "next": [],
+    "estimatedMinutes": 25,
+    "difficulty": "Intermediate",
+    "tags": [
+      "Security",
+      "database"
+    ],
+    "legacy": {
+      "originalId": 11,
+      "originalTopic": "Security",
+      "migrated": "2025-10-01T06:41:13.481Z"
+    },
+    "lastUpdated": "2025-10-01T06:41:13.481Z",
+    "version": "1.0.0"
+  },
+  {
+    "id": "database-systems-lesson-12",
+    "moduleSlug": "database-systems",
+    "title": "Database Scaling and Replication",
+    "order": 12,
+    "objectives": [
+      "Implement practical solutions",
+      "Build foundational understanding"
+    ],
+    "intro": "Welcome to this comprehensive lesson on Advanced.\n\nLearn about database scaling techniques including replication, sharding, and distributed databases.\n\nThroughout this lesson, you'll gain hands-on experience with practical implementations and real-world scenarios. We'll explore both the theoretical foundations and practical applications, ensuring you can immediately apply what you learn.\n\nThis lesson is designed to build upon previous concepts while introducing new techniques that will enhance your development skills. By the end, you'll have a solid understanding of the key principles and be ready to tackle more advanced topics.\n\nThe knowledge gained here will serve as a foundation for subsequent lessons and real-world projects.",
+    "code": {
+      "example": "-- Master-Slave Replication Setup\n-- Master configuration (my.cnf)\nserver-id = 1\nlog-bin = mysql-bin\nbinlog-do-db = myapp\n\n-- Slave configuration (my.cnf)\nserver-id = 2\nrelay-log = mysql-relay-bin\nlog-slave-updates = 1\nread-only = 1\n\n-- Create replication user on master\nCREATE USER 'replicator'@'%' IDENTIFIED BY 'ReplicationPass123!';\nGRANT REPLICATION SLAVE ON *.* TO 'replicator'@'%';\nFLUSH PRIVILEGES;\n\n-- Get master status\nSHOW MASTER STATUS;\n\n-- Configure slave\nCHANGE MASTER TO\n  MASTER_HOST='master_ip',\n  MASTER_USER='replicator',\n  MASTER_PASSWORD='ReplicationPass123!',\n  MASTER_LOG_FILE='mysql-bin.000001',\n  MASTER_LOG_POS=154;\n\nSTART SLAVE;\nSHOW SLAVE STATUS\\G\n\n-- Horizontal partitioning (sharding) example\n-- Shard 1: Users with ID 1-1000\nCREATE TABLE users_shard1 (\n  id INT PRIMARY KEY CHECK (id BETWEEN 1 AND 1000),\n  name VARCHAR(100),\n  email VARCHAR(100)\n);\n\n-- Shard 2: Users with ID 1001-2000\nCREATE TABLE users_shard2 (\n  id INT PRIMARY KEY CHECK (id BETWEEN 1001 AND 2000),\n  name VARCHAR(100),\n  email VARCHAR(100)\n);\n\n-- Application-level sharding logic (pseudo-code)\nfunction getUserShard(userId) {\n  if (userId <= 1000) return 'shard1';\n  if (userId <= 2000) return 'shard2';\n  return 'shard3';\n}\n\n-- Read replica load balancing\n-- Write operations go to master\nINSERT INTO users (name, email) VALUES ('John', 'john@example.com');\n\n-- Read operations can use replicas\nSELECT * FROM users WHERE id = 123; -- Can be routed to read replica\n\n-- Connection pooling configuration\nmax_connections = 200\nmax_connect_errors = 100\nconnect_timeout = 10\nwait_timeout = 28800",
+      "explanation": "This example produces: Scalable database architecture with replication, sharding, and load balancing for high availability\n\nThe code demonstrates practical implementation techniques and shows how the concepts work in real scenarios. Pay attention to the structure and patterns used, as these represent industry best practices.",
+      "language": "sql"
+    },
+    "pitfalls": [
+      {
+        "mistake": "Not following best practices",
+        "solution": "Review documentation and community guidelines",
+        "severity": "medium"
+      },
+      {
+        "mistake": "Skipping error handling",
+        "solution": "Implement proper error boundaries and validation",
+        "severity": "low"
+      }
+    ],
+    "exercises": [
+      {
+        "title": "Practice: Database Scaling and Replication",
+        "description": "Apply the concepts from this lesson on Advanced",
+        "checkpoints": [
+          "Understand the core concept",
+          "Implement the example code",
+          "Experiment with variations"
+        ]
+      }
+    ],
+    "next": [],
+    "estimatedMinutes": 25,
+    "difficulty": "Intermediate",
+    "tags": [
+      "Advanced",
+      "database"
+    ],
+    "legacy": {
+      "originalId": 12,
+      "originalTopic": "Advanced",
+      "migrated": "2025-10-01T06:41:13.481Z"
+    },
+    "lastUpdated": "2025-10-01T06:41:13.481Z",
+    "version": "1.0.0"
+  },
+  {
+    "id": "database-systems-lesson-13",
+    "moduleSlug": "database-systems",
+    "title": "Database Security and Access Control",
+    "order": 13,
+    "objectives": [
+      "Implement database security best practices",
+      "Configure user roles and permissions",
+      "Understand SQL injection prevention"
+    ],
+    "intro": "Database security is critical for protecting sensitive data and ensuring compliance with regulations. Understanding security principles helps prevent data breaches and unauthorized access.\n\nIn this lesson, you'll learn about authentication, authorization, and access control mechanisms in database systems. You'll understand how to create secure user accounts, assign appropriate permissions, and implement the principle of least privilege.\n\nSQL injection is one of the most common security vulnerabilities. You'll discover how to prevent injection attacks through parameterized queries, input validation, and secure coding practices that protect against malicious attacks.\n\nData encryption, both at rest and in transit, provides additional security layers. You'll learn when and how to implement encryption strategies that protect sensitive information while maintaining acceptable performance levels.",
+    "code": {
+      "example": "-- Creating database users with limited privileges\nCREATE USER 'app_read'@'localhost' IDENTIFIED BY 'secure_password123';\nCREATE USER 'app_write'@'localhost' IDENTIFIED BY 'secure_password456';\nCREATE USER 'admin_user'@'localhost' IDENTIFIED BY 'admin_password789';\n\n-- Granting specific permissions\nGRANT SELECT ON myapp.* TO 'app_read'@'localhost';\nGRANT SELECT, INSERT, UPDATE ON myapp.users TO 'app_write'@'localhost';\nGRANT ALL PRIVILEGES ON myapp.* TO 'admin_user'@'localhost';\n\n-- SQL injection prevention with prepared statements\n-- BAD: Vulnerable to SQL injection\n-- query = \"SELECT * FROM users WHERE email = '\" + email + \"'\";\n\n-- GOOD: Using parameterized queries\nPREPARE stmt FROM 'SELECT * FROM users WHERE email = ? AND active = ?';\nSET @email = 'user@example.com';\nSET @active = 1;\nEXECUTE stmt USING @email, @active;\nDEALLOCATE PREPARE stmt;\n\n-- Creating encrypted columns\nCREATE TABLE sensitive_data (\n  id INT PRIMARY KEY AUTO_INCREMENT,\n  user_id INT NOT NULL,\n  encrypted_ssn VARBINARY(255),\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n  FOREIGN KEY (user_id) REFERENCES users(id)\n);\n\n-- Inserting encrypted data\nINSERT INTO sensitive_data (user_id, encrypted_ssn) \nVALUES (1, AES_ENCRYPT('123-45-6789', 'encryption_key'));\n\n-- Retrieving and decrypting data\nSELECT user_id, AES_DECRYPT(encrypted_ssn, 'encryption_key') as ssn \nFROM sensitive_data WHERE user_id = 1;",
+      "explanation": "This example demonstrates database security implementation including user privilege management, SQL injection prevention through parameterized queries, and data encryption techniques.",
+      "language": "sql"
+    },
+    "pitfalls": [
+      {
+        "mistake": "Using string concatenation for SQL queries",
+        "solution": "Always use parameterized queries or prepared statements to prevent SQL injection",
+        "severity": "high"
+      },
+      {
+        "mistake": "Granting excessive privileges to application users",
+        "solution": "Follow principle of least privilege - grant only necessary permissions",
+        "severity": "high"
+      },
+      {
+        "mistake": "Storing sensitive data in plain text",
+        "solution": "Encrypt sensitive data and use secure key management practices",
+        "severity": "high"
+      }
+    ],
+    "exercises": [
+      {
+        "title": "Database Security Implementation",
+        "description": "Implement comprehensive security measures for a database application.",
+        "checkpoints": [
+          "Create appropriate user roles with limited privileges",
+          "Write secure queries using parameterized statements",
+          "Implement data encryption for sensitive fields",
+          "Audit and test security measures"
+        ]
+      }
+    ],
+    "next": [],
+    "estimatedMinutes": 35,
+    "difficulty": "Advanced",
+    "tags": ["Security", "Access Control", "SQL Injection"],
+    "lastUpdated": "2025-10-01T12:00:00.000Z",
+    "version": "1.0.0"
+  },
+  {
+    "id": "database-systems-lesson-14",
+    "moduleSlug": "database-systems",
+    "title": "Database Performance Tuning",
+    "order": 14,
+    "objectives": [
+      "Analyze and optimize database performance",
+      "Understand query execution plans",
+      "Implement effective indexing strategies"
+    ],
+    "intro": "Database performance optimization is essential for applications that handle large datasets and high user loads. Understanding performance principles helps create responsive, scalable database systems.\n\nIn this lesson, you'll learn to analyze query execution plans to identify performance bottlenecks. Execution plans reveal how the database processes queries and help optimize slow-running operations through better indexing and query structure.\n\nIndexing strategies significantly impact database performance. You'll discover when to create indexes, how to design composite indexes effectively, and understand the trade-offs between query speed and write performance in different scenarios.\n\nQuery optimization techniques include proper join ordering, avoiding unnecessary subqueries, and leveraging database-specific features. You'll learn to rewrite queries for better performance while maintaining correctness and readability.",
+    "code": {
+      "example": "-- Analyzing query performance\nEXPLAIN SELECT u.first_name, u.last_name, COUNT(o.id) as order_count\nFROM users u\nLEFT JOIN orders o ON u.id = o.user_id\nWHERE u.created_at > '2024-01-01'\nGROUP BY u.id, u.first_name, u.last_name\nORDER BY order_count DESC\nLIMIT 10;\n\n-- Creating optimized indexes\n-- Composite index for common query patterns\nCREATE INDEX idx_user_created_active ON users(created_at, active);\nCREATE INDEX idx_order_user_date ON orders(user_id, order_date);\n\n-- Covering index (includes all needed columns)\nCREATE INDEX idx_user_covering ON users(id, first_name, last_name, email);\n\n-- Performance optimization techniques\n-- Use EXISTS instead of IN for large subqueries\nSELECT first_name, last_name FROM users u\nWHERE EXISTS (\n  SELECT 1 FROM orders o \n  WHERE o.user_id = u.id AND o.total_amount > 1000\n);\n\n-- Optimize with LIMIT to avoid scanning entire table\nSELECT * FROM products \nWHERE category_id = 5 \nORDER BY created_at DESC \nLIMIT 20;\n\n-- Use proper data types to save space and improve performance\nALTER TABLE products \nMODIFY COLUMN active BOOLEAN DEFAULT TRUE,\nMODIFY COLUMN price DECIMAL(8,2);\n\n-- Partitioning for large tables\nCREATE TABLE orders_2024 (\n  order_id INT AUTO_INCREMENT,\n  user_id INT NOT NULL,\n  order_date DATE NOT NULL,\n  total_amount DECIMAL(10,2),\n  PRIMARY KEY (order_id, order_date)\n) PARTITION BY RANGE (YEAR(order_date)) (\n  PARTITION p2024 VALUES LESS THAN (2025),\n  PARTITION p2025 VALUES LESS THAN (2026)\n);",
+      "explanation": "This example demonstrates performance optimization techniques including execution plan analysis, strategic indexing, query optimization, and table partitioning for large datasets.",
+      "language": "sql"
+    },
+    "pitfalls": [
+      {
+        "mistake": "Creating too many indexes on frequently updated tables",
+        "solution": "Balance read performance with write performance - avoid excessive indexing",
+        "severity": "medium"
+      },
+      {
+        "mistake": "Not analyzing execution plans before optimization",
+        "solution": "Always use EXPLAIN to understand query performance before making changes",
+        "severity": "high"
+      },
+      {
+        "mistake": "Optimizing for edge cases instead of common queries",
+        "solution": "Focus optimization efforts on frequently executed queries with real performance impact",
+        "severity": "medium"
+      }
+    ],
+    "exercises": [
+      {
+        "title": "Database Performance Analysis",
+        "description": "Analyze and optimize a slow-performing database application.",
+        "checkpoints": [
+          "Identify slow queries using execution plans",
+          "Create appropriate indexes to improve performance",
+          "Optimize query structure and joins",
+          "Measure and validate performance improvements"
+        ]
+      }
+    ],
+    "next": [],
+    "estimatedMinutes": 40,
+    "difficulty": "Advanced",
+    "tags": ["Performance", "Optimization", "Indexing"],
+    "lastUpdated": "2025-10-01T12:00:00.000Z",
+    "version": "1.0.0"
+  },
+  {
+    "id": "database-systems-lesson-15",
+    "moduleSlug": "database-systems",
+    "title": "NoSQL Databases and Document Stores",
+    "order": 15,
+    "objectives": [
+      "Understand NoSQL database types and use cases",
+      "Work with document databases like MongoDB",
+      "Compare SQL vs NoSQL trade-offs"
+    ],
+    "intro": "NoSQL databases provide flexible, scalable alternatives to traditional relational databases for specific use cases. Understanding NoSQL principles helps choose the right database technology for different applications.\n\nDocument databases like MongoDB store data in flexible, JSON-like documents rather than rigid table structures. This approach works well for applications with evolving schemas, hierarchical data, or rapid development cycles requiring frequent changes.\n\nNoSQL databases excel at horizontal scaling, handling large volumes of unstructured data, and providing high availability through distributed architectures. You'll learn when these advantages outweigh the consistency guarantees of traditional SQL databases.\n\nCAP theorem explains the trade-offs between Consistency, Availability, and Partition tolerance in distributed systems. Understanding these concepts helps make informed decisions about database architecture for different application requirements.",
+    "code": {
+      "example": "// MongoDB document structure\n// Users collection with embedded documents\n{\n  \"_id\": ObjectId(\"507f1f77bcf86cd799439011\"),\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"john@example.com\",\n  \"profile\": {\n    \"bio\": \"Software developer\",\n    \"website\": \"https://johndoe.com\",\n    \"location\": \"San Francisco, CA\"\n  },\n  \"orders\": [\n    {\n      \"orderId\": \"ORD-001\",\n      \"date\": ISODate(\"2024-01-15\"),\n      \"total\": 299.99,\n      \"items\": [\n        { \"productId\": \"PROD-123\", \"name\": \"Laptop\", \"price\": 299.99 }\n      ]\n    }\n  ],\n  \"preferences\": {\n    \"newsletter\": true,\n    \"notifications\": {\n      \"email\": true,\n      \"sms\": false\n    }\n  },\n  \"createdAt\": ISODate(\"2024-01-01\"),\n  \"updatedAt\": ISODate(\"2024-01-15\")\n}\n\n// MongoDB queries\n// Find users with orders over $200\ndb.users.find({\n  \"orders.total\": { $gt: 200 }\n});\n\n// Update nested document\ndb.users.updateOne(\n  { \"email\": \"john@example.com\" },\n  { \n    $set: { \n      \"profile.bio\": \"Senior Software Developer\",\n      \"updatedAt\": new Date()\n    }\n  }\n);\n\n// Aggregation pipeline\ndb.users.aggregate([\n  { $unwind: \"$orders\" },\n  { $group: {\n    _id: null,\n    totalRevenue: { $sum: \"$orders.total\" },\n    averageOrder: { $avg: \"$orders.total\" },\n    orderCount: { $sum: 1 }\n  }}\n]);\n\n// Creating indexes in MongoDB\ndb.users.createIndex({ \"email\": 1 }, { unique: true });\ndb.users.createIndex({ \"orders.date\": -1 });\ndb.users.createIndex({ \"profile.location\": 1, \"createdAt\": -1 });",
+      "explanation": "This example demonstrates MongoDB document structure with embedded data, complex queries using MongoDB syntax, and aggregation operations for data analysis.",
+      "language": "javascript"
+    },
+    "pitfalls": [
+      {
+        "mistake": "Over-embedding documents without considering query patterns",
+        "solution": "Design document structure based on how data will be accessed and updated",
+        "severity": "medium"
+      },
+      {
+        "mistake": "Ignoring eventual consistency implications",
+        "solution": "Understand consistency models and design application logic accordingly",
+        "severity": "high"
+      },
+      {
+        "mistake": "Not planning for data growth and scaling",
+        "solution": "Consider sharding strategies and data distribution from the beginning",
+        "severity": "medium"
+      }
+    ],
+    "exercises": [
+      {
+        "title": "NoSQL Database Design",
+        "description": "Design and implement a document-based data model for a real-world application.",
+        "checkpoints": [
+          "Choose appropriate document structure for the use case",
+          "Implement queries for common access patterns",
+          "Create indexes to optimize performance",
+          "Compare with equivalent relational design"
+        ]
+      }
+    ],
+    "next": [],
+    "estimatedMinutes": 35,
+    "difficulty": "Intermediate",
+    "tags": ["NoSQL", "MongoDB", "Document Database"],
+    "lastUpdated": "2025-10-01T12:00:00.000Z",
+    "version": "1.0.0"
+  },
+  {
+    "id": "database-systems-lesson-16",
+    "moduleSlug": "database-systems",
+    "title": "Database Administration and Monitoring",
+    "order": 16,
+    "objectives": [
+      "Understand database administration responsibilities",
+      "Implement backup and recovery strategies",
+      "Monitor database health and performance"
+    ],
+    "intro": "Database administration ensures reliable, secure, and performant database systems in production environments. Understanding DBA responsibilities helps maintain data integrity and system availability.\n\nBackup and recovery strategies protect against data loss from hardware failures, human errors, or security incidents. You'll learn different backup types, recovery procedures, and how to test disaster recovery plans effectively.\n\nDatabase monitoring provides visibility into system health, performance trends, and potential issues before they impact users. Effective monitoring includes tracking key metrics, setting up alerts, and analyzing logs for troubleshooting.\n\nMaintenance tasks like index optimization, statistics updates, and capacity planning ensure continued database performance. You'll understand how to schedule and automate routine maintenance while minimizing disruption to applications.",
+    "code": {
+      "example": "-- Database backup strategies\n-- Full backup (complete database)\nBACKUP DATABASE myapp TO DISK = '/backups/myapp_full_20241001.bak'\nWITH FORMAT, COMPRESSION;\n\n-- Differential backup (changes since last full backup)\nBACKUP DATABASE myapp TO DISK = '/backups/myapp_diff_20241001.bak'\nWITH DIFFERENTIAL, COMPRESSION;\n\n-- Transaction log backup (for point-in-time recovery)\nBACKUP LOG myapp TO DISK = '/backups/myapp_log_20241001.trn';\n\n-- Database restoration\nRESTORE DATABASE myapp FROM DISK = '/backups/myapp_full_20241001.bak'\nWITH NORECOVERY;\nRESTORE DATABASE myapp FROM DISK = '/backups/myapp_diff_20241001.bak'\nWITH RECOVERY;\n\n-- Performance monitoring queries\n-- Check database size and growth\nSELECT \n  table_schema as 'Database',\n  table_name as 'Table',\n  ROUND(((data_length + index_length) / 1024 / 1024), 2) as 'Size (MB)'\nFROM information_schema.tables\nORDER BY (data_length + index_length) DESC;\n\n-- Monitor slow queries\nSELECT \n  query_time,\n  lock_time,\n  rows_sent,\n  rows_examined,\n  sql_text\nFROM mysql.slow_log\nWHERE start_time > DATE_SUB(NOW(), INTERVAL 1 HOUR)\nORDER BY query_time DESC;\n\n-- Check index usage\nSELECT \n  object_name,\n  index_name,\n  user_seeks,\n  user_scans,\n  user_lookups,\n  user_updates\nFROM sys.dm_db_index_usage_stats\nWHERE database_id = DB_ID('myapp');\n\n-- Database maintenance\n-- Update table statistics\nUPDATE STATISTICS users;\nUPDATE STATISTICS orders;\n\n-- Rebuild fragmented indexes\nALTER INDEX ALL ON users REBUILD;\n\n-- Check database integrity\nDBCC CHECKDB('myapp') WITH NO_INFOMSGS;",
+      "explanation": "This example demonstrates database administration tasks including backup/recovery procedures, performance monitoring queries, and routine maintenance operations.",
+      "language": "sql"
+    },
+    "pitfalls": [
+      {
+        "mistake": "Not testing backup and recovery procedures regularly",
+        "solution": "Regularly test restore procedures to ensure backups are valid and recovery works",
+        "severity": "high"
+      },
+      {
+        "mistake": "Ignoring database growth and capacity planning",
+        "solution": "Monitor database growth trends and plan for capacity needs proactively",
+        "severity": "medium"
+      },
+      {
+        "mistake": "Not monitoring database performance metrics",
+        "solution": "Implement comprehensive monitoring with alerts for key performance indicators",
+        "severity": "high"
+      }
+    ],
+    "exercises": [
+      {
+        "title": "Database Administration Setup",
+        "description": "Implement comprehensive database administration procedures.",
+        "checkpoints": [
+          "Create automated backup schedule with full and incremental backups",
+          "Test database recovery procedures",
+          "Set up monitoring for key performance metrics",
+          "Create maintenance plan for routine database tasks"
+        ]
+      }
+    ],
+    "next": [],
+    "estimatedMinutes": 45,
+    "difficulty": "Advanced",
+    "tags": ["Administration", "Backup", "Monitoring"],
+    "lastUpdated": "2025-10-01T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+]

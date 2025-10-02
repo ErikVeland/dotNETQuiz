@@ -100,5 +100,68 @@
     ],
     "correctAnswer": 0,
     "explanation": "In Tailwind, background colors are set using the bg-* naming convention, so bg-blue-500 sets the background color to the 500 shade of blue."
+  },
+  {
+    "id": 9,
+    "topic": "Customization",
+    "type": "multiple-choice",
+    "question": "How do you add custom colors to Tailwind CSS?",
+    "choices": ["Extend the theme in tailwind.config.js", "Create new CSS classes", "Use inline styles", "Modify the core framework"],
+    "correctAnswer": 0,
+    "explanation": "Custom colors are added by extending the theme configuration in tailwind.config.js, which generates utility classes for your custom color palette."
+  },
+  {
+    "id": 10,
+    "topic": "Performance",
+    "type": "multiple-choice",
+    "question": "What is PurgeCSS and why is it important for Tailwind?",
+    "choices": ["Removes unused CSS classes to reduce bundle size", "Validates CSS syntax", "Compresses images", "Optimizes JavaScript"],
+    "correctAnswer": 0,
+    "explanation": "PurgeCSS (now built into Tailwind) removes unused utility classes from the final CSS bundle, dramatically reducing file size from hundreds of KB to just a few KB."
+  },
+  {
+    "id": 11,
+    "topic": "Dark Mode",
+    "type": "open-ended",
+    "question": "How do you implement dark mode in Tailwind CSS?",
+    "choices": null,
+    "correctAnswer": null,
+    "explanation": "Enable dark mode by setting darkMode: 'class' in config, then use dark: prefixed utilities like 'bg-white dark:bg-gray-800'. Toggle by adding/removing 'dark' class on document element."
+  },
+  {
+    "id": 12,
+    "topic": "Components",
+    "type": "multiple-choice",
+    "question": "What is the @apply directive used for in Tailwind?",
+    "choices": ["Applying utility classes in custom CSS", "Creating animations", "Importing external CSS", "Optimizing performance"],
+    "correctAnswer": 0,
+    "explanation": "@apply allows you to use Tailwind utilities within custom CSS classes, useful for creating component classes while maintaining utility-first approach."
+  },
+  {
+    "id": 13,
+    "topic": "Responsive Design",
+    "type": "multiple-choice",
+    "question": "How does Tailwind handle responsive design?",
+    "choices": ["Mobile-first breakpoint prefixes (sm:, md:, lg:, xl:)", "Desktop-first approach", "Automatic responsive scaling", "Media query mixins"],
+    "correctAnswer": 0,
+    "explanation": "Tailwind uses mobile-first responsive design with breakpoint prefixes that apply styles at specific screen sizes and larger."
+  },
+  {
+    "id": 14,
+    "topic": "Plugins",
+    "type": "open-ended",
+    "question": "What are Tailwind plugins and how do they extend functionality?",
+    "choices": null,
+    "correctAnswer": null,
+    "explanation": "Tailwind plugins extend the framework by adding new utilities, components, or base styles. Official plugins include @tailwindcss/forms, @tailwindcss/typography, and @tailwindcss/aspect-ratio. Custom plugins can add project-specific utilities."
+  },
+  {
+    "id": 15,
+    "topic": "Best Practices",
+    "type": "multiple-choice",
+    "question": "What is a recommended approach for managing long utility class lists?",
+    "choices": ["Extract to component classes or use @apply", "Use inline comments", "Group by functionality", "Use shorter class names"],
+    "correctAnswer": 0,
+    "explanation": "For maintainability, extract frequently used utility combinations into component classes using @apply, or create framework-specific components that encapsulate the styling."
   }
 ]

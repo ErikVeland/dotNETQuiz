@@ -100,5 +100,68 @@
     ],
     "correctAnswer": 0,
     "explanation": "The @extend directive in SASS allows one selector to inherit the styles of another selector, reducing code duplication by sharing CSS properties."
+  },
+  {
+    "id": 9,
+    "topic": "Architecture",
+    "type": "multiple-choice",
+    "question": "What is the 7-1 SASS architecture pattern?",
+    "choices": ["7 folders, 1 main file structure", "7 variables, 1 mixin pattern", "7 components, 1 layout system", "7 breakpoints, 1 grid system"],
+    "correctAnswer": 0,
+    "explanation": "The 7-1 pattern organizes SASS files into 7 folders (base, components, layout, pages, themes, abstracts, vendors) and 1 main file that imports all partials."
+  },
+  {
+    "id": 10,
+    "topic": "Performance",
+    "type": "multiple-choice",
+    "question": "What is the best practice for organizing SASS imports?",
+    "choices": ["Import abstracts first, then base, components, and pages", "Import in alphabetical order", "Import largest files first", "Import randomly"],
+    "correctAnswer": 0,
+    "explanation": "Best practice is to import in dependency order: abstracts (variables, functions, mixins), base styles, layout, components, pages, themes, and vendors."
+  },
+  {
+    "id": 11,
+    "topic": "Advanced Features",
+    "type": "open-ended",
+    "question": "When should you use @extend vs mixins in SASS?",
+    "choices": null,
+    "correctAnswer": null,
+    "explanation": "Use @extend for shared base styles that don't need parameters (creates grouped selectors). Use mixins for reusable patterns with parameters or complex logic. @extend can cause bloated CSS if overused, while mixins provide more flexibility but duplicate code."
+  },
+  {
+    "id": 12,
+    "topic": "Data Types",
+    "type": "multiple-choice",
+    "question": "Which SASS data type is best for storing multiple related values?",
+    "choices": ["Maps", "Lists", "Strings", "Numbers"],
+    "correctAnswer": 0,
+    "explanation": "Maps are ideal for storing key-value pairs of related data, like color themes or breakpoint definitions, providing better organization than lists."
+  },
+  {
+    "id": 13,
+    "topic": "Functions",
+    "type": "multiple-choice",
+    "question": "What does the @return directive do in SASS functions?",
+    "choices": ["Returns a value from a function", "Returns to previous file", "Reverses a calculation", "Returns an error"],
+    "correctAnswer": 0,
+    "explanation": "@return specifies the value that a SASS function should return when called, similar to return statements in programming languages."
+  },
+  {
+    "id": 14,
+    "topic": "Control Directives",
+    "type": "open-ended",
+    "question": "What are the main control directives in SASS and when would you use them?",
+    "choices": null,
+    "correctAnswer": null,
+    "explanation": "Main control directives: @if/@else for conditional logic, @for for counted loops, @each for iterating over lists/maps, @while for conditional loops. Use them to generate utility classes, responsive breakpoints, color variations, and other repetitive CSS patterns."
+  },
+  {
+    "id": 15,
+    "topic": "Compilation",
+    "type": "multiple-choice",
+    "question": "What is the difference between SASS and SCSS syntax?",
+    "choices": ["SASS uses indentation, SCSS uses brackets and semicolons", "SASS is newer than SCSS", "SCSS is faster than SASS", "No functional difference"],
+    "correctAnswer": 0,
+    "explanation": "SASS (indented syntax) uses indentation and newlines like Python, while SCSS (Sassy CSS) uses brackets and semicolons like CSS. Both compile to the same CSS output."
   }
 ]

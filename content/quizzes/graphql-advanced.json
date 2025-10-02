@@ -1,0 +1,557 @@
+{
+  "moduleSlug": "graphql-advanced",
+  "title": "Graphql Advanced Assessment",
+  "description": "Comprehensive assessment covering key concepts from the graphql-advanced module",
+  "totalQuestions": 20,
+  "passingScore": 70,
+  "timeLimit": 30,
+  "questions": [
+    {
+      "id": "graphql-advanced-q1",
+      "question": "What is GraphQL?",
+      "topic": "GraphQL Fundamentals",
+      "difficulty": "Beginner",
+      "choices": [
+        "A query language for APIs and a runtime for executing queries",
+        "A database management system",
+        "A REST API framework",
+        "A JavaScript library for building user interfaces"
+      ],
+      "correctIndex": 0,
+      "explanation": "GraphQL is a query language for APIs and a runtime for executing those queries by using a type system you define for your data. It provides a more efficient, powerful and flexible alternative to REST.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "GraphQL Fundamentals",
+        "beginner",
+        "graphql"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 1,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    },
+    {
+      "id": "graphql-advanced-q2",
+      "question": "Which of the following is NOT a core operation type in GraphQL?",
+      "topic": "GraphQL Fundamentals",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Query",
+        "Mutation",
+        "Subscription",
+        "Transaction"
+      ],
+      "correctIndex": 3,
+      "explanation": "GraphQL has three core operation types: Query (for reading data), Mutation (for modifying data), and Subscription (for real-time data). Transaction is not a GraphQL operation type.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "GraphQL Fundamentals",
+        "intermediate",
+        "graphql"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 2,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    },
+    {
+      "id": "graphql-advanced-q3",
+      "question": "Explain the main advantages of GraphQL over REST APIs.",
+      "topic": "GraphQL Fundamentals",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "GraphQL offers several advantages over REST: 1) Clients can request exactly the data they need, avoiding over-fetching and under-fetching, 2) Single endpoint for all operations instead of multiple URLs, 3) Strong type system provides better tooling and validation, 4) Real-time subscriptions built-in, 5) Introspection allows for automatic documentation and tooling.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "GraphQL Fundamentals",
+        "intermediate",
+        "graphql"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 3,
+        "originalType": "open-ended",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    },
+    {
+      "id": "graphql-advanced-q4",
+      "question": "In GraphQL schema definition, what does the exclamation mark (!) indicate?",
+      "topic": "Schema Design",
+      "difficulty": "Intermediate",
+      "choices": [
+        "The field is required and cannot be null",
+        "The field is deprecated",
+        "The field is an array",
+        "The field is a custom scalar"
+      ],
+      "correctIndex": 0,
+      "explanation": "The exclamation mark (!) in GraphQL schema definition indicates that a field is non-nullable, meaning it must always return a value and cannot be null.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "Schema Design",
+        "intermediate",
+        "graphql"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 4,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    },
+    {
+      "id": "graphql-advanced-q5",
+      "question": "What is the purpose of resolvers in GraphQL?",
+      "topic": "Schema Design",
+      "difficulty": "Beginner",
+      "choices": [
+        "To define the schema structure",
+        "To fetch data for each field in a query",
+        "To validate user input",
+        "To handle authentication"
+      ],
+      "correctIndex": 1,
+      "explanation": "Resolvers are functions that fetch the actual data for each field in a GraphQL query. They define how to retrieve data from databases, APIs, or other sources for each field in the schema.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "Schema Design",
+        "beginner",
+        "graphql"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 5,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    },
+    {
+      "id": "graphql-advanced-q6",
+      "question": "What is the difference between a GraphQL query and a mutation?",
+      "topic": "GraphQL Operations",
+      "difficulty": "Beginner",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "Queries are used for reading/fetching data and should be side-effect free, while mutations are used for modifying data (create, update, delete operations). Queries can be executed in parallel, but mutations are executed sequentially to ensure data consistency.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "GraphQL Operations",
+        "beginner",
+        "graphql"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 6,
+        "originalType": "open-ended",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    },
+    {
+      "id": "graphql-advanced-q7",
+      "question": "How do you pass variables to a GraphQL query?",
+      "topic": "GraphQL Operations",
+      "difficulty": "Beginner",
+      "choices": [
+        "Using the variables object alongside the query",
+        "Directly interpolating values in the query string",
+        "Using query parameters in the URL",
+        "Variables cannot be used in GraphQL"
+      ],
+      "correctIndex": 0,
+      "explanation": "Variables are passed to GraphQL queries using a variables object that is sent alongside the query. The query defines variable types and names using $ syntax, and values are provided in the variables object.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "GraphQL Operations",
+        "beginner",
+        "graphql"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 7,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    },
+    {
+      "id": "graphql-advanced-q8",
+      "question": "What are GraphQL subscriptions used for?",
+      "topic": "GraphQL Operations",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Real-time data updates and live connections",
+        "Batching multiple queries together",
+        "Caching query results",
+        "User authentication"
+      ],
+      "correctIndex": 0,
+      "explanation": "GraphQL subscriptions are used for real-time data updates, allowing clients to receive live updates when specific events occur on the server, typically implemented using WebSockets.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "GraphQL Operations",
+        "intermediate",
+        "graphql"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 8,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    },
+    {
+      "id": "graphql-advanced-q9",
+      "question": "What is the N+1 query problem in GraphQL and how can it be solved?",
+      "topic": "Performance Optimization",
+      "difficulty": "Beginner",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "The N+1 query problem occurs when fetching a list of N items requires N+1 database queries (1 for the list + N queries for related data). It can be solved using DataLoader, which batches and caches database requests, or by using more efficient database queries with joins.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "Performance Optimization",
+        "beginner",
+        "graphql"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 9,
+        "originalType": "open-ended",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    },
+    {
+      "id": "graphql-advanced-q10",
+      "question": "What is DataLoader used for in GraphQL?",
+      "topic": "Performance Optimization",
+      "difficulty": "Beginner",
+      "choices": [
+        "Batching and caching data requests to solve N+1 queries",
+        "Loading GraphQL schema definitions",
+        "Validating incoming queries",
+        "Handling user authentication"
+      ],
+      "correctIndex": 0,
+      "explanation": "DataLoader is a utility for batching and caching data fetching operations. It helps solve the N+1 query problem by collecting individual loads and batching them into single requests.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "Performance Optimization",
+        "beginner",
+        "graphql"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 10,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    },
+    {
+      "id": "graphql-advanced-q11",
+      "question": "What is a GraphQL interface?",
+      "topic": "Schema Design",
+      "difficulty": "Beginner",
+      "choices": [
+        "A way to define common fields that multiple types can implement",
+        "A method for connecting to external APIs",
+        "A type of scalar value",
+        "A security mechanism"
+      ],
+      "correctIndex": 0,
+      "explanation": "A GraphQL interface defines a set of common fields that multiple object types can implement, similar to interfaces in programming languages. It allows for polymorphic queries and better schema organization.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "Schema Design",
+        "beginner",
+        "graphql"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 11,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    },
+    {
+      "id": "graphql-advanced-q12",
+      "question": "When would you use a union type in GraphQL?",
+      "topic": "Schema Design",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "Union types are used when a field can return one of several different types. Common use cases include search results that can return different types of objects, polymorphic relationships, or error handling where a field might return either a success object or an error object.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "Schema Design",
+        "intermediate",
+        "graphql"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 12,
+        "originalType": "open-ended",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    },
+    {
+      "id": "graphql-advanced-q13",
+      "question": "What is query depth limiting in GraphQL?",
+      "topic": "Performance Optimization",
+      "difficulty": "Beginner",
+      "choices": [
+        "A security measure to prevent deeply nested queries that could cause performance issues",
+        "A way to limit the number of fields in a query",
+        "A method for caching query results",
+        "A technique for optimizing resolver performance"
+      ],
+      "correctIndex": 0,
+      "explanation": "Query depth limiting is a security measure that prevents clients from sending deeply nested queries that could consume excessive server resources. It sets a maximum depth for query nesting.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "Performance Optimization",
+        "beginner",
+        "graphql"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 13,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    },
+    {
+      "id": "graphql-advanced-q14",
+      "question": "What is GraphQL Playground?",
+      "topic": "Testing and Tools",
+      "difficulty": "Beginner",
+      "choices": [
+        "An in-browser IDE for exploring GraphQL APIs",
+        "A testing framework for GraphQL",
+        "A GraphQL schema validation tool",
+        "A performance monitoring tool"
+      ],
+      "correctIndex": 0,
+      "explanation": "GraphQL Playground is an in-browser IDE for exploring GraphQL APIs. It provides features like query execution, schema exploration, documentation browsing, and query history.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "Testing and Tools",
+        "beginner",
+        "graphql"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 14,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    },
+    {
+      "id": "graphql-advanced-q15",
+      "question": "How would you test a GraphQL API effectively?",
+      "topic": "Testing and Tools",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "GraphQL APIs should be tested at multiple levels: 1) Unit tests for individual resolvers, 2) Integration tests for complete queries/mutations, 3) Schema validation tests, 4) Performance tests for complex queries, 5) Security tests for rate limiting and authentication. Tools like Jest, Apollo Server Testing, and GraphQL testing utilities help automate these tests.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "Testing and Tools",
+        "intermediate",
+        "graphql"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 15,
+        "originalType": "open-ended",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    },
+    {
+      "id": "graphql-advanced-q16",
+      "question": "Which of the following is a security best practice for GraphQL APIs?",
+      "topic": "Production Deployment",
+      "difficulty": "Advanced",
+      "choices": [
+        "All of the above",
+        "Implement query depth limiting",
+        "Use authentication and authorization",
+        "Disable introspection in production"
+      ],
+      "correctIndex": 0,
+      "explanation": "All mentioned practices are important for GraphQL security: query depth limiting prevents expensive queries, authentication/authorization controls access, and disabling introspection in production prevents schema discovery by unauthorized users.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "Production Deployment",
+        "advanced",
+        "graphql"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 16,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    },
+    {
+      "id": "graphql-advanced-q17",
+      "question": "What considerations should you make when deploying GraphQL to production?",
+      "topic": "Production Deployment",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "Production GraphQL deployment requires: 1) Security measures (authentication, authorization, rate limiting, query complexity analysis), 2) Performance optimization (DataLoader, caching, query analysis), 3) Monitoring and logging, 4) Error handling and reporting, 5) Schema versioning strategy, 6) Disabling development features like introspection and playground.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "Production Deployment",
+        "intermediate",
+        "graphql"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 17,
+        "originalType": "open-ended",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    },
+    {
+      "id": "graphql-advanced-q18",
+      "question": "What are fragments in GraphQL?",
+      "topic": "GraphQL Operations",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Reusable units of query logic that can be included in multiple queries",
+        "Broken query parts that cause errors",
+        "A type of mutation operation",
+        "Database transaction components"
+      ],
+      "correctIndex": 0,
+      "explanation": "Fragments are reusable units of query logic that allow you to define a set of fields once and include them in multiple queries. They help reduce duplication and improve query maintainability.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "GraphQL Operations",
+        "intermediate",
+        "graphql"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 18,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    },
+    {
+      "id": "graphql-advanced-q19",
+      "question": "What is the purpose of input types in GraphQL?",
+      "topic": "Schema Design",
+      "difficulty": "Beginner",
+      "choices": [
+        "To define the structure of data passed as arguments to mutations and queries",
+        "To handle user authentication",
+        "To define database schemas",
+        "To validate query syntax"
+      ],
+      "correctIndex": 0,
+      "explanation": "Input types define the structure of complex data that can be passed as arguments to GraphQL mutations and queries. They ensure type safety for input validation and provide clear documentation for required data structures.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "Schema Design",
+        "beginner",
+        "graphql"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 19,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    },
+    {
+      "id": "graphql-advanced-q20",
+      "question": "Explain query complexity analysis in GraphQL and why it's important.",
+      "topic": "Performance Optimization",
+      "difficulty": "Advanced",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "Query complexity analysis assigns complexity scores to GraphQL operations based on the fields requested and their relationships. It's important because it helps prevent expensive queries from overwhelming the server, provides a standardized way to rate-limit based on resource usage rather than just request count, and helps identify potentially problematic queries before they impact performance.",
+      "industryContext": "These skills are valuable in professional development environments.",
+      "tags": [
+        "Performance Optimization",
+        "advanced",
+        "graphql"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 20,
+        "originalType": "open-ended",
+        "migrated": "2025-10-01T06:41:13.486Z"
+      }
+    }
+  ],
+  "metadata": {
+    "migrated": true,
+    "originalQuestionCount": 20,
+    "migrationDate": "2025-10-01T06:41:13.486Z",
+    "lastUpdated": "2025-10-01T06:41:13.486Z",
+    "version": "1.0.0"
+  }
+}

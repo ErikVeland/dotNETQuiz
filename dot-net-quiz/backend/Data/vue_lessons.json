@@ -38,5 +38,61 @@
     "description": "Learn how to use reactive references with the Composition API and create reusable composables for complex logic.",
     "codeExample": "const { createApp, ref, reactive, computed, watch, onMounted } = Vue\n\n// Reusable composable function\nfunction useCounter(initialValue = 0) {\n  const count = ref(initialValue)\n  const increment = () => count.value++\n  const decrement = () => count.value--\n  const reset = () => count.value = initialValue\n  \n  const isEven = computed(() => count.value % 2 === 0)\n  \n  watch(count, (newVal, oldVal) => {\n    console.log(`Count changed from ${oldVal} to ${newVal}`)\n  })\n  \n  return { count, increment, decrement, reset, isEven }\n}\n\nconst app = createApp({\n  setup() {\n    // Using reactive references\n    const message = ref('Hello Vue 3!')\n    const user = reactive({\n      name: 'John Doe',\n      age: 30,\n      email: 'john@example.com'\n    })\n    \n    // Using computed property\n    const userInfo = computed(() => {\n      return `${user.name} (${user.age}) - ${user.email}`\n    })\n    \n    // Using composable\n    const { count, increment, decrement, reset, isEven } = useCounter(10)\n    \n    // Lifecycle hook\n    onMounted(() => {\n      console.log('Component mounted!')\n    })\n    \n    // Methods\n    const updateUser = () => {\n      user.name = 'Jane Doe'\n      user.age = 25\n    }\n    \n    return {\n      message,\n      user,\n      userInfo,\n      count,\n      increment,\n      decrement,\n      reset,\n      isEven,\n      updateUser\n    }\n  }\n})",
     "output": "Reactive component with computed properties, watchers, and reusable composable functions"
+  },
+  {
+    "id": 6,
+    "topic": "State Management",
+    "title": "Pinia State Management",
+    "description": "Learn modern state management with Pinia for Vue 3 applications.",
+    "codeExample": "// stores/counter.js\nimport { defineStore } from 'pinia'\n\nexport const useCounterStore = defineStore('counter', {\n  state: () => ({\n    count: 0,\n    name: 'Eduardo'\n  }),\n  getters: {\n    doubleCount: (state) => state.count * 2\n  },\n  actions: {\n    increment() {\n      this.count++\n    }\n  }\n})\n\n// Component usage\nimport { useCounterStore } from '@/stores/counter'\n\nexport default {\n  setup() {\n    const counter = useCounterStore()\n    return { counter }\n  }\n}",
+    "output": "Centralized state management with reactive stores"
+  },
+  {
+    "id": 7,
+    "topic": "Routing",
+    "title": "Vue Router Navigation",
+    "description": "Learn client-side routing with Vue Router for single-page applications.",
+    "codeExample": "import { createRouter, createWebHistory } from 'vue-router'\nimport Home from './views/Home.vue'\nimport About from './views/About.vue'\n\nconst routes = [\n  { path: '/', component: Home },\n  { path: '/about', component: About },\n  { path: '/user/:id', component: UserProfile, props: true }\n]\n\nconst router = createRouter({\n  history: createWebHistory(),\n  routes\n})\n\n// Navigation guards\nrouter.beforeEach((to, from, next) => {\n  console.log('Navigating to:', to.path)\n  next()\n})\n\nexport default router",
+    "output": "Single-page application with dynamic routing and navigation guards"
+  },
+  {
+    "id": 8,
+    "topic": "Forms",
+    "title": "Form Handling and Validation",
+    "description": "Learn comprehensive form handling with validation in Vue applications.",
+    "codeExample": "<template>\n  <form @submit.prevent=\"submitForm\">\n    <input v-model=\"form.email\" :class=\"{ error: errors.email }\" />\n    <span v-if=\"errors.email\">{{ errors.email }}</span>\n    <button type=\"submit\" :disabled=\"!isValid\">Submit</button>\n  </form>\n</template>\n\n<script setup>\nimport { reactive, computed } from 'vue'\n\nconst form = reactive({\n  email: '',\n  password: ''\n})\n\nconst errors = reactive({})\n\nconst isValid = computed(() => {\n  return form.email && form.password && !Object.keys(errors).length\n})\n\nconst validateEmail = () => {\n  const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/\n  errors.email = emailRegex.test(form.email) ? '' : 'Invalid email'\n}\n</script>",
+    "output": "Reactive form with real-time validation and error handling"
+  },
+  {
+    "id": 9,
+    "topic": "Performance",
+    "title": "Performance Optimization",
+    "description": "Learn techniques to optimize Vue application performance.",
+    "codeExample": "// Lazy loading components\nconst AsyncComponent = defineAsyncComponent(() => import('./HeavyComponent.vue'))\n\n// Memoization with computed\nconst expensiveValue = computed(() => {\n  return heavyCalculation(props.data)\n})\n\n// Virtual scrolling for large lists\n<template>\n  <RecycleScroller\n    class=\"scroller\"\n    :items=\"items\"\n    :item-size=\"32\"\n    key-field=\"id\"\n    v-slot=\"{ item }\"\n  >\n    <div class=\"user\">{{ item.name }}</div>\n  </RecycleScroller>\n</template>",
+    "output": "Optimized application with lazy loading and virtual scrolling"
+  },
+  {
+    "id": 10,
+    "topic": "Testing",
+    "title": "Component Testing",
+    "description": "Learn how to test Vue components using Vue Test Utils and Vitest.",
+    "codeExample": "// Counter.test.js\nimport { mount } from '@vue/test-utils'\nimport Counter from '@/components/Counter.vue'\n\ndescribe('Counter', () => {\n  test('increments count when button is clicked', async () => {\n    const wrapper = mount(Counter)\n    \n    expect(wrapper.text()).toContain('0')\n    \n    await wrapper.find('button').trigger('click')\n    \n    expect(wrapper.text()).toContain('1')\n  })\n  \n  test('accepts initial count prop', () => {\n    const wrapper = mount(Counter, {\n      props: { initialCount: 5 }\n    })\n    \n    expect(wrapper.text()).toContain('5')\n  })\n})",
+    "output": "✓ increments count when button is clicked\n✓ accepts initial count prop"
+  },
+  {
+    "id": 11,
+    "topic": "Teleport",
+    "title": "Teleport and Portal Patterns",
+    "description": "Learn how to use Teleport for rendering components outside the normal DOM hierarchy.",
+    "codeExample": "<template>\n  <div>\n    <button @click=\"showModal = true\">Open Modal</button>\n    \n    <Teleport to=\"body\">\n      <div v-if=\"showModal\" class=\"modal\">\n        <div class=\"modal-content\">\n          <h2>Modal Title</h2>\n          <p>Modal content here</p>\n          <button @click=\"showModal = false\">Close</button>\n        </div>\n      </div>\n    </Teleport>\n  </div>\n</template>\n\n<script setup>\nimport { ref } from 'vue'\nconst showModal = ref(false)\n</script>",
+    "output": "Modal component rendered outside component hierarchy using Teleport"
+  },
+  {
+    "id": 12,
+    "topic": "Advanced",
+    "title": "Custom Directives and Plugins",
+    "description": "Learn how to create custom directives and plugins to extend Vue functionality.",
+    "codeExample": "// Custom directive\nconst vFocus = {\n  mounted(el) {\n    el.focus()\n  }\n}\n\n// Plugin\nconst myPlugin = {\n  install(app, options) {\n    app.config.globalProperties.$translate = (key) => {\n      return key.split('.').reduce((o, i) => o[i], options)\n    }\n    \n    app.provide('i18n', options)\n    \n    app.directive('focus', vFocus)\n  }\n}\n\n// Usage\napp.use(myPlugin, { hello: 'Bonjour!' })\n\n// In component\n<input v-focus />\n<p>{{ $translate('hello') }}</p>",
+    "output": "Custom functionality with directives and plugins extending Vue capabilities"
   }
 ]

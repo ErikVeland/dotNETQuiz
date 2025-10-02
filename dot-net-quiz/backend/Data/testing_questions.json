@@ -100,5 +100,68 @@
     ],
     "correctAnswer": 0,
     "explanation": "Code coverage measures the percentage of code executed by tests, including lines, branches, and functions. However, it doesn't measure test quality or correctness - 100% coverage doesn't guarantee bug-free code. Tests could execute all code paths but still have incorrect assertions. It's a useful metric for identifying untested code but shouldn't be the sole measure of test effectiveness."
+  },
+  {
+    "id": 9,
+    "topic": "Test Types",
+    "type": "multiple-choice",
+    "question": "What is the testing pyramid?",
+    "choices": ["More unit tests, fewer integration tests, fewest E2E tests", "Equal amounts of all test types", "More E2E tests than unit tests", "Only integration tests"],
+    "correctAnswer": 0,
+    "explanation": "The testing pyramid suggests having many fast, cheap unit tests at the base, fewer integration tests in the middle, and fewest expensive E2E tests at the top."
+  },
+  {
+    "id": 10,
+    "topic": "Mocking",
+    "type": "multiple-choice",
+    "question": "What is the difference between mocks, stubs, and spies?",
+    "choices": ["Mocks verify behavior, stubs provide responses, spies record calls", "All are the same thing", "Mocks are fastest", "Stubs are most reliable"],
+    "correctAnswer": 0,
+    "explanation": "Mocks verify that specific methods were called with expected parameters. Stubs provide predetermined responses. Spies record information about function calls for later verification."
+  },
+  {
+    "id": 11,
+    "topic": "Coverage",
+    "type": "open-ended",
+    "question": "What are the different types of code coverage and what do they measure?",
+    "choices": null,
+    "correctAnswer": null,
+    "explanation": "Line coverage: percentage of code lines executed. Branch coverage: percentage of code branches taken. Function coverage: percentage of functions called. Statement coverage: percentage of statements executed. Condition coverage: percentage of boolean conditions evaluated to both true and false."
+  },
+  {
+    "id": 12,
+    "topic": "Performance Testing",
+    "type": "multiple-choice",
+    "question": "What is load testing?",
+    "choices": ["Testing system behavior under expected load conditions", "Testing code loading speed", "Testing database loads", "Testing file loading"],
+    "correctAnswer": 0,
+    "explanation": "Load testing evaluates system performance under expected user load to identify bottlenecks and ensure the application can handle normal traffic volumes."
+  },
+  {
+    "id": 13,
+    "topic": "TDD",
+    "type": "multiple-choice",
+    "question": "What is the TDD cycle?",
+    "choices": ["Red, Green, Refactor", "Write, Test, Deploy", "Plan, Code, Test", "Design, Implement, Verify"],
+    "correctAnswer": 0,
+    "explanation": "TDD follows Red (write failing test), Green (make test pass with minimal code), Refactor (improve code while keeping tests passing) cycle."
+  },
+  {
+    "id": 14,
+    "topic": "API Testing",
+    "type": "open-ended",
+    "question": "What should you test when testing REST APIs?",
+    "choices": null,
+    "correctAnswer": null,
+    "explanation": "Test: HTTP status codes, response data structure and content, request/response headers, authentication/authorization, input validation, error handling, performance under load, and edge cases like invalid data or missing parameters."
+  },
+  {
+    "id": 15,
+    "topic": "Best Practices",
+    "type": "multiple-choice",
+    "question": "What makes a good unit test?",
+    "choices": ["Fast, isolated, repeatable, and focused on single behavior", "Complex and comprehensive", "Tests multiple functions at once", "Requires manual setup"],
+    "correctAnswer": 0,
+    "explanation": "Good unit tests are FIRST: Fast, Independent/Isolated, Repeatable, Self-validating, and Timely. They should test one specific behavior and be easy to understand and maintain."
   }
 ]

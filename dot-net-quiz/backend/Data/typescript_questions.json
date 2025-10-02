@@ -100,5 +100,68 @@
     ],
     "correctAnswer": 0,
     "explanation": "A discriminated union is a pattern where you use a union of types with a common literal type field (the discriminant) that allows TypeScript to narrow the type in switch statements or conditional checks. This provides type safety for working with variant data structures."
+  },
+  {
+    "id": 9,
+    "topic": "Advanced Types",
+    "type": "multiple-choice",
+    "question": "What is a mapped type in TypeScript?",
+    "choices": ["A type that transforms properties of another type", "A type for mapping functions", "A geographic mapping type", "A type for Map objects"],
+    "correctAnswer": 0,
+    "explanation": "Mapped types allow you to create new types by transforming properties of an existing type, such as making all properties optional with Partial<T>."
+  },
+  {
+    "id": 10,
+    "type": "multiple-choice",
+    "topic": "Utility Types",
+    "question": "What does the Pick<T, K> utility type do?",
+    "choices": ["Creates a type with selected properties from T", "Removes properties from T", "Picks random properties", "Validates property selection"],
+    "correctAnswer": 0,
+    "explanation": "Pick<T, K> constructs a type by picking the set of properties K from type T, creating a new type with only the specified properties."
+  },
+  {
+    "id": 11,
+    "topic": "Type Guards",
+    "type": "open-ended",
+    "question": "What are type predicates and how do they work?",
+    "choices": null,
+    "correctAnswer": null,
+    "explanation": "Type predicates are functions that return a boolean and use the 'is' keyword to tell TypeScript the type of a variable. They narrow types within conditional blocks, improving type safety."
+  },
+  {
+    "id": 12,
+    "topic": "Modules",
+    "type": "multiple-choice",
+    "question": "What is the difference between 'import * as' and 'import {}'?",
+    "choices": ["'import * as' imports everything as namespace, 'import {}' imports specific exports", "No difference in functionality", "'import * as' is faster", "'import {}' imports everything"],
+    "correctAnswer": 0,
+    "explanation": "'import * as name' imports all exports as a namespace object, while 'import { specific }' imports only specific named exports."
+  },
+  {
+    "id": 13,
+    "topic": "Decorators",
+    "type": "multiple-choice",
+    "question": "What are decorators in TypeScript?",
+    "choices": ["Functions that modify classes, methods, or properties", "UI design patterns", "Error handling mechanisms", "Performance optimization tools"],
+    "correctAnswer": 0,
+    "explanation": "Decorators are functions that can modify or observe classes, methods, properties, or parameters, providing meta-programming capabilities."
+  },
+  {
+    "id": 14,
+    "topic": "Conditional Types",
+    "type": "open-ended",
+    "question": "How do conditional types work in TypeScript?",
+    "choices": null,
+    "correctAnswer": null,
+    "explanation": "Conditional types use the ternary operator syntax 'T extends U ? X : Y' to select types based on conditions, enabling powerful type transformations and generic constraints."
+  },
+  {
+    "id": 15,
+    "topic": "Performance",
+    "type": "multiple-choice",
+    "question": "What is tree shaking in TypeScript projects?",
+    "choices": ["Removing unused code during bundling", "Optimizing type checking", "Cleaning up imports", "Reducing file sizes"],
+    "correctAnswer": 0,
+    "explanation": "Tree shaking eliminates unused code from the final bundle, reducing bundle size and improving performance in production applications."
   }
 ]

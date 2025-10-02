@@ -28,10 +28,10 @@ namespace backend.Services
         // Data collections
         public IEnumerable<Lesson> DotNetLessons => LessonsController.Lessons;
         public IEnumerable<Lesson> NextJsLessons => NextJsLessonsController.Lessons;
-        public IEnumerable<Lesson> GraphQLLessons => GraphQLLessonsController.Lessons;
+        public IEnumerable<Lesson> GraphQLLessons => GraphQLLessonsController.Lessons.Cast<Lesson>();
         public IEnumerable<InterviewQuestion> DotNetInterviewQuestions => InterviewQuestionsController.Questions;
         public IEnumerable<InterviewQuestion> NextJsInterviewQuestions => NextJsInterviewQuestionsController.Questions;
-        public IEnumerable<InterviewQuestion> GraphQLInterviewQuestions => GraphQLInterviewQuestionsController.Questions;
+        public IEnumerable<InterviewQuestion> GraphQLInterviewQuestions => GraphQLInterviewQuestionsController.Questions.Cast<InterviewQuestion>();
 
         // React data collections
         public IEnumerable<ReactLesson> ReactLessons { get; private set; } = new List<ReactLesson>();

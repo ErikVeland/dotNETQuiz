@@ -217,23 +217,6 @@ export const AccessibilityProvider: React.FC<AccessibilityProviderProps> = ({ ch
       
       {/* Global accessibility styles */}
       <style jsx global>{`
-        .skip-to-content {
-          position: absolute;
-          top: -40px;
-          left: 6px;
-          background: #000;
-          color: #fff;
-          padding: 8px;
-          text-decoration: none;
-          z-index: 10000;
-          border-radius: 4px;
-          transition: top 0.3s;
-        }
-        
-        .skip-to-content:focus {
-          top: 6px;
-        }
-        
         .sr-only {
           position: absolute;
           width: 1px;

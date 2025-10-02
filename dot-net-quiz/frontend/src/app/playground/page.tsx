@@ -98,14 +98,24 @@ query {
   if (loading) {
     if (retryCount > 0) {
       return (
-        // Changed from opaque background to glass morphism effect
-        <div className="min-h-screen bg-gradient-to-br from-gray-50/30 to-gray-100/30 dark:from-gray-900/30 dark:to-gray-800/30 py-12 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-md mx-auto">
-            <EnhancedLoadingComponent 
-              retryCount={retryCount} 
-              maxRetries={30} 
-              onRetry={handleManualRetry}
-            />
+        <div className="min-h-screen flex flex-col">
+          <div 
+            className="fixed top-0 left-0 w-full h-full -z-10" 
+            style={{
+              background: 'linear-gradient(135deg, #8B5CF6 0%, #3B82F6 25%, #10B981 50%, #F59E0B 75%, #EF4444 100%)',
+              animation: 'gradientFlow 45s ease infinite'
+            }}
+            aria-hidden="true" 
+            role="presentation"
+          />
+          <div className="flex-grow flex items-center justify-center px-4">
+            <div className="max-w-md mx-auto">
+              <EnhancedLoadingComponent 
+                retryCount={retryCount} 
+                maxRetries={30} 
+                onRetry={handleManualRetry}
+              />
+            </div>
           </div>
         </div>
       );
@@ -113,13 +123,23 @@ query {
     
     // Show initial loading state with glass morphism effect
     return (
-      // Changed from opaque background to glass morphism effect
-      <div className="min-h-screen bg-gradient-to-br from-gray-50/30 to-gray-100/30 dark:from-gray-900/30 dark:to-gray-800/30 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto">
-          <div className="animate-pulse flex flex-col items-center justify-center space-y-4">
-            <div className="h-12 w-2/3 bg-white/30 dark:bg-gray-700/30 rounded"></div>
-            <div className="h-64 w-full bg-white/30 dark:bg-gray-700/30 rounded"></div>
-            <div className="h-10 w-1/3 bg-white/30 dark:bg-gray-700/30 rounded"></div>
+      <div className="min-h-screen flex flex-col">
+        <div 
+          className="fixed top-0 left-0 w-full h-full -z-10" 
+          style={{
+            background: 'linear-gradient(135deg, #8B5CF6 0%, #3B82F6 25%, #10B981 50%, #F59E0B 75%, #EF4444 100%)',
+            animation: 'gradientFlow 45s ease infinite'
+          }}
+          aria-hidden="true" 
+          role="presentation"
+        />
+        <div className="flex-grow flex items-center justify-center px-4">
+          <div className="max-w-3xl mx-auto w-full">
+            <div className="animate-pulse flex flex-col items-center justify-center space-y-6">
+              <div className="h-12 w-2/3 bg-white/20 rounded-xl"></div>
+              <div className="h-64 w-full bg-white/20 rounded-xl"></div>
+              <div className="h-10 w-1/3 bg-white/20 rounded-xl"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -129,18 +149,27 @@ query {
   // Show error only after loading
   if (error) {
     return (
-      // Changed from opaque background to glass morphism effect
-      <div className="min-h-screen bg-gradient-to-br from-gray-50/30 to-gray-100/30 dark:from-gray-900/30 dark:to-gray-800/30 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto">
-          <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-white/50 dark:border-gray-700/50">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
-              <p className="mb-4 text-gray-800 dark:text-gray-200">{error}</p>
+      <div className="min-h-screen flex flex-col">
+        <div 
+          className="fixed top-0 left-0 w-full h-full -z-10" 
+          style={{
+            background: 'linear-gradient(135deg, #8B5CF6 0%, #3B82F6 25%, #10B981 50%, #F59E0B 75%, #EF4444 100%)',
+            animation: 'gradientFlow 45s ease infinite'
+          }}
+          aria-hidden="true" 
+          role="presentation"
+        />
+        <div className="flex-grow flex items-center justify-center px-4">
+          <div className="max-w-2xl mx-auto">
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl p-8 border border-white/20 text-center">
+              <div className="text-6xl mb-4">⚠️</div>
+              <h2 className="text-2xl font-bold text-white mb-4">Connection Error</h2>
+              <p className="mb-6 text-white/80 text-lg">{error}</p>
               <button
                 onClick={handleManualRetry}
-                className="px-4 py-2 bg-indigo-600 dark:bg-indigo-700 text-white rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors duration-200"
+                className="px-8 py-3 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-xl font-semibold hover:from-red-600 hover:to-orange-600 transition-all duration-200 shadow-lg"
               >
-                Try Again
+                🔄 Try Again
               </button>
             </div>
           </div>
@@ -150,62 +179,120 @@ query {
   }
 
   return (
-    // Updated container with standardized background gradient
-    <div className="min-h-screen bg-gradient-to-br from-gray-50/30 to-gray-100/30 dark:from-gray-900/30 dark:to-gray-800/30 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">GraphQL Playground</h1>
-          <Link href="/" className="inline-block mb-4 bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200 font-semibold py-1 px-2 rounded shadow hover:bg-pink-200 dark:hover:bg-pink-800 transition-colors duration-150 flex items-center gap-1 text-xs">
-            <span className="text-base">←</span> Back to Home
-          </Link>
+    // Updated container with tier-specific gradient background
+    <div className="min-h-screen flex flex-col">
+      {/* Fixed animated background with tier gradient */}
+      <div 
+        className="fixed top-0 left-0 w-full h-full -z-10" 
+        style={{
+          background: 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)',
+        }}
+        aria-hidden="true" 
+        role="presentation"
+      />
+      
+      <div className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* Header with consistent design */}
+        <div className="mb-8">
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-4">
+                <div className="text-4xl">🛝</div>
+                <div>
+                  <h1 className="text-3xl font-bold text-white mb-2">GraphQL Playground</h1>
+                  <p className="text-white/80">Interactive query environment for exploring our GraphQL API</p>
+                </div>
+              </div>
+              <Link 
+                href="/" 
+                className="bg-white/20 backdrop-blur-sm text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:bg-white/30 transition-all duration-200 flex items-center gap-2 border border-white/20"
+              >
+                <span className="text-lg">←</span> Back to Home
+              </Link>
+            </div>
+          </div>
         </div>
 
-        {/* Updated container with glass morphism effect */}
-        <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm shadow-lg rounded-xl overflow-hidden border border-white/50 dark:border-gray-700/50">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
-            <div>
-              <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Query</h2>
-              <textarea
-                className="w-full h-80 p-3 border border-gray-300 dark:border-gray-600 rounded-md font-mono text-sm bg-white/30 dark:bg-gray-700/30 backdrop-blur-sm text-gray-900 dark:text-gray-100"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-              />
-              <h2 className="text-lg font-semibold mt-4 mb-2 text-gray-800 dark:text-gray-200">Variables (JSON)</h2>
-              <textarea
-                className="w-full h-32 p-3 border border-gray-300 dark:border-gray-600 rounded-md font-mono text-sm bg-white/30 dark:bg-gray-700/30 backdrop-blur-sm text-gray-900 dark:text-gray-100"
-                value={variables}
-                onChange={(e) => setVariables(e.target.value)}
-              />
+        {/* Main playground container with glass morphism */}
+        <div className="bg-white/10 backdrop-blur-md shadow-2xl rounded-2xl overflow-hidden border border-white/20 mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-8">
+            {/* Query Section */}
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-lg font-semibold mb-3 text-white flex items-center gap-2">
+                  📄 Query Editor
+                </h2>
+                <textarea
+                  className="w-full h-80 p-4 border border-white/30 rounded-xl font-mono text-sm bg-white/10 backdrop-blur-sm text-white placeholder-white/50 focus:border-white/50 focus:ring-2 focus:ring-white/20 transition-all"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Enter your GraphQL query here..."
+                />
+              </div>
+              
+              <div>
+                <h2 className="text-lg font-semibold mb-3 text-white flex items-center gap-2">
+                  ⚙️ Variables (JSON)
+                </h2>
+                <textarea
+                  className="w-full h-32 p-4 border border-white/30 rounded-xl font-mono text-sm bg-white/10 backdrop-blur-sm text-white placeholder-white/50 focus:border-white/50 focus:ring-2 focus:ring-white/20 transition-all"
+                  value={variables}
+                  onChange={(e) => setVariables(e.target.value)}
+                  placeholder='{"key": "value"}'
+                />
+              </div>
+              
               <button
-                className="mt-4 px-4 py-2 bg-blue-600 dark:bg-blue-700 text-white rounded-md hover:bg-blue-700 dark:hover:bg-blue-600 disabled:opacity-50"
+                className="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-xl font-semibold hover:from-purple-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg flex items-center justify-center gap-2"
                 onClick={executeQuery}
                 disabled={loading}
               >
-                {loading ? 'Executing...' : 'Execute Query'}
+                {loading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+                    Executing...
+                  </>
+                ) : (
+                  <>
+                    ▶️ Execute Query
+                  </>
+                )}
               </button>
             </div>
+            
+            {/* Response Section */}
             <div>
-              <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Response</h2>
+              <h2 className="text-lg font-semibold mb-3 text-white flex items-center gap-2">
+                📊 Response
+              </h2>
               {error && (
-                <div className="mb-4 p-3 bg-red-100/30 dark:bg-red-900/30 border border-red-400/50 dark:border-red-700/50 text-red-700 dark:text-red-300 rounded backdrop-blur-sm">
-                  {error}
+                <div className="mb-4 p-4 bg-red-500/20 border border-red-400/50 text-red-200 rounded-xl backdrop-blur-sm">
+                  <div className="flex items-center gap-2">
+                    ⚠️ <strong>Error:</strong>
+                  </div>
+                  <div className="mt-2">{error}</div>
                 </div>
               )}
-              <pre className="w-full h-[30rem] p-3 border border-gray-300 dark:border-gray-600 rounded-md overflow-auto bg-gray-50/30 dark:bg-gray-700/30 backdrop-blur-sm font-mono text-sm text-gray-900 dark:text-gray-100">
-                {response || 'Execute a query to see results'}
+              <pre className="w-full h-[34rem] p-4 border border-white/30 rounded-xl overflow-auto bg-black/20 backdrop-blur-sm font-mono text-sm text-white scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+                {response || '// Execute a query to see results\n// Your GraphQL response will appear here'}
               </pre>
             </div>
           </div>
         </div>
 
-        {/* Updated container with glass morphism effect */}
-        <div className="mt-8 bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm shadow-lg rounded-xl p-6 border border-white/50 dark:border-gray-700/50">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Example Queries</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h3 className="text-lg font-medium mb-2 text-gray-800 dark:text-gray-200">Get .NET Lessons</h3>
-              <pre className="p-3 bg-gray-50/30 dark:bg-gray-700/30 border border-gray-200/50 dark:border-gray-600/50 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100 backdrop-blur-sm">
-                {`query {
+        {/* Example queries section */}
+        <div className="bg-white/10 backdrop-blur-md shadow-2xl rounded-2xl p-8 border border-white/20">
+          <h2 className="text-2xl font-semibold mb-6 text-white flex items-center gap-3">
+            📚 Example Queries
+          </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                <h3 className="text-lg font-medium mb-3 text-white flex items-center gap-2">
+                  🔵 Get .NET Lessons
+                </h3>
+                <pre className="p-4 bg-black/20 border border-white/20 rounded-lg overflow-auto font-mono text-sm text-green-300 mb-3">
+{`query {
   dotNetLessons {
     id
     topic
@@ -213,11 +300,11 @@ query {
     description
   }
 }`}
-              </pre>
-              <button
-                className="mt-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
-                onClick={() =>
-                  setQuery(`query {
+                </pre>
+                <button
+                  className="text-sm text-blue-300 hover:text-blue-200 underline transition-colors"
+                  onClick={() =>
+                    setQuery(`query {
   dotNetLessons {
     id
     topic
@@ -225,15 +312,47 @@ query {
     description
   }
 }`)
-                }
-              >
-                Use this query
-              </button>
+                  }
+                >
+                  → Use this query
+                </button>
+              </div>
+              
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                <h3 className="text-lg font-medium mb-3 text-white flex items-center gap-2">
+                  🔵 Submit Answer
+                </h3>
+                <pre className="p-4 bg-black/20 border border-white/20 rounded-lg overflow-auto font-mono text-sm text-green-300 mb-3">
+{`mutation {
+  submitAnswer(questionId: 1, answerIndex: 0) {
+    isCorrect
+    explanation
+  }
+}`}
+                </pre>
+                <button
+                  className="text-sm text-blue-300 hover:text-blue-200 underline transition-colors"
+                  onClick={() =>
+                    setQuery(`mutation {
+  submitAnswer(questionId: 1, answerIndex: 0) {
+    isCorrect
+    explanation
+  }
+}`)
+                  }
+                >
+                  → Use this query
+                </button>
+              </div>
             </div>
-            <div>
-              <h3 className="text-lg font-medium mb-2 text-gray-800 dark:text-gray-200">Get Interview Questions</h3>
-              <pre className="p-3 bg-gray-50/30 dark:bg-gray-700/30 border border-gray-200/50 dark:border-gray-600/50 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100 backdrop-blur-sm">
-                {`query {
+            
+            <div className="space-y-4">
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                <h3 className="text-lg font-medium mb-3 text-white flex items-center gap-2">
+                  🔵 Get Interview Questions
+                </h3>
+                <pre className="p-4 bg-black/20 border border-white/20 rounded-lg overflow-auto font-mono text-sm text-green-300 mb-3">
+{`query {
   dotNetInterviewQuestions {
     id
     topic
@@ -242,11 +361,11 @@ query {
     choices
   }
 }`}
-              </pre>
-              <button
-                className="mt-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
-                onClick={() =>
-                  setQuery(`query {
+                </pre>
+                <button
+                  className="text-sm text-blue-300 hover:text-blue-200 underline transition-colors"
+                  onClick={() =>
+                    setQuery(`query {
   dotNetInterviewQuestions {
     id
     topic
@@ -255,39 +374,18 @@ query {
     choices
   }
 }`)
-                }
-              >
-                Use this query
-              </button>
-            </div>
-            <div>
-              <h3 className="text-lg font-medium mb-2 text-gray-800 dark:text-gray-200">Submit Answer</h3>
-              <pre className="p-3 bg-gray-50/30 dark:bg-gray-700/30 border border-gray-200/50 dark:border-gray-600/50 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100 backdrop-blur-sm">
-                {`mutation {
-  submitAnswer(questionId: 1, answerIndex: 0) {
-    isCorrect
-    explanation
-  }
-}`}
-              </pre>
-              <button
-                className="mt-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
-                onClick={() =>
-                  setQuery(`mutation {
-  submitAnswer(questionId: 1, answerIndex: 0) {
-    isCorrect
-    explanation
-  }
-}`)
-                }
-              >
-                Use this query
-              </button>
-            </div>
-            <div>
-              <h3 className="text-lg font-medium mb-2 text-gray-800 dark:text-gray-200">Filter & Sort</h3>
-              <pre className="p-3 bg-gray-50/30 dark:bg-gray-700/30 border border-gray-200/50 dark:border-gray-600/50 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100 backdrop-blur-sm">
-                {`query {
+                  }
+                >
+                  → Use this query
+                </button>
+              </div>
+              
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                <h3 className="text-lg font-medium mb-3 text-white flex items-center gap-2">
+                  🔵 Filter & Sort
+                </h3>
+                <pre className="p-4 bg-black/20 border border-white/20 rounded-lg overflow-auto font-mono text-sm text-green-300 mb-3">
+{`query {
   dotNetLessons(
     topic: "OOP"
     sortBy: "id"
@@ -299,11 +397,11 @@ query {
     title
   }
 }`}
-              </pre>
-              <button
-                className="mt-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
-                onClick={() =>
-                  setQuery(`query {
+                </pre>
+                <button
+                  className="text-sm text-blue-300 hover:text-blue-200 underline transition-colors"
+                  onClick={() =>
+                    setQuery(`query {
   dotNetLessons(
     topic: "OOP"
     sortBy: "id"
@@ -315,10 +413,11 @@ query {
     title
   }
 }`)
-                }
-              >
-                Use this query
-              </button>
+                  }
+                >
+                  → Use this query
+                </button>
+              </div>
             </div>
           </div>
         </div>

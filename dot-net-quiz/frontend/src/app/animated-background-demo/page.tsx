@@ -175,7 +175,7 @@ export default function AnimatedBackgroundDemo() {
   return (
     // Keep the original background for this demo page since it's showcasing the animated background component
     <div className="min-h-screen relative">
-      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-white dark:focus:bg-gray-800 focus:text-blue-600 dark:focus:text-blue-400 z-50">
+      <a href="#main-content" className="sr-only focus:absolute focus:p-4 focus:bg-white dark:focus:bg-gray-800 focus:text-blue-600 dark:focus:text-blue-400 z-50">
         Skip to main content
       </a>
       {/* Animated Background Component */}

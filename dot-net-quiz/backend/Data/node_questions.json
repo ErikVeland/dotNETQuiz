@@ -100,5 +100,93 @@
     ],
     "correctAnswer": 0,
     "explanation": "The event loop in Node.js is a mechanism that handles asynchronous operations by continuously checking the call stack and callback queue to execute callbacks when the call stack is empty."
+  },
+  {
+    "id": 9,
+    "topic": "Async Programming",
+    "type": "multiple-choice",
+    "question": "What is the main advantage of using async/await over Promises in Node.js?",
+    "choices": [
+      "More readable and easier to debug synchronous-looking code",
+      "Better performance than Promises",
+      "Automatic error handling without try-catch",
+      "Faster execution than callback functions"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Async/await provides more readable, synchronous-looking code that's easier to debug and maintain. While it doesn't improve performance over Promises (it's syntactic sugar over them), it makes error handling with try-catch more natural and reduces callback hell and Promise chaining complexity."
+  },
+  {
+    "id": 10,
+    "topic": "Performance",
+    "type": "multiple-choice",
+    "question": "What is clustering in Node.js and why is it useful?",
+    "choices": [
+      "Running multiple Node.js processes to utilize all CPU cores",
+      "Grouping related modules together",
+      "Connecting multiple databases",
+      "Organizing code into clusters of functions"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Clustering in Node.js allows you to create multiple worker processes that share the same server port, enabling utilization of all CPU cores. Since Node.js is single-threaded, clustering helps improve performance for CPU-intensive applications by distributing the workload across multiple processes."
+  },
+  {
+    "id": 11,
+    "topic": "Security",
+    "type": "open-ended",
+    "question": "What are some essential security practices for Node.js applications?",
+    "choices": null,
+    "correctAnswer": null,
+    "explanation": "Essential security practices include: using HTTPS everywhere, validating and sanitizing all input, implementing proper authentication and authorization, using helmet.js for security headers, rate limiting, keeping dependencies updated, using environment variables for secrets, implementing CSRF protection, using secure session management, and regular security audits with tools like npm audit."
+  },
+  {
+    "id": 12,
+    "topic": "Testing",
+    "type": "multiple-choice",
+    "question": "Which testing framework is most commonly used for Node.js applications?",
+    "choices": [
+      "Jest",
+      "JUnit",
+      "PHPUnit",
+      "NUnit"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Jest is the most popular testing framework for Node.js applications. It provides a comprehensive testing solution with built-in test runner, assertion library, mocking capabilities, and code coverage reporting. Other popular options include Mocha and Chai, but Jest has gained widespread adoption due to its simplicity and feature completeness."
+  },
+  {
+    "id": 13,
+    "topic": "File System",
+    "type": "multiple-choice",
+    "question": "What is the difference between fs.readFile() and fs.readFileSync() in Node.js?",
+    "choices": [
+      "readFile() is asynchronous and non-blocking, readFileSync() is synchronous and blocking",
+      "readFile() is faster than readFileSync()",
+      "readFileSync() supports more file formats",
+      "readFile() requires more memory than readFileSync()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "fs.readFile() is asynchronous and non-blocking, allowing other operations to continue while the file is being read. fs.readFileSync() is synchronous and blocks the event loop until the file reading is complete. The async version is preferred in production applications to maintain performance and responsiveness."
+  },
+  {
+    "id": 14,
+    "topic": "Error Handling",
+    "type": "open-ended",
+    "question": "How should you handle uncaught exceptions in Node.js applications?",
+    "choices": null,
+    "correctAnswer": null,
+    "explanation": "Handle uncaught exceptions by: 1) Using process.on('uncaughtException') to log errors and gracefully shut down, 2) Using process.on('unhandledRejection') for unhandled Promise rejections, 3) Implementing proper error handling in all async operations, 4) Using try-catch blocks around critical code, 5) Using process managers like PM2 for automatic restarts, 6) Logging all errors for debugging. Never ignore uncaught exceptions as they can lead to memory leaks and unstable applications."
+  },
+  {
+    "id": 15,
+    "topic": "Streams",
+    "type": "multiple-choice",
+    "question": "What is the main advantage of using streams for processing large files in Node.js?",
+    "choices": [
+      "Memory efficient processing of data in chunks",
+      "Faster file compression",
+      "Better error handling",
+      "Automatic file backup"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Streams allow memory-efficient processing of large files by reading and processing data in small chunks rather than loading the entire file into memory. This prevents memory overflow issues and enables processing of files larger than available RAM, making applications more scalable and efficient."
   }
 ]

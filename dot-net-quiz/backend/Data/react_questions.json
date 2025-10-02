@@ -100,5 +100,68 @@
     ],
     "correctAnswer": 0,
     "explanation": "When using useState, you get a state variable and a setter function. You must use the setter function to update state."
+  },
+  {
+    "id": 9,
+    "topic": "Hooks",
+    "type": "multiple-choice",
+    "question": "What is the purpose of useCallback hook?",
+    "choices": ["Memoize functions to prevent unnecessary re-renders", "Cache API responses", "Handle user callbacks", "Create callback refs"],
+    "correctAnswer": 0,
+    "explanation": "useCallback memoizes functions to prevent unnecessary re-renders of child components when the parent re-renders, optimizing performance by maintaining referential equality."
+  },
+  {
+    "id": 10,
+    "topic": "Performance",
+    "type": "multiple-choice",
+    "question": "What does React.memo() do?",
+    "choices": ["Prevents re-renders if props haven't changed", "Memoizes state values", "Caches API calls", "Optimizes memory usage"],
+    "correctAnswer": 0,
+    "explanation": "React.memo() is a higher-order component that memoizes the component and only re-renders if its props have changed, improving performance."
+  },
+  {
+    "id": 11,
+    "topic": "State Management",
+    "type": "open-ended",
+    "question": "When should you use useReducer instead of useState?",
+    "choices": null,
+    "correctAnswer": null,
+    "explanation": "Use useReducer when: state logic is complex with multiple sub-values, next state depends on previous state, you have complex state transitions, managing state that involves multiple actions, or when you need more predictable state updates."
+  },
+  {
+    "id": 12,
+    "topic": "Testing",
+    "type": "multiple-choice",
+    "question": "Which library is commonly used for testing React components?",
+    "choices": ["React Testing Library", "Selenium", "JUnit", "PHPUnit"],
+    "correctAnswer": 0,
+    "explanation": "React Testing Library is the most popular choice for testing React components, focusing on testing behavior rather than implementation details."
+  },
+  {
+    "id": 13,
+    "topic": "Error Handling",
+    "type": "multiple-choice",
+    "question": "What is an Error Boundary in React?",
+    "choices": ["A component that catches JavaScript errors in child components", "A validation method for props", "A routing mechanism", "A state management tool"],
+    "correctAnswer": 0,
+    "explanation": "Error Boundaries are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI."
+  },
+  {
+    "id": 14,
+    "topic": "Advanced",
+    "type": "open-ended",
+    "question": "What are React Portals and when would you use them?",
+    "choices": null,
+    "correctAnswer": null,
+    "explanation": "React Portals provide a way to render children into a DOM node that exists outside the DOM hierarchy of the parent component. Use them for modals, tooltips, or dropdowns that need to escape parent containers with overflow:hidden or z-index stacking contexts."
+  },
+  {
+    "id": 15,
+    "topic": "Concurrency",
+    "type": "multiple-choice",
+    "question": "What is React Suspense used for?",
+    "choices": ["Handling loading states for async operations", "Suspending component updates", "Pausing animations", "Managing timeouts"],
+    "correctAnswer": 0,
+    "explanation": "React Suspense lets components 'wait' for something before rendering, typically used with lazy loading and data fetching to handle loading states declaratively."
   }
 ]

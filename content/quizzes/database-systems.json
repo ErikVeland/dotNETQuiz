@@ -1,0 +1,548 @@
+{
+  "moduleSlug": "database-systems",
+  "title": "Database Systems Assessment",
+  "description": "Comprehensive assessment covering key concepts from the database-systems module",
+  "totalQuestions": 22,
+  "passingScore": 70,
+  "timeLimit": 23,
+  "questions": [
+    {
+      "id": "database-systems-q1",
+      "question": "What is a primary key in a relational database?",
+      "topic": "Database Fundamentals",
+      "difficulty": "Beginner",
+      "choices": [
+        "A unique identifier for each row in a table",
+        "A key used to encrypt database records",
+        "The first column in a table",
+        "A key used for sorting records"
+      ],
+      "correctIndex": 0,
+      "explanation": "A primary key is a column or set of columns that uniquely identifies each row in a table. It must contain unique values and cannot contain NULL values. Primary keys are essential for entity integrity and are used to establish relationships between tables.",
+      "industryContext": "Database skills are fundamental for any backend developer role.",
+      "tags": [
+        "Database Fundamentals",
+        "beginner",
+        "database"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 1,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.482Z"
+      }
+    },
+    {
+      "id": "database-systems-q2",
+      "question": "Which normal form eliminates transitive dependencies?",
+      "topic": "Database Fundamentals",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Third Normal Form (3NF)",
+        "First Normal Form (1NF)",
+        "Second Normal Form (2NF)",
+        "Boyce-Codd Normal Form (BCNF)"
+      ],
+      "correctIndex": 0,
+      "explanation": "Third Normal Form (3NF) eliminates transitive dependencies, where non-key attributes depend on other non-key attributes. A table is in 3NF if it is in 2NF and all non-key attributes are functionally dependent only on the primary key.",
+      "industryContext": "Database skills are fundamental for any backend developer role.",
+      "tags": [
+        "Database Fundamentals",
+        "intermediate",
+        "database"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 2,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.482Z"
+      }
+    },
+    {
+      "id": "database-systems-q3",
+      "question": "What is the difference between INNER JOIN and LEFT JOIN? When would you use each?",
+      "topic": "SQL",
+      "difficulty": "Beginner",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "INNER JOIN returns only rows that have matching values in both tables. LEFT JOIN returns all rows from the left table and matching rows from the right table. If there's no match, NULL values are returned for columns from the right table. Use INNER JOIN when you only want records that exist in both tables, and LEFT JOIN when you want all records from the first table regardless of whether they have matches in the second table.",
+      "industryContext": "Database skills are fundamental for any backend developer role.",
+      "tags": [
+        "SQL",
+        "beginner",
+        "database"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 3,
+        "originalType": "open-ended",
+        "migrated": "2025-10-01T06:41:13.482Z"
+      }
+    },
+    {
+      "id": "database-systems-q4",
+      "question": "What does an ER diagram represent?",
+      "topic": "Data Modeling",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Entities, relationships, and attributes in a database",
+        "Error reports in a database system",
+        "Execution plans for database queries",
+        "Encryption rules for database security"
+      ],
+      "correctIndex": 0,
+      "explanation": "An Entity-Relationship (ER) diagram is a visual representation of data that describes how entities relate to each other within a database. It shows entities (tables), attributes (columns), and relationships (foreign keys) between entities, helping to design and understand database structure.",
+      "industryContext": "Database skills are fundamental for any backend developer role.",
+      "tags": [
+        "Data Modeling",
+        "intermediate",
+        "database"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 4,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.482Z"
+      }
+    },
+    {
+      "id": "database-systems-q5",
+      "question": "What is the purpose of a DbContext in Entity Framework Core?",
+      "topic": "ORM Integration",
+      "difficulty": "Beginner",
+      "choices": [
+        "To act as a bridge between the domain and the database",
+        "To encrypt database connections",
+        "To manage user authentication",
+        "To optimize SQL queries"
+      ],
+      "correctIndex": 0,
+      "explanation": "DbContext in Entity Framework Core acts as a bridge between your domain or entity classes and the database. It's responsible for database connections, querying, change tracking, and saving changes. It provides LINQ-to-Entities queries and manages the unit of work pattern.",
+      "industryContext": "Database skills are fundamental for any backend developer role.",
+      "tags": [
+        "ORM Integration",
+        "beginner",
+        "database"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 5,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.482Z"
+      }
+    },
+    {
+      "id": "database-systems-q6",
+      "question": "What is the N+1 query problem and how can it be avoided?",
+      "topic": "Performance",
+      "difficulty": "Beginner",
+      "choices": [
+        "Executing one query to get parent records and N queries to get related data for each parent; use eager loading",
+        "A syntax error in SQL queries",
+        "A problem with database indexing",
+        "A network connectivity issue"
+      ],
+      "correctIndex": 0,
+      "explanation": "The N+1 query problem occurs when you execute one query to get a set of parent records and then N additional queries to get related data for each parent record. This can be avoided by using eager loading (JOINs) to fetch all needed data in a single query, or by using techniques like batch loading.",
+      "industryContext": "Database skills are fundamental for any backend developer role.",
+      "tags": [
+        "Performance",
+        "beginner",
+        "database"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 6,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.482Z"
+      }
+    },
+    {
+      "id": "database-systems-q7",
+      "question": "Explain ACID properties in database transactions.",
+      "topic": "Transactions",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "ACID stands for Atomicity, Consistency, Isolation, and Durability. Atomicity ensures transactions are all-or-nothing. Consistency ensures transactions bring the database from one valid state to another. Isolation ensures concurrent transactions don't interfere with each other. Durability ensures committed transactions are permanently recorded even in system failures.",
+      "industryContext": "Database skills are fundamental for any backend developer role.",
+      "tags": [
+        "Transactions",
+        "intermediate",
+        "database"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 7,
+        "originalType": "open-ended",
+        "migrated": "2025-10-01T06:41:13.482Z"
+      }
+    },
+    {
+      "id": "database-systems-q8",
+      "question": "When should you consider adding an index to a database column?",
+      "topic": "Indexing",
+      "difficulty": "Intermediate",
+      "choices": [
+        "When the column is frequently used in WHERE clauses, JOINs, or ORDER BY clauses",
+        "When the column contains large text data",
+        "When the table has fewer than 100 rows",
+        "When the column is updated frequently"
+      ],
+      "correctIndex": 0,
+      "explanation": "Indexes should be added to columns that are frequently used in WHERE clauses, JOIN conditions, or ORDER BY clauses as they significantly improve query performance. However, indexes come with overhead for INSERT, UPDATE, and DELETE operations, so they should be used judiciously.",
+      "industryContext": "Database skills are fundamental for any backend developer role.",
+      "tags": [
+        "Indexing",
+        "intermediate",
+        "database"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 8,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.482Z"
+      }
+    },
+    {
+      "id": "database-systems-q9",
+      "question": "What is the main advantage of document databases like MongoDB over relational databases?",
+      "topic": "NoSQL",
+      "difficulty": "Beginner",
+      "choices": [
+        "Schema flexibility and ability to store nested data structures",
+        "Better performance for all types of queries",
+        "Stronger consistency guarantees",
+        "Better support for complex transactions"
+      ],
+      "correctIndex": 0,
+      "explanation": "Document databases like MongoDB offer schema flexibility, allowing you to store varied document structures without predefined schemas. They excel at storing nested, hierarchical data and can evolve the data model without complex migrations, making them suitable for agile development and varied data structures.",
+      "industryContext": "Database skills are fundamental for any backend developer role.",
+      "tags": [
+        "NoSQL",
+        "beginner",
+        "database"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 9,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.482Z"
+      }
+    },
+    {
+      "id": "database-systems-q10",
+      "question": "Which technique is most effective for preventing SQL injection attacks?",
+      "topic": "Security",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Using parameterized queries or prepared statements",
+        "Validating input length only",
+        "Using stored procedures exclusively",
+        "Encrypting all database data"
+      ],
+      "correctIndex": 0,
+      "explanation": "Parameterized queries (prepared statements) are the most effective defense against SQL injection. They separate SQL code from data, ensuring user input is treated as data rather than executable code. This prevents malicious SQL code from being executed regardless of what users input.",
+      "industryContext": "Database skills are fundamental for any backend developer role.",
+      "tags": [
+        "Security",
+        "intermediate",
+        "database"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 10,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.482Z"
+      }
+    },
+    {
+      "id": "database-systems-q11",
+      "question": "What is the difference between full, incremental, and differential backups? When would you use each?",
+      "topic": "Backup and Recovery",
+      "difficulty": "Beginner",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "Full backup copies all data and provides complete restore capability but takes longest time and space. Incremental backup copies only changes since last backup (any type), fastest but requires all incremental backups for restore. Differential backup copies changes since last full backup, moderate time but only needs full + latest differential for restore. Use full for weekly/monthly, incremental for daily frequent backups, differential for balanced approach.",
+      "industryContext": "Database skills are fundamental for any backend developer role.",
+      "tags": [
+        "Backup and Recovery",
+        "beginner",
+        "database"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 11,
+        "originalType": "open-ended",
+        "migrated": "2025-10-01T06:41:13.482Z"
+      }
+    },
+    {
+      "id": "database-systems-q12",
+      "question": "What is database sharding?",
+      "topic": "Performance",
+      "difficulty": "Beginner",
+      "choices": [
+        "Horizontally partitioning data across multiple servers",
+        "Creating backup copies of the database",
+        "Optimizing database queries",
+        "Compressing database files"
+      ],
+      "correctIndex": 0,
+      "explanation": "Database sharding is a horizontal partitioning technique where data is distributed across multiple database servers (shards). Each shard contains a subset of the data based on a sharding key. This improves performance and scalability by distributing load across multiple servers, though it adds complexity to queries and transactions.",
+      "industryContext": "Database skills are fundamental for any backend developer role.",
+      "tags": [
+        "Performance",
+        "beginner",
+        "database"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 12,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.482Z"
+      }
+    },
+    {
+      "id": "database-systems-q13",
+      "question": "In master-slave database replication, what is the primary purpose of read replicas?",
+      "topic": "Replication",
+      "difficulty": "Beginner",
+      "choices": [
+        "To distribute read queries and improve performance",
+        "To provide backup storage only",
+        "To handle all write operations",
+        "To encrypt database traffic"
+      ],
+      "correctIndex": 0,
+      "explanation": "Read replicas in master-slave replication are designed to handle read queries, distributing the read workload away from the master database. This improves overall system performance by allowing the master to focus on write operations while replicas handle reads. Read replicas also provide geographic distribution and can serve as backup for disaster recovery.",
+      "industryContext": "Database skills are fundamental for any backend developer role.",
+      "tags": [
+        "Replication",
+        "beginner",
+        "database"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 13,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.482Z"
+      }
+    },
+    {
+      "id": "database-systems-q14",
+      "question": "What are CHECK constraints and provide an example of when you would use them?",
+      "topic": "Constraints",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "CHECK constraints enforce domain integrity by limiting the values that can be placed in a column. They define a condition that each row must satisfy. Example: a CHECK constraint on an age column to ensure values are between 0 and 150 (age >= 0 AND age <= 150), or on a status column to only allow specific values like 'active', 'inactive', 'pending'. They help maintain data quality at the database level.",
+      "industryContext": "Database skills are fundamental for any backend developer role.",
+      "tags": [
+        "Constraints",
+        "intermediate",
+        "database"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 14,
+        "originalType": "open-ended",
+        "migrated": "2025-10-01T06:41:13.482Z"
+      }
+    },
+    {
+      "id": "database-systems-q15",
+      "question": "What is the CAP theorem in distributed databases?",
+      "topic": "Advanced Topics",
+      "difficulty": "Beginner",
+      "choices": [
+        "You can only guarantee two of: Consistency, Availability, and Partition tolerance",
+        "All distributed systems must have Consistency, Availability, and Performance",
+        "Databases must choose between Cost, Accuracy, and Performance",
+        "Systems need Caching, APIs, and Partitioning"
+      ],
+      "correctIndex": 0,
+      "explanation": "The CAP theorem states that in a distributed database system, you can only guarantee two out of three properties: Consistency (all nodes see the same data simultaneously), Availability (system remains operational), and Partition tolerance (system continues despite network failures). This fundamental limitation guides the design of distributed databases and helps understand trade-offs in system architecture.",
+      "industryContext": "Database skills are fundamental for any backend developer role.",
+      "tags": [
+        "Advanced Topics",
+        "beginner",
+        "database"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90,
+      "legacy": {
+        "originalId": 15,
+        "originalType": "multiple-choice",
+        "migrated": "2025-10-01T06:41:13.482Z"
+      }
+    },
+    {
+      "id": "database-systems-q16",
+      "question": "Which SQL statement would prevent SQL injection in this scenario: user input for email search?",
+      "topic": "Security",
+      "difficulty": "Intermediate",
+      "choices": [
+        "SELECT * FROM users WHERE email = ?",
+        "SELECT * FROM users WHERE email = 'UNSAFE' + userInput + 'UNSAFE'",
+        "SELECT * FROM users WHERE email = UNSAFE + userInput",
+        "SELECT * FROM users WHERE email LIKE userInput"
+      ],
+      "correctIndex": 0,
+      "explanation": "Using parameterized queries with placeholders (?) prevents SQL injection by separating SQL code from user data. The database treats user input as data only, not executable code. Options B and C use string concatenation which allows malicious SQL to be injected, while option D has syntax errors.",
+      "industryContext": "SQL injection is one of the top security vulnerabilities. Preventing it is critical for protecting user data and system integrity.",
+      "tags": ["Security", "SQL Injection", "intermediate"],
+      "questionType": "multiple-choice",
+      "estimatedTime": 120
+    },
+    {
+      "id": "database-systems-q17",
+      "question": "What is the main advantage of using a covering index?",
+      "topic": "Performance",
+      "difficulty": "Advanced",
+      "choices": [
+        "The query can be satisfied entirely from the index without accessing the table",
+        "It covers all tables in the database",
+        "It automatically creates indexes on all columns",
+        "It provides backup coverage for data"
+      ],
+      "correctIndex": 0,
+      "explanation": "A covering index includes all columns needed by a query, allowing the database to satisfy the query entirely from the index without accessing the underlying table data. This dramatically improves performance by reducing I/O operations and memory usage.",
+      "industryContext": "Covering indexes are a advanced performance optimization technique used in high-traffic applications to minimize database I/O.",
+      "tags": ["Performance", "Indexing", "advanced"],
+      "questionType": "multiple-choice",
+      "estimatedTime": 120
+    },
+    {
+      "id": "database-systems-q18",
+      "question": "In MongoDB, what does the $unwind operator do in an aggregation pipeline?",
+      "topic": "NoSQL",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Separates array elements into individual documents",
+        "Combines multiple documents into one",
+        "Sorts documents in reverse order",
+        "Removes duplicate values from arrays"
+      ],
+      "correctIndex": 0,
+      "explanation": "The $unwind operator in MongoDB takes an array field and creates a separate document for each array element. For example, if a document has an array with 3 elements, $unwind creates 3 documents, each containing one array element. This is useful for analyzing array data in aggregation pipelines.",
+      "industryContext": "MongoDB aggregation pipelines are essential for data analysis and reporting in NoSQL applications.",
+      "tags": ["NoSQL", "MongoDB", "intermediate"],
+      "questionType": "multiple-choice",
+      "estimatedTime": 120
+    },
+    {
+      "id": "database-systems-q19",
+      "question": "What is database normalization and why is it important?",
+      "topic": "Design",
+      "difficulty": "Beginner",
+      "choices": [
+        "Process of organizing data to reduce redundancy and improve integrity",
+        "Making all column names the same format",
+        "Converting all data to the same data type",
+        "Ensuring all tables have the same number of columns"
+      ],
+      "correctIndex": 0,
+      "explanation": "Database normalization is the process of organizing data in a database to reduce redundancy and improve data integrity. It involves dividing large tables into smaller ones and defining relationships between them. This prevents data anomalies, saves storage space, and makes updates more efficient by ensuring data is stored in only one place.",
+      "industryContext": "Proper database design through normalization is fundamental to creating maintainable, efficient database systems.",
+      "tags": ["Design", "Normalization", "beginner"],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90
+    },
+    {
+      "id": "database-systems-q20",
+      "question": "Which backup strategy provides the fastest recovery time but uses the most storage space?",
+      "topic": "Administration",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Full backup every day",
+        "Full backup weekly with daily incremental backups",
+        "Full backup monthly with daily differential backups",
+        "Transaction log backups only"
+      ],
+      "correctIndex": 0,
+      "explanation": "Daily full backups provide the fastest recovery time because you only need to restore one backup file. However, they use the most storage space since they backup all data every day. Other strategies save space but require restoring multiple backup files, increasing recovery time.",
+      "industryContext": "Backup strategy decisions involve balancing recovery time objectives (RTO) with storage costs and backup windows.",
+      "tags": ["Administration", "Backup", "intermediate"],
+      "questionType": "multiple-choice",
+      "estimatedTime": 120
+    },
+    {
+      "id": "database-systems-q21",
+      "question": "What happens when you execute this query: SELECT * FROM users WHERE user_id = NULL?",
+      "topic": "SQL",
+      "difficulty": "Beginner",
+      "choices": [
+        "Returns no rows because NULL comparisons require IS NULL",
+        "Returns all rows where user_id is NULL",
+        "Returns all rows in the table",
+        "Throws a syntax error"
+      ],
+      "correctIndex": 0,
+      "explanation": "The query returns no rows because NULL cannot be compared using = operator. In SQL, NULL represents unknown/missing data and requires special operators. To find NULL values, use 'WHERE user_id IS NULL'. To find non-NULL values, use 'WHERE user_id IS NOT NULL'.",
+      "industryContext": "Understanding NULL handling is crucial for writing correct SQL queries and avoiding common bugs in data retrieval.",
+      "tags": ["SQL", "NULL", "beginner"],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90
+    },
+    {
+      "id": "database-systems-q22",
+      "question": "In a many-to-many relationship, why do you need a junction table?",
+      "topic": "Design",
+      "difficulty": "Intermediate",
+      "choices": [
+        "To avoid storing duplicate data and maintain referential integrity",
+        "To make queries run faster",
+        "To reduce the number of indexes needed",
+        "To comply with database licensing requirements"
+      ],
+      "correctIndex": 0,
+      "explanation": "A junction table (bridge/linking table) is needed in many-to-many relationships to avoid data duplication and maintain referential integrity. Without it, you'd have to store duplicate data in one of the tables or violate normalization rules. The junction table contains foreign keys to both related tables, creating a clean many-to-many relationship.",
+      "industryContext": "Many-to-many relationships are common in real applications (users-roles, products-categories, students-courses) and proper modeling is essential.",
+      "tags": ["Design", "Relationships", "intermediate"],
+      "questionType": "multiple-choice",
+      "estimatedTime": 120
+    }
+  ],
+  "metadata": {
+    "migrated": true,
+    "originalQuestionCount": 15,
+    "migrationDate": "2025-10-01T06:41:13.482Z",
+    "lastUpdated": "2025-10-01T06:41:13.482Z",
+    "version": "1.0.0"
+  }
+}

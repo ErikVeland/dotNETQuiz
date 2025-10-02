@@ -129,7 +129,7 @@ export default function NextJsLessonsPage() {
 
     return (
         // Updated container with glass morphism effect
-        <main className="min-h-screen p-6 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm text-gray-800 dark:text-gray-100">
+        <main className="min-h-screen p-6 text-gray-800 dark:text-gray-100">
             {/* Updated container with glass morphism effect */}
             <div className="max-w-2xl mx-auto bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
                 <Link href="/" className="inline-block mb-4 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 font-semibold py-1 px-2 rounded shadow hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors duration-150 flex items-center gap-1 text-xs">

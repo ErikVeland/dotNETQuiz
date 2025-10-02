@@ -1,0 +1,623 @@
+{
+  "moduleSlug": "dotnet-fundamentals",
+  "title": "Dotnet Fundamentals Assessment",
+  "description": "Comprehensive assessment covering key concepts from the dotnet-fundamentals module",
+  "totalQuestions": 25,
+  "passingScore": 70,
+  "timeLimit": 30,
+  "questions": [
+    {
+      "id": "dotnet-fundamentals-q1",
+      "question": "What is the difference between .NET Framework and .NET Core?",
+      "topic": "General",
+      "difficulty": "Beginner",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": ".NET Core is a cross-platform, open-source framework that can run on Windows, macOS, and Linux, while .NET Framework is Windows-only and proprietary.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "beginner",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 1,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q2",
+      "question": "Which keyword is used to declare a constant in C#?",
+      "topic": "General",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "The 'const' keyword is used to declare compile-time constants in C#. The value must be assigned at declaration and cannot be changed.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "intermediate",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 2,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q3",
+      "question": "What is the correct way to declare a nullable integer in C#?",
+      "topic": "General",
+      "difficulty": "Beginner",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "int? is the shorthand syntax for Nullable<int>, which allows value types to hold null values.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "beginner",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 3,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q4",
+      "question": "Which access modifier makes a member accessible only within the same class?",
+      "topic": "General",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "The 'private' access modifier restricts access to the member only within the same class where it's declared.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "intermediate",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 4,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q5",
+      "question": "What does the 'virtual' keyword indicate in C#?",
+      "topic": "General",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "The 'virtual' keyword allows a method to be overridden in derived classes using the 'override' keyword, enabling polymorphism.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "intermediate",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 5,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q6",
+      "question": "Which LINQ method would you use to filter a collection?",
+      "topic": "General",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "The 'Where' method is used to filter collections based on a specified condition, returning only elements that match the criteria.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "intermediate",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 6,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q7",
+      "question": "What is the purpose of the 'using' statement in C#?",
+      "topic": "General",
+      "difficulty": "Beginner",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "The 'using' statement ensures that IDisposable objects are properly disposed of when they go out of scope, even if an exception occurs.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "beginner",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 7,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q8",
+      "question": "Which keyword is used to prevent inheritance of a class in C#?",
+      "topic": "General",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "The 'sealed' keyword prevents a class from being inherited by other classes, making it the final class in the inheritance hierarchy.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "intermediate",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 8,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q9",
+      "question": "What is the difference between IEnumerable and IQueryable?",
+      "topic": "General",
+      "difficulty": "Beginner",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "IEnumerable is for in-memory collections and executes queries locally, while IQueryable is designed for remote data sources and can translate queries to other formats like SQL.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "beginner",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 9,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q10",
+      "question": "In async programming, what does 'await' do?",
+      "topic": "General",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "'await' asynchronously waits for the task to complete, returning control to the caller and resuming execution when the task finishes, without blocking the thread.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "intermediate",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 10,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q11",
+      "question": "What is the purpose of the 'yield' keyword in C#?",
+      "topic": "General",
+      "difficulty": "Beginner",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "The 'yield' keyword is used to create iterator methods that return IEnumerable or IEnumerator, allowing lazy evaluation of sequences.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "beginner",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 11,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q12",
+      "question": "Which design pattern is commonly used for dependency injection in .NET?",
+      "topic": "General",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "IoC containers implement the Inversion of Control principle for dependency injection, managing object creation and dependency resolution automatically.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "intermediate",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 12,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q13",
+      "question": "What is the difference between 'ref' and 'out' parameters?",
+      "topic": "General",
+      "difficulty": "Beginner",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "'ref' parameters must be initialized before being passed to a method, while 'out' parameters don't need initialization but must be assigned a value within the method.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "beginner",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 13,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q14",
+      "question": "Which collection type provides the best performance for frequent insertions and deletions at arbitrary positions?",
+      "topic": "General",
+      "difficulty": "Advanced",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "LinkedList<T> provides O(1) insertion and deletion at arbitrary positions when you have a reference to the node, unlike List<T> which requires O(n) for insertions/deletions in the middle.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "advanced",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 14,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q15",
+      "question": "What is the purpose of the 'ConfigureAwait(false)' method?",
+      "topic": "General",
+      "difficulty": "Beginner",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "ConfigureAwait(false) prevents capturing the current synchronization context, which can help avoid deadlocks in library code and improve performance.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "beginner",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 15,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q16",
+      "question": "Which attribute is used to specify that a property should be serialized with a different name in JSON?",
+      "topic": "General",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "In System.Text.Json, [JsonPropertyName] is used to specify a different property name during JSON serialization/deserialization.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "intermediate",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 16,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q17",
+      "question": "What is the difference between 'var' and 'dynamic' in C#?",
+      "topic": "General",
+      "difficulty": "Beginner",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "'var' uses compile-time type inference where the type is determined at compile time, while 'dynamic' defers type checking to runtime.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "beginner",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 17,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q18",
+      "question": "Which method is called when an object is about to be garbage collected?",
+      "topic": "General",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "The Finalize() method (implemented via destructor syntax ~ClassName()) is called by the garbage collector before an object is collected.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "intermediate",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 18,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q19",
+      "question": "What is the purpose of the 'lock' statement in C#?",
+      "topic": "General",
+      "difficulty": "Beginner",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "The 'lock' statement provides mutual exclusion, ensuring that only one thread can execute the locked code block at a time, preventing race conditions.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "beginner",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 19,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q20",
+      "question": "Which interface should a class implement to support the 'foreach' loop?",
+      "topic": "General",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Open-ended question - no multiple choice",
+        "This is a conceptual question",
+        "Answer requires explanation",
+        "Multiple approaches possible"
+      ],
+      "correctIndex": 0,
+      "explanation": "A class must implement IEnumerable (or IEnumerable<T>) to support iteration with foreach loops, providing the GetEnumerator() method.",
+      "industryContext": ".NET is a powerful platform for enterprise and cloud applications.",
+      "tags": [
+        "intermediate",
+        "dotnet"
+      ],
+      "questionType": "open-ended",
+      "estimatedTime": 180,
+      "legacy": {
+        "originalId": 20,
+        "migrated": "2025-10-01T06:41:13.481Z"
+      }
+    },
+    {
+      "id": "dotnet-fundamentals-q21",
+      "question": "What is the difference between 'ref' and 'out' parameters in C#?",
+      "topic": "Parameters",
+      "difficulty": "Intermediate",
+      "choices": [
+        "ref requires initialization before passing, out does not require initialization",
+        "out requires initialization before passing, ref does not require initialization",
+        "Both require initialization before passing",
+        "Neither requires initialization before passing"
+      ],
+      "correctIndex": 0,
+      "explanation": "The 'ref' keyword requires the variable to be initialized before passing to the method, while 'out' parameters are considered unassigned and must be assigned a value within the method before returning.",
+      "industryContext": "Understanding parameter passing is crucial for method design and performance optimization in .NET applications.",
+      "tags": [
+        "intermediate",
+        "dotnet"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 120
+    },
+    {
+      "id": "dotnet-fundamentals-q22",
+      "question": "Which collection should you use for fast key-based lookups in C#?",
+      "topic": "Collections",
+      "difficulty": "Beginner",
+      "choices": [
+        "List<T>",
+        "Array",
+        "Dictionary<TKey, TValue>",
+        "Queue<T>"
+      ],
+      "correctIndex": 2,
+      "explanation": "Dictionary<TKey, TValue> provides O(1) average time complexity for lookups, making it the best choice for fast key-based data retrieval.",
+      "industryContext": "Choosing the right collection type is essential for application performance and memory efficiency.",
+      "tags": [
+        "beginner",
+        "dotnet"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90
+    },
+    {
+      "id": "dotnet-fundamentals-q23",
+      "question": "What is the purpose of the 'async' and 'await' keywords in C#?",
+      "topic": "Async Programming",
+      "difficulty": "Intermediate",
+      "choices": [
+        "To create multi-threaded applications",
+        "To enable asynchronous programming and non-blocking operations",
+        "To improve application security",
+        "To handle exceptions automatically"
+      ],
+      "correctIndex": 1,
+      "explanation": "The 'async' and 'await' keywords enable asynchronous programming, allowing methods to yield control back to the caller while waiting for long-running operations, improving application responsiveness.",
+      "industryContext": "Asynchronous programming is essential for building responsive web applications and efficient I/O operations.",
+      "tags": [
+        "intermediate",
+        "dotnet"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 150
+    },
+    {
+      "id": "dotnet-fundamentals-q24",
+      "question": "Which statement about value types and reference types is correct?",
+      "topic": "Types",
+      "difficulty": "Intermediate",
+      "choices": [
+        "Value types are stored on the heap, reference types on the stack",
+        "Value types are stored on the stack, reference types on the heap",
+        "Both value types and reference types are stored on the heap",
+        "Both value types and reference types are stored on the stack"
+      ],
+      "correctIndex": 1,
+      "explanation": "Value types (like int, bool, struct) are typically stored on the stack and contain their data directly, while reference types (like classes, arrays) are stored on the heap and variables contain references to the actual data.",
+      "industryContext": "Understanding memory allocation is crucial for performance optimization and avoiding memory leaks in .NET applications.",
+      "tags": [
+        "intermediate",
+        "dotnet"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 120
+    },
+    {
+      "id": "dotnet-fundamentals-q25",
+      "question": "What is the primary benefit of using Entity Framework in .NET applications?",
+      "topic": "Entity Framework",
+      "difficulty": "Beginner",
+      "choices": [
+        "It improves application security",
+        "It provides an Object-Relational Mapping (ORM) layer for database operations",
+        "It makes applications run faster",
+        "It reduces memory usage"
+      ],
+      "correctIndex": 1,
+      "explanation": "Entity Framework is an Object-Relational Mapping (ORM) framework that allows developers to work with databases using .NET objects instead of writing raw SQL queries, increasing productivity and maintainability.",
+      "industryContext": "Entity Framework is widely used in enterprise .NET applications for data access, making database operations more intuitive and maintainable.",
+      "tags": [
+        "beginner",
+        "dotnet"
+      ],
+      "questionType": "multiple-choice",
+      "estimatedTime": 90
+    }
+  ],
+  "metadata": {
+    "migrated": true,
+    "originalQuestionCount": 20,
+    "totalQuestions": 25,
+    "migrationDate": "2025-10-01T06:41:13.481Z",
+    "lastUpdated": "2025-10-01T18:00:00.000Z",
+    "version": "1.0.0"
+  }
+}

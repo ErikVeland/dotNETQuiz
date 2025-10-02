@@ -100,5 +100,68 @@
     ],
     "correctAnswer": 0,
     "explanation": "v-if conditionally renders elements by actually adding or removing them from the DOM based on the condition. v-show simply toggles the CSS display property to show or hide elements. v-if has higher toggle costs but v-show has higher initial render costs. Use v-if for rarely changed conditions and v-show for frequently toggled elements."
+  },
+  {
+    "id": 9,
+    "topic": "Composition API",
+    "type": "multiple-choice",
+    "question": "What is the main advantage of Vue 3's Composition API?",
+    "choices": ["Better logic reuse and TypeScript support", "Faster rendering", "Smaller bundle size", "Automatic optimization"],
+    "correctAnswer": 0,
+    "explanation": "The Composition API provides better logic reuse through composables, improved TypeScript support, and cleaner organization of component logic."
+  },
+  {
+    "id": 10,
+    "topic": "Reactivity",
+    "type": "multiple-choice",
+    "question": "What is the difference between ref() and reactive() in Vue 3?",
+    "choices": ["ref() for primitives, reactive() for objects", "ref() is faster than reactive()", "reactive() is deprecated", "No functional difference"],
+    "correctAnswer": 0,
+    "explanation": "ref() is used for primitive values and returns a reactive reference, while reactive() is used for objects and makes them deeply reactive."
+  },
+  {
+    "id": 11,
+    "topic": "Performance",
+    "type": "open-ended",
+    "question": "How can you optimize Vue application performance?",
+    "choices": null,
+    "correctAnswer": null,
+    "explanation": "Optimize Vue apps through: lazy loading components, using v-show vs v-if appropriately, implementing virtual scrolling, optimizing computed properties, using keep-alive for cached components, and minimizing reactivity overhead."
+  },
+  {
+    "id": 12,
+    "topic": "State Management",
+    "type": "multiple-choice",
+    "question": "What is Pinia and how does it relate to Vuex?",
+    "choices": ["Pinia is the recommended state management for Vue 3, replacing Vuex", "Pinia is a Vue component library", "Pinia is a testing framework", "Pinia is a UI framework"],
+    "correctAnswer": 0,
+    "explanation": "Pinia is the official state management solution for Vue 3, offering better TypeScript support, simpler API, and improved devtools compared to Vuex."
+  },
+  {
+    "id": 13,
+    "topic": "Testing",
+    "type": "multiple-choice",
+    "question": "Which tool is recommended for testing Vue components?",
+    "choices": ["Vue Test Utils with Vitest", "Jest only", "Selenium", "Cypress only"],
+    "correctAnswer": 0,
+    "explanation": "Vue Test Utils provides utilities for testing Vue components, often paired with Vitest for fast unit testing in Vue 3 projects."
+  },
+  {
+    "id": 14,
+    "topic": "Advanced",
+    "type": "open-ended",
+    "question": "What are Teleports in Vue 3 and when would you use them?",
+    "choices": null,
+    "correctAnswer": null,
+    "explanation": "Teleports allow rendering component templates in different parts of the DOM tree, outside the component hierarchy. Use for modals, tooltips, or notifications that need to escape parent containers."
+  },
+  {
+    "id": 15,
+    "topic": "Directives",
+    "type": "multiple-choice",
+    "question": "How do you create a custom directive in Vue 3?",
+    "choices": ["Using app.directive() method", "Using Vue.directive()", "Using @directive decorator", "Using defineDirective()"],
+    "correctAnswer": 0,
+    "explanation": "In Vue 3, custom directives are created using app.directive(name, definition) where definition is an object with lifecycle hooks."
   }
 ]

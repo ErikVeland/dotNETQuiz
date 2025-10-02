@@ -61,6 +61,9 @@ builder.Services.AddGraphQLServer()
     // Testing GraphQL types
     .AddType<backend.GraphQL.TestingLessonType>()
     .AddType<backend.GraphQL.TestingInterviewQuestionType>()
+    // DotNet GraphQL types
+    .AddType<backend.GraphQL.DotNetLessonType>()
+    .AddType<backend.GraphQL.DotNetInterviewQuestionType>()
     .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true);
 
 var app = builder.Build();

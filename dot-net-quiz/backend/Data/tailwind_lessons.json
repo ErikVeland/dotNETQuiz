@@ -38,5 +38,61 @@
     "description": "Learn how to customize Tailwind's default theme and add your own utility classes.",
     "codeExample": "// tailwind.config.js\nmodule.exports = {\n  theme: {\n    extend: {\n      colors: {\n        'brand-blue': '#1971c2',\n        'brand-green': '#2b8a3e',\n      },\n      spacing: {\n        '128': '32rem',\n      }\n    }\n  },\n  plugins: [\n    function({ addUtilities }) {\n      const newUtilities = {\n        '.text-shadow': {\n          textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)'\n        }\n      }\n      addUtilities(newUtilities)\n    }\n  ]\n}",
     "output": "Custom color palette and spacing scale added to Tailwind configuration"
+  },
+  {
+    "id": 6,
+    "topic": "Components",
+    "title": "Building Reusable Components",
+    "description": "Learn how to create reusable components with Tailwind CSS.",
+    "codeExample": "<!-- Button component variations -->\n<button class=\"btn btn-primary\">Primary</button>\n<button class=\"btn btn-secondary\">Secondary</button>\n\n@layer components {\n  .btn {\n    @apply px-4 py-2 rounded font-medium focus:outline-none focus:ring-2;\n  }\n  .btn-primary {\n    @apply bg-blue-500 text-white hover:bg-blue-600 focus:ring-blue-300;\n  }\n  .btn-secondary {\n    @apply bg-gray-500 text-white hover:bg-gray-600 focus:ring-gray-300;\n  }\n}",
+    "output": "Reusable button components with consistent styling and hover states"
+  },
+  {
+    "id": 7,
+    "topic": "Forms",
+    "title": "Styling Forms",
+    "description": "Learn how to style forms and form controls with Tailwind.",
+    "codeExample": "<form class=\"max-w-md mx-auto\">\n  <div class=\"mb-4\">\n    <label class=\"block text-gray-700 text-sm font-bold mb-2\">\n      Email\n    </label>\n    <input class=\"w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500\" type=\"email\">\n  </div>\n  <button class=\"w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600\">\n    Submit\n  </button>\n</form>",
+    "output": "Styled form with input field and submit button"
+  },
+  {
+    "id": 8,
+    "topic": "Animation",
+    "title": "Animations and Transitions",
+    "description": "Learn how to add animations and transitions using Tailwind.",
+    "codeExample": "<!-- Hover animations -->\n<div class=\"transform transition duration-300 hover:scale-105\">\n  Hover to scale\n</div>\n\n<!-- Loading spinner -->\n<div class=\"animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500\"></div>\n\n<!-- Custom animation -->\n@keyframes bounce {\n  0%, 100% { transform: translateY(-25%); }\n  50% { transform: none; }\n}\n\n.animate-bounce { animation: bounce 1s infinite; }",
+    "output": "Elements with hover effects, loading spinner, and bounce animation"
+  },
+  {
+    "id": 9,
+    "topic": "Dark Mode",
+    "title": "Dark Mode Implementation",
+    "description": "Learn how to implement dark mode with Tailwind CSS.",
+    "codeExample": "<!-- Dark mode configuration -->\nmodule.exports = {\n  darkMode: 'class',\n  // ...\n}\n\n<!-- Dark mode styles -->\n<div class=\"bg-white dark:bg-gray-800 text-gray-900 dark:text-white\">\n  <h1 class=\"text-gray-900 dark:text-white\">Title</h1>\n  <p class=\"text-gray-600 dark:text-gray-300\">Content</p>\n</div>\n\n<!-- Toggle dark mode -->\n<button onclick=\"document.documentElement.classList.toggle('dark')\">\n  Toggle Dark Mode\n</button>",
+    "output": "Component with light and dark mode styling variations"
+  },
+  {
+    "id": 10,
+    "topic": "Optimization",
+    "title": "Performance Optimization",
+    "description": "Learn how to optimize Tailwind CSS for production.",
+    "codeExample": "// Production optimization\nmodule.exports = {\n  content: ['./src/**/*.{html,js,jsx,ts,tsx}'],\n  theme: { extend: {} },\n  plugins: [],\n}\n\n// PurgeCSS configuration\nconst purgecss = require('@fullhuman/postcss-purgecss')\n\nmodule.exports = {\n  plugins: [\n    require('tailwindcss'),\n    require('autoprefixer'),\n    ...(process.env.NODE_ENV === 'production' ? [purgecss] : [])\n  ]\n}",
+    "output": "Optimized build configuration for smaller CSS bundles in production"
+  },
+  {
+    "id": 11,
+    "topic": "Plugins",
+    "title": "Using Tailwind Plugins",
+    "description": "Learn how to extend Tailwind with plugins.",
+    "codeExample": "// Install and configure plugins\nnpm install @tailwindcss/forms @tailwindcss/typography\n\n// tailwind.config.js\nmodule.exports = {\n  plugins: [\n    require('@tailwindcss/forms'),\n    require('@tailwindcss/typography'),\n  ],\n}\n\n<!-- Typography plugin usage -->\n<article class=\"prose lg:prose-xl\">\n  <h1>Article Title</h1>\n  <p>Article content with beautiful typography.</p>\n</article>",
+    "output": "Enhanced forms and typography styling with official Tailwind plugins"
+  },
+  {
+    "id": 12,
+    "topic": "Integration",
+    "title": "Framework Integration",
+    "description": "Learn how to integrate Tailwind with popular frameworks.",
+    "codeExample": "// React integration\nimport './tailwind.css'\n\nfunction Button({ children, variant = 'primary' }) {\n  const baseClasses = 'px-4 py-2 rounded font-medium'\n  const variants = {\n    primary: 'bg-blue-500 text-white hover:bg-blue-600',\n    secondary: 'bg-gray-200 text-gray-800 hover:bg-gray-300'\n  }\n  \n  return (\n    <button className={`${baseClasses} ${variants[variant]}`}>\n      {children}\n    </button>\n  )\n}\n\n// Vue integration\n<template>\n  <button :class=\"buttonClasses\">\n    <slot />\n  </button>\n</template>\n\n<script>\nexport default {\n  computed: {\n    buttonClasses() {\n      return 'px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'\n    }\n  }\n}\n</script>",
+    "output": "Tailwind CSS integrated with React and Vue components for reusable styling"
   }
 ]

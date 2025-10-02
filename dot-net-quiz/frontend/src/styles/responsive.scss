@@ -1,5 +1,6 @@
 // Responsive Design System for Fullstack Academy
 // Mobile-first approach with SCSS mixins
+@use "sass:map";
 
 // Breakpoints following user's SCSS preference
 $breakpoints: (
@@ -10,8 +11,8 @@ $breakpoints: (
 );
 
 @mixin respond-to($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    @media (min-width: map-get($breakpoints, $breakpoint)) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media (min-width: map.get($breakpoints, $breakpoint)) {
       @content;
     }
   }
