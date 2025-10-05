@@ -394,7 +394,7 @@ export default function DatabaseInterviewPage() {
   };
 
   return (
-    // Updated container with glass morphism effect
+    
     <div className="py-12 px-4 sm:px-6 lg:px-8">
       <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
         {/* Progress bar */}
@@ -440,4 +440,26 @@ export default function DatabaseInterviewPage() {
                             : "border-gray-200 dark:border-gray-600" 
                         : displayIndex === selected 
                           ? "bg-purple-50/30 dark:bg-purple-900/20 border-purple-300 dark:border-purple-600 shadow-sm" 
-                          : "border-gray-200 dark:border-gray-600 hover:border-purple-200 dark:hover:border-purple-500 hover:bg-purple
+                          : "border-gray-200 dark:border-gray-600 hover:border-purple-200 dark:hover:border-purple-500 hover:bg-purple-50/20"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-800 dark:text-gray-200" dangerouslySetInnerHTML={{ __html: choice }}></span>
+                      {feedback && (
+                        displayIndex === getDisplayCorrectAnswerIndex() ? (
+                          <span className="ml-3 text-green-600 dark:text-green-400 font-semibold">Correct</span>
+                        ) : displayIndex === selected ? (
+                          <span className="ml-3 text-red-600 dark:text-red-400 font-semibold">Your choice</span>
+                        ) : null
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
