@@ -115,7 +115,7 @@ export default function TestingLessonsPage() {
     if (error && !isNetworkError(error)) {
         return (
             <main className="p-6">
-                <div className="max-w-4xl mx-auto bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
                     <div className="text-red-600 dark:text-red-400">Error loading Testing lessons.</div>
                     <button 
                         className="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors duration-200"
@@ -132,7 +132,7 @@ export default function TestingLessonsPage() {
         // Updated container with glass morphism effect
         <div className="w-full p-6">
             {/* Updated container with glass morphism effect */}
-            <div className="max-w-4xl mx-auto bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+            <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
                 <Link href="/" className="inline-block mb-4 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 font-semibold py-1 px-2 rounded shadow hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors duration-150 flex items-center gap-1 text-xs">
                     <span className="text-base">←</span> Back to Home
                 </Link>
@@ -151,7 +151,7 @@ export default function TestingLessonsPage() {
                                     {group.lessons.map((lesson, idx) => (
                                         <li
                                             key={lesson.id}
-                                            className="bg-gray-100/30 dark:bg-gray-700/30 backdrop-blur-sm p-4 rounded shadow hover:bg-orange-50 dark:hover:bg-orange-900 cursor-pointer transition-colors duration-150 border border-gray-200 dark:border-gray-600"
+                                            className="bg-gray-100 dark:bg-gray-700 p-4 rounded shadow hover:bg-orange-50 dark:hover:bg-orange-900 cursor-pointer transition-colors duration-150 border border-gray-200 dark:border-gray-600"
                                             onClick={() => {
                                                 setSelectedTopic(group.topic);
                                                 setSelectedIndex(idx);
@@ -174,7 +174,7 @@ export default function TestingLessonsPage() {
                 {/* Lesson Detail View */}
                 {selectedTopic !== null && currentLesson && (
                     // Updated container with glass morphism effect
-                    <div className="bg-gray-100/30 dark:bg-gray-700/30 backdrop-blur-sm p-6 rounded-xl shadow-lg space-y-4 mt-4 border border-gray-200 dark:border-gray-600">
+                    <div className="bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-lg space-y-4 mt-4 border border-gray-200 dark:border-gray-600">
                         <button
                             className="w-full mb-4 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 font-semibold py-1 rounded shadow hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors duration-150 flex items-center justify-center gap-1 text-xs"
                             onClick={() => {
@@ -194,7 +194,7 @@ export default function TestingLessonsPage() {
 
                         <div>
                             <h3 className="font-semibold mt-4 text-orange-700 dark:text-orange-300">Test Code Example:</h3>
-                            <pre className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm p-4 rounded text-sm whitespace-pre-wrap border border-gray-200 dark:border-gray-600 overflow-x-auto">
+                            <pre className="bg-white dark:bg-gray-800 p-4 rounded text-sm whitespace-pre-wrap border border-gray-200 dark:border-gray-600 overflow-x-auto">
                                 <code>{currentLesson.codeExample}</code>
                             </pre>
                         </div>
