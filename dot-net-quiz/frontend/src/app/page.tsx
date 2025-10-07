@@ -164,7 +164,7 @@ export default function Home() {
             {backendModules.map((module) => (
               <div 
                 key={module.id} 
-                className="flex flex-col bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-md focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
+                className="flex flex-col bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-md focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
               >
                 <h3 className="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">{module.title}</h3>
                 <p className="mb-5 text-gray-600 dark:text-gray-300 flex-grow">
@@ -201,7 +201,7 @@ export default function Home() {
             {frontendModules.map((module) => (
               <div 
                 key={module.id} 
-                className="flex flex-col bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-md focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
+                className="flex flex-col bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-md focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
               >
                 <h3 className="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">{module.title}</h3>
                 <p className="mb-5 text-gray-600 dark:text-gray-300 flex-grow">

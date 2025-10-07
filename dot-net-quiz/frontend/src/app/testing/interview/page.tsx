@@ -284,7 +284,7 @@ export default function TestingInterviewPage() {
     return (
       // Updated container with glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
             <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
@@ -308,7 +308,7 @@ export default function TestingInterviewPage() {
     return (
       // Updated container with glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">No Questions Available</h2>
             <p className="mb-4 text-gray-600 dark:text-gray-300">There are no Testing interview questions available at this time.</p>
@@ -325,7 +325,7 @@ export default function TestingInterviewPage() {
     return (
       // Updated container with glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-4">
               Quiz Completed
@@ -348,7 +348,7 @@ export default function TestingInterviewPage() {
                 Return Home
               </Link>
               {score < Math.ceil(shuffledQuestions.length * 0.7) && (
-                <Link href="/testing/lessons" className="px-4 py-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-lg hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-150 font-semibold">
+                <Link href="/testing/lessons" className="px-4 py-2 bg-indigo-600 dark:bg-indigo-700 text-white rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors duration-200 font-semibold">
                   Review Lessons
                 </Link>
               )}
@@ -361,7 +361,7 @@ export default function TestingInterviewPage() {
             </div>
 
             {score >= Math.ceil(shuffledQuestions.length * 0.7) && (
-              <div className="mt-8 p-6 border-2 border-orange-200 dark:border-orange-700 rounded-xl bg-orange-50/30 dark:bg-orange-900/20 backdrop-blur-sm">
+              <div className="mt-8 p-6 border-2 border-orange-200 dark:border-orange-700 rounded-xl bg-orange-50 dark:bg-orange-900">
                 <h3 className="text-xl font-bold text-orange-800 dark:text-orange-200 mb-2">Certificate of Completion</h3>
                 <p className="text-orange-700 dark:text-orange-300">This certifies that you have successfully completed the Testing interview preparation quiz.</p>
               </div>
@@ -395,9 +395,9 @@ export default function TestingInterviewPage() {
   return (
     // Updated container with glass morphism effect
     <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
         {/* Progress bar */}
-        <div className="bg-gray-100/30 dark:bg-gray-700/30 backdrop-blur-sm h-2">
+        <div className="bg-gray-100 dark:bg-gray-700 h-2">
           <div 
             className="bg-orange-600 dark:bg-orange-500 h-2 transition-all duration-300 ease-out" 
             style={{ width: `${progress}%` }}
@@ -430,16 +430,16 @@ export default function TestingInterviewPage() {
                   <div 
                     key={displayIndex}
                     onClick={() => !feedback && setSelected(displayIndex)}
-                    className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 backdrop-blur-sm ${
+                    className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 ${
                       feedback 
                         ? displayIndex === getDisplayCorrectAnswerIndex() 
-                          ? "bg-green-50/30 dark:bg-green-900/20 border-green-300 dark:border-green-600" 
+                          ? "bg-green-50 dark:bg-green-900 border-green-300 dark:border-green-600" 
                           : displayIndex === selected 
-                            ? "bg-red-50/30 dark:bg-red-900/20 border-red-300 dark:border-red-600" 
+                            ? "bg-red-50 dark:bg-red-900 border-red-300 dark:border-red-600" 
                             : "border-gray-200 dark:border-gray-600" 
                         : displayIndex === selected 
-                          ? "bg-orange-50/30 dark:bg-orange-900/20 border-orange-300 dark:border-orange-600 shadow-sm" 
-                          : "border-gray-200 dark:border-gray-600 hover:border-orange-200 dark:hover:border-orange-500 hover:bg-orange-50/30 dark:hover:bg-orange-900/10"
+                          ? "bg-orange-50 dark:bg-orange-900 border-orange-300 dark:border-orange-600 shadow-sm" 
+                          : "border-gray-200 dark:border-gray-600 hover:border-orange-200 dark:hover:border-orange-500 hover:bg-orange-50 dark:hover:bg-orange-900"
                     }`}
                   >
                     <div className="flex items-start">
@@ -474,10 +474,10 @@ export default function TestingInterviewPage() {
             
             {/* Open-ended */}
             {q.type === 'open-ended' && (
-              <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-gray-50/30 dark:bg-gray-700/30 backdrop-blur-sm">
+              <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700">
                 <p className="text-gray-600 dark:text-gray-300 italic mb-2">This is an open-ended question. Think about your answer, then click &quot;Show Answer&quot; to see the explanation.</p>
                 {feedback ? (
-                  <div className="bg-green-50/30 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded p-3 backdrop-blur-sm">
+                  <div className="bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-700 rounded p-3">
                     <p className="font-medium text-green-800 dark:text-green-200">Explanation:</p>
                     <p className="text-green-700 dark:text-green-300">{q.explanation}</p>
                   </div>
@@ -486,8 +486,7 @@ export default function TestingInterviewPage() {
                     onClick={async () => {
                       setFeedback({ isCorrect: true, explanation: q.explanation });
                     }}
-                    className="mt-2 px-4 py-2 bg-orange-600 dark:bg-orange-700 text-white rounded-lg hover:bg-orange-700 dark:hover:bg-orange-600 transition-colors duration-200"
-                  >
+                    className="mt-2 px-4 py-2 bg-orange-600 dark:bg-orange-700 text-white rounded-lg hover:bg-orange-700 dark:hover:bg-orange-600 transition-colors duration-200">
                     Show Answer
                   </button>
                 )}
@@ -497,10 +496,10 @@ export default function TestingInterviewPage() {
           
           {/* Feedback */}
           {feedback && q.type === 'multiple-choice' && (
-            <div className={`mb-6 p-4 rounded-lg border backdrop-blur-sm ${
+            <div className={`mb-6 p-4 rounded-lg border ${
               feedback.isCorrect 
-                ? 'bg-green-50/30 dark:bg-green-900/20 border-green-200 dark:border-green-700' 
-                : 'bg-red-50/30 dark:bg-red-900/20 border-red-200 dark:border-red-700'
+                ? 'bg-green-50 dark:bg-green-900 border-green-200 dark:border-green-700' 
+                : 'bg-red-50 dark:bg-red-900 border-red-200 dark:border-red-700'
             }`}>
               <p className={`font-medium ${
                 feedback.isCorrect 
@@ -526,7 +525,7 @@ export default function TestingInterviewPage() {
           <div className="flex justify-between">
             <button
               onClick={() => { clearQuizState(); router.push('/'); }}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50/30 dark:hover:bg-gray-700/30 backdrop-blur-sm transition-colors duration-200"
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
             >
               Exit Quiz
             </button>

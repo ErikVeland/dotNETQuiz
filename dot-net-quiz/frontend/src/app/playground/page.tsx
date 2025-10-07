@@ -117,9 +117,9 @@ query {
       <div className="min-h-screen bg-gradient-to-br from-gray-50/30 to-gray-100/30 dark:from-gray-900/30 dark:to-gray-800/30 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <div className="animate-pulse flex flex-col items-center justify-center space-y-4">
-            <div className="h-12 w-2/3 bg-white/30 dark:bg-gray-700/30 rounded"></div>
-            <div className="h-64 w-full bg-white/30 dark:bg-gray-700/30 rounded"></div>
-            <div className="h-10 w-1/3 bg-white/30 dark:bg-gray-700/30 rounded"></div>
+            <div className="h-12 w-2/3 bg-white dark:bg-gray-700 rounded"></div>
+            <div className="h-64 w-full bg-white dark:bg-gray-700 rounded"></div>
+            <div className="h-10 w-1/3 bg-white dark:bg-gray-700 rounded"></div>
           </div>
         </div>
       </div>
@@ -132,7 +132,7 @@ query {
       // Changed from opaque background to glass morphism effect
       <div className="min-h-screen bg-gradient-to-br from-gray-50/30 to-gray-100/30 dark:from-gray-900/30 dark:to-gray-800/30 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
-          <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-white/50 dark:border-gray-700/50">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
             <div className="text-center">
               <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
               <p className="mb-4 text-gray-800 dark:text-gray-200">{error}</p>
@@ -160,19 +160,19 @@ query {
           </Link>
         </div>
 
-        {/* Updated container with glass morphism effect */}
-        <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm shadow-lg rounded-xl overflow-hidden border border-white/50 dark:border-gray-700/50">
+        {/* Updated container with solid background instead of glass morphism effect */}
+        <div className="bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
             <div>
               <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Query</h2>
               <textarea
-                className="w-full h-80 p-3 border border-gray-300 dark:border-gray-600 rounded-md font-mono text-sm bg-white/30 dark:bg-gray-700/30 backdrop-blur-sm text-gray-900 dark:text-gray-100"
+                className="w-full h-80 p-3 border border-gray-300 dark:border-gray-600 rounded-md font-mono text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
               <h2 className="text-lg font-semibold mt-4 mb-2 text-gray-800 dark:text-gray-200">Variables (JSON)</h2>
               <textarea
-                className="w-full h-32 p-3 border border-gray-300 dark:border-gray-600 rounded-md font-mono text-sm bg-white/30 dark:bg-gray-700/30 backdrop-blur-sm text-gray-900 dark:text-gray-100"
+                className="w-full h-32 p-3 border border-gray-300 dark:border-gray-600 rounded-md font-mono text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 value={variables}
                 onChange={(e) => setVariables(e.target.value)}
               />
@@ -187,24 +187,24 @@ query {
             <div>
               <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Response</h2>
               {error && (
-                <div className="mb-4 p-3 bg-red-100/30 dark:bg-red-900/30 border border-red-400/50 dark:border-red-700/50 text-red-700 dark:text-red-300 rounded backdrop-blur-sm">
+                <div className="mb-4 p-3 bg-red-100 dark:bg-red-900 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-300 rounded">
                   {error}
                 </div>
               )}
-              <pre className="w-full h-[30rem] p-3 border border-gray-300 dark:border-gray-600 rounded-md overflow-auto bg-gray-50/30 dark:bg-gray-700/30 backdrop-blur-sm font-mono text-sm text-gray-900 dark:text-gray-100">
+              <pre className="w-full h-[30rem] p-3 border border-gray-300 dark:border-gray-600 rounded-md overflow-auto bg-gray-50 dark:bg-gray-700 font-mono text-sm text-gray-900 dark:text-gray-100">
                 {response || 'Execute a query to see results'}
               </pre>
             </div>
           </div>
         </div>
 
-        {/* Updated container with glass morphism effect */}
-        <div className="mt-8 bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm shadow-lg rounded-xl p-6 border border-white/50 dark:border-gray-700/50">
+        {/* Updated container with solid background instead of glass morphism effect */}
+        <div className="mt-8 bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 border border-gray-200 dark:border-gray-700">
           <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Example Queries</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h3 className="text-lg font-medium mb-2 text-gray-800 dark:text-gray-200">Get .NET Lessons</h3>
-              <pre className="p-3 bg-gray-50/30 dark:bg-gray-700/30 border border-gray-200/50 dark:border-gray-600/50 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100 backdrop-blur-sm">
+              <pre className="p-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100">
                 {`query {
   dotNetLessons {
     id
@@ -232,7 +232,7 @@ query {
             </div>
             <div>
               <h3 className="text-lg font-medium mb-2 text-gray-800 dark:text-gray-200">Get Interview Questions</h3>
-              <pre className="p-3 bg-gray-50/30 dark:bg-gray-700/30 border border-gray-200/50 dark:border-gray-600/50 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100 backdrop-blur-sm">
+              <pre className="p-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100">
                 {`query {
   dotNetInterviewQuestions {
     id
@@ -262,7 +262,7 @@ query {
             </div>
             <div>
               <h3 className="text-lg font-medium mb-2 text-gray-800 dark:text-gray-200">Submit Answer</h3>
-              <pre className="p-3 bg-gray-50/30 dark:bg-gray-700/30 border border-gray-200/50 dark:border-gray-600/50 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100 backdrop-blur-sm">
+              <pre className="p-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100">
                 {`mutation {
   submitAnswer(questionId: 1, answerIndex: 0) {
     isCorrect
@@ -286,7 +286,7 @@ query {
             </div>
             <div>
               <h3 className="text-lg font-medium mb-2 text-gray-800 dark:text-gray-200">Filter & Sort</h3>
-              <pre className="p-3 bg-gray-50/30 dark:bg-gray-700/30 border border-gray-200/50 dark:border-gray-600/50 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100 backdrop-blur-sm">
+              <pre className="p-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md overflow-auto font-mono text-sm text-gray-900 dark:text-gray-100">
                 {`query {
   dotNetLessons(
     topic: "OOP"

@@ -283,9 +283,9 @@ export default function DatabaseInterviewPage() {
   
   if (gqlError && !isNetworkError(gqlError)) {
     return (
-      // Updated container with glass morphism effect
+      // Updated container with solid background instead of glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
             <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
@@ -307,9 +307,9 @@ export default function DatabaseInterviewPage() {
   
   if (!shuffledQuestions.length) {
     return (
-      // Updated container with glass morphism effect
+      // Updated container with solid background instead of glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">No Questions Available</h2>
             <p className="mb-4 text-gray-600 dark:text-gray-300">There are no Database interview questions available at this time.</p>
@@ -324,9 +324,9 @@ export default function DatabaseInterviewPage() {
   
   if (current >= shuffledQuestions.length)
     return (
-      // Updated container with glass morphism effect
+      // Updated container with solid background instead of glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-4">
               Quiz Completed
@@ -349,7 +349,7 @@ export default function DatabaseInterviewPage() {
                 Return Home
               </Link>
               {score < Math.ceil(shuffledQuestions.length * 0.7) && (
-                <Link href="/database/lessons" className="px-4 py-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-lg hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-150 font-semibold">
+                <Link href="/database/lessons" className="px-4 py-2 bg-purple-600 dark:bg-purple-700 text-white rounded-lg hover:bg-purple-700 dark:hover:bg-purple-600 transition-colors duration-150 font-semibold">
                   Review Lessons
                 </Link>
               )}
@@ -362,7 +362,7 @@ export default function DatabaseInterviewPage() {
             </div>
 
             {score >= Math.ceil(shuffledQuestions.length * 0.7) && (
-              <div className="mt-8 p-6 border-2 border-purple-200 dark:border-purple-700 rounded-xl bg-purple-50/30 dark:bg-purple-900/20 backdrop-blur-sm">
+              <div className="mt-8 p-6 border-2 border-purple-200 dark:border-purple-700 rounded-xl bg-purple-50 dark:bg-purple-900">
                 <h3 className="text-xl font-bold text-purple-800 dark:text-purple-200 mb-2">Certificate of Completion</h3>
                 <p className="text-purple-700 dark:text-purple-300">This certifies that you have successfully completed the Database interview preparation quiz.</p>
               </div>
@@ -396,9 +396,9 @@ export default function DatabaseInterviewPage() {
   return (
     
     <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
         {/* Progress bar */}
-        <div className="bg-gray-100/30 dark:bg-gray-700/30 backdrop-blur-sm h-2">
+        <div className="bg-gray-100 dark:bg-gray-700 h-2">
           <div 
             className="bg-purple-600 dark:bg-purple-500 h-2 transition-all duration-300 ease-out" 
             style={{ width: `${progress}%` }}
@@ -431,16 +431,16 @@ export default function DatabaseInterviewPage() {
                   <div 
                     key={displayIndex}
                     onClick={() => !feedback && setSelected(displayIndex)}
-                    className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 backdrop-blur-sm ${
+                    className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 ${
                       feedback 
                         ? displayIndex === getDisplayCorrectAnswerIndex() 
-                          ? "bg-green-50/30 dark:bg-green-900/20 border-green-300 dark:border-green-600" 
+                          ? "bg-green-50 dark:bg-green-900 border-green-300 dark:border-green-600" 
                           : displayIndex === selected 
-                            ? "bg-red-50/30 dark:bg-red-900/20 border-red-300 dark:border-red-600" 
+                            ? "bg-red-50 dark:bg-red-900 border-red-300 dark:border-red-600" 
                             : "border-gray-200 dark:border-gray-600" 
                         : displayIndex === selected 
-                          ? "bg-purple-50/30 dark:bg-purple-900/20 border-purple-300 dark:border-purple-600 shadow-sm" 
-                          : "border-gray-200 dark:border-gray-600 hover:border-purple-200 dark:hover:border-purple-500 hover:bg-purple-50/20"
+                          ? "bg-purple-50 dark:bg-purple-900 border-purple-300 dark:border-purple-600 shadow-sm" 
+                          : "border-gray-200 dark:border-gray-600 hover:border-purple-200 dark:hover:border-purple-500 hover:bg-purple-50"
                     }`}
                   >
                     <div className="flex items-center justify-between">

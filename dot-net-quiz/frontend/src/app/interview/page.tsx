@@ -400,7 +400,7 @@ export default function InterviewQuiz() {
     // Show initial loading state
     return (
       <div className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="animate-pulse flex flex-col items-center justify-center space-y-4">
             <div className="h-12 w-2/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
             <div className="h-64 w-full bg-gray-200 dark:bg-gray-700 rounded"></div>
@@ -415,7 +415,7 @@ export default function InterviewQuiz() {
   if (error && !shouldRetryBackendError(error)) {
     return (
       <div className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
             <p className="mb-4 text-gray-800 dark:text-gray-200">{error}</p>
@@ -434,7 +434,7 @@ export default function InterviewQuiz() {
   if (questions.length === 0) {
     return (
       <div className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">No Questions Available</h2>
             <p className="mb-4 text-gray-600 dark:text-gray-300">There are no interview questions available at this time.</p>
@@ -455,7 +455,7 @@ export default function InterviewQuiz() {
 
     return (
       <div className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <h2 className={`text-3xl font-bold ${passed ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'} mb-4`}>
               {passed ? 'Congratulations! 🎉' : 'Quiz Completed'}
@@ -478,7 +478,7 @@ export default function InterviewQuiz() {
                 Return Home
               </Link>
               {!passed && (
-                <Link href="/lessons" className="px-4 py-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-lg hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-150 font-semibold">
+                <Link href="/lessons" className="px-4 py-2 bg-indigo-600 dark:bg-indigo-700 text-white rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors duration-150 font-semibold">
                   Review Lessons
                 </Link>
               )}
@@ -491,7 +491,7 @@ export default function InterviewQuiz() {
             </div>
 
             {passed && (
-              <div className="mt-8 p-6 border-2 border-green-200 dark:border-green-700 rounded-xl bg-green-50/80 dark:bg-green-900/30 backdrop-blur-sm">
+              <div className="mt-8 p-6 border-2 border-green-200 dark:border-green-700 rounded-xl bg-green-50 dark:bg-green-900">
                 <h3 className="text-xl font-bold text-green-800 dark:text-green-200 mb-2">Certificate of Completion</h3>
                 <p className="text-green-700 dark:text-green-300">This certifies that you have successfully completed the .NET interview preparation quiz.</p>
               </div>
@@ -531,9 +531,9 @@ export default function InterviewQuiz() {
 
   return (
     <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
         {/* Progress bar */}
-        <div className="bg-gray-100/80 dark:bg-gray-700/80 backdrop-blur-sm h-2">
+        <div className="bg-gray-100 dark:bg-gray-700 h-2">
           <div 
             className="bg-indigo-600 dark:bg-indigo-500 h-2 transition-all duration-300 ease-out" 
             style={{ width: `${progress}%` }}
@@ -566,16 +566,16 @@ export default function InterviewQuiz() {
                   <div 
                     key={displayIndex}
                     onClick={() => !feedback && setSelected(displayIndex)}
-                    className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 backdrop-blur-sm ${
+                    className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 ${
                       feedback 
                         ? displayIndex === getDisplayCorrectAnswerIndex() 
-                          ? "bg-green-50/80 dark:bg-green-900/40 border-green-300 dark:border-green-600" 
+                          ? "bg-green-50 dark:bg-green-900 border-green-300 dark:border-green-600" 
                           : displayIndex === selected 
-                            ? "bg-red-50/80 dark:bg-red-900/40 border-red-300 dark:border-red-600" 
+                            ? "bg-red-50 dark:bg-red-900 border-red-300 dark:border-red-600" 
                             : "border-gray-200 dark:border-gray-600" 
                         : displayIndex === selected 
-                          ? "bg-indigo-50/80 dark:bg-indigo-900/40 border-indigo-300 dark:border-indigo-600 shadow-sm" 
-                          : "border-gray-200 dark:border-gray-600 hover:border-indigo-200 dark:hover:border-indigo-500 hover:bg-indigo-50/80 dark:hover:bg-indigo-900/30"
+                          ? "bg-indigo-50 dark:bg-indigo-900 border-indigo-300 dark:border-indigo-600 shadow-sm" 
+                          : "border-gray-200 dark:border-gray-600 hover:border-indigo-200 dark:hover:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900"
                     }`}
                   >
                     <div className="flex items-start">
@@ -610,16 +610,18 @@ export default function InterviewQuiz() {
             
             {/* Open-ended */}
             {question.type === 'open-ended' && (
-              <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-gray-50/80 dark:bg-gray-700/80 backdrop-blur-sm">
-                <p className="text-gray-600 dark:text-gray-300 italic mb-2">This is an open-ended question. Think about your answer, then click "Show Answer" to see the explanation.</p>
+              <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700">
+                <p className="text-gray-600 dark:text-gray-300 italic mb-2">This is an open-ended question. Think about your answer, then click &quot;Show Answer&quot; to see the explanation.</p>
                 {feedback ? (
-                  <div className="bg-green-50/80 dark:bg-green-900/40 border border-green-200 dark:border-green-700 rounded p-3 backdrop-blur-sm">
+                  <div className="bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-700 rounded p-3">
                     <p className="font-medium text-green-800 dark:text-green-200">Explanation:</p>
                     <p className="text-green-700 dark:text-green-300">{question.explanation}</p>
                   </div>
                 ) : (
                   <button
-                    onClick={() => setFeedback({ isCorrect: true, explanation: question.explanation })}
+                    onClick={async () => {
+                      setFeedback({ isCorrect: true, explanation: question.explanation });
+                    }}
                     className="mt-2 px-4 py-2 bg-indigo-600 dark:bg-indigo-700 text-white rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors duration-200"
                   >
                     Show Answer
@@ -631,10 +633,10 @@ export default function InterviewQuiz() {
           
           {/* Feedback */}
           {feedback && question.type === 'multiple-choice' && (
-            <div className={`mb-6 p-4 rounded-lg border backdrop-blur-sm ${
+            <div className={`mb-6 p-4 rounded-lg border ${
               feedback.isCorrect 
-                ? 'bg-green-50/80 dark:bg-green-900/40 border-green-200 dark:border-green-700' 
-                : 'bg-red-50/80 dark:bg-red-900/40 border-red-200 dark:border-red-700'
+                ? 'bg-green-50 dark:bg-green-900 border-green-200 dark:border-green-700' 
+                : 'bg-red-50 dark:bg-red-900 border-red-200 dark:border-red-700'
             }`}>
               <p className={`font-medium ${
                 feedback.isCorrect 
@@ -659,8 +661,8 @@ export default function InterviewQuiz() {
           {/* Actions */}
           <div className="flex justify-between">
             <button
-              onClick={() => router.push('/')}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50/80 dark:hover:bg-gray-700/80 backdrop-blur-sm transition-colors duration-200"
+              onClick={() => { clearQuizState(); router.push('/'); }}
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
             >
               Exit Quiz
             </button>
@@ -669,14 +671,14 @@ export default function InterviewQuiz() {
               {question.type === 'multiple-choice' && !feedback && (
                 <button
                   onClick={handleSubmit}
-                  disabled={selected === null || loading}
+                  disabled={selected === null}
                   className={`px-4 py-2 rounded-lg transition-colors duration-200 ${
                     selected === null 
                       ? 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed' 
                       : 'bg-indigo-600 dark:bg-indigo-700 text-white hover:bg-indigo-700 dark:hover:bg-indigo-600'
                   }`}
                 >
-                  {loading ? 'Submitting...' : 'Submit'}
+                  Submit
                 </button>
               )}
               
