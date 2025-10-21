@@ -1,101 +1,7 @@
-"use client";
-
-import { useEffect, useState, useRef } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useQuery, gql } from '@apollo/client';
-import EnhancedLoadingComponent from '../../components/EnhancedLoadingComponent';
-
-type Lesson = {
-    id: number;
-    topic: string;
-    title: string;
-    description: string;
-    codeExample: string;
-    output: string;
-};
-
-type TopicGroup = {
-    topic: string;
-    lessons: Lesson[];
-};
-
-const LESSONS_QUERY = gql`
-  query DotNetLessons {
-    dotNetLessons {
-      id
-      topic
-      title
-      description
-      codeExample
-      output
-    }
-  }
-`;
-
-export default function LessonsPage() {
-    const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
-    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-    const retryCountRef = useRef(0);
-
-    const { data, loading, error, refetch } = useQuery(LESSONS_QUERY, {
-        onError: (error) => {
-            // Increment retry counter for network errors
-            if (isNetworkError(error)) {
-                retryCountRef.current += 1;
-            }
-        }
-    });
-    
-    // Reset retry count on successful load
-    useEffect(() => {
-        if (data && !loading) {
-            retryCountRef.current = 0;
-        }
-    }, [data, loading]);
-
-    const lessons: Lesson[] = data?.dotNetLessons ?? [];
-
-    // Group lessons by topic
-    const topicGroups: TopicGroup[] = Object.values(
-        lessons.reduce((acc, lesson) => {
-            if (!acc[lesson.topic]) acc[lesson.topic] = { topic: lesson.topic, lessons: [] };
-            acc[lesson.topic].lessons.push(lesson);
-            return acc;
-        }, {} as Record<string, TopicGroup>)
-    );
-
-    // If a lesson is selected, find its topic and index
-    let currentLesson: Lesson | null = null;
-    let currentTopicLessons: Lesson[] = [];
-    let currentLessonIndex: number | null = null;
-    let nextCategoryTopic: string | null = null;
-    let isLastCategory: boolean = false;
-    if (selectedTopic !== null && selectedIndex !== null) {
-        currentTopicLessons = topicGroups.find(tg => tg.topic === selectedTopic)?.lessons ?? [];
-        currentLesson = currentTopicLessons[selectedIndex] ?? null;
-        currentLessonIndex = selectedIndex;
-        // Find the next topic (cycle to first if at end)
-        const currentTopicIdx = topicGroups.findIndex(tg => tg.topic === selectedTopic);
-        isLastCategory = currentTopicIdx === topicGroups.length - 1;
-        nextCategoryTopic = topicGroups[(currentTopicIdx + 1) % topicGroups.length]?.topic ?? null;
-    }
-
-    // Helper function to determine if an error is a network error
-    const isNetworkError = (error: any): boolean => {
-        return !!error && (
-            error.message?.includes('Failed to fetch') ||
-            error.message?.includes('NetworkError') ||
-            error.message?.includes('ECONNREFUSED') ||
-            error.message?.includes('timeout') ||
-            error.networkError
-        );
-    };
-
     // If we're loading or have retry attempts, show the enhanced loading component
     if (loading || retryCountRef.current > 0) {
         return (
-            <main className="min-h-screen p-6 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm text-gray-800 dark:text-gray-100">
+            <main className="min-h-screen p-6 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
                 <div className="max-w-2xl mx-auto">
                     <EnhancedLoadingComponent 
                         retryCount={retryCountRef.current} 
@@ -114,8 +20,8 @@ export default function LessonsPage() {
     // Only show error if it's not a network error (network errors are handled by retry mechanism)
     if (error && !isNetworkError(error)) {
         return (
-            <main className="min-h-screen p-6 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm text-gray-800 dark:text-gray-100">
-                <div className="max-w-2xl mx-auto bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+            <main className="min-h-screen p-6 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
+                <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
                     <div className="text-red-600 dark:text-red-400">Error loading lessons.</div>
                     <button 
                         className="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors duration-200"
@@ -130,8 +36,8 @@ export default function LessonsPage() {
 
     return (
         <div className="w-full p-6">
-            {/* Updated container with glass morphism effect */}
-            <div className="max-w-2xl mx-auto bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+            {/* Updated container with solid background instead of glass morphism effect */}
+            <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
                 <Link href="/" className="inline-block mb-4 bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200 font-semibold py-1 px-2 rounded shadow hover:bg-teal-200 dark:hover:bg-teal-800 transition-colors duration-150 flex items-center gap-1 text-xs">
                     <span className="text-base">←</span> Back to Home
                 </Link>
@@ -150,7 +56,7 @@ export default function LessonsPage() {
                                     {group.lessons.map((lesson, idx) => (
                                         <li
                                             key={lesson.id}
-                                            className="bg-gray-100/80 dark:bg-gray-700/80 backdrop-blur-sm p-4 rounded shadow hover:bg-blue-50 dark:hover:bg-teal-900 cursor-pointer border border-gray-200 dark:border-gray-600"
+                                            className="bg-gray-100 dark:bg-gray-700 p-4 rounded shadow hover:bg-blue-50 dark:hover:bg-teal-900 cursor-pointer border border-gray-200 dark:border-gray-600"
                                             onClick={() => {
                                                 setSelectedTopic(group.topic);
                                                 setSelectedIndex(idx);
@@ -167,8 +73,8 @@ export default function LessonsPage() {
 
                 {/* Lesson Detail View */}
                 {selectedTopic !== null && currentLesson && (
-                    // Updated container with glass morphism effect
-                    <div className="bg-gray-100/80 dark:bg-gray-700/80 backdrop-blur-sm p-6 rounded-xl shadow-lg space-y-4 mt-4 border border-gray-200 dark:border-gray-600">
+                    // Updated container with solid background instead of glass morphism effect
+                    <div className="bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-lg space-y-4 mt-4 border border-gray-200 dark:border-gray-600">
                         <button
                             className="w-full mb-4 bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200 font-semibold py-1 rounded shadow hover:bg-teal-200 dark:hover:bg-teal-800 transition-colors duration-150 flex items-center justify-center gap-1 text-xs"
                             onClick={() => {
@@ -188,14 +94,14 @@ export default function LessonsPage() {
 
                         <div>
                             <h3 className="font-semibold mt-4">C# Example:</h3>
-                            <pre className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded text-sm whitespace-pre-wrap border border-gray-200 dark:border-gray-600">
+                            <pre className="bg-white dark:bg-gray-800 p-4 rounded text-sm whitespace-pre-wrap border border-gray-200 dark:border-gray-600">
                                 {currentLesson.codeExample}
                             </pre>
                         </div>
 
                         <div>
                             <h3 className="font-semibold mt-4">Expected Output:</h3>
-                            <pre className="bg-black/80 text-white p-4 rounded text-sm whitespace-pre-wrap border border-gray-700 dark:border-gray-600">
+                            <pre className="bg-black text-white p-4 rounded text-sm whitespace-pre-wrap border border-gray-700 dark:border-gray-600">
                                 {currentLesson.output}
                             </pre>
                         </div>
@@ -246,7 +152,7 @@ export default function LessonsPage() {
                                         </Link>
                                         <Link 
                                             href="/interview" 
-                                            className="flex-1 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 text-white px-4 py-2 rounded shadow hover:from-green-600 hover:via-emerald-600 hover:to-teal-600 transition-all duration-150 font-semibold text-center"
+                                            className="flex-1 bg-gradient-to-r from-teal-500 via-blue-500 to-indigo-500 text-white px-4 py-2 rounded shadow hover:from-teal-600 hover:via-blue-600 hover:to-indigo-600 transition-all duration-150 font-semibold text-center"
                                         >
                                             Start .NET Quiz
                                         </Link>

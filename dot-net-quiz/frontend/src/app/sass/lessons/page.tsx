@@ -114,7 +114,7 @@ export default function SassLessonsPage() {
     if (error && !isNetworkError(error)) {
         return (
             <main className="p-6">
-                <div className="max-w-4xl mx-auto bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200">
+                <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 border border-gray-200">
                     <div className="text-red-600">Error loading SASS lessons.</div>
                     <button 
                         className="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors duration-200"
@@ -129,7 +129,7 @@ export default function SassLessonsPage() {
 
     return (
         <div className="w-full p-6">
-            <div className="max-w-4xl mx-auto bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200">
+            <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 border border-gray-200">
                 <Link href="/" className="inline-block mb-4 bg-pink-100 text-pink-800 font-semibold py-1 px-2 rounded shadow hover:bg-pink-200 transition-colors duration-150 flex items-center gap-1 text-xs">
                     <span className="text-base">←</span> Back to Home
                 </Link>
@@ -148,7 +148,7 @@ export default function SassLessonsPage() {
                                     {group.lessons.map((lesson, idx) => (
                                         <li
                                             key={lesson.id}
-                                            className="bg-gray-100/80 backdrop-blur-sm p-4 rounded shadow hover:bg-pink-50 cursor-pointer transition-colors duration-150 border border-gray-200"
+                                            className="bg-gray-100 p-4 rounded shadow hover:bg-pink-50 cursor-pointer transition-colors duration-150 border border-gray-200"
                                             onClick={() => {
                                                 setSelectedTopic(group.topic);
                                                 setSelectedIndex(idx);
@@ -166,7 +166,7 @@ export default function SassLessonsPage() {
 
                 {/* Lesson Detail View */}
                 {selectedTopic !== null && currentLesson && (
-                    <div className="bg-gray-100/80 backdrop-blur-sm p-6 rounded-xl shadow-lg space-y-4 mt-4 border border-gray-200">
+                    <div className="bg-gray-100 p-6 rounded-xl shadow-lg space-y-4 mt-4 border border-gray-200">
                         <button
                             className="w-full mb-4 bg-pink-100 text-pink-800 font-semibold py-1 rounded shadow hover:bg-pink-200 transition-colors duration-150 flex items-center justify-center gap-1 text-xs"
                             onClick={() => {
@@ -186,14 +186,14 @@ export default function SassLessonsPage() {
 
                         <div>
                             <h3 className="font-semibold mt-4 text-pink-700">SASS Example:</h3>
-                            <pre className="bg-white/80 backdrop-blur-sm p-4 rounded text-sm whitespace-pre-wrap border border-gray-200 overflow-x-auto">
+                            <pre className="bg-white p-4 rounded text-sm whitespace-pre-wrap border border-gray-200 overflow-x-auto">
                                 <code>{currentLesson.codeExample}</code>
                             </pre>
                         </div>
 
                         <div>
                             <h3 className="font-semibold mt-4 text-pink-700">Expected Output:</h3>
-                            <pre className="bg-black/80 text-white p-4 rounded text-sm whitespace-pre-wrap overflow-x-auto border border-gray-700">
+                            <pre className="bg-black text-white p-4 rounded text-sm whitespace-pre-wrap overflow-x-auto border border-gray-700">
                                 {currentLesson.output}
                             </pre>
                         </div>

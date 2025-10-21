@@ -154,7 +154,7 @@ export default function AnimatedBackgroundDemo() {
         />
         <div className="relative z-10 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="w-full max-w-3xl">
-            <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
               <div className="text-center">
                 <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
                 <p className="mb-4 text-gray-800 dark:text-gray-200">{error}</p>
@@ -208,7 +208,7 @@ export default function AnimatedBackgroundDemo() {
         {/* Main Content */}
         <main id="main-content" className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="w-full max-w-3xl">
-            <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
               <div className="p-6">
                 <div className="text-center mb-8">
                   <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
@@ -221,7 +221,7 @@ export default function AnimatedBackgroundDemo() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   {/* Controls */}
-                  <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-6 border border-gray-200 dark:border-gray-600">
+                  <div className="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 border border-gray-200 dark:border-gray-600">
                     <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
                       Customization Controls
                     </h3>
@@ -308,7 +308,7 @@ export default function AnimatedBackgroundDemo() {
                       </h3>
                       <div className="flex-grow flex items-center justify-center">
                         <div className="text-center">
-                          <div className="inline-block p-4 rounded-full bg-white/10 backdrop-blur-sm mb-4">
+                          <div className="inline-block p-4 rounded-full bg-white/20 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
                             </svg>
@@ -320,7 +320,7 @@ export default function AnimatedBackgroundDemo() {
                       </div>
                     </div>
                     
-                    <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
+                    <div className="mt-6 bg-blue-50 dark:bg-blue-900 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
                       <h3 className="text-lg font-medium text-blue-900 dark:text-blue-100 mb-2">
                         Implementation
                       </h3>

@@ -211,9 +211,9 @@ export default function SassInterviewPage() {
   
   if (error && !isNetworkError(error)) {
     return (
-      // Updated container with glass morphism effect
+      // Updated container with solid background instead of glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
             <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
@@ -231,9 +231,9 @@ export default function SassInterviewPage() {
   
   if (!shuffledQuestions.length) {
     return (
-      // Updated container with glass morphism effect
+      // Updated container with solid background instead of glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">No Questions Available</h2>
             <p className="mb-4 text-gray-600 dark:text-gray-300">There are no SASS interview questions available at this time.</p>
@@ -257,7 +257,7 @@ export default function SassInterviewPage() {
     return (
       // Updated container with glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-pink-600 dark:text-pink-400 mb-4">
               Quiz Completed
@@ -281,20 +281,19 @@ export default function SassInterviewPage() {
                 Return Home
               </Link>
               {score < Math.ceil(shuffledQuestions.length * 0.7) && (
-                <Link href="/sass/lessons" className="px-4 py-2 bg-gradient-to-r from-pink-500 via-rose-500 to-red-500 text-white rounded-lg hover:from-pink-600 hover:via-rose-600 hover:to-red-600 transition-all duration-150 font-semibold">
+                <Link href="/sass/lessons" className="px-4 py-2 bg-pink-600 dark:bg-pink-700 text-white rounded-lg hover:bg-pink-700 dark:hover:bg-pink-600 transition-colors duration-200 font-semibold">
                   Review Lessons
                 </Link>
               )}
               <button
                 onClick={resetQuiz}
-                className="px-4 py-2 bg-pink-600 dark:bg-pink-700 text-white rounded-lg hover:bg-pink-700 dark:hover:bg-pink-600 transition-colors duration-200"
-              >
+                className="px-4 py-2 bg-pink-600 dark:bg-pink-700 text-white rounded-lg hover:bg-pink-700 dark:hover:bg-pink-600 transition-colors duration-200">
                 Try Again
               </button>
             </div>
 
             {score >= Math.ceil(shuffledQuestions.length * 0.7) && (
-              <div className="mt-8 p-6 border-2 border-pink-200 dark:border-pink-700 rounded-xl bg-pink-50/80 dark:bg-pink-900/30 backdrop-blur-sm">
+              <div className="mt-8 p-6 border-2 border-pink-200 dark:border-pink-700 rounded-xl bg-pink-50 dark:bg-pink-900">
                 <h3 className="text-xl font-bold text-pink-800 dark:text-pink-200 mb-2">Certificate of Completion</h3>
                 <p className="text-pink-700 dark:text-pink-300">This certifies that you have successfully completed the SASS interview preparation quiz.</p>
               </div>
@@ -308,9 +307,9 @@ export default function SassInterviewPage() {
   return (
     // Updated container with glass morphism effect
     <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
         {/* Progress bar */}
-        <div className="bg-gray-100/80 dark:bg-gray-700/80 backdrop-blur-sm h-2">
+        <div className="bg-gray-100 dark:bg-gray-700 h-2">
           <div 
             className="bg-pink-600 dark:bg-pink-500 h-2 transition-all duration-300 ease-out" 
             style={{ width: `${progress}%` }}
@@ -343,16 +342,16 @@ export default function SassInterviewPage() {
                   <div 
                     key={index}
                     onClick={() => !feedback && handleAnswer(index)}
-                    className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 backdrop-blur-sm ${
+                    className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 ${
                       feedback 
                         ? index === currentQuestion.correctAnswer 
-                          ? "bg-green-50/80 dark:bg-green-900/40 border-green-300 dark:border-green-600" 
+                          ? "bg-green-50 dark:bg-green-900 border-green-300 dark:border-green-600" 
                           : index === selected 
-                            ? "bg-red-50/80 dark:bg-red-900/40 border-red-300 dark:border-red-600" 
+                            ? "bg-red-50 dark:bg-red-900 border-red-300 dark:border-red-600" 
                             : "border-gray-200 dark:border-gray-600" 
                         : index === selected 
-                          ? "bg-pink-50/80 dark:bg-pink-900/40 border-pink-300 dark:border-pink-600 shadow-sm" 
-                          : "border-gray-200 dark:border-gray-600 hover:border-pink-200 dark:hover:border-pink-500 hover:bg-pink-50/80 dark:hover:bg-pink-900/30"
+                          ? "bg-pink-50 dark:bg-pink-900 border-pink-300 dark:border-pink-600 shadow-sm" 
+                          : "border-gray-200 dark:border-gray-600 hover:border-pink-200 dark:hover:border-pink-500 hover:bg-pink-50 dark:hover:bg-pink-900"
                     }`}
                   >
                     <div className="flex items-start">
@@ -387,10 +386,10 @@ export default function SassInterviewPage() {
             
             {/* Open-ended */}
             {currentQuestion.type === 'open-ended' && (
-              <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-gray-50/80 dark:bg-gray-700/80 backdrop-blur-sm">
+              <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700">
                 <p className="text-gray-600 dark:text-gray-300 italic mb-2">This is an open-ended question. Think about your answer, then click &quot;Show Answer&quot; to see the explanation.</p>
                 {feedback ? (
-                  <div className="bg-green-50/80 dark:bg-green-900/40 border border-green-200 dark:border-green-700 rounded p-3 backdrop-blur-sm">
+                  <div className="bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-700 rounded p-3">
                     <p className="font-medium text-green-800 dark:text-green-200">Explanation:</p>
                     <p className="text-green-700 dark:text-green-300">{currentQuestion.explanation}</p>
                   </div>
@@ -410,10 +409,10 @@ export default function SassInterviewPage() {
           
           {/* Feedback */}
           {feedback && currentQuestion.choices && (
-            <div className={`mb-6 p-4 rounded-lg border backdrop-blur-sm ${
+            <div className={`mb-6 p-4 rounded-lg border ${
               feedback.isCorrect 
-                ? 'bg-green-50/80 dark:bg-green-900/40 border-green-200 dark:border-green-700' 
-                : 'bg-red-50/80 dark:bg-red-900/40 border-red-200 dark:border-red-700'
+                ? 'bg-green-50 dark:bg-green-900 border-green-200 dark:border-green-700' 
+                : 'bg-red-50 dark:bg-red-900 border-red-200 dark:border-red-700'
             }`}>
               <p className={`font-medium ${
                 feedback.isCorrect 
@@ -439,7 +438,7 @@ export default function SassInterviewPage() {
           <div className="flex justify-between">
             <button
               onClick={() => { clearQuizState(); router.push('/'); }}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50/80 dark:hover:bg-gray-700/80 backdrop-blur-sm transition-colors duration-200"
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
             >
               Exit Quiz
             </button>

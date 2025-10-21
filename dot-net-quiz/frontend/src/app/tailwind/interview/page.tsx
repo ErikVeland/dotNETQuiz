@@ -288,9 +288,9 @@ export default function TailwindInterviewPage() {
   
   if (gqlError && !shouldRetryBackendError(gqlError)) {
     return (
-      // Updated container with glass morphism effect
+      // Updated container with solid background instead of glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Error</h2>
             <p className="mb-4 text-gray-800 dark:text-gray-200">Failed to load questions. Please try again.</p>
@@ -307,9 +307,9 @@ export default function TailwindInterviewPage() {
   }
   
   if (!shuffledQuestions.length) return (
-    // Updated container with glass morphism effect
+    // Updated container with solid background instead of glass morphism effect
     <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">No Questions Available</h2>
           <p className="mb-4 text-gray-600 dark:text-gray-300">There are no Tailwind CSS interview questions available at this time.</p>
@@ -325,7 +325,7 @@ export default function TailwindInterviewPage() {
     return (
       // Updated container with glass morphism effect
       <div className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-teal-600 dark:text-teal-400 mb-4">
               Quiz Completed
@@ -361,7 +361,7 @@ export default function TailwindInterviewPage() {
             </div>
 
             {score >= Math.ceil(shuffledQuestions.length * 0.7) && (
-              <div className="mt-8 p-6 border-2 border-teal-200 dark:border-teal-700 rounded-xl bg-teal-50/80 dark:bg-teal-900/30 backdrop-blur-sm">
+              <div className="mt-8 p-6 border-2 border-teal-200 dark:border-teal-700 rounded-xl bg-teal-50 dark:bg-teal-900">
                 <h3 className="text-xl font-bold text-teal-800 dark:text-teal-200 mb-2">Certificate of Completion</h3>
                 <p className="text-teal-700 dark:text-teal-300">This certifies that you have successfully completed the Tailwind CSS interview preparation quiz.</p>
               </div>
@@ -395,9 +395,9 @@ export default function TailwindInterviewPage() {
   return (
     // Updated container with glass morphism effect
     <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
         {/* Progress bar */}
-        <div className="bg-gray-100/80 dark:bg-gray-700/80 backdrop-blur-sm h-2">
+        <div className="bg-gray-100 dark:bg-gray-700 h-2">
           <div 
             className="bg-teal-600 dark:bg-teal-500 h-2 transition-all duration-300 ease-out" 
             style={{ width: `${progress}%` }}
@@ -430,16 +430,16 @@ export default function TailwindInterviewPage() {
                   <div 
                     key={displayIndex}
                     onClick={() => !feedback && setSelected(displayIndex)}
-                    className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 backdrop-blur-sm ${
+                    className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 ${
                       feedback 
                         ? displayIndex === getDisplayCorrectAnswerIndex() 
-                          ? "bg-green-50/80 dark:bg-green-900/40 border-green-300 dark:border-green-600" 
+                          ? "bg-green-50 dark:bg-green-900 border-green-300 dark:border-green-600" 
                           : displayIndex === selected 
-                            ? "bg-red-50/80 dark:bg-red-900/40 border-red-300 dark:border-red-600" 
+                            ? "bg-red-50 dark:bg-red-900 border-red-300 dark:border-red-600" 
                             : "border-gray-200 dark:border-gray-600" 
                         : displayIndex === selected 
-                          ? "bg-teal-50/80 dark:bg-teal-900/40 border-teal-300 dark:border-teal-600 shadow-sm" 
-                          : "border-gray-200 dark:border-gray-600 hover:border-teal-200 dark:hover:border-teal-500 hover:bg-teal-50/80 dark:hover:bg-teal-900/30"
+                          ? "bg-teal-50 dark:bg-teal-900 border-teal-300 dark:border-teal-600 shadow-sm" 
+                          : "border-gray-200 dark:border-gray-600 hover:border-teal-200 dark:hover:border-teal-500 hover:bg-teal-50 dark:hover:bg-teal-900"
                     }`}
                   >
                     <div className="flex items-start">
@@ -474,10 +474,10 @@ export default function TailwindInterviewPage() {
             
             {/* Open-ended */}
             {q.type === 'open-ended' && (
-              <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-gray-50/80 dark:bg-gray-700/80 backdrop-blur-sm">
+              <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700">
                 <p className="text-gray-600 dark:text-gray-300 italic mb-2">This is an open-ended question. Think about your answer, then click &quot;Show Answer&quot; to see the explanation.</p>
                 {feedback ? (
-                  <div className="bg-green-50/80 dark:bg-green-900/40 border border-green-200 dark:border-green-700 rounded p-3 backdrop-blur-sm">
+                  <div className="bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-700 rounded p-3">
                     <p className="font-medium text-green-800 dark:text-green-200">Explanation:</p>
                     <p className="text-green-700 dark:text-green-300">{q.explanation}</p>
                   </div>
@@ -497,10 +497,10 @@ export default function TailwindInterviewPage() {
           
           {/* Feedback */}
           {feedback && q.type === 'multiple-choice' && (
-            <div className={`mb-6 p-4 rounded-lg border backdrop-blur-sm ${
+            <div className={`mb-6 p-4 rounded-lg border ${
               feedback.isCorrect 
-                ? 'bg-green-50/80 dark:bg-green-900/40 border-green-200 dark:border-green-700' 
-                : 'bg-red-50/80 dark:bg-red-900/40 border-red-200 dark:border-red-700'
+                ? 'bg-green-50 dark:bg-green-900 border-green-200 dark:border-green-700' 
+                : 'bg-red-50 dark:bg-red-900 border-red-200 dark:border-red-700'
             }`}>
               <p className={`font-medium ${
                 feedback.isCorrect 
@@ -526,7 +526,7 @@ export default function TailwindInterviewPage() {
           <div className="flex justify-between">
             <button
               onClick={() => { clearQuizState(); router.push('/'); }}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50/80 dark:hover:bg-gray-700/80 backdrop-blur-sm transition-colors duration-200"
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
             >
               Exit Quiz
             </button>

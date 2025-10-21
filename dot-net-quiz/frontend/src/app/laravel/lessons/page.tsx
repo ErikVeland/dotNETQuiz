@@ -114,7 +114,7 @@ export default function LaravelLessonsPage() {
     if (error && !isNetworkError(error)) {
         return (
             <main className="p-6">
-                <div className="max-w-4xl mx-auto bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
                     <div className="text-red-600 dark:text-red-400">Error loading Laravel lessons.</div>
                     <button 
                         className="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors duration-200"
@@ -128,10 +128,10 @@ export default function LaravelLessonsPage() {
     }
 
     return (
-        // Updated container with glass morphism effect
+        // Updated container with solid background instead of glass morphism effect
         <div className="w-full p-6">
-            {/* Updated container with glass morphism effect */}
-            <div className="max-w-4xl mx-auto bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+            {/* Updated container with solid background instead of glass morphism effect */}
+            <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
                 <Link href="/" className="inline-block mb-4 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 font-semibold py-1 px-2 rounded shadow hover:bg-red-200 dark:hover:bg-red-800 transition-colors duration-150 flex items-center gap-1 text-xs">
                     <span className="text-base">←</span> Back to Home
                 </Link>
@@ -150,7 +150,7 @@ export default function LaravelLessonsPage() {
                                     {group.lessons.map((lesson, idx) => (
                                         <li
                                             key={lesson.id}
-                                            className="bg-gray-100/80 dark:bg-gray-700/80 backdrop-blur-sm p-4 rounded shadow hover:bg-red-50 dark:hover:bg-red-900 cursor-pointer transition-colors duration-150 border border-gray-200 dark:border-gray-600"
+                                            className="bg-gray-100 dark:bg-gray-700 p-4 rounded shadow hover:bg-red-50 dark:hover:bg-red-900 cursor-pointer transition-colors duration-150 border border-gray-200 dark:border-gray-600"
                                             onClick={() => {
                                                 setSelectedTopic(group.topic);
                                                 setSelectedIndex(idx);
@@ -168,8 +168,8 @@ export default function LaravelLessonsPage() {
 
                 {/* Lesson Detail View */}
                 {selectedTopic !== null && currentLesson && (
-                    // Updated container with glass morphism effect
-                    <div className="bg-gray-100/80 dark:bg-gray-700/80 backdrop-blur-sm p-6 rounded-xl shadow-lg space-y-4 mt-4 border border-gray-200 dark:border-gray-600">
+                    // Updated container with solid background instead of glass morphism effect
+                    <div className="bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-lg space-y-4 mt-4 border border-gray-200 dark:border-gray-600">
                         <button
                             className="w-full mb-4 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 font-semibold py-1 rounded shadow hover:bg-red-200 dark:hover:bg-red-800 transition-colors duration-150 flex items-center justify-center gap-1 text-xs"
                             onClick={() => {
@@ -189,14 +189,14 @@ export default function LaravelLessonsPage() {
 
                         <div>
                             <h3 className="font-semibold mt-4 text-red-700 dark:text-red-300">PHP Example:</h3>
-                            <pre className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded text-sm whitespace-pre-wrap border border-gray-200 dark:border-gray-600 overflow-x-auto">
+                            <pre className="bg-white dark:bg-gray-800 p-4 rounded text-sm whitespace-pre-wrap border border-gray-200 dark:border-gray-600 overflow-x-auto">
                                 <code>{currentLesson.codeExample}</code>
                             </pre>
                         </div>
 
                         <div>
                             <h3 className="font-semibold mt-4 text-red-700 dark:text-red-300">Expected Output:</h3>
-                            <pre className="bg-black/80 text-white p-4 rounded text-sm whitespace-pre-wrap overflow-x-auto border border-gray-700 dark:border-gray-600">
+                            <pre className="bg-black text-white p-4 rounded text-sm whitespace-pre-wrap overflow-x-auto border border-gray-700 dark:border-gray-600">
                                 {currentLesson.output}
                             </pre>
                         </div>
@@ -241,20 +241,20 @@ export default function LaravelLessonsPage() {
                                     <div className="flex flex-col sm:flex-row gap-4 mt-8">
                                         <Link 
                                             href="/" 
-                                            className="flex-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-4 py-2 rounded shadow hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-150 font-semibold text-center"
+                                            className="flex-1 bg-red-600 dark:bg-red-700 text-white px-4 py-2 rounded shadow hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-150 font-semibold text-center"
                                         >
                                             Exit Lessons
                                         </Link>
                                         <Link 
                                             href="/laravel/interview" 
-                                            className="flex-1 bg-gradient-to-r from-red-500 via-orange-500 to-amber-500 text-white px-4 py-2 rounded shadow hover:from-red-600 hover:via-orange-600 hover:to-amber-600 transition-all duration-150 font-semibold text-center"
+                                            className="flex-1 bg-red-600 dark:bg-red-700 text-white px-4 py-2 rounded shadow hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-150 font-semibold text-center"
                                         >
                                             Start Laravel Quiz
                                         </Link>
                                     </div>
                                 ) : (
                                     <button
-                                        className="w-full mt-8 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-4 py-2 rounded shadow hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-150 font-semibold"
+                                        className="w-full mt-8 bg-red-600 dark:bg-red-700 text-white px-4 py-2 rounded shadow hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-150 font-semibold"
                                         onClick={() => {
                                             setSelectedTopic(nextCategoryTopic);
                                             setSelectedIndex(0);
